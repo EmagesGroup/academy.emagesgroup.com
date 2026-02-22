@@ -3,65 +3,56 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EMAGES Academy - Creativa</title>
+<title>EMAGES Academy - Instituto Juvenil</title>
+<link rel="icon" type="image/png" href="assets/favicon.png">
 <style>
-body{margin:0;font-family:Segoe UI;background:#111;color:#fff;}
-:root{--primary:#F57C00;}
-.hero{
-height:100vh;
-background:linear-gradient(135deg,#F57C00,#FF4081);
-display:flex;
-align-items:center;
-justify-content:center;
-text-align:center;
-flex-direction:column;
-}
-.hero h1{font-size:56px;margin-bottom:20px;}
-.btn{
-background:#fff;
-color:#111;
-padding:15px 30px;
-border-radius:40px;
-text-decoration:none;
-font-weight:bold;
-}
+body{margin:0;font-family:Segoe UI;background:#fff;color:#111;}
+:root{--primary:#F57C00;--dark:#111;}
+header{background:#111;color:#fff;padding:15px 40px;display:flex;justify-content:space-between;}
+header a{color:#fff;text-decoration:none;margin-left:20px;}
+.hero{height:90vh;background:url('assets/gravia-banner.jpg') center/cover;
+display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;position:relative;}
+.hero::after{content:"";position:absolute;width:100%;height:100%;background:rgba(0,0,0,.5);}
+.hero-content{position:relative;z-index:2;}
+.hero h1{font-size:48px;}
+.btn{background:var(--primary);color:#fff;padding:14px 30px;border-radius:30px;text-decoration:none;}
 section{padding:80px 20px;text-align:center;}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:30px;margin-top:40px;}
-.card{
-background:#222;
-padding:30px;
-border-radius:15px;
-transition:.3s;
-}
-.card:hover{transform:translateY(-10px);}
-.whatsapp{
-position:fixed;
-bottom:20px;
-right:20px;
-background:#25D366;
-padding:15px 20px;
-border-radius:50px;
-color:#fff;
-text-decoration:none;
-}
+.card{background:#f5f5f5;padding:30px;border-radius:10px;}
+footer{background:#111;color:#fff;padding:40px;text-align:center;}
+.whatsapp{position:fixed;bottom:20px;right:20px;background:#25D366;color:#fff;padding:15px;border-radius:50px;text-decoration:none;}
 </style>
 </head>
 <body>
 
+<header>
+<div>🟠 EMAGES Academy</div>
+<div>
+<a href="#">Programas</a>
+<a href="#">Contacto</a>
+</div>
+</header>
+
 <div class="hero">
-<h1>Descubre tu talento</h1>
-<p>Transforma tu pasión en oportunidades reales.</p>
-<a href="#" class="btn">Inscríbete ahora</a>
+<div class="hero-content">
+<h1>Construye tu futuro profesional</h1>
+<p>Formación empresarial, tecnológica y artística.</p>
+<a href="#" class="btn">Ver programas</a>
+</div>
 </div>
 
 <section>
-<h2>Nuestras Escuelas</h2>
+<h2>Áreas de Formación</h2>
 <div class="grid">
-<div class="card"><h3>🔥 Empresarial</h3><p>Emprende y lidera.</p></div>
-<div class="card"><h3>💻 Tecnología</h3><p>Domina el mundo digital.</p></div>
-<div class="card"><h3>🎤 Arte & Talento</h3><p>Haz brillar tu creatividad.</p></div>
+<div class="card"><h3>Empresarial</h3><p>Administración, finanzas y marketing.</p></div>
+<div class="card"><h3>Tecnológica</h3><p>Sistemas, software y desarrollo web.</p></div>
+<div class="card"><h3>Artística</h3><p>Canto, baile, actuación y modelaje.</p></div>
 </div>
 </section>
+
+<footer>
+Tu semillero formativo
+</footer>
 
 <a href="https://wa.me/51930175586" class="whatsapp">WhatsApp</a>
 
