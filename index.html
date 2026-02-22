@@ -9,117 +9,92 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:Segoe UI,Arial,sans-serif;background:#fff;color:#111;}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#ffffff;color:#333;}
 :root{
 --primary:#F57C00;
---dark:#111;
---light:#fff;
---gray:#f5f5f5;
+--secondary:#FFB74D;
+--light:#ffffff;
+--gray:#F8F9FA;
+--text:#333333;
 }
 
-/* ===== TOP BAR ===== */
+/* TOPBAR */
 .topbar{
-background:var(--primary);
+background:var(--secondary);
 color:#fff;
+text-align:center;
+padding:8px;
 font-size:14px;
-overflow:hidden;
-white-space:nowrap;
-padding:8px 0;
-position:fixed;
-width:100%;
-z-index:1200;
-}
-.topbar span{
-display:inline-block;
-padding-left:100%;
-animation:scrollText 18s linear infinite;
-}
-@keyframes scrollText{
-0%{transform:translateX(0);}
-100%{transform:translateX(-100%);}
 }
 
-/* ===== NAVBAR ===== */
+/* NAVBAR */
 .navbar{
 position:fixed;
-top:30px;
+top:0;
 width:100%;
-height:70px;
-background:rgba(17,17,17,0.95);
+height:75px;
+background:#fff;
 display:flex;
 align-items:center;
 justify-content:space-between;
-padding:0 50px;
-z-index:1100;
-transition:.3s;
+padding:0 60px;
+box-shadow:0 2px 10px rgba(0,0,0,0.05);
+z-index:1000;
 }
 
-.navbar.scrolled{
-background:var(--primary);
-}
-
-.logo{
-display:flex;
-align-items:center;
-}
-
-.logo img{
-height:50px;
-width:auto;
-}
+.logo img{height:50px;}
 
 .nav-links a{
-color:#fff;
 text-decoration:none;
+color:var(--text);
 margin-left:30px;
 font-weight:500;
 transition:.3s;
 }
 
 .nav-links a:hover{
+color:var(--primary);
+}
+
+.btn-primary{
+background:var(--primary);
 color:#fff;
-opacity:.8;
+padding:10px 25px;
+border-radius:25px;
+text-decoration:none;
+font-weight:600;
+transition:.3s;
 }
 
-/* ===== HERO SLIDER ===== */
+.btn-primary:hover{
+background:#e36f00;
+}
+
+/* HERO */
 .hero{
-margin-top:100px;
+margin-top:75px;
 height:90vh;
-position:relative;
-overflow:hidden;
-}
-
-.slide{
-position:absolute;
-width:100%;
-height:100%;
-background-size:cover;
-background-position:center;
-opacity:0;
-transition:opacity 1s ease;
+background:url('assets/hero.jpg') center/cover no-repeat;
 display:flex;
 align-items:center;
 justify-content:center;
-text-align:center;
+position:relative;
 color:#fff;
-will-change:opacity;
+text-align:center;
 }
 
-.slide.active{opacity:1;}
-
-.slide::after{
+.hero::after{
 content:"";
 position:absolute;
 width:100%;
 height:100%;
-background:rgba(0,0,0,.6);
+background:rgba(0,0,0,0.5);
 }
 
 .hero-content{
 position:relative;
 z-index:2;
 max-width:800px;
-padding:20px;
 }
 
 .hero h1{
@@ -129,149 +104,166 @@ margin-bottom:20px;
 
 .hero p{
 font-size:20px;
+margin-bottom:30px;
+}
+
+/* PREMIUM SCHOOLS */
+.school-section{
+position:relative;
+height:90vh;
+display:flex;
+align-items:center;
+padding-left:10%;
+color:#fff;
+overflow:hidden;
+}
+
+.school-section::after{
+content:"";
+position:absolute;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.55);
+}
+
+.school-content{
+position:relative;
+z-index:2;
+max-width:500px;
+}
+
+.school-content h2{
+font-size:40px;
+margin-bottom:15px;
+}
+
+.school-content p{
+font-size:18px;
 margin-bottom:25px;
 }
 
-.btn{
+.school-btn{
 background:var(--primary);
 color:#fff;
-padding:14px 35px;
+padding:12px 30px;
 border-radius:30px;
 text-decoration:none;
-font-weight:bold;
-border:none;
-cursor:pointer;
+font-weight:600;
 transition:.3s;
 }
 
-.btn:hover{
+.school-btn:hover{
 background:#e36f00;
 }
 
-/* ===== DOTS ===== */
-.dots{
-position:absolute;
-bottom:25px;
-left:50%;
-transform:translateX(-50%);
-display:flex;
-gap:10px;
-z-index:5;
-}
-
-.dot{
-width:12px;
-height:12px;
-background:#fff;
-border-radius:50%;
-opacity:.4;
-cursor:pointer;
-}
-
-.dot.active{opacity:1;}
-
-/* ===== SECTIONS ===== */
-section{
+/* WHY US */
+.why{
+background:var(--gray);
 padding:100px 20px;
-max-width:1100px;
-margin:auto;
 text-align:center;
 }
 
-h2{
-font-size:34px;
-margin-bottom:20px;
+.why h2{
+font-size:36px;
+margin-bottom:50px;
 }
 
-.grid{
+.why-grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:30px;
-margin-top:40px;
+gap:40px;
+max-width:1100px;
+margin:auto;
 }
 
-.card{
-background:var(--gray);
+.why-item{
+background:#fff;
 padding:40px;
 border-radius:15px;
-transition:.8s ease;
-opacity:0;
-transform:translateY(40px);
+box-shadow:0 5px 20px rgba(0,0,0,0.05);
+transition:.3s;
 }
 
-.card.visible{
-opacity:1;
-transform:translateY(0);
+.why-item:hover{
+transform:translateY(-8px);
 }
 
-.card:hover{
-transform:translateY(-10px);
-box-shadow:0 10px 30px rgba(0,0,0,.1);
-}
-
-.card h3{
-color:var(--primary);
-margin-bottom:10px;
-}
-
-/* ===== FORM ===== */
-form{
-max-width:500px;
-margin:40px auto 0;
-display:flex;
-flex-direction:column;
-gap:15px;
-}
-
-input,select{
-padding:12px;
-border:1px solid #ddd;
-border-radius:8px;
-}
-
-/* ===== PARALLAX ===== */
-.parallax{
-height:350px;
-background:url('assets/hero3.jpg') center/cover fixed;
-display:flex;
-align-items:center;
-justify-content:center;
+/* CTA */
+.cta{
+background:var(--primary);
 color:#fff;
-font-size:32px;
-font-weight:bold;
 text-align:center;
+padding:80px 20px;
 }
 
-/* ===== WHATSAPP ===== */
+.cta h2{
+font-size:34px;
+margin-bottom:25px;
+}
+
+.cta a{
+background:#fff;
+color:var(--primary);
+padding:12px 30px;
+border-radius:30px;
+text-decoration:none;
+font-weight:600;
+}
+
+/* FOOTER */
+footer{
+background:#f1f1f1;
+padding:60px 20px;
+}
+
+.footer-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:40px;
+max-width:1100px;
+margin:auto;
+}
+
+footer h4{
+margin-bottom:15px;
+color:var(--primary);
+}
+
+footer a{
+display:block;
+text-decoration:none;
+color:#555;
+margin-bottom:8px;
+font-size:14px;
+}
+
+footer a:hover{
+color:var(--primary);
+}
+
+.footer-bottom{
+text-align:center;
+margin-top:40px;
+font-size:14px;
+color:#777;
+}
+
+/* WHATSAPP */
 .whatsapp{
 position:fixed;
 bottom:25px;
 right:25px;
+background:#25D366;
 width:60px;
 height:60px;
-background:#25D366;
 border-radius:50%;
 display:flex;
 align-items:center;
 justify-content:center;
 color:#fff;
-font-size:26px;
+font-size:28px;
 text-decoration:none;
-animation:pulse 2s infinite;
-z-index:1200;
-}
-
-@keyframes pulse{
-0%{box-shadow:0 0 0 0 rgba(37,211,102,0.7);}
-70%{box-shadow:0 0 0 15px rgba(37,211,102,0);}
-100%{box-shadow:0 0 0 0 rgba(37,211,102,0);}
-}
-
-footer{
-background:#111;
-color:#fff;
-padding:40px;
-text-align:center;
+box-shadow:0 4px 15px rgba(0,0,0,0.2);
 }
 </style>
 </head>
@@ -279,146 +271,125 @@ text-align:center;
 <body>
 
 <div class="topbar">
-<span>🎓 Matrículas Abiertas 2026 | 20% de descuento hasta fin de mes | Solicita información ahora 📲</span>
+Matrículas 2026 abiertas · Solicita información hoy
 </div>
 
 <div class="navbar">
 <div class="logo">
 <img src="assets/logo.png" alt="EMAGES Academy Logo">
 </div>
-
 <div class="nav-links">
-<a href="#">Empresarial</a>
-<a href="#">Tecnología</a>
-<a href="#">Artístico</a>
+<a href="#">Inicio</a>
+<a href="#escuelas">Escuelas</a>
+<a href="#">Nosotros</a>
 <a href="#">Contacto</a>
+<a href="#" class="btn-primary">Solicitar información</a>
 </div>
 </div>
 
-<div class="hero">
-
-<div class="slide active" style="background-image:url('assets/hero1.jpg')">
+<section class="hero">
 <div class="hero-content">
-<h1>Impulsa tu talento</h1>
-<p>Empresarial · Tecnología · Arte</p>
-<a href="#escuelas" class="btn">Explorar escuelas</a>
+<h1>EMAGES Academy</h1>
+<p>Formación que transforma tu futuro profesional</p>
+<a href="#escuelas" class="btn-primary">Explorar Escuelas</a>
 </div>
-</div>
+</section>
 
-<div class="slide" style="background-image:url('assets/hero2.jpg')">
-<div class="hero-content">
-<h1>Construye tu futuro</h1>
-<p>Formación práctica para jóvenes y adultos.</p>
-<a href="#" class="btn">Solicitar información</a>
-</div>
-</div>
-
-<div class="dots">
-<div class="dot active"></div>
-<div class="dot"></div>
-</div>
-
-</div>
-
+<!-- PREMIUM ESCUELAS -->
 <section id="escuelas">
-<h2>Nuestras Escuelas</h2>
-<div class="grid">
-<div class="card">
-<h3>Formación Empresarial</h3>
-<p>Administración, finanzas, marketing y gestión empresarial.</p>
+
+<div class="school-section" style="background:url('assets/empresarial.jpg') center/cover;">
+<div class="school-content">
+<h2>Formación Empresarial</h2>
+<p>Desarrolla habilidades en gestión, finanzas, marketing y liderazgo estratégico.</p>
+<a href="empresarial.html" class="school-btn">Ver Escuela</a>
+</div>
 </div>
 
-<div class="card">
-<h3>Formación Tecnológica</h3>
-<p>Sistemas, software contable y desarrollo web.</p>
+<div class="school-section" style="background:url('assets/tecnologia.jpg') center/cover;">
+<div class="school-content">
+<h2>Formación Tecnológica</h2>
+<p>Impulsa tu futuro con herramientas digitales, sistemas y desarrollo web.</p>
+<a href="tecnologia.html" class="school-btn">Ver Escuela</a>
+</div>
 </div>
 
-<div class="card">
-<h3>Talento Artístico & Creativo</h3>
-<p>Canto, baile, actuación y modelaje.</p>
+<div class="school-section" style="background:url('assets/artistico.jpg') center/cover;">
+<div class="school-content">
+<h2>Talento Artístico & Creativo</h2>
+<p>Convierte tu pasión en una profesión dentro del mundo artístico y creativo.</p>
+<a href="artistico.html" class="school-btn">Ver Escuela</a>
+</div>
+</div>
+
+</section>
+
+<section class="why">
+<h2>¿Por qué elegir EMAGES Academy?</h2>
+<div class="why-grid">
+<div class="why-item">
+<h3>Formación práctica</h3>
+<p>Metodología aplicada al mundo real.</p>
+</div>
+<div class="why-item">
+<h3>Docentes con experiencia</h3>
+<p>Profesionales activos en su sector.</p>
+</div>
+<div class="why-item">
+<h3>Modalidad flexible</h3>
+<p>Presencial y virtual adaptado a ti.</p>
+</div>
+<div class="why-item">
+<h3>Certificación institucional</h3>
+<p>Respaldada por EMAGES GROUP.</p>
 </div>
 </div>
 </section>
 
-<section>
-<h2>Solicita Información</h2>
-<form>
-<input type="text" placeholder="Nombre completo">
-<input type="tel" placeholder="Celular">
-<select>
-<option>Área de interés</option>
-<option>Empresarial</option>
-<option>Tecnología</option>
-<option>Artístico</option>
-</select>
-<button class="btn">Enviar</button>
-</form>
+<section class="cta">
+<h2>Da el siguiente paso en tu formación profesional</h2>
+<a href="#">Inscríbete ahora</a>
 </section>
-
-<div class="parallax">
-Formación que transforma tu futuro
-</div>
 
 <footer>
-EMAGES Academy · Servicio educativo de EMAGES GROUP
+<div class="footer-grid">
+
+<div>
+<h4>EMAGES Academy</h4>
+<p>Formación que transforma</p>
+</div>
+
+<div>
+<h4>Nuestras Escuelas</h4>
+<a href="#">Formación Empresarial</a>
+<a href="#">Formación Tecnológica</a>
+<a href="#">Talento Artístico</a>
+</div>
+
+<div>
+<h4>Información Legal</h4>
+<a href="#">Libro de Reclamaciones</a>
+<a href="#">Política de Privacidad</a>
+<a href="#">Solicitud ARCO</a>
+<a href="#">Términos y Condiciones</a>
+</div>
+
+<div>
+<h4>Síguenos</h4>
+<a href="#">Facebook</a>
+<a href="#">Instagram</a>
+<a href="#">TikTok</a>
+<a href="#">WhatsApp</a>
+</div>
+
+</div>
+
+<div class="footer-bottom">
+© 2026 EMAGES GROUP – Todos los derechos reservados
+</div>
 </footer>
 
-<a href="https://wa.me/51930175586?text=Hola%20quiero%20información%20sobre%20EMAGES%20Academy" 
-class="whatsapp" target="_blank">
-💬
-</a>
-
-<script>
-let slides=document.querySelectorAll(".slide");
-let dots=document.querySelectorAll(".dot");
-let index=0;
-
-function showSlide(i){
-slides.forEach(s=>s.classList.remove("active"));
-dots.forEach(d=>d.classList.remove("active"));
-slides[i].classList.add("active");
-dots[i].classList.add("active");
-}
-
-setInterval(()=>{
-index=(index+1)%slides.length;
-showSlide(index);
-},5000);
-
-dots.forEach((dot,i)=>{
-dot.addEventListener("click",()=>{
-index=i;
-showSlide(i);
-});
-});
-
-/* Navbar scroll */
-window.addEventListener("scroll", function(){
-let navbar = document.querySelector(".navbar");
-if(window.scrollY > 50){
-navbar.classList.add("scrolled");
-}else{
-navbar.classList.remove("scrolled");
-}
-});
-
-/* Animación cards */
-let cards = document.querySelectorAll(".card");
-
-function mostrarCards(){
-let trigger = window.innerHeight * 0.85;
-
-cards.forEach(card=>{
-let top = card.getBoundingClientRect().top;
-if(top < trigger){
-card.classList.add("visible");
-}
-});
-}
-
-window.addEventListener("scroll", mostrarCards);
-mostrarCards();
-</script>
+<a href="https://wa.me/51930175586" class="whatsapp" target="_blank">💬</a>
 
 </body>
 </html>
