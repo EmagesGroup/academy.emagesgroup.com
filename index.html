@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EMAGES Academy | Tu Semillero Formativo</title>
+<title>EMAGES Academy | Formación que transforma</title>
 
 <link rel="icon" type="image/png" href="assets/favicon.png">
 
@@ -51,6 +51,11 @@ align-items:center;
 justify-content:space-between;
 padding:0 50px;
 z-index:1100;
+transition:.3s;
+}
+
+.navbar.scrolled{
+background:var(--primary);
 }
 
 .logo{
@@ -68,10 +73,12 @@ color:#fff;
 text-decoration:none;
 margin-left:30px;
 font-weight:500;
+transition:.3s;
 }
 
 .nav-links a:hover{
-color:var(--primary);
+color:#fff;
+opacity:.8;
 }
 
 /* ===== HERO SLIDER ===== */
@@ -95,6 +102,7 @@ align-items:center;
 justify-content:center;
 text-align:center;
 color:#fff;
+will-change:opacity;
 }
 
 .slide.active{opacity:1;}
@@ -120,7 +128,7 @@ margin-bottom:20px;
 }
 
 .hero p{
-font-size:18px;
+font-size:20px;
 margin-bottom:25px;
 }
 
@@ -186,7 +194,14 @@ margin-top:40px;
 background:var(--gray);
 padding:40px;
 border-radius:15px;
-transition:.3s;
+transition:.8s ease;
+opacity:0;
+transform:translateY(40px);
+}
+
+.card.visible{
+opacity:1;
+transform:translateY(0);
 }
 
 .card:hover{
@@ -284,7 +299,7 @@ text-align:center;
 
 <div class="slide active" style="background-image:url('assets/hero1.jpg')">
 <div class="hero-content">
-<h1>Descubre tu talento</h1>
+<h1>Impulsa tu talento</h1>
 <p>Empresarial · Tecnología · Arte</p>
 <a href="#escuelas" class="btn">Explorar escuelas</a>
 </div>
@@ -341,7 +356,7 @@ text-align:center;
 </section>
 
 <div class="parallax">
-Tu semillero formativo
+Formación que transforma tu futuro
 </div>
 
 <footer>
@@ -376,6 +391,33 @@ index=i;
 showSlide(i);
 });
 });
+
+/* Navbar scroll */
+window.addEventListener("scroll", function(){
+let navbar = document.querySelector(".navbar");
+if(window.scrollY > 50){
+navbar.classList.add("scrolled");
+}else{
+navbar.classList.remove("scrolled");
+}
+});
+
+/* Animación cards */
+let cards = document.querySelectorAll(".card");
+
+function mostrarCards(){
+let trigger = window.innerHeight * 0.85;
+
+cards.forEach(card=>{
+let top = card.getBoundingClientRect().top;
+if(top < trigger){
+card.classList.add("visible");
+}
+});
+}
+
+window.addEventListener("scroll", mostrarCards);
+mostrarCards();
 </script>
 
 </body>
