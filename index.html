@@ -1,1 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>GRAVIA | Centro de Educación Profesional y Capacitación</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <style>
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #f5f7fa;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* ===== MENÚ SUPERIOR ===== */
+    .topbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 70px;
+      background: rgba(11, 60, 93, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    .topbar img { height: 42px; }
+
+    .menu a {
+      color: #fff;
+      text-decoration: none;
+      margin-left: 25px;
+      font-size: 14px;
+      font-weight: 500;
+      opacity: 0.9;
+    }
+
+    .menu a:hover { opacity: 1; text-decoration: underline; }
+
+    /* ===== HERO ===== */
+    header {
+      background: linear-gradient(rgba(5,25,40,0.25), rgba(5,25,40,0.25)),
+      url("assets/gravia-banner.jpg") center / cover no-repeat;
+      color: white;
+      padding: 180px 20px 120px;
+      text-align: center;
+    }
+
+    .logo-hero { width: 150px; margin-bottom: 25px; }
+
+    header h1 {
+      margin: 0;
+      font-size: 42px;
+      letter-spacing: 1px;
+    }
+
+    header p {
+      font-size: 18px;
+      max-width: 750px;
+      margin: 15px auto 0;
+      opacity: .95;
+    }
+
+    .badge {
+      margin-top: 18px;
+      font-size: 13px;
+      opacity: .85;
+    }
+
+    /* ===== SECCIONES ===== */
+    section {
+      padding: 70px 20px;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    h2 {
+      text-align: center;
+      color: #0b3c5d;
+      margin-bottom: 25px;
+      font-size: 28px;
+    }
+
+    .lead {
+      text-align: center;
+      max-width: 850px;
+      margin: auto;
+      font-size: 17px;
+      color: #555;
+    }
+
+    /* ===== CARDS ===== */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 22px;
+      margin-top: 40px;
+    }
+
+    .card {
+      background: #fff;
+      padding: 26px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,.08);
+      transition: transform .25s ease;
+    }
+
+    .card:hover { transform: translateY(-6px); }
+
+    .card h3 {
+      margin-top: 0;
+      color: #0b3c5d;
+      font-size: 20px;
+    }
+
+    .card p { font-size: 15px; color: #555; }
+
+    .card a {
+      display: inline-block;
+      margin-top: 15px;
+      background: #0b3c5d;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    /* ===== VISIÓN ===== */
+    .highlight {
+      background: #0b3c5d;
+      color: white;
+      padding: 80px 20px;
+      text-align: center;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: #eeeeee;
+      text-align: center;
+      padding: 30px 15px;
+      font-size: 14px;
+      color: #444;
+    }
+
+    footer small {
+      display: block;
+      margin-top: 8px;
+      font-size: 12px;
+      color: #666;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ===== MENÚ ===== -->
+<div class="topbar">
+  <img src="assets/logo.png" alt="Gravia">
+  <nav class="menu">
+    <a href="#inicio">Inicio</a>
+    <a href="#areas">Áreas</a>
+    <a href="#cursos">Cursos</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+</div>
+
+<!-- ===== HERO ===== -->
+<header id="inicio">
+  <img src="assets/logo.png" class="logo-hero" alt="Gravia">
+  <h1>GRAVIA</h1>
+  <p>Centro de Educación Profesional y Capacitación</p>
+  <p>Formación práctica, moderna y orientada al mercado laboral.</p>
+  <div class="badge">Iniciativa educativa de EMAGES GROUP</div>
+</header>
+
+<!-- ===== QUIÉNES SOMOS ===== -->
+<section>
+  <h2>Quiénes somos</h2>
+  <p class="lead">
+    GRAVIA es un centro de educación profesional enfocado en desarrollar
+    competencias reales, aplicables y alineadas a las exigencias actuales del mercado laboral.
+  </p>
+</section>
+
+<!-- ===== ÁREAS ===== -->
+<section id="areas">
+  <h2>Áreas de formación</h2>
+  <div class="grid">
+    <div class="card"><h3>Administración y Negocios</h3><p>Gestión empresarial y negocios.</p></div>
+    <div class="card"><h3>Banca y Finanzas</h3><p>Servicios financieros y atención comercial.</p></div>
+    <div class="card"><h3>Contabilidad y RR.HH.</h3><p>Planillas, contabilidad básica y legislación laboral.</p></div>
+    <div class="card"><h3>Habilidades Profesionales</h3><p>Empleabilidad, CV y entrevistas.</p></div>
+    <div class="card"><h3>Computación</h3><p>Excel, Word y PowerPoint.</p></div>
+    <div class="card"><h3>Aviación Comercial</h3><p>Fundamentos y operaciones.</p></div>
+  </div>
+</section>
+
+<!-- ===== CURSOS ===== -->
+<section id="cursos">
+  <h2>Cursos destacados</h2>
+
+  <div class="grid">
+    <div class="card">
+      <h3>Cajero Bancario y Comercial</h3>
+      <p>Formación integral en operaciones bancarias, atención al cliente y ventas financieras.</p>
+      <a href="cursos/cajero-bancario.html">Ver curso</a>
+    </div>
+
+    <div class="card">
+      <h3>Asistente de Planillas</h3>
+      <p>Planillas electrónicas, beneficios laborales y normativa vigente.</p>
+      <a href="cursos/asistente-planillas.html">Ver curso</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACTO ===== -->
+<section id="contacto">
+  <h2>Contacto institucional</h2>
+  <p class="lead">Solicita información sobre nuestros cursos y capacitaciones.</p>
+
+  <p style="text-align:center; font-size:16px;">
+    📧 <strong>gravia@emagesgroup.com</strong>
+  </p>
+
+  <p style="text-align:center; margin-top:25px;">
+    <a href="https://wa.me/51930175586?text=Hola%20quiero%20información%20sobre%20los%20cursos%20de%20GRAVIA"
+       target="_blank"
+       style="background:#25d366;color:#fff;padding:14px 28px;border-radius:30px;text-decoration:none;font-weight:600;">
+      💬 Escríbenos por WhatsApp
+    </a>
+  </p>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  GRAVIA – Centro de Educación Profesional y Capacitación
+  <small>
+    Iniciativa educativa de EMAGES GROUP<br>
+    EMAGESGROUP E.I.R.L. – RUC 20611427671
+  </small>
+</footer>
+
+</body>
+</html>
+<a href="certificados.html">Verificar certificados</a>
