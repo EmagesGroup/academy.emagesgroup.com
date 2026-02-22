@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Certificados | GRAVIA</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body{
+  font-family: "Segoe UI", Arial, sans-serif;
+  background:#f4f6f8;
+  margin:0;
+}
+
+.box{
+  max-width:720px;
+  margin:50px auto;
+  background:#ffffff;
+  padding:35px;
+  border-radius:10px;
+  box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+/* LOGO */
+.logo{
+  text-align:center;
+  margin-bottom:15px;
+}
+
+.logo img{
+  max-width:160px;
+  height:auto;
+}
+
+/* TITULOS */
+h1{
+  text-align:center;
+  color:#0a3d62;
+  margin-bottom:5px;
+}
+
+.sub{
+  text-align:center;
+  color:#555;
+  margin-bottom:25px;
+}
+
+/* INPUT Y BOTON */
+input,button{
+  width:100%;
+  padding:14px;
+  font-size:16px;
+  margin-top:10px;
+  border-radius:6px;
+}
+
+input{
+  border:1px solid #ccc;
+}
+
+button{
+  background:#0a3d62;
+  color:#fff;
+  border:0;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+button:hover{
+  background:#062f4f;
+}
+
+/* PARTICIPANTE */
+.participante{
+  margin-top:25px;
+  padding:15px;
+  background:#eef4fa;
+  border-radius:6px;
+  font-size:15px;
+}
+
+/* CERTIFICADOS */
+.cert{
+  margin-top:18px;
+  padding:18px;
+  background:#f9fafc;
+  border-left:5px solid #0a3d62;
+  border-radius:6px;
+}
+
+.cert h3{
+  margin:0 0 10px 0;
+  color:#0a3d62;
+}
+
+.cert .grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:6px 20px;
+  font-size:14px;
+}
+
+/* BOTON DESCARGA */
+a.btn{
+  display:inline-block;
+  margin-top:12px;
+  padding:10px 16px;
+  background:#0a3d62;
+  color:#fff;
+  border-radius:5px;
+  text-decoration:none;
+  font-size:14px;
+}
+
+a.btn:hover{
+  background:#062f4f;
+}
+
+/* MENSAJES */
+.msg{
+  margin-top:20px;
+  color:#c0392b;
+  font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+  <!-- LOGO -->
+  <div class="logo">
+    <img src="logo-gravia.png" alt="GRAVIA">
+  </div>
+
+  <!-- TITULO -->
+  <h1>Certificados GRAVIA</h1>
+  <p class="sub">Plataforma de verificación de certificados</p>
+
+  <!-- BUSCADOR -->
+  <input id="dni" placeholder="Ingrese su DNI">
+  <button onclick="buscar()">Buscar certificados</button>
+
+  <!-- RESULTADOS -->
+  <div id="resultado"></div>
+
+</div>
+
+<script>
+const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSmV-ladv2Gu74q_70lrv375kPXcn8v6hHTAv4iZdJ9mozkscUmNU9zaFRA3zI1ebhcm25sCP4TiUhD/pub?output=csv";
+
+async function buscar(){
+  const dni = document.getElementById("dni").value.trim();
+  const out = document.getElementById("resultado");
+  out.innerHTML = "";
+
+  if(!dni){
+    out.innerHTML = "<div class='msg'>Ingrese un DNI válido.</div>";
+    return;
+  }
+
+  const res = await fetch(CSV_URL);
+  const text = await res.text();
+  const filas = text.split("\n").slice(1);
+
+  let encontrados = [];
+
+  filas.forEach(fila=>{
+    const c = fila.split(",").map(x=>x.replace(/"/g,"").trim());
+    if(c[0] === dni){
+      encontrados.push(c);
+    }
+  });
+
+  if(encontrados.length === 0){
+    out.innerHTML = "<div class='msg'>No se encontraron certificados para este DNI.</div>";
+    return;
+  }
+
+  // CABECERA PARTICIPANTE
+  out.innerHTML = `
+    <div class="participante">
+      <strong>Participante:</strong> ${encontrados[0][5]} ${encontrados[0][4]}<br>
+      <strong>DNI:</strong> ${dni}<br>
+      <strong>Certificados encontrados:</strong> ${encontrados.length}
+    </div>
+  `;
+
+  // LISTADO CERTIFICADOS
+  encontrados.forEach(c=>{
+    out.innerHTML += `
+      <div class="cert">
+        <h3>${c[2]}</h3>
+        <div class="grid">
+          <div><strong>Código:</strong> ${c[1]}</div>
+          <div><strong>Horas:</strong> ${c[6]}</div>
+          <div><strong>Modalidad:</strong> ${c[7]}</div>
+          <div><strong>Fecha:</strong> ${c[8]}</div>
+        </div>
+        <a class="btn" href="${c[10]}" target="_blank">⬇ Descargar certificado</a>
+      </div>
+    `;
+  });
+}
+</script>
+
+</body>
+</html>
