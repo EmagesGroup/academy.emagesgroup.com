@@ -1,257 +1,269 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <title>GRAVIA | Centro de Educación Profesional y Capacitación</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EMAGES ACADEMY | Formación Profesional</title>
 
-  <style>
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:Segoe UI,Arial,sans-serif;background:#fff;color:#111;}
 
-    body {
-      margin: 0;
-      font-family: "Segoe UI", Arial, sans-serif;
-      background: #f5f7fa;
-      color: #333;
-      line-height: 1.6;
-    }
+:root{
+--primary:#F57C00;
+--dark:#111111;
+--light:#ffffff;
+--gray:#f5f5f5;
+}
 
-    /* ===== MENÚ SUPERIOR ===== */
-    .topbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 70px;
-      background: rgba(11, 60, 93, 0.25);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 40px;
-      z-index: 1000;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    }
+/* ===== MENU ===== */
+.navbar{
+position:fixed;
+top:0;
+width:100%;
+height:70px;
+background:var(--dark);
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 40px;
+z-index:1000;
+}
 
-    .topbar img { height: 42px; }
+.navbar img{height:42px;}
 
-    .menu a {
-      color: #fff;
-      text-decoration: none;
-      margin-left: 25px;
-      font-size: 14px;
-      font-weight: 500;
-      opacity: 0.9;
-    }
+.nav-links a{
+color:white;
+text-decoration:none;
+margin-left:25px;
+font-size:14px;
+font-weight:500;
+}
 
-    .menu a:hover { opacity: 1; text-decoration: underline; }
+.nav-links a:hover{color:var(--primary);}
 
-    /* ===== HERO ===== */
-    header {
-      background: linear-gradient(rgba(5,25,40,0.25), rgba(5,25,40,0.25)),
-      url("assets/gravia-banner.jpg") center / cover no-repeat;
-      color: white;
-      padding: 180px 20px 120px;
-      text-align: center;
-    }
+/* ===== HERO CARRUSEL ===== */
+.hero{
+margin-top:70px;
+position:relative;
+height:90vh;
+overflow:hidden;
+}
 
-    .logo-hero { width: 150px; margin-bottom: 25px; }
+.slide{
+position:absolute;
+width:100%;
+height:100%;
+background-size:cover;
+background-position:center;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+color:white;
+text-align:center;
+opacity:0;
+transition:opacity 1s ease;
+}
 
-    header h1 {
-      margin: 0;
-      font-size: 42px;
-      letter-spacing: 1px;
-    }
+.slide.active{opacity:1;}
 
-    header p {
-      font-size: 18px;
-      max-width: 750px;
-      margin: 15px auto 0;
-      opacity: .95;
-    }
+.slide::after{
+content:"";
+position:absolute;
+top:0;left:0;
+width:100%;height:100%;
+background:rgba(0,0,0,0.5);
+}
 
-    .badge {
-      margin-top: 18px;
-      font-size: 13px;
-      opacity: .85;
-    }
+.slide-content{
+position:relative;
+z-index:2;
+max-width:800px;
+}
 
-    /* ===== SECCIONES ===== */
-    section {
-      padding: 70px 20px;
-      max-width: 1100px;
-      margin: auto;
-    }
+.slide h1{
+font-size:48px;
+margin-bottom:15px;
+}
 
-    h2 {
-      text-align: center;
-      color: #0b3c5d;
-      margin-bottom: 25px;
-      font-size: 28px;
-    }
+.slide p{
+font-size:18px;
+margin-bottom:20px;
+}
 
-    .lead {
-      text-align: center;
-      max-width: 850px;
-      margin: auto;
-      font-size: 17px;
-      color: #555;
-    }
+.btn{
+background:var(--primary);
+color:white;
+padding:14px 30px;
+border-radius:30px;
+text-decoration:none;
+font-weight:600;
+}
 
-    /* ===== CARDS ===== */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 22px;
-      margin-top: 40px;
-    }
+/* ===== SECCIONES ===== */
+section{
+padding:80px 20px;
+max-width:1100px;
+margin:auto;
+}
 
-    .card {
-      background: #fff;
-      padding: 26px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,.08);
-      transition: transform .25s ease;
-    }
+h2{
+text-align:center;
+margin-bottom:30px;
+color:var(--dark);
+font-size:30px;
+}
 
-    .card:hover { transform: translateY(-6px); }
+.lead{
+text-align:center;
+max-width:800px;
+margin:auto;
+color:#555;
+}
 
-    .card h3 {
-      margin-top: 0;
-      color: #0b3c5d;
-      font-size: 20px;
-    }
+/* ===== AREAS ===== */
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:25px;
+margin-top:40px;
+}
 
-    .card p { font-size: 15px; color: #555; }
+.card{
+background:var(--gray);
+padding:30px;
+border-radius:10px;
+text-align:center;
+transition:.3s;
+}
 
-    .card a {
-      display: inline-block;
-      margin-top: 15px;
-      background: #0b3c5d;
-      color: #fff;
-      padding: 10px 20px;
-      border-radius: 25px;
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 600;
-    }
+.card:hover{
+background:white;
+box-shadow:0 6px 20px rgba(0,0,0,0.1);
+transform:translateY(-5px);
+}
 
-    /* ===== VISIÓN ===== */
-    .highlight {
-      background: #0b3c5d;
-      color: white;
-      padding: 80px 20px;
-      text-align: center;
-    }
+.card h3{
+color:var(--primary);
+margin-bottom:10px;
+}
 
-    /* ===== FOOTER ===== */
-    footer {
-      background: #eeeeee;
-      text-align: center;
-      padding: 30px 15px;
-      font-size: 14px;
-      color: #444;
-    }
+/* ===== FOOTER ===== */
+footer{
+background:var(--dark);
+color:white;
+text-align:center;
+padding:40px 20px;
+}
 
-    footer small {
-      display: block;
-      margin-top: 8px;
-      font-size: 12px;
-      color: #666;
-    }
-  </style>
+/* ===== WHATSAPP ===== */
+.whatsapp{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#25D366;
+color:white;
+padding:15px 18px;
+border-radius:50px;
+font-weight:bold;
+text-decoration:none;
+box-shadow:0 5px 15px rgba(0,0,0,0.3);
+}
+</style>
 </head>
 
 <body>
 
-<!-- ===== MENÚ ===== -->
-<div class="topbar">
-  <img src="assets/logo.png" alt="Gravia">
-  <nav class="menu">
-    <a href="#inicio">Inicio</a>
-    <a href="#areas">Áreas</a>
-    <a href="#cursos">Cursos</a>
-    <a href="#contacto">Contacto</a>
-  </nav>
+<!-- MENU -->
+<div class="navbar">
+<img src="assets/logo.png" alt="EMAGES Academy">
+<div class="nav-links">
+<a href="#nosotros">Nosotros</a>
+<a href="#areas">Áreas</a>
+<a href="#cursos">Cursos</a>
+<a href="#contacto">Contacto</a>
+</div>
 </div>
 
-<!-- ===== HERO ===== -->
-<header id="inicio">
-  <img src="assets/logo.png" class="logo-hero" alt="Gravia">
-  <h1>GRAVIA</h1>
-  <p>Centro de Educación Profesional y Capacitación</p>
-  <p>Formación práctica, moderna y orientada al mercado laboral.</p>
-  <div class="badge">Iniciativa educativa de EMAGES GROUP</div>
-</header>
+<!-- HERO CARRUSEL -->
+<div class="hero">
+<div class="slide active" style="background-image:url('assets/gravia-banner.jpg')">
+<div class="slide-content">
+<h1>EMAGES ACADEMY</h1>
+<p>Formación profesional moderna y orientada al mercado laboral.</p>
+<a href="#cursos" class="btn">Ver programas</a>
+</div>
+</div>
 
-<!-- ===== QUIÉNES SOMOS ===== -->
-<section>
-  <h2>Quiénes somos</h2>
-  <p class="lead">
-    GRAVIA es un centro de educación profesional enfocado en desarrollar
-    competencias reales, aplicables y alineadas a las exigencias actuales del mercado laboral.
-  </p>
+<div class="slide" style="background-image:url('assets/gravia-banner.jpg')">
+<div class="slide-content">
+<h1>Capacítate y crece</h1>
+<p>Programas prácticos con enfoque real en empleabilidad.</p>
+<a href="#contacto" class="btn">Solicitar información</a>
+</div>
+</div>
+</div>
+
+<!-- NOSOTROS -->
+<section id="nosotros">
+<h2>Quiénes somos</h2>
+<p class="lead">
+EMAGES ACADEMY es la unidad educativa de EMAGES GROUP,
+especializada en formación técnica y profesional de alto nivel.
+</p>
 </section>
 
-<!-- ===== ÁREAS ===== -->
+<!-- AREAS -->
 <section id="areas">
-  <h2>Áreas de formación</h2>
-  <div class="grid">
-    <div class="card"><h3>Administración y Negocios</h3><p>Gestión empresarial y negocios.</p></div>
-    <div class="card"><h3>Banca y Finanzas</h3><p>Servicios financieros y atención comercial.</p></div>
-    <div class="card"><h3>Contabilidad y RR.HH.</h3><p>Planillas, contabilidad básica y legislación laboral.</p></div>
-    <div class="card"><h3>Habilidades Profesionales</h3><p>Empleabilidad, CV y entrevistas.</p></div>
-    <div class="card"><h3>Computación</h3><p>Excel, Word y PowerPoint.</p></div>
-    <div class="card"><h3>Aviación Comercial</h3><p>Fundamentos y operaciones.</p></div>
-  </div>
+<h2>Áreas de formación</h2>
+<div class="grid">
+<div class="card"><h3>Administración</h3><p>Gestión y negocios.</p></div>
+<div class="card"><h3>Banca y Finanzas</h3><p>Operaciones y atención financiera.</p></div>
+<div class="card"><h3>Contabilidad</h3><p>Planillas y legislación laboral.</p></div>
+<div class="card"><h3>Computación</h3><p>Excel y herramientas digitales.</p></div>
+</div>
 </section>
 
-<!-- ===== CURSOS ===== -->
+<!-- CURSOS -->
 <section id="cursos">
-  <h2>Cursos destacados</h2>
-
-  <div class="grid">
-    <div class="card">
-      <h3>Cajero Bancario y Comercial</h3>
-      <p>Formación integral en operaciones bancarias, atención al cliente y ventas financieras.</p>
-      <a href="cursos/cajero-bancario.html">Ver curso</a>
-    </div>
-
-    <div class="card">
-      <h3>Asistente de Planillas</h3>
-      <p>Planillas electrónicas, beneficios laborales y normativa vigente.</p>
-      <a href="cursos/asistente-planillas.html">Ver curso</a>
-    </div>
-  </div>
+<h2>Programas destacados</h2>
+<div class="grid">
+<div class="card">
+<h3>Cajero Bancario</h3>
+<p>Operaciones bancarias y ventas financieras.</p>
+<a href="cajero-bancario.html" class="btn">Ver más</a>
+</div>
+<div class="card">
+<h3>Asistente de Planillas</h3>
+<p>Planillas electrónicas y normativa laboral.</p>
+<a href="asistente-planillas.html" class="btn">Ver más</a>
+</div>
+</div>
 </section>
 
-<!-- ===== CONTACTO ===== -->
+<!-- CONTACTO -->
 <section id="contacto">
-  <h2>Contacto institucional</h2>
-  <p class="lead">Solicita información sobre nuestros cursos y capacitaciones.</p>
-
-  <p style="text-align:center; font-size:16px;">
-    📧 <strong>gravia@emagesgroup.com</strong>
-  </p>
-
-  <p style="text-align:center; margin-top:25px;">
-    <a href="https://wa.me/51930175586?text=Hola%20quiero%20información%20sobre%20los%20cursos%20de%20GRAVIA"
-       target="_blank"
-       style="background:#25d366;color:#fff;padding:14px 28px;border-radius:30px;text-decoration:none;font-weight:600;">
-      💬 Escríbenos por WhatsApp
-    </a>
-  </p>
+<h2>Contacto</h2>
+<p class="lead">Escríbenos para recibir información personalizada.</p>
 </section>
 
-<!-- ===== FOOTER ===== -->
 <footer>
-  GRAVIA – Centro de Educación Profesional y Capacitación
-  <small>
-    Iniciativa educativa de EMAGES GROUP<br>
-    EMAGESGROUP E.I.R.L. – RUC 20611427671
-  </small>
+EMAGES ACADEMY<br>
+Servicio educativo de EMAGES GROUP
 </footer>
+
+<a href="https://wa.me/51930175586" class="whatsapp" target="_blank">WhatsApp</a>
+
+<script>
+let slides=document.querySelectorAll(".slide");
+let index=0;
+setInterval(()=>{
+slides[index].classList.remove("active");
+index=(index+1)%slides.length;
+slides[index].classList.add("active");
+},5000);
+</script>
 
 </body>
 </html>
-<a href="certificados.html">Verificar certificados</a>
