@@ -14,9 +14,10 @@ body{font-family:Segoe UI,Arial,sans-serif;background:#fff;color:#111;}
 --primary:#F57C00;
 --dark:#111;
 --light:#fff;
+--gray:#f5f5f5;
 }
 
-/* ===== BARRA SUPERIOR ===== */
+/* ===== TOP BAR ===== */
 .topbar{
 background:var(--primary);
 color:#fff;
@@ -26,15 +27,13 @@ white-space:nowrap;
 padding:8px 0;
 position:fixed;
 width:100%;
-z-index:1100;
+z-index:1200;
 }
-
 .topbar span{
 display:inline-block;
 padding-left:100%;
 animation:scrollText 18s linear infinite;
 }
-
 @keyframes scrollText{
 0%{transform:translateX(0);}
 100%{transform:translateX(-100%);}
@@ -51,25 +50,15 @@ display:flex;
 align-items:center;
 justify-content:space-between;
 padding:0 50px;
-z-index:1000;
+z-index:1100;
 }
-
-.logo{
-color:#fff;
-font-weight:bold;
-font-size:20px;
-}
-
+.logo{color:#fff;font-weight:bold;font-size:20px;}
 .nav-links a{
 color:#fff;
 text-decoration:none;
 margin-left:30px;
-font-size:15px;
 }
-
-.nav-links a:hover{
-color:var(--primary);
-}
+.nav-links a:hover{color:var(--primary);}
 
 /* ===== HERO SLIDER ===== */
 .hero{
@@ -78,7 +67,6 @@ height:90vh;
 position:relative;
 overflow:hidden;
 }
-
 .slide{
 position:absolute;
 width:100%;
@@ -93,9 +81,7 @@ justify-content:center;
 text-align:center;
 color:#fff;
 }
-
 .slide.active{opacity:1;}
-
 .slide::after{
 content:"";
 position:absolute;
@@ -103,23 +89,13 @@ width:100%;
 height:100%;
 background:rgba(0,0,0,.6);
 }
-
 .hero-content{
 position:relative;
 z-index:2;
 max-width:800px;
 }
-
-.hero h1{
-font-size:52px;
-margin-bottom:20px;
-}
-
-.hero p{
-font-size:18px;
-margin-bottom:25px;
-}
-
+.hero h1{font-size:52px;margin-bottom:20px;}
+.hero p{font-size:18px;margin-bottom:25px;}
 .btn{
 background:var(--primary);
 color:#fff;
@@ -127,9 +103,11 @@ padding:14px 35px;
 border-radius:30px;
 text-decoration:none;
 font-weight:bold;
+border:none;
+cursor:pointer;
 }
 
-/* ===== INDICADORES ===== */
+/* ===== DOTS ===== */
 .dots{
 position:absolute;
 bottom:25px;
@@ -138,7 +116,6 @@ transform:translateX(-50%);
 display:flex;
 gap:10px;
 }
-
 .dot{
 width:12px;
 height:12px;
@@ -147,50 +124,52 @@ border-radius:50%;
 opacity:.4;
 cursor:pointer;
 }
-
 .dot.active{opacity:1;}
 
-/* ===== SECCIONES ===== */
+/* ===== SECTIONS ===== */
 section{
 padding:100px 20px;
 max-width:1100px;
 margin:auto;
 text-align:center;
 }
-
-h2{
-font-size:34px;
-margin-bottom:20px;
-}
-
+h2{font-size:34px;margin-bottom:20px;}
 .grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
 gap:30px;
 margin-top:40px;
 }
-
 .card{
-background:#f5f5f5;
+background:var(--gray);
 padding:40px;
 border-radius:15px;
 transition:.3s;
 }
-
 .card:hover{
 transform:translateY(-10px);
 box-shadow:0 10px 30px rgba(0,0,0,.1);
 }
+.card h3{color:var(--primary);margin-bottom:10px;}
 
-.card h3{
-color:var(--primary);
-margin-bottom:10px;
+/* ===== FORM ===== */
+form{
+max-width:500px;
+margin:40px auto 0;
+display:flex;
+flex-direction:column;
+gap:15px;
+}
+input,select{
+padding:12px;
+border:1px solid #ddd;
+border-radius:8px;
 }
 
 /* ===== PARALLAX ===== */
 .parallax{
-height:400px;
-background:url('assets/gravia-banner.jpg') center/cover fixed;
+height:350px;
+background:url('assets/hero3.jpg') center/cover fixed;
 display:flex;
 align-items:center;
 justify-content:center;
@@ -218,7 +197,6 @@ text-decoration:none;
 animation:pulse 2s infinite;
 z-index:1200;
 }
-
 @keyframes pulse{
 0%{box-shadow:0 0 0 0 rgba(37,211,102,0.7);}
 70%{box-shadow:0 0 0 15px rgba(37,211,102,0);}
@@ -233,39 +211,38 @@ text-align:center;
 }
 </style>
 </head>
+
 <body>
 
-<!-- BARRA SUPERIOR -->
 <div class="topbar">
-<span>🎓 Matrículas Abiertas 2026 | 20% de descuento hasta fin de mes | Solicita información por WhatsApp 📲</span>
+<span>🎓 Matrículas Abiertas 2026 | 20% de descuento hasta fin de mes | Solicita información ahora 📲</span>
 </div>
 
-<!-- NAVBAR -->
 <div class="navbar">
 <div class="logo">🟠 EMAGES Academy</div>
 <div class="nav-links">
-<a href="#">Escuelas</a>
-<a href="#">Programas</a>
+<a href="#">Empresarial</a>
+<a href="#">Tecnología</a>
+<a href="#">Artístico</a>
 <a href="#">Contacto</a>
 </div>
 </div>
 
-<!-- HERO -->
 <div class="hero">
 
-<div class="slide active" style="background-image:url('assets/gravia-banner.jpg')">
+<div class="slide active" style="background-image:url('assets/hero1.jpg')">
 <div class="hero-content">
 <h1>Descubre tu talento</h1>
 <p>Empresarial · Tecnología · Arte</p>
-<a href="#" class="btn">Explorar programas</a>
+<a href="#escuelas" class="btn">Explorar escuelas</a>
 </div>
 </div>
 
-<div class="slide" style="background-image:url('assets/gravia-banner.jpg')">
+<div class="slide" style="background-image:url('assets/hero2.jpg')">
 <div class="hero-content">
 <h1>Construye tu futuro</h1>
 <p>Formación práctica para jóvenes y adultos.</p>
-<a href="#" class="btn">Inscríbete ahora</a>
+<a href="#" class="btn">Solicitar información</a>
 </div>
 </div>
 
@@ -276,8 +253,7 @@ text-align:center;
 
 </div>
 
-<!-- ESCUELAS -->
-<section>
+<section id="escuelas">
 <h2>Nuestras Escuelas</h2>
 <div class="grid">
 <div class="card">
@@ -287,17 +263,31 @@ text-align:center;
 
 <div class="card">
 <h3>Formación Tecnológica</h3>
-<p>Sistemas informáticos, software contable y desarrollo web.</p>
+<p>Sistemas, software contable y desarrollo web.</p>
 </div>
 
 <div class="card">
 <h3>Talento Artístico & Creativo</h3>
-<p>Canto, baile, actuación, modelaje y conducción.</p>
+<p>Canto, baile, actuación y modelaje.</p>
 </div>
 </div>
 </section>
 
-<!-- PARALLAX -->
+<section>
+<h2>Solicita Información</h2>
+<form>
+<input type="text" placeholder="Nombre completo">
+<input type="tel" placeholder="Celular">
+<select>
+<option>Área de interés</option>
+<option>Empresarial</option>
+<option>Tecnología</option>
+<option>Artístico</option>
+</select>
+<button class="btn">Enviar</button>
+</form>
+</section>
+
 <div class="parallax">
 Tu semillero formativo
 </div>
