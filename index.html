@@ -3,267 +3,67 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EMAGES ACADEMY | Formación Profesional</title>
-
+<title>EMAGES Academy - Creativa</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:Segoe UI,Arial,sans-serif;background:#fff;color:#111;}
-
-:root{
---primary:#F57C00;
---dark:#111111;
---light:#ffffff;
---gray:#f5f5f5;
-}
-
-/* ===== MENU ===== */
-.navbar{
-position:fixed;
-top:0;
-width:100%;
-height:70px;
-background:var(--dark);
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:0 40px;
-z-index:1000;
-}
-
-.navbar img{height:42px;}
-
-.nav-links a{
-color:white;
-text-decoration:none;
-margin-left:25px;
-font-size:14px;
-font-weight:500;
-}
-
-.nav-links a:hover{color:var(--primary);}
-
-/* ===== HERO CARRUSEL ===== */
+body{margin:0;font-family:Segoe UI;background:#111;color:#fff;}
+:root{--primary:#F57C00;}
 .hero{
-margin-top:70px;
-position:relative;
-height:90vh;
-overflow:hidden;
-}
-
-.slide{
-position:absolute;
-width:100%;
-height:100%;
-background-size:cover;
-background-position:center;
+height:100vh;
+background:linear-gradient(135deg,#F57C00,#FF4081);
 display:flex;
 align-items:center;
 justify-content:center;
+text-align:center;
 flex-direction:column;
-color:white;
-text-align:center;
-opacity:0;
-transition:opacity 1s ease;
 }
-
-.slide.active{opacity:1;}
-
-.slide::after{
-content:"";
-position:absolute;
-top:0;left:0;
-width:100%;height:100%;
-background:rgba(0,0,0,0.5);
-}
-
-.slide-content{
-position:relative;
-z-index:2;
-max-width:800px;
-}
-
-.slide h1{
-font-size:48px;
-margin-bottom:15px;
-}
-
-.slide p{
-font-size:18px;
-margin-bottom:20px;
-}
-
+.hero h1{font-size:56px;margin-bottom:20px;}
 .btn{
-background:var(--primary);
-color:white;
-padding:14px 30px;
-border-radius:30px;
+background:#fff;
+color:#111;
+padding:15px 30px;
+border-radius:40px;
 text-decoration:none;
-font-weight:600;
+font-weight:bold;
 }
-
-/* ===== SECCIONES ===== */
-section{
-padding:80px 20px;
-max-width:1100px;
-margin:auto;
-}
-
-h2{
-text-align:center;
-margin-bottom:30px;
-color:var(--dark);
-font-size:30px;
-}
-
-.lead{
-text-align:center;
-max-width:800px;
-margin:auto;
-color:#555;
-}
-
-/* ===== AREAS ===== */
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:25px;
-margin-top:40px;
-}
-
+section{padding:80px 20px;text-align:center;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:30px;margin-top:40px;}
 .card{
-background:var(--gray);
+background:#222;
 padding:30px;
-border-radius:10px;
-text-align:center;
+border-radius:15px;
 transition:.3s;
 }
-
-.card:hover{
-background:white;
-box-shadow:0 6px 20px rgba(0,0,0,0.1);
-transform:translateY(-5px);
-}
-
-.card h3{
-color:var(--primary);
-margin-bottom:10px;
-}
-
-/* ===== FOOTER ===== */
-footer{
-background:var(--dark);
-color:white;
-text-align:center;
-padding:40px 20px;
-}
-
-/* ===== WHATSAPP ===== */
+.card:hover{transform:translateY(-10px);}
 .whatsapp{
 position:fixed;
 bottom:20px;
 right:20px;
 background:#25D366;
-color:white;
-padding:15px 18px;
+padding:15px 20px;
 border-radius:50px;
-font-weight:bold;
+color:#fff;
 text-decoration:none;
-box-shadow:0 5px 15px rgba(0,0,0,0.3);
 }
 </style>
 </head>
-
 <body>
 
-<!-- MENU -->
-<div class="navbar">
-<img src="assets/logo.png" alt="EMAGES Academy">
-<div class="nav-links">
-<a href="#nosotros">Nosotros</a>
-<a href="#areas">Áreas</a>
-<a href="#cursos">Cursos</a>
-<a href="#contacto">Contacto</a>
-</div>
-</div>
-
-<!-- HERO CARRUSEL -->
 <div class="hero">
-<div class="slide active" style="background-image:url('assets/gravia-banner.jpg')">
-<div class="slide-content">
-<h1>EMAGES ACADEMY</h1>
-<p>Formación profesional moderna y orientada al mercado laboral.</p>
-<a href="#cursos" class="btn">Ver programas</a>
-</div>
+<h1>Descubre tu talento</h1>
+<p>Transforma tu pasión en oportunidades reales.</p>
+<a href="#" class="btn">Inscríbete ahora</a>
 </div>
 
-<div class="slide" style="background-image:url('assets/gravia-banner.jpg')">
-<div class="slide-content">
-<h1>Capacítate y crece</h1>
-<p>Programas prácticos con enfoque real en empleabilidad.</p>
-<a href="#contacto" class="btn">Solicitar información</a>
-</div>
-</div>
-</div>
-
-<!-- NOSOTROS -->
-<section id="nosotros">
-<h2>Quiénes somos</h2>
-<p class="lead">
-EMAGES ACADEMY es la unidad educativa de EMAGES GROUP,
-especializada en formación técnica y profesional de alto nivel.
-</p>
-</section>
-
-<!-- AREAS -->
-<section id="areas">
-<h2>Áreas de formación</h2>
+<section>
+<h2>Nuestras Escuelas</h2>
 <div class="grid">
-<div class="card"><h3>Administración</h3><p>Gestión y negocios.</p></div>
-<div class="card"><h3>Banca y Finanzas</h3><p>Operaciones y atención financiera.</p></div>
-<div class="card"><h3>Contabilidad</h3><p>Planillas y legislación laboral.</p></div>
-<div class="card"><h3>Computación</h3><p>Excel y herramientas digitales.</p></div>
+<div class="card"><h3>🔥 Empresarial</h3><p>Emprende y lidera.</p></div>
+<div class="card"><h3>💻 Tecnología</h3><p>Domina el mundo digital.</p></div>
+<div class="card"><h3>🎤 Arte & Talento</h3><p>Haz brillar tu creatividad.</p></div>
 </div>
 </section>
 
-<!-- CURSOS -->
-<section id="cursos">
-<h2>Programas destacados</h2>
-<div class="grid">
-<div class="card">
-<h3>Cajero Bancario</h3>
-<p>Operaciones bancarias y ventas financieras.</p>
-<a href="cajero-bancario.html" class="btn">Ver más</a>
-</div>
-<div class="card">
-<h3>Asistente de Planillas</h3>
-<p>Planillas electrónicas y normativa laboral.</p>
-<a href="asistente-planillas.html" class="btn">Ver más</a>
-</div>
-</div>
-</section>
-
-<!-- CONTACTO -->
-<section id="contacto">
-<h2>Contacto</h2>
-<p class="lead">Escríbenos para recibir información personalizada.</p>
-</section>
-
-<footer>
-EMAGES ACADEMY<br>
-Servicio educativo de EMAGES GROUP
-</footer>
-
-<a href="https://wa.me/51930175586" class="whatsapp" target="_blank">WhatsApp</a>
-
-<script>
-let slides=document.querySelectorAll(".slide");
-let index=0;
-setInterval(()=>{
-slides[index].classList.remove("active");
-index=(index+1)%slides.length;
-slides[index].classList.add("active");
-},5000);
-</script>
+<a href="https://wa.me/51930175586" class="whatsapp">WhatsApp</a>
 
 </body>
 </html>
