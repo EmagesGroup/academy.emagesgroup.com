@@ -12,6 +12,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#ffffff;color:#333;}
 :root{
 --primary:#F57C00;
 --secondary:#FFB74D;
+--light:#ffffff;
 --gray:#F8F9FA;
 --text:#333333;
 }
@@ -39,7 +40,9 @@ padding:0 60px;
 box-shadow:0 2px 10px rgba(0,0,0,0.05);
 z-index:1000;
 }
+
 .logo img{height:50px;}
+
 .nav-links a{
 text-decoration:none;
 color:var(--text);
@@ -47,6 +50,7 @@ margin-left:30px;
 font-weight:500;
 transition:.3s;
 }
+
 .nav-links a:hover{color:var(--primary);}
 
 .btn-primary{
@@ -56,9 +60,10 @@ padding:12px 28px;
 border-radius:30px;
 text-decoration:none;
 font-weight:600;
-display:inline-block;
 transition:.3s;
+display:inline-block;
 }
+
 .btn-primary:hover{background:#e36f00;}
 
 .btn-secondary{
@@ -84,6 +89,7 @@ position:relative;
 color:#fff;
 text-align:center;
 }
+
 .hero::after{
 content:"";
 position:absolute;
@@ -91,15 +97,18 @@ width:100%;
 height:100%;
 background:rgba(0,0,0,0.55);
 }
+
 .hero-content{
 position:relative;
 z-index:2;
 max-width:850px;
 }
+
 .hero h1{
 font-size:50px;
 margin-bottom:20px;
 }
+
 .hero p{
 font-size:22px;
 margin-bottom:30px;
@@ -111,10 +120,12 @@ background:var(--gray);
 padding:100px 20px;
 text-align:center;
 }
+
 .valor h2{
 font-size:36px;
 margin-bottom:50px;
 }
+
 .valor-grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
@@ -122,6 +133,7 @@ gap:40px;
 max-width:1100px;
 margin:auto;
 }
+
 .valor-item{
 background:#fff;
 padding:40px;
@@ -129,6 +141,7 @@ border-radius:15px;
 box-shadow:0 5px 20px rgba(0,0,0,0.05);
 transition:.3s;
 }
+
 .valor-item:hover{transform:translateY(-8px);}
 
 /* PROGRAMAS */
@@ -136,10 +149,12 @@ transition:.3s;
 padding:100px 20px;
 text-align:center;
 }
+
 .section h2{
 font-size:36px;
 margin-bottom:50px;
 }
+
 .program-grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
@@ -147,6 +162,7 @@ gap:35px;
 max-width:1100px;
 margin:auto;
 }
+
 .program{
 background:#fff;
 padding:25px;
@@ -154,30 +170,36 @@ border-radius:15px;
 box-shadow:0 5px 20px rgba(0,0,0,0.05);
 transition:.3s;
 }
+
 .program:hover{
 transform:translateY(-8px);
 box-shadow:0 10px 30px rgba(0,0,0,0.08);
 }
+
 .program img{
 width:100%;
 border-radius:12px;
 }
+
 .program h3{
 color:var(--primary);
 margin:18px 0 10px;
 }
+
 .program p{
 font-size:15px;
 margin-bottom:20px;
 }
 
-/* AUTORIDAD */
+/* BLOQUE AUTORIDAD */
 .autoridad{
+background:#ffffff;
 padding:80px 20px;
 text-align:center;
 max-width:900px;
 margin:auto;
 }
+
 .autoridad p{
 font-size:18px;
 line-height:1.6;
@@ -190,6 +212,7 @@ color:#fff;
 text-align:center;
 padding:90px 20px;
 }
+
 .cta h2{
 font-size:34px;
 margin-bottom:25px;
@@ -200,6 +223,7 @@ footer{
 background:#f1f1f1;
 padding:60px 20px;
 }
+
 .footer-grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
@@ -207,10 +231,12 @@ gap:40px;
 max-width:1100px;
 margin:auto;
 }
+
 footer h4{
 margin-bottom:15px;
 color:var(--primary);
 }
+
 footer a{
 display:block;
 text-decoration:none;
@@ -218,7 +244,9 @@ color:#555;
 margin-bottom:8px;
 font-size:14px;
 }
+
 footer a:hover{color:var(--primary);}
+
 .footer-bottom{
 text-align:center;
 margin-top:40px;
@@ -274,7 +302,7 @@ Matrículas 2026 abiertas · Solicita información hoy
 </section>
 
 <section class="valor">
-<h2>¿Por qué estudiar Tecnología en EMAGES?</h2>
+<h2>¿Por qué estudiar en nuestra Escuela Tecnológica?</h2>
 <div class="valor-grid">
 <div class="valor-item">
 <h3>Enfoque práctico digital</h3>
@@ -296,32 +324,32 @@ Matrículas 2026 abiertas · Solicita información hoy
 </section>
 
 <section id="programas" class="section">
-<h2>Programas Destacados</h2>
+<h2>Programas Más Solicitados</h2>
 <div class="program-grid">
 
 <div class="program">
-<img src="assets/desarrollo-web.jpg" alt="Desarrollo Web y Apps">
+<img src="assets/desarrollo-web.jpg">
 <h3>Desarrollo Web y Apps</h3>
 <p>Crea sitios web y aplicaciones básicas con herramientas modernas y prácticas.</p>
 <a href="https://wa.me/51930175586?text=Quiero%20información%20del%20curso%20Desarrollo%20Web%20y%20Apps" class="btn-primary">Quiero información</a>
 </div>
 
 <div class="program">
-<img src="assets/sistemas-contables.jpg" alt="Sistemas Contables y Gestión">
+<img src="assets/sistemas-contables.jpg">
 <h3>Sistemas Contables y Gestión</h3>
 <p>Maneja software contable, facturación electrónica y registro de operaciones empresariales.</p>
 <a href="https://wa.me/51930175586?text=Quiero%20información%20del%20curso%20Sistemas%20Contables" class="btn-primary">Quiero información</a>
 </div>
 
 <div class="program">
-<img src="assets/marketing-digital.jpg" alt="Marketing Digital">
+<img src="assets/marketing-digital.jpg">
 <h3>Marketing Digital y Redes</h3>
 <p>Domina redes sociales y publicidad online para proyectos y pequeñas empresas.</p>
 <a href="https://wa.me/51930175586?text=Quiero%20información%20del%20curso%20Marketing%20Digital" class="btn-primary">Quiero información</a>
 </div>
 
 <div class="program">
-<img src="assets/ofimatica.jpg" alt="Ofimática Avanzada">
+<img src="assets/ofimatica.jpg">
 <h3>Ofimática Avanzada y Productividad</h3>
 <p>Optimiza tu trabajo con Excel avanzado, automatización de tareas y herramientas de productividad.</p>
 <a href="https://wa.me/51930175586?text=Quiero%20información%20del%20curso%20Ofimática%20Avanzada" class="btn-primary">Quiero información</a>
@@ -361,6 +389,13 @@ formación profesional y soluciones estratégicas.
 <a href="#">Política de Privacidad</a>
 <a href="#">Solicitud ARCO</a>
 <a href="#">Términos y Condiciones</a>
+</div>
+<div>
+<h4>Síguenos</h4>
+<a href="#">Facebook</a>
+<a href="#">Instagram</a>
+<a href="#">TikTok</a>
+<a href="#">WhatsApp</a>
 </div>
 </div>
 
