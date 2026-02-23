@@ -3,18 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EMAGES Academy | Formación Tecnológica</title>
+<title>EMAGES Academy | Escuela de Formación Tecnológica</title>
 <link rel="icon" type="image/png" href="assets/favicon.png">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Segoe UI',Arial,sans-serif;background:#fff;color:#333;}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#ffffff;color:#333;}
 :root{
 --primary:#F57C00;
 --secondary:#FFB74D;
---light:#fff;
 --gray:#F8F9FA;
---text:#333;
+--text:#333333;
+}
+
+/* TOPBAR */
+.topbar{
+background:var(--secondary);
+color:#fff;
+text-align:center;
+padding:8px;
+font-size:14px;
 }
 
 /* NAVBAR */
@@ -22,35 +30,52 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#fff;color:#333;}
 position:fixed;
 top:0;
 width:100%;
+height:75px;
 background:#fff;
 display:flex;
 align-items:center;
 justify-content:space-between;
-padding:15px 60px;
+padding:0 60px;
 box-shadow:0 2px 10px rgba(0,0,0,0.05);
 z-index:1000;
 }
-.logo img{height:45px;}
+.logo img{height:50px;}
 .nav-links a{
 text-decoration:none;
 color:var(--text);
-margin-left:25px;
+margin-left:30px;
 font-weight:500;
+transition:.3s;
 }
 .nav-links a:hover{color:var(--primary);}
+
 .btn-primary{
 background:var(--primary);
 color:#fff;
-padding:8px 22px;
-border-radius:25px;
+padding:12px 28px;
+border-radius:30px;
 text-decoration:none;
 font-weight:600;
+display:inline-block;
+transition:.3s;
+}
+.btn-primary:hover{background:#e36f00;}
+
+.btn-secondary{
+background:#fff;
+color:var(--primary);
+padding:12px 28px;
+border-radius:30px;
+text-decoration:none;
+font-weight:600;
+display:inline-block;
+margin-left:15px;
 }
 
 /* HERO */
 .hero{
 margin-top:75px;
-height:70vh;
+height:90vh;
 background:url('assets/tecnologia-hero.jpg') center/cover no-repeat;
 display:flex;
 align-items:center;
@@ -64,77 +89,168 @@ content:"";
 position:absolute;
 width:100%;
 height:100%;
-background:rgba(0,0,0,0.5);
+background:rgba(0,0,0,0.55);
 }
-.hero h1{font-size:48px;margin-bottom:15px;}
-.hero p{font-size:20px;}
+.hero-content{
+position:relative;
+z-index:2;
+max-width:850px;
+}
+.hero h1{
+font-size:50px;
+margin-bottom:20px;
+}
+.hero p{
+font-size:22px;
+margin-bottom:30px;
+}
 
-/* SECCION PROGRAMAS */
-.section{
-padding:80px 20px;
+/* VALOR */
+.valor{
+background:var(--gray);
+padding:100px 20px;
 text-align:center;
 }
-.section h2{font-size:36px;margin-bottom:40px;}
-.program-grid{
+.valor h2{
+font-size:36px;
+margin-bottom:50px;
+}
+.valor-grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:30px;
+gap:40px;
+max-width:1100px;
+margin:auto;
+}
+.valor-item{
+background:#fff;
+padding:40px;
+border-radius:15px;
+box-shadow:0 5px 20px rgba(0,0,0,0.05);
+transition:.3s;
+}
+.valor-item:hover{transform:translateY(-8px);}
+
+/* PROGRAMAS */
+.section{
+padding:100px 20px;
+text-align:center;
+}
+.section h2{
+font-size:36px;
+margin-bottom:50px;
+}
+.program-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:35px;
 max-width:1100px;
 margin:auto;
 }
 .program{
-background:var(--gray);
-padding:20px;
-border-radius:12px;
-transition:0.3s;
-display:flex;
-flex-direction:column;
-align-items:center;
-text-align:center;
+background:#fff;
+padding:25px;
+border-radius:15px;
+box-shadow:0 5px 20px rgba(0,0,0,0.05);
+transition:.3s;
 }
-.program:hover{transform:translateY(-5px);box-shadow:0 8px 25px rgba(0,0,0,0.08);}
-.program img{width:100%;border-radius:10px;}
-.program h3{color:var(--primary);margin:15px 0 8px;}
-.program p{font-size:15px;color:#444;margin-bottom:15px;}
-.program a{
-display:inline-block;
-background:var(--primary);
-color:#fff;
-padding:10px 20px;
-border-radius:25px;
-text-decoration:none;
-font-weight:600;
+.program:hover{
+transform:translateY(-8px);
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+.program img{
+width:100%;
+border-radius:12px;
+}
+.program h3{
+color:var(--primary);
+margin:18px 0 10px;
+}
+.program p{
+font-size:15px;
+margin-bottom:20px;
+}
+
+/* AUTORIDAD */
+.autoridad{
+padding:80px 20px;
+text-align:center;
+max-width:900px;
+margin:auto;
+}
+.autoridad p{
+font-size:18px;
+line-height:1.6;
 }
 
 /* CTA */
 .cta{
 background:var(--primary);
 color:#fff;
-padding:60px 20px;
 text-align:center;
+padding:90px 20px;
 }
-.cta h2{font-size:30px;margin-bottom:25px;}
-.cta a{background:#fff;color:var(--primary);padding:12px 28px;border-radius:30px;text-decoration:none;font-weight:600;}
+.cta h2{
+font-size:34px;
+margin-bottom:25px;
+}
 
 /* FOOTER */
 footer{
-background:#f5f5f5;
-padding:40px 20px;
+background:#f1f1f1;
+padding:60px 20px;
 }
 .footer-grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-gap:30px;
+gap:40px;
 max-width:1100px;
 margin:auto;
 }
-footer h4{margin-bottom:12px;color:var(--primary);}
-footer a{display:block;text-decoration:none;color:#555;font-size:14px;}
+footer h4{
+margin-bottom:15px;
+color:var(--primary);
+}
+footer a{
+display:block;
+text-decoration:none;
+color:#555;
+margin-bottom:8px;
+font-size:14px;
+}
 footer a:hover{color:var(--primary);}
-.footer-bottom{text-align:center;margin-top:30px;font-size:14px;color:#777;}
+.footer-bottom{
+text-align:center;
+margin-top:40px;
+font-size:14px;
+color:#777;
+}
+
+/* WHATSAPP */
+.whatsapp{
+position:fixed;
+bottom:25px;
+right:25px;
+background:#25D366;
+width:60px;
+height:60px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+color:#fff;
+font-size:28px;
+text-decoration:none;
+box-shadow:0 4px 15px rgba(0,0,0,0.2);
+}
 </style>
 </head>
+
 <body>
+
+<div class="topbar">
+Matrículas 2026 abiertas · Solicita información hoy
+</div>
 
 <div class="navbar">
 <div class="logo">
@@ -142,21 +258,44 @@ footer a:hover{color:var(--primary);}
 </div>
 <div class="nav-links">
 <a href="index.html">Inicio</a>
-<a href="empresarial.html">Formación Empresarial</a>
-<a href="tecnologia.html">Formación Tecnológica</a>
-<a href="artistico.html">Talento Artístico</a>
-<a href="#" class="btn-primary">Solicitar Info</a>
+<a href="index.html#escuelas">Escuelas</a>
+<a href="#">Nosotros</a>
+<a href="#">Contacto</a>
 </div>
 </div>
 
 <section class="hero">
-<div>
+<div class="hero-content">
 <h1>Escuela de Formación Tecnológica</h1>
-<p>Aprende habilidades digitales y herramientas tecnológicas aplicadas al mundo real</p>
+<p>Aprende habilidades digitales y herramientas tecnológicas aplicadas al mundo real.</p>
+<a href="#programas" class="btn-primary">Ver Programas</a>
+<a href="formulario-inscripcion.html" class="btn-secondary">Inscribirme ahora</a>
 </div>
 </section>
 
-<section class="section">
+<section class="valor">
+<h2>¿Por qué estudiar Tecnología en EMAGES?</h2>
+<div class="valor-grid">
+<div class="valor-item">
+<h3>Enfoque práctico digital</h3>
+<p>Aprende desarrollando proyectos reales desde el primer módulo.</p>
+</div>
+<div class="valor-item">
+<h3>Herramientas actuales</h3>
+<p>Contenido alineado a la realidad empresarial y tecnológica.</p>
+</div>
+<div class="valor-item">
+<h3>Docentes especializados</h3>
+<p>Profesionales con experiencia en el sector digital.</p>
+</div>
+<div class="valor-item">
+<h3>Certificación privada</h3>
+<p>Respaldado por EMAGES GROUP.</p>
+</div>
+</div>
+</section>
+
+<section id="programas" class="section">
 <h2>Programas Destacados</h2>
 <div class="program-grid">
 
@@ -164,37 +303,44 @@ footer a:hover{color:var(--primary);}
 <img src="assets/desarrollo-web.jpg" alt="Desarrollo Web y Apps">
 <h3>Desarrollo Web y Apps</h3>
 <p>Crea sitios web y aplicaciones básicas con herramientas modernas y prácticas.</p>
-<a href="https://wa.me/51930175586?text=Quiero%20información%20del%20curso%20Desarrollo%20Web%20y%20Apps">Quiero información</a>
+<a href="https://wa.me/51930175586?text=Quiero%20información%20del%20curso%20Desarrollo%20Web%20y%20Apps" class="btn-primary">Quiero información</a>
 </div>
 
 <div class="program">
 <img src="assets/sistemas-contables.jpg" alt="Sistemas Contables y Gestión">
 <h3>Sistemas Contables y Gestión</h3>
 <p>Maneja software contable, facturación electrónica y registro de operaciones empresariales.</p>
-<a href="https://wa.me/51930175586?text=Quiero%20información%20del%20curso%20Sistemas%20Contables">Quiero información</a>
+<a href="https://wa.me/51930175586?text=Quiero%20información%20del%20curso%20Sistemas%20Contables" class="btn-primary">Quiero información</a>
 </div>
 
 <div class="program">
 <img src="assets/marketing-digital.jpg" alt="Marketing Digital">
 <h3>Marketing Digital y Redes</h3>
 <p>Domina redes sociales y publicidad online para proyectos y pequeñas empresas.</p>
-<a href="https://wa.me/51930175586?text=Quiero%20información%20del%20curso%20Marketing%20Digital">Quiero información</a>
+<a href="https://wa.me/51930175586?text=Quiero%20información%20del%20curso%20Marketing%20Digital" class="btn-primary">Quiero información</a>
 </div>
 
 <div class="program">
 <img src="assets/ofimatica.jpg" alt="Ofimática Avanzada">
 <h3>Ofimática Avanzada y Productividad</h3>
 <p>Optimiza tu trabajo con Excel avanzado, automatización de tareas y herramientas de productividad.</p>
-<a href="https://wa.me/51930175586?text=Quiero%20información%20del%20curso%20Ofimática%20Avanzada">Quiero información</a>
+<a href="https://wa.me/51930175586?text=Quiero%20información%20del%20curso%20Ofimática%20Avanzada" class="btn-primary">Quiero información</a>
 </div>
 
 </div>
 </section>
 
+<section class="autoridad">
+<p>
+EMAGES Academy forma parte de EMAGES GROUP, organización dedicada al desarrollo empresarial,
+formación profesional y soluciones estratégicas.
+</p>
+</section>
+
 <section class="cta">
-<h2>¿Tienes un proyecto o empresa?</h2>
-<p>Además de aprender, puedes contratar los servicios de EMAGES GROUP para implementar sistemas, marketing digital y gestión tecnológica.</p>
-<a href="https://wa.me/51930175586?text=Quiero%20información%20sobre%20servicios%20tecnológicos">Quiero asesoría tecnológica</a>
+<h2>Asegura tu vacante 2026</h2>
+<a href="formulario-inscripcion.html" class="btn-secondary">Inscribirme ahora</a>
+<a href="https://wa.me/51930175586?text=Quiero%20información%20sobre%20la%20Escuela%20Tecnológica" class="btn-primary">Solicitar información</a>
 </section>
 
 <footer>
@@ -216,18 +362,14 @@ footer a:hover{color:var(--primary);}
 <a href="#">Solicitud ARCO</a>
 <a href="#">Términos y Condiciones</a>
 </div>
-<div>
-<h4>Síguenos</h4>
-<a href="#">Facebook</a>
-<a href="#">Instagram</a>
-<a href="#">TikTok</a>
-<a href="#">WhatsApp</a>
 </div>
-</div>
+
 <div class="footer-bottom">
 © 2026 EMAGES GROUP – Todos los derechos reservados
 </div>
 </footer>
+
+<a href="https://wa.me/51930175586" class="whatsapp" target="_blank">💬</a>
 
 </body>
 </html>
