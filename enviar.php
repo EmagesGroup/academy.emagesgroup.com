@@ -1,11 +1,17 @@
 <?php
-// SOLO PERMITIR MÉTODO POST
+
+// SOLO PERMITIR POST
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     http_response_code(403);
     exit("Acceso no permitido.");
 }
 
-// VALIDAR CAMPOS OBLIGATORIOS
+// ANTI-SPAM (HONEYPOT)
+if (!empty($_POST["website"])) {
+    exit("Spam detectado.");
+}
+
+// VALIDAR CAMPOS
 if (
     empty($_POST["nombre"]) ||
     empty($_POST["email"]) ||
@@ -13,7 +19,7 @@ if (
     empty($_POST["escuela"])
 ) {
     http_response_code(400);
-    exit("Faltan datos obligatorios.");
+    exit("Faltan datos.");
 }
 
 // LIMPIAR DATOS
@@ -22,7 +28,7 @@ $email    = filter_var(trim($_POST["email"]), FILTER_SANITIZE_EMAIL);
 $telefono = strip_tags(trim($_POST["telefono"]));
 $escuela  = strip_tags(trim($_POST["escuela"]));
 
-// VALIDAR EMAIL REAL
+// VALIDAR EMAIL
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     http_response_code(400);
     exit("Correo inválido.");
@@ -52,4 +58,5 @@ if (mail($to, $subject, $message, $headers)) {
     http_response_code(500);
     echo "ERROR";
 }
+
 ?>
