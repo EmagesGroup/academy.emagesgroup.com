@@ -1,1 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EMAGES Academy | Formación Empresarial</title>
+<link rel="icon" type="image/png" href="assets/favicon.png">
 
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#fff;color:#333;}
+:root{
+--primary:#F57C00;
+--secondary:#FFB74D;
+--light:#fff;
+--gray:#F8F9FA;
+--text:#333;
+}
+
+/* NAVBAR */
+.navbar{
+position:fixed;
+top:0;
+width:100%;
+background:#fff;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:15px 60px;
+box-shadow:0 2px 10px rgba(0,0,0,0.05);
+z-index:1000;
+}
+.logo img{height:45px;}
+.nav-links a{
+text-decoration:none;
+color:var(--text);
+margin-left:25px;
+font-weight:500;
+}
+.nav-links a:hover{color:var(--primary);}
+.btn-primary{
+background:var(--primary);
+color:#fff;
+padding:8px 22px;
+border-radius:25px;
+text-decoration:none;
+font-weight:600;
+}
+
+/* HERO */
+.hero{
+margin-top:75px;
+height:70vh;
+background:url('assets/empresarial-hero.jpg') center/cover no-repeat;
+display:flex;
+align-items:center;
+justify-content:center;
+position:relative;
+color:#fff;
+text-align:center;
+}
+.hero::after{
+content:"";
+position:absolute;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.5);
+}
+.hero h1{font-size:48px;margin-bottom:15px;}
+.hero p{font-size:20px;}
+
+/* PROGRAMAS DESTACADOS */
+.section{
+padding:80px 20px;
+text-align:center;
+}
+.section h2{font-size:36px;margin-bottom:40px;}
+.program-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:30px;
+max-width:1100px;
+margin:auto;
+}
+.program{
+background:var(--gray);
+padding:25px 20px;
+border-radius:12px;
+transition:0.3s;
+}
+.program:hover{transform:translateY(-5px);box-shadow:0 8px 25px rgba(0,0,0,0.08);}
+.program img{width:100%;border-radius:10px;}
+.program h3{color:var(--primary);margin:15px 0 8px;}
+.program p{font-size:15px;color:#444;margin-bottom:15px;}
+.program a{
+display:inline-block;
+background:var(--primary);
+color:#fff;
+padding:10px 20px;
+border-radius:25px;
+text-decoration:none;
+font-weight:600;
+}
+
+/* CTA */
+.cta{
+background:var(--primary);
+color:#fff;
+padding:60px 20px;
+text-align:center;
+}
+.cta h2{font-size:30px;margin-bottom:25px;}
+.cta a{background:#fff;color:var(--primary);padding:12px 28px;border-radius:30px;text-decoration:none;font-weight:600;}
+
+/* FOOTER */
+footer{
+background:#f5f5f5;
+padding:40px 20px;
+}
+.footer-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:30px;
+max-width:1100px;
+margin:auto;
+}
+footer h4{margin-bottom:12px;color:var(--primary);}
+footer a{display:block;text-decoration:none;color:#555;font-size:14px;}
+footer a:hover{color:var(--primary);}
+.footer-bottom{text-align:center;margin-top:30px;font-size:14px;color:#777;}
+</style>
+</head>
+<body>
+
+<div class="navbar">
+<div class="logo">
+<img src="assets/logo.png" alt="EMAGES Academy Logo">
+</div>
+<div class="nav-links">
+<a href="index.html">Inicio</a>
+<a href="empresarial.html">Formación Empresarial</a>
+<a href="tecnologia.html">Formación Tecnológica</a>
+<a href="artistico.html">Talento Artístico</a>
+<a href="#" class="btn-primary">Solicitar Info</a>
+</div>
+</div>
+
+<section class="hero">
+<div>
+<h1>Escuela de Formación Empresarial</h1>
+<p>Formación con impacto real para profesionales y emprendedores</p>
+</div>
+</section>
+
+<section class="section">
+<h2>Programas Más Solicitados</h2>
+<div class="program-grid">
+
+<div class="program">
+<img src="assets/asistente-administrativo.jpg" alt="Asistente Administrativo">
+<h3>Asistente Administrativo Empresarial</h3>
+<p>Gestión organizativa, atención profesional y bases administrativas para empresas.</p>
+<a href="https://wa.me/51930175586?text=Quiero%20información%20del%20curso%20de%20Asistente%20Administrativo">Quiero información</a>
+</div>
+
+<div class="program">
+<img src="assets/asistente-planillas.jpg" alt="Asistente de Planillas">
+<h3>Asistente de Planillas y Legislación Laboral</h3>
+<p>Capacítate en cálculo de sueldos, beneficios y normativa laboral en Perú.</p>
+<a href="https://wa.me/51930175586?text=Quiero%20información%20del%20curso%20de%20Asistente%20de%20Planillas">Quiero información</a>
+</div>
+
+<div class="program">
+<img src="assets/cajero-gestion.jpg" alt="Cajero Bancario y Gestión Comercial">
+<h3>Cajero Bancario y Gestión Comercial</h3>
+<p>Formación enfocada en operaciones de caja, atención y gestión comercial.</p>
+<a href="https://wa.me/51930175586?text=Quiero%20información%20del%20curso%20de%20Cajero%20Bancario%20y%20Gestión%20Comercial">Quiero información</a>
+</div>
+
+<div class="program">
+<img src="assets/emprendimiento.jpg" alt="Emprendimiento y Formalización">
+<h3>Emprendimiento y Formalización Empresarial</h3>
+<p>Convierte tu idea en negocio formal con fundamentos tributarios y legales.</p>
+<a href="https://wa.me/51930175586?text=Quiero%20información%20del%20curso%20de%20Emprendimiento%20y%20Formalización%20Empresarial">Quiero información</a>
+</div>
+
+<div class="program">
+<img src="assets/finanzas-control.jpg" alt="Finanzas y Control">
+<h3>Finanzas y Control Empresarial</h3>
+<p>Gestión de flujo de caja, control de ingresos y planificación financiera.</p>
+<a href="https://wa.me/51930175586?text=Quiero%20información%20del%20curso%20de%20Finanzas%20y%20Control%20Empresarial">Quiero información</a>
+</div>
+
+</div>
+</section>
+
+<section class="cta">
+<h2>¿Tienes un negocio?</h2>
+<p>Además de formarte, puedes acceder a acompañamiento profesional con EMAGES GROUP.</p>
+<a href="https://wa.me/51930175586?text=Quiero%20información%20sobre%20servicios%20empresariales">Asesoría profesional</a>
+</section>
+
+<footer>
+<div class="footer-grid">
+<div>
+<h4>EMAGES Academy</h4>
+<p>Formación que transforma</p>
+</div>
+<div>
+<h4>Escuelas</h4>
+<a href="empresarial.html">Empresarial</a>
+<a href="tecnologia.html">Tecnológica</a>
+<a href="artistico.html">Artístico</a>
+</div>
+<div>
+<h4>Información Legal</h4>
+<a href="#">Libro de Reclamaciones</a>
+<a href="#">Política de Privacidad</a>
+<a href="#">Solicitud ARCO</a>
+<a href="#">Términos y Condiciones</a>
+</div>
+<div>
+<h4>Síguenos</h4>
+<a href="#">Facebook</a>
+<a href="#">Instagram</a>
+<a href="#">TikTok</a>
+<a href="#">WhatsApp</a>
+</div>
+</div>
+<div class="footer-bottom">
+© 2026 EMAGES GROUP – Todos los derechos reservados
+</div>
+</footer>
+
+</body>
+</html>
