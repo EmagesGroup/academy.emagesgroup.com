@@ -3,18 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EMAGES Academy | Talento Artístico & Creativo</title>
+<title>EMAGES Academy | Escuela de Formación Artística</title>
 <link rel="icon" type="image/png" href="assets/favicon.png">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Segoe UI',Arial,sans-serif;background:#fff;color:#333;}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#ffffff;color:#333;}
 :root{
 --primary:#F57C00;
 --secondary:#FFB74D;
---light:#fff;
+--light:#ffffff;
 --gray:#F8F9FA;
---text:#333;
+--text:#333333;
+}
+
+/* TOPBAR */
+.topbar{
+background:var(--secondary);
+color:#fff;
+text-align:center;
+padding:8px;
+font-size:14px;
 }
 
 /* NAVBAR */
@@ -22,35 +31,56 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#fff;color:#333;}
 position:fixed;
 top:0;
 width:100%;
+height:75px;
 background:#fff;
 display:flex;
 align-items:center;
 justify-content:space-between;
-padding:15px 60px;
+padding:0 60px;
 box-shadow:0 2px 10px rgba(0,0,0,0.05);
 z-index:1000;
 }
-.logo img{height:45px;}
+
+.logo img{height:50px;}
+
 .nav-links a{
 text-decoration:none;
 color:var(--text);
-margin-left:25px;
+margin-left:30px;
 font-weight:500;
+transition:.3s;
 }
+
 .nav-links a:hover{color:var(--primary);}
+
 .btn-primary{
 background:var(--primary);
 color:#fff;
-padding:8px 22px;
-border-radius:25px;
+padding:12px 28px;
+border-radius:30px;
 text-decoration:none;
 font-weight:600;
+transition:.3s;
+display:inline-block;
+}
+
+.btn-primary:hover{background:#e36f00;}
+
+.btn-secondary{
+background:#fff;
+color:var(--primary);
+padding:12px 28px;
+border-radius:30px;
+text-decoration:none;
+font-weight:600;
+display:inline-block;
+margin-left:15px;
 }
 
 /* HERO */
 .hero{
 margin-top:75px;
-height:70vh;
+height:90vh;
 background:url('assets/artistico-hero.jpg') center/cover no-repeat;
 display:flex;
 align-items:center;
@@ -59,82 +89,196 @@ position:relative;
 color:#fff;
 text-align:center;
 }
+
 .hero::after{
 content:"";
 position:absolute;
 width:100%;
 height:100%;
-background:rgba(0,0,0,0.5);
+background:rgba(0,0,0,0.55);
 }
-.hero h1{font-size:48px;margin-bottom:15px;}
-.hero p{font-size:20px;}
 
-/* SECCION PROGRAMAS */
-.section{
-padding:80px 20px;
+.hero-content{
+position:relative;
+z-index:2;
+max-width:850px;
+}
+
+.hero h1{
+font-size:50px;
+margin-bottom:20px;
+}
+
+.hero p{
+font-size:22px;
+margin-bottom:30px;
+}
+
+/* VALOR */
+.valor{
+background:var(--gray);
+padding:100px 20px;
 text-align:center;
 }
-.section h2{font-size:36px;margin-bottom:40px;}
-.program-grid{
+
+.valor h2{
+font-size:36px;
+margin-bottom:50px;
+}
+
+.valor-grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:30px;
+gap:40px;
 max-width:1100px;
 margin:auto;
 }
-.program{
-background:var(--gray);
-padding:20px;
-border-radius:12px;
-transition:0.3s;
-display:flex;
-flex-direction:column;
-align-items:center;
+
+.valor-item{
+background:#fff;
+padding:40px;
+border-radius:15px;
+box-shadow:0 5px 20px rgba(0,0,0,0.05);
+transition:.3s;
+}
+
+.valor-item:hover{transform:translateY(-8px);}
+
+/* PROGRAMAS */
+.section{
+padding:100px 20px;
 text-align:center;
 }
-.program:hover{transform:translateY(-5px);box-shadow:0 8px 25px rgba(0,0,0,0.08);}
-.program img{width:100%;border-radius:10px;}
-.program h3{color:var(--primary);margin:15px 0 8px;}
-.program p{font-size:15px;color:#444;margin-bottom:15px;}
-.program a{
-display:inline-block;
-background:var(--primary);
-color:#fff;
-padding:10px 20px;
-border-radius:25px;
-text-decoration:none;
-font-weight:600;
+
+.section h2{
+font-size:36px;
+margin-bottom:50px;
+}
+
+.program-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:35px;
+max-width:1100px;
+margin:auto;
+}
+
+.program{
+background:#fff;
+padding:25px;
+border-radius:15px;
+box-shadow:0 5px 20px rgba(0,0,0,0.05);
+transition:.3s;
+}
+
+.program:hover{
+transform:translateY(-8px);
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+.program img{
+width:100%;
+border-radius:12px;
+}
+
+.program h3{
+color:var(--primary);
+margin:18px 0 10px;
+}
+
+.program p{
+font-size:15px;
+margin-bottom:20px;
+}
+
+/* AUTORIDAD */
+.autoridad{
+background:#ffffff;
+padding:80px 20px;
+text-align:center;
+max-width:900px;
+margin:auto;
+}
+
+.autoridad p{
+font-size:18px;
+line-height:1.6;
 }
 
 /* CTA */
 .cta{
 background:var(--primary);
 color:#fff;
-padding:60px 20px;
 text-align:center;
+padding:90px 20px;
 }
-.cta h2{font-size:30px;margin-bottom:25px;}
-.cta a{background:#fff;color:var(--primary);padding:12px 28px;border-radius:30px;text-decoration:none;font-weight:600;}
+
+.cta h2{
+font-size:34px;
+margin-bottom:25px;
+}
 
 /* FOOTER */
 footer{
-background:#f5f5f5;
-padding:40px 20px;
+background:#f1f1f1;
+padding:60px 20px;
 }
+
 .footer-grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-gap:30px;
+gap:40px;
 max-width:1100px;
 margin:auto;
 }
-footer h4{margin-bottom:12px;color:var(--primary);}
-footer a{display:block;text-decoration:none;color:#555;font-size:14px;}
+
+footer h4{
+margin-bottom:15px;
+color:var(--primary);
+}
+
+footer a{
+display:block;
+text-decoration:none;
+color:#555;
+margin-bottom:8px;
+font-size:14px;
+}
+
 footer a:hover{color:var(--primary);}
-.footer-bottom{text-align:center;margin-top:30px;font-size:14px;color:#777;}
+
+.footer-bottom{
+text-align:center;
+margin-top:40px;
+font-size:14px;
+color:#777;
+}
+
+/* WHATSAPP */
+.whatsapp{
+position:fixed;
+bottom:25px;
+right:25px;
+background:#25D366;
+width:60px;
+height:60px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+color:#fff;
+font-size:28px;
+text-decoration:none;
+box-shadow:0 4px 15px rgba(0,0,0,0.2);
+}
 </style>
 </head>
+
 <body>
+
+<div class="topbar">
+Matrículas 2026 abiertas · Solicita información hoy
+</div>
 
 <div class="navbar">
 <div class="logo">
@@ -142,59 +286,89 @@ footer a:hover{color:var(--primary);}
 </div>
 <div class="nav-links">
 <a href="index.html">Inicio</a>
-<a href="empresarial.html">Formación Empresarial</a>
-<a href="tecnologia.html">Formación Tecnológica</a>
-<a href="artistico.html">Talento Artístico</a>
-<a href="#" class="btn-primary">Solicitar Info</a>
+<a href="index.html#escuelas">Escuelas</a>
+<a href="#">Nosotros</a>
+<a href="#">Contacto</a>
 </div>
 </div>
 
 <section class="hero">
-<div>
-<h1>Talento Artístico & Creativo</h1>
-<p>Transforma tu pasión en una carrera profesional en el mundo del arte y la creatividad</p>
+<div class="hero-content">
+<h1>Escuela de Formación Artística</h1>
+<p>Transforma tu pasión en una carrera profesional en el mundo del arte y la creatividad.</p>
+<a href="#programas" class="btn-primary">Ver Programas</a>
+<a href="formulario-inscripcion.html" class="btn-secondary">Inscribirme ahora</a>
 </div>
 </section>
 
-<section class="section">
-<h2>Programas Destacados</h2>
+<section class="valor">
+<h2>¿Por qué estudiar en nuestra Escuela Artística?</h2>
+<div class="valor-grid">
+<div class="valor-item">
+<h3>Formación escénica integral</h3>
+<p>Desarrolla técnica, expresión corporal y proyección profesional.</p>
+</div>
+<div class="valor-item">
+<h3>Enfoque práctico</h3>
+<p>Clases dinámicas con presentaciones y proyectos reales.</p>
+</div>
+<div class="valor-item">
+<h3>Docentes del medio artístico</h3>
+<p>Profesionales activos en el sector creativo.</p>
+</div>
+<div class="valor-item">
+<h3>Certificación privada</h3>
+<p>Respaldado por EMAGES GROUP.</p>
+</div>
+</div>
+</section>
+
+<section id="programas" class="section">
+<h2>Programas Más Solicitados</h2>
 <div class="program-grid">
 
 <div class="program">
-<img src="assets/canto.jpg" alt="Canto y Voz">
+<img src="assets/canto.jpg">
 <h3>Canto y Voz</h3>
 <p>Aprende técnicas de interpretación vocal y expresión artística.</p>
-<a href="https://wa.me/51930175586?text=Quiero%20información%20del%20curso%20Canto%20y%20Voz">Quiero información</a>
+<a href="https://wa.me/51930175586?text=Quiero%20información%20del%20curso%20Canto%20y%20Voz" class="btn-primary">Quiero información</a>
 </div>
 
 <div class="program">
-<img src="assets/baile.jpg" alt="Baile y Danza">
+<img src="assets/baile.jpg">
 <h3>Baile y Danza</h3>
 <p>Desarrolla habilidades en distintas técnicas de danza y movimiento escénico.</p>
-<a href="https://wa.me/51930175586?text=Quiero%20información%20del%20curso%20Baile%20y%20Danza">Quiero información</a>
+<a href="https://wa.me/51930175586?text=Quiero%20información%20del%20curso%20Baile%20y%20Danza" class="btn-primary">Quiero información</a>
 </div>
 
 <div class="program">
-<img src="assets/actuacion.jpg" alt="Actuación y Teatro">
+<img src="assets/actuacion.jpg">
 <h3>Actuación y Teatro</h3>
 <p>Explora la actuación, improvisación y expresión corporal en escenarios profesionales.</p>
-<a href="https://wa.me/51930175586?text=Quiero%20información%20del%20curso%20Actuación%20y%20Teatro">Quiero información</a>
+<a href="https://wa.me/51930175586?text=Quiero%20información%20del%20curso%20Actuación%20y%20Teatro" class="btn-primary">Quiero información</a>
 </div>
 
 <div class="program">
-<img src="assets/modelaje.jpg" alt="Modelaje y Pasarela">
+<img src="assets/modelaje.jpg">
 <h3>Modelaje y Pasarela</h3>
 <p>Aprende técnicas de modelaje, presencia escénica y proyección profesional.</p>
-<a href="https://wa.me/51930175586?text=Quiero%20información%20del%20curso%20Modelaje%20y%20Pasarela">Quiero información</a>
+<a href="https://wa.me/51930175586?text=Quiero%20información%20del%20curso%20Modelaje%20y%20Pasarela" class="btn-primary">Quiero información</a>
 </div>
 
 </div>
 </section>
 
+<section class="autoridad">
+<p>
+EMAGES Academy forma parte de EMAGES GROUP, organización dedicada al desarrollo empresarial,
+formación profesional y soluciones estratégicas.
+</p>
+</section>
+
 <section class="cta">
-<h2>¿Tienes un proyecto artístico?</h2>
-<p>Además de aprender, puedes contratar servicios de EMAGES GROUP para impulsar proyectos creativos o eventos.</p>
-<a href="https://wa.me/51930175586?text=Quiero%20información%20sobre%20servicios%20artísticos">Quiero asesoría artística</a>
+<h2>Asegura tu vacante 2026</h2>
+<a href="formulario-inscripcion.html" class="btn-secondary">Inscribirme ahora</a>
+<a href="https://wa.me/51930175586?text=Quiero%20información%20sobre%20la%20Escuela%20Artística" class="btn-primary">Solicitar información</a>
 </section>
 
 <footer>
@@ -224,10 +398,13 @@ footer a:hover{color:var(--primary);}
 <a href="#">WhatsApp</a>
 </div>
 </div>
+
 <div class="footer-bottom">
 © 2026 EMAGES GROUP – Todos los derechos reservados
 </div>
 </footer>
+
+<a href="https://wa.me/51930175586" class="whatsapp" target="_blank">💬</a>
 
 </body>
 </html>
