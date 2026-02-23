@@ -210,7 +210,7 @@ text-decoration:none;
 font-weight:600;
 }
 
-/* FOOTER */
+/* Footer */
 footer{
 background:#f1f1f1;
 padding:60px 20px;
@@ -265,6 +265,23 @@ font-size:28px;
 text-decoration:none;
 box-shadow:0 4px 15px rgba(0,0,0,0.2);
 }
+
+/* Responsive Improvements */
+@media (max-width:768px){
+  .navbar{padding:0 20px;}
+  .hero h1{font-size:36px;}
+  .hero p{font-size:18px;}
+  .school-section{height:auto;padding:40px 20px;}
+  .school-content h2{font-size:28px;}
+  .school-content p{font-size:16px;margin-bottom:20px;}
+  .school-btn{padding:10px 20px;font-size:14px;}
+  .why{padding:50px 15px;}
+  .why h2{font-size:28px;margin-bottom:30px;}
+  .why-item{padding:25px;}
+  .cta{padding:50px 15px;}
+  .cta h2{font-size:24px;margin-bottom:20px;}
+  .cta a{padding:10px 20px;font-size:16px;}
+}
 </style>
 </head>
 
@@ -283,7 +300,7 @@ Matrículas 2026 abiertas · Solicita información hoy
 <a href="#escuelas">Escuelas</a>
 <a href="#">Nosotros</a>
 <a href="#">Contacto</a>
-<a href="#" class="btn-primary">Solicitar información</a>
+<!-- Botón eliminado para evitar confusión -->
 </div>
 </div>
 
@@ -291,18 +308,17 @@ Matrículas 2026 abiertas · Solicita información hoy
 <div class="hero-content">
 <h1>EMAGES Academy</h1>
 <p>Formación que transforma tu futuro profesional</p>
-<a href="#escuelas" class="btn-primary">Explorar Escuelas</a>
+<a href="#escuelas" class="btn-primary">Explorar Escuelas</a> <!-- Botón principal -->
 </div>
 </section>
 
-<!-- PREMIUM ESCUELAS -->
 <section id="escuelas">
 
 <div class="school-section" style="background:url('assets/empresarial.jpg') center/cover;">
 <div class="school-content">
 <h2>Formación Empresarial</h2>
 <p>Desarrolla habilidades en gestión, finanzas, marketing y liderazgo estratégico.</p>
-<a href="empresarial.html" class="school-btn">Ver Escuela</a>
+<a href="empresarial.html" class="school-btn">Ver Escuela</a> <!-- Botón por escuela -->
 </div>
 </div>
 
@@ -356,7 +372,7 @@ Matrículas 2026 abiertas · Solicita información hoy
 
 <section class="cta">
 <h2>Da el siguiente paso en tu formación profesional</h2>
-<a href="#">Inscríbete ahora</a>
+<a href="#">Inscríbete ahora</a> <!-- Acción principal -->
 </section>
 
 <footer>
@@ -397,7 +413,6 @@ Matrículas 2026 abiertas · Solicita información hoy
 </div>
 </footer>
 
-<a href="https://wa.me/51930175586" class="whatsapp" target="_blank">💬</a>
-
+<a href="https://wa.me/51930175586" class="whatsapp" target="_blank">💬</a> <!-- Soporte directo -->
 </body>
 </html>
