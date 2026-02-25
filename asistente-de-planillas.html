@@ -88,64 +88,56 @@ border-radius:30px;
 text-decoration:none;
 font-weight:600;
 display:inline-block;
+transition:0.3s;
 }
 
 .btn-primary:hover{background:#e36f00;}
 
 /* SECTION */
 .section{
-padding:90px 20px;
+padding:100px 20px;
 text-align:center;
-max-width:1000px;
+max-width:1100px;
 margin:auto;
 }
 
 .section h2{
 font-size:34px;
-margin-bottom:40px;
+margin-bottom:50px;
 color:var(--primary);
 }
 
 .grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
 gap:30px;
 }
 
 .card{
 background:#fff;
-padding:25px;
-border-radius:12px;
-box-shadow:0 5px 20px rgba(0,0,0,0.05);
+padding:30px;
+border-radius:15px;
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
 text-align:left;
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-8px);
 }
 
 .card h3{
-margin-bottom:10px;
+margin-bottom:15px;
 color:var(--primary);
 }
 
-/* CTA FINAL */
-.cta{
-background:var(--primary);
-color:#fff;
-text-align:center;
-padding:80px 20px;
+.card ul{
+padding-left:18px;
+line-height:1.8;
 }
 
-.cta h2{
-font-size:32px;
-margin-bottom:20px;
-}
-
-.btn-light{
-background:#fff;
-color:var(--primary);
-padding:14px 30px;
-border-radius:30px;
-text-decoration:none;
-font-weight:600;
-display:inline-block;
+.card p{
+line-height:1.6;
 }
 
 /* WHATSAPP FLOAT */
@@ -164,6 +156,15 @@ color:#fff;
 font-size:28px;
 text-decoration:none;
 box-shadow:0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* FOOTER */
+footer{
+background:#111;
+color:#fff;
+text-align:center;
+padding:25px;
+margin-top:60px;
 }
 </style>
 </head>
@@ -184,13 +185,20 @@ box-shadow:0 4px 15px rgba(0,0,0,0.2);
 <div class="hero-content">
 <h1>Asistente Administrativo Empresarial</h1>
 <p>Formación práctica para trabajar en oficinas, empresas y organizaciones.</p>
-<a href="https://wa.me/51904466622?text=Hola,%20quiero%20información%20del%20curso%20de%20Asistente%20Administrativo%20Empresarial" class="btn-primary">Hablar con un asesor</a>
+<a href="https://wa.me/51904466622?text=Hola,%20quiero%20información%20del%20curso%20de%20Asistente%20Administrativo%20Empresarial" class="btn-primary">
+Hablar con un asesor
+</a>
 </div>
 </section>
 
-<section>
+<section class="section">
+
+<h2>Detalles del Programa</h2>
+
+<div class="grid">
+
 <div class="card">
-<h2>📌 Información General</h2>
+<h3>📌 Información General</h3>
 <p><strong>Duración:</strong> 3 meses</p>
 <p><strong>Frecuencia:</strong> 2 veces por semana</p>
 <p><strong>Carga Horaria:</strong> 120 horas académicas</p>
@@ -199,27 +207,33 @@ box-shadow:0 4px 15px rgba(0,0,0,0.2);
 </div>
 
 <div class="card">
-<h2>📚 Módulos del Programa</h2>
+<h3>📚 Módulos del Programa</h3>
 <ul>
-<li>Módulo 1: Fundamentos laborales y tipos de contrato</li>
-<li>Módulo 2: Cálculo de remuneraciones y beneficios sociales</li>
-<li>Módulo 3: Planillas electrónicas y T-Registro</li>
-<li>Módulo 4: AFP, ONP, ESSALUD y retenciones</li>
-<li>Módulo 5: Liquidaciones, CTS y gratificaciones</li>
-<li>Módulo 6: Proyecto práctico integral de planillas</li>
+<li>Módulo 1: Fundamentos de administración</li>
+<li>Módulo 2: Gestión documental y archivo</li>
+<li>Módulo 3: Atención al cliente y comunicación empresarial</li>
+<li>Módulo 4: Ofimática aplicada (Word y Excel)</li>
+<li>Módulo 5: Procesos administrativos internos</li>
+<li>Módulo 6: Proyecto práctico empresarial</li>
 </ul>
 </div>
 
 <div class="card">
-<h2>🎯 Perfil del Egresado</h2>
-<p>Al finalizar el programa podrás elaborar planillas, calcular beneficios sociales, registrar trabajadores y apoyar en el área de recursos humanos de cualquier empresa.</p>
+<h3>🎯 Perfil del Egresado</h3>
+<p>Al finalizar el programa podrás desempeñarte como asistente administrativo en empresas públicas o privadas, gestionando documentación, apoyando procesos internos y aplicando herramientas digitales de oficina.</p>
 </div>
 
-<a class="btn" href="https://wa.me/51999999999" target="_blank">
+</div>
+
+<div style="margin-top:60px;">
+<a href="https://wa.me/51904466622?text=Hola,%20quiero%20información%20del%20curso%20de%20Asistente%20Administrativo%20Empresarial" class="btn-primary">
 Solicitar Información por WhatsApp
 </a>
+</div>
 
 </section>
+
+<a class="whatsapp" href="https://wa.me/51904466622" target="_blank">💬</a>
 
 <footer>
 EMAGES Academy © 2026
