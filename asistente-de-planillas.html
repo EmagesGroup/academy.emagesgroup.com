@@ -3,64 +3,94 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Asistente de Planillas | EMAGES Academy</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<title>Asistente Administrativo Empresarial | EMAGES Academy</title>
+<link rel="icon" type="image/png" href="assets/favicon.png">
+
 <style>
-body{
-    font-family:'Poppins',sans-serif;
-    margin:0;
-    background:#f4f6f9;
-    color:#333;
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#fff;color:#333;}
+:root{
+--primary:#F57C00;
+--secondary:#FFB74D;
+--gray:#F8F9FA;
+--text:#333;
 }
-header{
-    background:linear-gradient(135deg,#1e3c72,#2a5298);
-    color:#fff;
-    padding:60px 20px;
-    text-align:center;
-}
-section{
-    padding:40px 20px;
-    max-width:1000px;
-    margin:auto;
-}
-h2{
-    color:#1e3c72;
-}
-.card{
-    background:#fff;
-    padding:25px;
-    border-radius:10px;
-    box-shadow:0 4px 10px rgba(0,0,0,0.08);
-    margin-bottom:25px;
-}
-ul{
-    line-height:1.8;
-}
-.btn{
-    display:inline-block;
-    background:#25D366;
-    color:#fff;
-    padding:15px 25px;
-    border-radius:8px;
-    text-decoration:none;
-    font-weight:600;
-    margin-top:20px;
-}
-footer{
-    text-align:center;
-    padding:20px;
-    background:#1e3c72;
-    color:#fff;
-}
-</style>
-</head>
 
-<body>
+/* NAVBAR */
+.navbar{
+position:fixed;
+top:0;
+width:100%;
+height:75px;
+background:#fff;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 60px;
+box-shadow:0 2px 10px rgba(0,0,0,0.05);
+z-index:1000;
+}
 
-<header>
-    <h1>Asistente de Planillas</h1>
-    <p>Especialízate en gestión de nóminas, cálculo laboral y normativa vigente.</p>
-</header>
+.logo img{height:50px;}
+
+.nav-links a{
+text-decoration:none;
+color:var(--text);
+margin-left:30px;
+font-weight:500;
+}
+
+.nav-links a:hover{color:var(--primary);}
+
+/* HERO */
+.hero{
+margin-top:75px;
+height:80vh;
+background:url('assets/asistente-administrativo.jpg') center/cover no-repeat;
+display:flex;
+align-items:center;
+justify-content:center;
+position:relative;
+color:#fff;
+text-align:center;
+padding:20px;
+}
+
+.hero::after{
+content:"";
+position:absolute;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.55);
+}
+
+.hero-content{
+position:relative;
+z-index:2;
+max-width:800px;
+}
+
+.hero h1{
+font-size:48px;
+margin-bottom:20px;
+}
+
+.hero p{
+font-size:20px;
+margin-bottom:30px;
+}
+
+.btn-primary{
+background:var(--primary);
+color:#fff;
+padding:14px 30px;
+border-radius:30px;
+text-decoration:none;
+font-weight:600;
+display:inline-block;
+}
+
+.btn-primary:hover{background:#e36f00;}
 
 <section>
 <div class="card">
