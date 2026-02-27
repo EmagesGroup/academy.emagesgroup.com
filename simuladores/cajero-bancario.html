@@ -13,6 +13,7 @@
             --success: #11998e;
             --danger: #eb3349;
             --warning: #ffc107;
+            --info: #4facfe;
         }
 
         * {
@@ -25,39 +26,39 @@
         body {
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             min-height: 100vh;
-            padding: 20px;
+            padding: 15px;
             color: #333;
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1300px;
             margin: 0 auto;
             background: white;
-            border-radius: 20px;
+            border-radius: 15px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.4);
             overflow: hidden;
         }
 
         .header {
             background: linear-gradient(135deg, #d4af37 0%, #f4e4bc 100%);
-            padding: 25px 40px;
+            padding: 15px 25px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 20px;
-            border-bottom: 4px solid var(--primary);
+            gap: 15px;
+            border-bottom: 3px solid var(--primary);
         }
 
         .header-left {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 15px;
         }
 
         .logo-eg {
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             background: var(--primary);
             border-radius: 50%;
             display: flex;
@@ -65,36 +66,37 @@
             justify-content: center;
             color: var(--gold);
             font-weight: bold;
-            font-size: 24px;
+            font-size: 20px;
             flex-shrink: 0;
         }
 
         .header-title h1 {
-            font-size: 24px;
+            font-size: 20px;
             color: var(--primary);
-            margin-bottom: 5px;
+            margin-bottom: 3px;
         }
 
         .header-title p {
-            font-size: 13px;
+            font-size: 11px;
             color: var(--primary);
             opacity: 0.8;
         }
 
         .controls {
             display: flex;
-            gap: 15px;
+            gap: 10px;
             align-items: center;
         }
 
-        .region-selector, .lang-btn {
-            padding: 10px 15px;
+        .currency-selector, .lang-btn {
+            padding: 8px 12px;
             border: 2px solid var(--primary);
-            border-radius: 8px;
+            border-radius: 6px;
             background: white;
             color: var(--primary);
             font-weight: 600;
             cursor: pointer;
+            font-size: 12px;
             transition: all 0.3s;
         }
 
@@ -105,24 +107,18 @@
 
         .main-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-columns: 1fr 1fr;
             gap: 0;
         }
 
-        @media (max-width: 1200px) {
-            .main-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
             .main-grid {
                 grid-template-columns: 1fr;
             }
         }
 
         .panel {
-            padding: 25px;
+            padding: 20px;
             border-right: 1px solid #e0e0e0;
             border-bottom: 1px solid #e0e0e0;
             background: #fff;
@@ -133,28 +129,28 @@
         }
 
         .panel-title {
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 700;
             color: var(--primary);
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 3px solid var(--gold);
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--gold);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
         .student-card {
             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-left: 4px solid var(--gold);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 3px solid var(--gold);
         }
 
         .student-card p {
-            font-size: 13px;
-            margin: 8px 0;
+            font-size: 11px;
+            margin: 5px 0;
             color: #555;
         }
 
@@ -165,76 +161,74 @@
         .balance-display {
             background: var(--primary);
             color: var(--gold);
-            padding: 20px;
-            border-radius: 12px;
+            padding: 15px;
+            border-radius: 10px;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
         .balance-display h3 {
-            font-size: 13px;
+            font-size: 11px;
             opacity: 0.8;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             text-transform: uppercase;
         }
 
         .balance-display .amount {
-            font-size: 32px;
+            font-size: 28px;
             font-weight: 700;
         }
 
         .balance-display .zero-warning {
-            font-size: 11px;
+            font-size: 10px;
             color: var(--warning);
-            margin-top: 8px;
+            margin-top: 5px;
         }
 
-        .operation-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin-bottom: 20px;
+        /* Operation Selector */
+        .operation-selector {
+            margin-bottom: 15px;
         }
 
-        .op-btn {
-            padding: 15px 10px;
+        .operation-selector label {
+            display: block;
+            font-size: 11px;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        .operation-select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 13px;
+            background: white;
+            cursor: pointer;
+        }
+
+        .operation-select:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .selected-operation-btn {
+            width: 100%;
+            padding: 15px;
             border: none;
             border-radius: 10px;
-            font-size: 12px;
-            font-weight: 600;
+            font-size: 14px;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.3s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
+            display: none;
+            margin-bottom: 15px;
             color: white;
         }
 
-        .op-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .op-btn.deposit { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
-        .op-btn.withdraw { background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%); }
-        .op-btn.transfer { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-        .op-btn.payment { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
-        .op-btn.check { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); color: var(--primary); }
-        .op-btn.admin { background: linear-gradient(135deg, #333 0%, #555 100%); }
-        .op-btn.report { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-
-        .input-section {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 12px;
-            border: 1px solid #e0e0e0;
-            display: none;
-            margin-bottom: 20px;
-        }
-
-        .input-section.active {
+        .selected-operation-btn.visible {
             display: block;
             animation: fadeIn 0.3s;
         }
@@ -244,24 +238,46 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .input-group {
+        .op-deposit { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
+        .op-withdraw { background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%); }
+        .op-transfer { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .op-payment { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .op-check { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); color: var(--primary); }
+        .op-admin { background: linear-gradient(135deg, #333 0%, #555 100%); }
+        .op-report { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+
+        /* Input Section */
+        .input-section {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #e0e0e0;
+            display: none;
             margin-bottom: 15px;
+        }
+
+        .input-section.active {
+            display: block;
+        }
+
+        .input-group {
+            margin-bottom: 12px;
         }
 
         .input-group label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
             font-weight: 600;
             color: #555;
-            font-size: 12px;
+            font-size: 11px;
         }
 
         .input-group input, .input-group select {
             width: 100%;
-            padding: 12px;
+            padding: 10px;
             border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 13px;
+            border-radius: 6px;
+            font-size: 12px;
             transition: border-color 0.3s;
             font-family: 'Courier New', monospace;
         }
@@ -271,19 +287,21 @@
             border-color: var(--gold);
         }
 
-        /* Denomination Input Grid */
+        /* Denomination Grid with +/- Buttons */
         .denomination-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            margin: 15px 0;
-            padding: 15px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin: 12px 0;
+            padding: 12px;
             background: white;
             border-radius: 8px;
             border: 1px solid #e0e0e0;
+            max-height: 250px;
+            overflow-y: auto;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 600px) {
             .denomination-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -291,7 +309,7 @@
 
         .denomination-item {
             background: #f8f9fa;
-            padding: 10px;
+            padding: 8px;
             border-radius: 6px;
             text-align: center;
             border: 1px solid #e0e0e0;
@@ -299,23 +317,52 @@
 
         .denomination-item label {
             display: block;
-            font-size: 11px;
+            font-size: 10px;
             color: #888;
             margin-bottom: 5px;
-        }
-
-        .denomination-item input {
-            width: 100%;
-            padding: 8px;
-            border: 2px solid #e0e0e0;
-            border-radius: 4px;
-            text-align: center;
-            font-size: 14px;
             font-weight: 600;
         }
 
-        .denomination-item input:focus {
-            border-color: var(--gold);
+        .denomination-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .denom-btn {
+            width: 28px;
+            height: 28px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .denom-btn.minus {
+            background: var(--danger);
+            color: white;
+        }
+
+        .denom-btn.plus {
+            background: var(--success);
+            color: white;
+        }
+
+        .denom-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .denom-input {
+            width: 50px;
+            text-align: center;
+            padding: 5px;
+            border: 2px solid #e0e0e0;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 600;
         }
 
         .denomination-total {
@@ -326,6 +373,7 @@
             color: var(--gold);
             border-radius: 6px;
             font-weight: 700;
+            font-size: 12px;
         }
 
         .denomination-total.match {
@@ -340,8 +388,8 @@
 
         .action-buttons {
             display: flex;
-            gap: 10px;
-            margin-top: 15px;
+            gap: 8px;
+            margin-top: 12px;
         }
 
         .btn-confirm {
@@ -350,10 +398,11 @@
             background: var(--gold);
             color: var(--primary);
             border: none;
-            border-radius: 8px;
+            border-radius: 6px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
+            font-size: 12px;
         }
 
         .btn-confirm:hover {
@@ -371,10 +420,11 @@
             background: #e0e0e0;
             color: #555;
             border: none;
-            border-radius: 8px;
+            border-radius: 6px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
+            font-size: 12px;
         }
 
         .btn-cancel:hover {
@@ -385,16 +435,16 @@
         .statement-container {
             background: white;
             border: 1px solid #e0e0e0;
-            border-radius: 12px;
-            max-height: 400px;
+            border-radius: 10px;
+            max-height: 300px;
             overflow-y: auto;
         }
 
         .statement-header {
             background: var(--primary);
             color: var(--gold);
-            padding: 15px;
-            font-size: 13px;
+            padding: 10px;
+            font-size: 11px;
             font-weight: 600;
             position: sticky;
             top: 0;
@@ -402,11 +452,11 @@
 
         .transaction-item {
             display: grid;
-            grid-template-columns: 80px 1fr 100px;
-            gap: 10px;
-            padding: 12px 15px;
+            grid-template-columns: 60px 1fr 80px;
+            gap: 8px;
+            padding: 10px;
             border-bottom: 1px solid #f0f0f0;
-            font-size: 12px;
+            font-size: 11px;
             align-items: center;
         }
 
@@ -423,79 +473,36 @@
         .transaction-amount.positive { color: var(--success); }
         .transaction-amount.negative { color: var(--danger); }
 
-        /* Reports Section */
-        .reports-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        .report-btn {
-            padding: 12px;
-            background: white;
-            border: 2px solid var(--primary);
-            border-radius: 8px;
-            color: var(--primary);
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 11px;
-        }
-
-        .report-btn:hover {
-            background: var(--primary);
-            color: var(--gold);
-        }
-
-        .report-display {
-            margin-top: 15px;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 8px;
-            border: 1px solid #e0e0e0;
-            font-size: 11px;
-            font-family: 'Courier New', monospace;
-            white-space: pre-wrap;
-            max-height: 200px;
-            overflow-y: auto;
-            display: none;
-        }
-
-        .report-display.active {
-            display: block;
-        }
-
         /* Evaluation */
         .evaluation-panel {
             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border-radius: 12px;
-            padding: 20px;
-            margin-top: 20px;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
             border: 2px solid #e0e0e0;
         }
 
         .score-circle {
-            width: 80px;
-            height: 80px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             background: var(--gold);
             color: var(--primary);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
+            font-size: 18px;
             font-weight: 700;
-            margin: 0 auto 15px;
+            margin: 0 auto 10px;
         }
 
         /* AML Alert */
         .aml-alert {
             background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
             color: white;
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
             display: none;
             animation: pulse 2s infinite;
         }
@@ -510,11 +517,11 @@
         }
 
         .aml-alert h4 {
-            font-size: 14px;
-            margin-bottom: 10px;
+            font-size: 12px;
+            margin-bottom: 8px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
         .aml-alert input {
@@ -523,15 +530,15 @@
             margin: 5px 0;
             border: none;
             border-radius: 4px;
-            font-size: 12px;
+            font-size: 11px;
         }
 
         .footer {
             background: var(--primary);
             color: #888;
-            padding: 20px 40px;
+            padding: 15px 25px;
             text-align: center;
-            font-size: 11px;
+            font-size: 10px;
         }
 
         .footer strong {
@@ -540,16 +547,17 @@
 
         .notification {
             position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 15px 25px;
+            top: 15px;
+            right: 15px;
+            padding: 12px 20px;
             background: var(--success);
             color: white;
-            border-radius: 8px;
+            border-radius: 6px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
             transform: translateX(400px);
             transition: transform 0.3s;
             z-index: 1000;
+            font-size: 12px;
         }
 
         .notification.show {
@@ -567,19 +575,16 @@
 
         .download-btn {
             width: 100%;
-            padding: 15px;
+            padding: 12px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 6px;
             font-weight: 600;
             cursor: pointer;
-            margin-top: 15px;
+            margin-top: 10px;
             transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
+            font-size: 11px;
         }
 
         .download-btn:hover {
@@ -587,44 +592,13 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
-        .manual-btn {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: all 0.3s;
-        }
-
-        .manual-btn:hover {
-            transform: translateY(-2px);
-        }
-
-        .code-reference {
-            font-size: 10px;
-            line-height: 1.6;
-            background: #fff;
-            padding: 10px;
-            border-radius: 8px;
-            border: 1px solid #e0e0e0;
-            max-height: 250px;
-            overflow-y: auto;
-        }
-
-        .code-reference strong {
-            color: var(--primary);
-        }
-
         .close-status {
-            padding: 10px;
-            border-radius: 8px;
+            padding: 8px;
+            border-radius: 6px;
             text-align: center;
             font-weight: 600;
-            margin-top: 15px;
+            margin-top: 10px;
+            font-size: 11px;
         }
 
         .close-status.open {
@@ -635,6 +609,56 @@
         .close-status.closed {
             background: #f8d7da;
             color: #721c24;
+        }
+
+        .account-type-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 9px;
+            font-weight: 600;
+            margin-left: 5px;
+        }
+
+        .badge-savings {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .badge-checking {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .report-display {
+            margin-top: 10px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border: 1px solid #e0e0e0;
+            font-size: 10px;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            max-height: 150px;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .report-display.active {
+            display: block;
+        }
+
+        .check-info {
+            background: #fff3cd;
+            border: 1px dashed #856404;
+            padding: 10px;
+            border-radius: 6px;
+            margin: 10px 0;
+            font-size: 11px;
+        }
+
+        .check-info strong {
+            color: #856404;
         }
     </style>
 </head>
@@ -649,10 +673,10 @@
                 </div>
             </div>
             <div class="controls">
-                <select class="region-selector" id="regionSelector" onchange="changeRegion()">
-                    <option value="pe">🇵🇪 Perú (Soles)</option>
-                    <option value="af">🌍 África (Dólares)</option>
-                    <option value="eu">🇪🇺 Europa (Euros)</option>
+                <select class="currency-selector" id="currencySelector" onchange="changeCurrency()">
+                    <option value="pen">🇵🇪 Soles (PEN)</option>
+                    <option value="usd">🇺🇸 Dólares (USD)</option>
+                    <option value="eur">🇪🇺 Euros (EUR)</option>
                 </select>
                 <button class="lang-btn active" onclick="changeLanguage('es')">ES</button>
                 <button class="lang-btn" onclick="changeLanguage('en')">EN</button>
@@ -669,77 +693,95 @@
                 </div>
 
                 <div class="student-card">
-                    <p><strong data-lang="student_id">ID Estudiante:</strong> <span id="studentId">EMG-2026-001</span></p>
+                    <p><strong data-lang="student_id">ID:</strong> <span id="studentId">EMG-2026-001</span></p>
                     <p><strong data-lang="session_time">Tiempo:</strong> <span id="sessionTime">00:00</span></p>
-                    <p><strong data-lang="region">Región:</strong> <span id="currentRegion">Perú</span></p>
+                    <p><strong data-lang="currency">Moneda:</strong> <span id="currentCurrency">Soles (PEN)</span></p>
                     <p><strong data-lang="status">Estado:</strong> <span id="boxStatus" style="color: var(--success);">● ABIERTA</span></p>
                 </div>
 
                 <div class="balance-display">
                     <h3 data-lang="available_balance">Saldo en Caja</h3>
                     <div class="amount"><span id="currencySymbol">S/</span> <span id="balance">0.00</span></div>
-                    <div class="zero-warning" data-lang="zero_start_warning">⚠️ La caja inicia en CERO - Realice Provisión Inicial (1010)</div>
+                    <div class="zero-warning" data-lang="zero_start_warning">⚠️ Caja inicia en CERO - Provisión Inicial (1010)</div>
                 </div>
 
-                <div class="operation-grid">
-                    <button class="op-btn admin" onclick="showOperation('1010')">
-                        <span>💰</span>
-                        <span>1010 - Provisión</span>
-                    </button>
-                    <button class="op-btn deposit" onclick="showOperation('0730')">
-                        <span>📥</span>
-                        <span>0730 - Depósito</span>
-                    </button>
-                    <button class="op-btn withdraw" onclick="showOperation('0600')">
-                        <span>📤</span>
-                        <span>0600 - Retiro</span>
-                    </button>
-                    <button class="op-btn transfer" onclick="showOperation('0740')">
-                        <span>🔄</span>
-                        <span>0740 - Transferencia</span>
-                    </button>
-                    <button class="op-btn payment" onclick="showOperation('6500')">
-                        <span>📄</span>
-                        <span>6500 - Pago Servicios</span>
-                    </button>
-                    <button class="op-btn check" onclick="showOperation('0750')">
-                        <span>✓</span>
-                        <span>0750 - Cheque Local</span>
-                    </button>
-                    <button class="op-btn admin" onclick="showOperation('1014')">
-                        <span>📉</span>
-                        <span>1014 - Disminución</span>
-                    </button>
-                    <button class="op-btn admin" onclick="showOperation('4008')">
-                        <span>🏦</span>
-                        <span>4008 - A Bóveda</span>
-                    </button>
-                    <button class="op-btn report" onclick="showOperation('3043')">
-                        <span>📊</span>
-                        <span>3043 - Cuadre</span>
-                    </button>
-                    <button class="op-btn report" onclick="showOperation('4000')">
-                        <span>📋</span>
-                        <span>4000 - Balance</span>
-                    </button>
-                    <button class="op-btn admin" onclick="showOperation('101')" style="grid-column: span 2;">
-                        <span>🔒</span>
-                        <span>101 - CIERRE DE CAJA</span>
-                    </button>
+                <!-- Operation Selector -->
+                <div class="operation-selector">
+                    <label data-lang="select_operation">Seleccionar Operación:</label>
+                    <select class="operation-select" id="operationSelect" onchange="onOperationSelect()">
+                        <option value="">-- Seleccione --</option>
+                        <optgroup label="APERTURA/CIERRE">
+                            <option value="1010">1010 - Provisión Inicial</option>
+                            <option value="1012">1012 - Aumento Efectivo</option>
+                            <option value="1014">1014 - Disminución Efectivo</option>
+                            <option value="101">101 - Cierre de Caja</option>
+                        </optgroup>
+                        <optgroup label="DEPÓSITOS">
+                            <option value="0730">0730 - Depósito Efectivo</option>
+                            <option value="0732">0732 - Cheque Otro Banco</option>
+                            <option value="0750">0750 - Cheque M/B Local</option>
+                        </optgroup>
+                        <optgroup label="RETIROS">
+                            <option value="0600">0600 - Retiro Ahorro</option>
+                        </optgroup>
+                        <optgroup label="TRANSFERENCIAS">
+                            <option value="0740">0740 - Transferencia</option>
+                        </optgroup>
+                        <optgroup label="SERVICIOS">
+                            <option value="6500">6500 - Pago Servicios</option>
+                        </optgroup>
+                        <optgroup label="REPORTES">
+                            <option value="3043">3043 - Cuadre Efectivo</option>
+                            <option value="4000">4000 - Balance Movimientos</option>
+                            <option value="4008">4008 - A Bóveda</option>
+                        </optgroup>
+                    </select>
                 </div>
+
+                <button class="selected-operation-btn" id="selectedOpBtn" onclick="confirmOperationSelection()">
+                    <span id="selectedOpIcon">💰</span>
+                    <span id="selectedOpText">Provisión Inicial</span>
+                </button>
 
                 <!-- Input Section -->
                 <div class="input-section" id="operationSection">
-                    <h4 id="operationTitle">Realizar Operación</h4>
+                    <h4 id="operationTitle" style="font-size: 13px; margin-bottom: 12px;">Realizar Operación</h4>
                     
-                    <div class="input-group">
+                    <div class="input-group" id="codeGroup">
                         <label data-lang="operation_code_input">Código de Operación</label>
                         <input type="text" id="opCodeInput" placeholder="Ej: 1010" maxlength="4">
                     </div>
 
                     <div class="input-group" id="accountGroup" style="display:none;">
                         <label data-lang="account_number_input">Número de Cuenta</label>
-                        <input type="text" id="opAccount" placeholder="000-0000000-00">
+                        <input type="text" id="opAccount" placeholder="000-0000000-00" onblur="validateAccountType()">
+                        <div id="accountTypeInfo" style="font-size: 10px; margin-top: 5px;"></div>
+                    </div>
+
+                    <div class="input-group" id="checkGroup" style="display:none;">
+                        <label data-lang="check_number_input">Número de Cheque</label>
+                        <input type="text" id="checkNumber" placeholder="Ej: 00000123" maxlength="8">
+                        <div class="check-info">
+                            <strong>⚠️ Importante:</strong> El número de cheque debe ser digitado correctamente. El sistema validará si está disponible en la chequera del cliente.
+                        </div>
+                    </div>
+
+                    <div class="input-group" id="serviceGroup" style="display:none;">
+                        <label data-lang="service_type">Tipo de Servicio</label>
+                        <select id="serviceType">
+                            <option value="light">Luz</option>
+                            <option value="water">Agua</option>
+                            <option value="phone">Teléfono Fijo</option>
+                            <option value="cable">Cable</option>
+                            <option value="cellphone_claro">Celular Claro</option>
+                            <option value="cellphone_entel">Celular Entel</option>
+                            <option value="cellphone_movistar">Celular Movistar</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group" id="serviceNumberGroup" style="display:none;">
+                        <label data-lang="service_number">Número de Recibo/Suministro</label>
+                        <input type="text" id="serviceNumber" placeholder="Ej: 503675">
                     </div>
 
                     <div class="input-group" id="amountGroup">
@@ -747,21 +789,21 @@
                         <input type="number" id="opAmount" placeholder="0.00" min="0.01" step="0.01" oninput="updateDenominationTotal()">
                     </div>
 
-                    <!-- Denomination Input Grid -->
+                    <!-- Denomination Grid with +/- Buttons -->
                     <div class="input-group" id="denominationGroup">
-                        <label data-lang="denomination_input">Desglose de Billetes/Monedas (Ingrese cantidad de cada uno)</label>
+                        <label data-lang="denomination_input">Desglose (use +/− para cada denominación)</label>
                         <div class="denomination-grid" id="denominationGrid">
                             <!-- Dynamic Content -->
                         </div>
                         <div class="denomination-total" id="denominationTotal">
-                            Total Desglose: <span id="breakdownSum">0.00</span> | Diferencia: <span id="breakdownDiff">0.00</span>
+                            Total: <span id="breakdownSum">0.00</span> | Dif: <span id="breakdownDiff">0.00</span>
                         </div>
                     </div>
 
                     <!-- AML Alert -->
                     <div class="aml-alert" id="amlAlert">
                         <h4>⚠️ <span data-lang="aml_title">ALERTA PREVENCIÓN DE LAVADO DE ACTIVOS</span></h4>
-                        <p data-lang="aml_message">Operación ≥ S/ 50,000. Complete los datos requeridos:</p>
+                        <p data-lang="aml_message">Operación ≥ 50,000. Complete los datos:</p>
                         <input type="text" id="amlSolicitante" placeholder="SOLICITANTE (Nombre completo)">
                         <input type="text" id="amlBeneficiario" placeholder="BENEFICIARIO (Nombre completo)">
                         <input type="text" id="amlOrdenante" placeholder="ORDENANTE (Nombre completo)">
@@ -776,37 +818,32 @@
 
                 <button class="download-btn" onclick="downloadClients()">
                     <span>📥</span>
-                    <span data-lang="download_clients">Descargar Lista de Clientes (TXT)</span>
-                </button>
-
-                <button class="manual-btn" onclick="downloadManual()">
-                    <span>📚</span>
-                    <span data-lang="download_manual">Descargar Manual del Estudiante</span>
+                    <span data-lang="download_clients">Descargar Clientes (TXT)</span>
                 </button>
 
                 <div class="close-status open" id="closeStatus">
-                    <span data-lang="box_open">CAJA ABIERTA - Pendiente de Cierre</span>
+                    <span data-lang="box_open">CAJA ABIERTA - Pendiente Cierre</span>
                 </div>
             </div>
 
-            <!-- PANEL 2: EXTRACTO -->
+            <!-- PANEL 2: EXTRACTO Y EVALUACIÓN -->
             <div class="panel">
                 <div class="panel-title">
                     <span>📋</span>
-                    <span data-lang="statement_panel">Extracto de Transacciones</span>
+                    <span data-lang="statement_panel">Extracto</span>
                 </div>
 
                 <div class="student-card">
-                    <p><strong data-lang="account_holder">Cajero:</strong> <span id="cashierName">____________________</span></p>
-                    <p><strong data-lang="account_number_full">ID Caja:</strong> <span id="boxId">CAJA-001</span></p>
-                    <p><strong data-lang="statement_date">Fecha:</strong> <span id="statementDate">--/--/----</span></p>
+                    <p><strong data-lang="cashier">Cajero:</strong> <span id="cashierName">____________________</span></p>
+                    <p><strong data-lang="box_id">ID Caja:</strong> <span id="boxId">CAJA-001</span></p>
+                    <p><strong data-lang="date">Fecha:</strong> <span id="statementDate">--/--/----</span></p>
                     <p><strong data-lang="opening_balance">Saldo Inicial:</strong> <span id="currencySymbol2">S/</span> <span id="openingBalance">0.00</span></p>
                 </div>
 
                 <div class="statement-container" id="statementContainer">
                     <div class="statement-header">
-                        <div style="display: grid; grid-template-columns: 80px 1fr 100px; gap: 10px;">
-                            <span data-lang="col_code">CÓDIGO</span>
+                        <div style="display: grid; grid-template-columns: 60px 1fr 80px; gap: 8px;">
+                            <span data-lang="col_code">CÓD</span>
                             <span data-lang="col_description">DESCRIPCIÓN</span>
                             <span data-lang="col_amount" style="text-align: right;">MONTO</span>
                         </div>
@@ -814,84 +851,41 @@
                     <div id="transactionList">
                         <div class="transaction-item" style="background: #fff3cd;">
                             <div class="transaction-code">----</div>
-                            <div class="transaction-desc" data-lang="no_transactions">Sin transacciones - Caja en cero</div>
-                            <div class="transaction-amount">S/ 0.00</div>
+                            <div class="transaction-desc" data-lang="no_transactions">Sin transacciones</div>
+                            <div class="transaction-amount">0.00</div>
                         </div>
                     </div>
                 </div>
 
                 <div class="evaluation-panel">
-                    <h4 data-lang="evaluation_title">Evaluación de Sesión</h4>
+                    <h4 data-lang="evaluation_title">Evaluación</h4>
                     <div class="score-circle" id="scoreCircle">0%</div>
-                    <div style="display: flex; justify-content: space-between; font-size: 12px; margin-top: 10px;">
+                    <div style="display: flex; justify-content: space-between; font-size: 10px; margin-top: 8px;">
                         <span data-lang="accuracy">Precisión:</span>
                         <span id="accuracyScore">0/0</span>
                     </div>
-                    <div style="display: flex; justify-content: space-between; font-size: 12px; margin-top: 5px;">
+                    <div style="display: flex; justify-content: space-between; font-size: 10px; margin-top: 4px;">
                         <span data-lang="codes_correct">Códigos:</span>
                         <span id="codesScore">0/0</span>
                     </div>
-                    <div style="display: flex; justify-content: space-between; font-size: 12px; margin-top: 5px;">
+                    <div style="display: flex; justify-content: space-between; font-size: 10px; margin-top: 4px;">
                         <span data-lang="breakdowns_correct">Desgloses:</span>
                         <span id="breakdownScore">0/0</span>
                     </div>
                 </div>
-            </div>
-
-            <!-- PANEL 3: REFERENCIAS Y REPORTES -->
-            <div class="panel">
-                <div class="panel-title">
-                    <span>📚</span>
-                    <span data-lang="reference_panel">Códigos y Reportes</span>
-                </div>
-
-                <div class="code-reference">
-                    <strong data-lang="codes_opening">APERTURA/CIERRE</strong><br>
-                    1010: Provisión Inicial<br>
-                    1012: Aumento Efectivo<br>
-                    1014: Disminución Efectivo<br>
-                    101: Cierre de Caja<br>
-                    <br>
-                    <strong data-lang="codes_transactions">TRANSACCIONES</strong><br>
-                    0730: Depósito Efectivo<br>
-                    0600: Retiro Efectivo Ahorro<br>
-                    0740: Transferencia Cuentas<br>
-                    0750: Cheque M/B Local<br>
-                    0732: Cheque Otro Banco<br>
-                    6500: Pago de Servicios<br>
-                    <br>
-                    <strong data-lang="codes_reports">REPORTES</strong><br>
-                    3043: Cuadre Efectivo<br>
-                    4000: Balance Movimientos<br>
-                    4008: Transferencia a Bóveda<br>
-                </div>
-
-                <div class="student-card" style="margin-top: 20px;">
-                    <p><strong data-lang="denominations_title">Denominaciones Activas</strong></p>
-                    <div id="activeDenominations" style="font-size: 11px; margin-top: 5px;">
-                        <!-- Dynamic -->
-                    </div>
-                </div>
-
-                <div class="reports-grid">
-                    <button class="report-btn" onclick="generateReport('3043')" data-lang="report_cash">📊 Reporte 3043</button>
-                    <button class="report-btn" onclick="generateReport('4000')" data-lang="report_balance">📋 Reporte 4000</button>
-                    <button class="report-btn" onclick="generateReport('transfers')" data-lang="report_transfers">🔄 Transferencias</button>
-                    <button class="report-btn" onclick="generateReport('checks')" data-lang="report_checks">✓ Cheques</button>
-                </div>
 
                 <div class="report-display" id="reportDisplay"></div>
 
-                <button class="download-btn" onclick="downloadWorksheet()" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); margin-top: 15px;">
-                    <span>📝</span>
-                    <span data-lang="download_worksheet">Descargar Hoja de Trabajo</span>
-                </button>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px;">
+                    <button class="download-btn" onclick="generateReport('3043')" style="margin:0;" data-lang="report_cash">📊 3043</button>
+                    <button class="download-btn" onclick="generateReport('4000')" style="margin:0;" data-lang="report_balance">📋 4000</button>
+                </div>
             </div>
         </div>
 
         <div class="footer">
             <p><strong>EMAGESGROUP E.I.R.L. – RUC 20611427671</strong></p>
-            <p data-lang="footer_text">Simulador educativo con fines de capacitación. No representa operaciones bancarias reales.</p>
+            <p data-lang="footer_text">Simulador educativo. No representa operaciones bancarias reales.</p>
             <p data-lang="legal_notice">© 2026 EMAGES Academy. Todos los derechos reservados.</p>
         </div>
     </div>
@@ -913,27 +907,28 @@
             totalBreakdowns: 0,
             startTime: new Date(),
             language: 'es',
-            region: 'pe',
+            currency: 'pen',
             currentOpCode: null,
+            selectedOperation: null,
             amlAcknowledged: false,
             boxClosed: false
         };
 
-        // Configuration by Region
-        const regions = {
-            pe: {
-                name: 'Perú',
-                currency: 'S/',
+        // Currency Configuration
+        const currencies = {
+            pen: {
+                name: 'Soles (PEN)',
+                symbol: 'S/',
                 denominations: [200, 100, 50, 20, 10, 5, 2, 1, 0.5, 0.2, 0.1]
             },
-            af: {
-                name: 'África',
-                currency: '$',
+            usd: {
+                name: 'Dólares (USD)',
+                symbol: '$',
                 denominations: [100, 50, 20, 10, 5, 1]
             },
-            eu: {
-                name: 'Europa',
-                currency: '€',
+            eur: {
+                name: 'Euros (EUR)',
+                symbol: '€',
                 denominations: [500, 200, 100, 50, 20, 10, 5, 2, 1, 0.5, 0.2, 0.1]
             }
         };
@@ -955,18 +950,98 @@
             '0732': 'Cheque Otro Banco'
         };
 
-        // Clients Data
-        const clients = [
-            { id: 'A', name: 'VIGO ANDRES, VILCHEZ CACERES', dni: '76595101', accountSoles: '002-7659510-10', accountDollars: '002-7659510-11' },
-            { id: 'B', name: 'LUZ JUANA, ROMO CHAUPIS', dni: '72217737', accountSoles: '002-7221773-70', accountDollars: '002-7221773-71' },
-            { id: 'C', name: 'Paloma Damaris, MARTINEZ QUINTO', dni: '76584670', accountSoles: '002-7658467-00', accountDollars: '002-7658467-01' },
-            { id: 'D', name: 'DIANA, CARRASCO LOAYZA', dni: '48290722', accountSoles: '002-4829072-20', accountDollars: '002-4829072-21' },
-            { id: 'E', name: 'SOFIA, ARANA CHOCCELAHUA', dni: '48290723', accountSoles: '002-4829072-30', accountDollars: '002-4829072-31' },
-            { id: 'G', name: 'GLENNY, DIAZ ALAYO', dni: '75920942', accountSoles: '002-7592094-20', accountDollars: '002-7592094-21' },
-            { id: 'Z', name: 'SAORI, ARIAS GARAY', dni: '75920943', accountSoles: '002-7592094-30', accountDollars: '002-7592094-31' },
-            { id: 'F', name: 'JOSE, ATALAYA JAPA', dni: '75920944', accountSoles: '002-7592094-40', accountDollars: '002-7592094-41' },
-            { id: 'H', name: 'ESTEFANNY, PARIONA GIRON', dni: '75920945', accountSoles: '002-7592094-50', accountDollars: '002-7592094-51' }
-        ];
+        // Operation Button Styles
+        const operationStyles = {
+            '1010': 'op-admin',
+            '1012': 'op-admin',
+            '1014': 'op-admin',
+            '101': 'op-admin',
+            '0730': 'op-deposit',
+            '0732': 'op-check',
+            '0750': 'op-check',
+            '0600': 'op-withdraw',
+            '0740': 'op-transfer',
+            '6500': 'op-payment',
+            '3043': 'op-report',
+            '4000': 'op-report',
+            '4008': 'op-admin'
+        };
+
+        // Operation Icons
+        const operationIcons = {
+            '1010': '💰', '1012': '📈', '1014': '📉', '101': '🔒',
+            '0730': '📥', '0732': '🏦', '0750': '✓',
+            '0600': '📤', '0740': '🔄', '6500': '📄',
+            '3043': '📊', '4000': '📋', '4008': '🏦'
+        };
+
+        // Generated Clients (Invented Data)
+        const clients = generateClients();
+
+        function generateClients() {
+            const firstNames = ['Carlos', 'María', 'José', 'Ana', 'Luis', 'Carmen', 'Miguel', 'Rosa', 'Pedro', 'Lucía', 'Juan', 'Elena', 'David', 'Sofía', 'Antonio', 'Isabel', 'Francisco', 'Paula', 'Javier', 'Marta'];
+            const lastNames1 = ['García', 'Rodríguez', 'Martínez', 'López', 'González', 'Pérez', 'Sánchez', 'Ramírez', 'Torres', 'Flores', 'Rivera', 'Gómez', 'Díaz', 'Álvarez', 'Moreno', 'Muñoz', 'Ruiz', 'Ortega', 'Delgado', 'Castro'];
+            const lastNames2 = ['Silva', 'Rojas', 'Vega', 'Mendoza', 'Castillo', 'Jiménez', 'Reyes', 'Cruz', 'Morales', 'Ortiz', 'Gutierrez', 'Chavez', 'Ramos', 'Vasquez', 'Palacios', 'Nunez', 'Herrera', 'Medina', 'Aguilar', 'Paredes'];
+            
+            const generatedClients = [];
+            const clientIds = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'Z', 'K'];
+            
+            for (let i = 0; i < clientIds.length; i++) {
+                const fn = firstNames[Math.floor(Math.random() * firstNames.length)];
+                const ln1 = lastNames1[Math.floor(Math.random() * lastNames1.length)];
+                const ln2 = lastNames2[Math.floor(Math.random() * lastNames2.length)];
+                const dni = Math.floor(10000000 + Math.random() * 89999999).toString();
+                
+                // Generate account numbers
+                const accountSolesSavings = `002-${dni.substring(0, 7)}-10`;
+                const accountSolesChecking = `001-${dni.substring(0, 7)}-20`;
+                const accountDollarsSavings = `004-${dni.substring(0, 7)}-10`;
+                const accountDollarsChecking = `003-${dni.substring(0, 7)}-20`;
+                const accountEurosSavings = `006-${dni.substring(0, 7)}-10`;
+                const accountEurosChecking = `005-${dni.substring(0, 7)}-20`;
+                
+                // Generate available checks for checking accounts (25 checks each)
+                const checksSoles = generateCheckNumbers(25);
+                const checksDollars = generateCheckNumbers(25);
+                const checksEuros = generateCheckNumbers(25);
+                
+                generatedClients.push({
+                    id: clientIds[i],
+                    name: `${ln1} ${ln2}, ${fn}`,
+                    dni: dni,
+                    accounts: {
+                        pen: {
+                            savings: { number: accountSolesSavings, type: 'savings', balance: 5000.00, checks: null },
+                            checking: { number: accountSolesChecking, type: 'checking', balance: 10000.00, checks: checksSoles }
+                        },
+                        usd: {
+                            savings: { number: accountDollarsSavings, type: 'savings', balance: 2000.00, checks: null },
+                            checking: { number: accountDollarsChecking, type: 'checking', balance: 5000.00, checks: checksDollars }
+                        },
+                        eur: {
+                            savings: { number: accountEurosSavings, type: 'savings', balance: 3000.00, checks: null },
+                            checking: { number: accountEurosChecking, type: 'checking', balance: 4000.00, checks: checksEuros }
+                        }
+                    }
+                });
+            }
+            
+            return generatedClients;
+        }
+
+        function generateCheckNumbers(count) {
+            const startNum = Math.floor(Math.random() * 1000000);
+            const checks = [];
+            for (let i = 0; i < count; i++) {
+                checks.push({
+                    number: (startNum + i).toString().padStart(8, '0'),
+                    used: false,
+                    amount: null,
+                    date: null
+                });
+            }
+            return checks;
+        }
 
         // Translations
         const translations = {
@@ -974,174 +1049,171 @@
                 simulator_title: 'Simulador Cajero Bancario',
                 simulator_subtitle: 'EMAGES Academy | Nivel Agente Internacional',
                 operations_panel: 'Operaciones',
-                student_id: 'ID Estudiante:',
+                student_id: 'ID:',
                 session_time: 'Tiempo:',
-                region: 'Región:',
+                currency: 'Moneda:',
                 status: 'Estado:',
                 available_balance: 'Saldo en Caja',
-                zero_start_warning: '⚠️ La caja inicia en CERO - Realice Provisión Inicial (1010)',
+                zero_start_warning: '⚠️ Caja inicia en CERO - Provisión Inicial (1010)',
+                select_operation: 'Seleccionar Operación:',
                 operation_code_input: 'Código de Operación',
                 account_number_input: 'Número de Cuenta',
+                check_number_input: 'Número de Cheque',
+                service_type: 'Tipo de Servicio',
+                service_number: 'Número de Recibo',
                 amount_label: 'Monto Total',
-                denomination_input: 'Desglose de Billetes/Monedas (Ingrese cantidad de cada uno)',
+                denomination_input: 'Desglose (use +/− para cada denominación)',
                 confirm: 'Confirmar',
                 cancel: 'Cancelar',
-                statement_panel: 'Extracto de Transacciones',
-                account_holder: 'Cajero:',
-                account_number_full: 'ID Caja:',
-                statement_date: 'Fecha:',
+                statement_panel: 'Extracto',
+                cashier: 'Cajero:',
+                box_id: 'ID Caja:',
+                date: 'Fecha:',
                 opening_balance: 'Saldo Inicial:',
-                col_code: 'CÓDIGO',
+                col_code: 'CÓD',
                 col_description: 'DESCRIPCIÓN',
                 col_amount: 'MONTO',
-                no_transactions: 'Sin transacciones - Caja en cero',
-                evaluation_title: 'Evaluación de Sesión',
+                no_transactions: 'Sin transacciones',
+                evaluation_title: 'Evaluación',
                 accuracy: 'Precisión:',
                 codes_correct: 'Códigos:',
                 breakdowns_correct: 'Desgloses:',
-                reference_panel: 'Códigos y Reportes',
-                codes_opening: 'APERTURA/CIERRE',
-                codes_transactions: 'TRANSACCIONES',
-                codes_reports: 'REPORTES',
-                denominations_title: 'Denominaciones Activas',
-                download_clients: 'Descargar Lista de Clientes (TXT)',
-                download_manual: 'Descargar Manual del Estudiante',
-                download_worksheet: 'Descargar Hoja de Trabajo',
-                box_open: 'CAJA ABIERTA - Pendiente de Cierre',
+                download_clients: 'Descargar Clientes (TXT)',
+                box_open: 'CAJA ABIERTA - Pendiente Cierre',
                 box_closed: 'CAJA CERRADA - Sesión Finalizada',
-                report_cash: '📊 Reporte 3043',
-                report_balance: '📋 Reporte 4000',
-                report_transfers: '🔄 Transferencias',
-                report_checks: '✓ Cheques',
-                footer_text: 'Simulador educativo con fines de capacitación. No representa operaciones bancarias reales.',
+                report_cash: '📊 3043',
+                report_balance: '📋 4000',
+                footer_text: 'Simulador educativo. No representa operaciones bancarias reales.',
                 legal_notice: '© 2026 EMAGES Academy. Todos los derechos reservados.',
                 notification_success: 'Operación realizada exitosamente',
                 notification_error: 'Error: Datos inválidos',
-                notification_code_error: 'Error: Código de operación incorrecto',
-                notification_breakdown_error: 'Error: El desglose no cuadra con el monto',
-                notification_balance_error: 'Error: Saldo insuficiente en caja',
+                notification_code_error: 'Error: Código incorrecto',
+                notification_breakdown_error: 'Error: El desglose no cuadra',
+                notification_balance_error: 'Error: Saldo insuficiente',
                 notification_closed: 'Error: Caja ya cerrada',
                 notification_aml: 'ALERTA: Complete registro PLA',
-                notification_close_success: 'Caja cerrada exitosamente - Saldo final: 0.00',
+                notification_close_success: 'Caja cerrada - Saldo final: 0.00',
                 notification_close_error: 'Error: No puede cerrar con saldo diferente de cero',
+                notification_account_savings: '✓ Cuenta de AHORROS - No permite pagos de cheque',
+                notification_account_checking: '✓ Cuenta CORRIENTE - Permite pagos de cheque',
+                notification_check_invalid: 'Error: Número de cheque no disponible',
+                notification_check_used: 'Error: Cheque ya utilizado',
                 aml_title: 'ALERTA PREVENCIÓN DE LAVADO DE ACTIVOS',
-                aml_message: 'Operación ≥ 50,000. Complete los datos requeridos:',
+                aml_message: 'Operación ≥ 50,000. Complete los datos:',
                 aml_acknowledge: 'Registrar y Continuar'
             },
             en: {
                 simulator_title: 'Bank Teller Simulator',
                 simulator_subtitle: 'EMAGES Academy | International Agent Level',
                 operations_panel: 'Operations',
-                student_id: 'Student ID:',
+                student_id: 'ID:',
                 session_time: 'Time:',
-                region: 'Region:',
+                currency: 'Currency:',
                 status: 'Status:',
                 available_balance: 'Cash in Box',
-                zero_start_warning: '⚠️ Box starts at ZERO - Make Initial Provision (1010)',
+                zero_start_warning: '⚠️ Box starts at ZERO - Initial Provision (1010)',
+                select_operation: 'Select Operation:',
                 operation_code_input: 'Operation Code',
                 account_number_input: 'Account Number',
+                check_number_input: 'Check Number',
+                service_type: 'Service Type',
+                service_number: 'Receipt Number',
                 amount_label: 'Total Amount',
-                denomination_input: 'Bill/Coin Breakdown (Enter quantity of each)',
+                denomination_input: 'Breakdown (use +/− for each)',
                 confirm: 'Confirm',
                 cancel: 'Cancel',
-                statement_panel: 'Transaction Statement',
-                account_holder: 'Cashier:',
-                account_number_full: 'Box ID:',
-                statement_date: 'Date:',
+                statement_panel: 'Statement',
+                cashier: 'Cashier:',
+                box_id: 'Box ID:',
+                date: 'Date:',
                 opening_balance: 'Opening Balance:',
                 col_code: 'CODE',
                 col_description: 'DESCRIPTION',
                 col_amount: 'AMOUNT',
-                no_transactions: 'No transactions - Box at zero',
-                evaluation_title: 'Session Evaluation',
+                no_transactions: 'No transactions',
+                evaluation_title: 'Evaluation',
                 accuracy: 'Accuracy:',
                 codes_correct: 'Codes:',
                 breakdowns_correct: 'Breakdowns:',
-                reference_panel: 'Codes and Reports',
-                codes_opening: 'OPENING/CLOSING',
-                codes_transactions: 'TRANSACTIONS',
-                codes_reports: 'REPORTS',
-                denominations_title: 'Active Denominations',
-                download_clients: 'Download Client List (TXT)',
-                download_manual: 'Download Student Manual',
-                download_worksheet: 'Download Worksheet',
+                download_clients: 'Download Clients (TXT)',
                 box_open: 'BOX OPEN - Pending Close',
                 box_closed: 'BOX CLOSED - Session Finalized',
-                report_cash: '📊 Report 3043',
-                report_balance: '📋 Report 4000',
-                report_transfers: '🔄 Transfers',
-                report_checks: '✓ Checks',
-                footer_text: 'Educational simulator for training purposes. Does not represent real banking operations.',
+                report_cash: '📊 3043',
+                report_balance: '📋 4000',
+                footer_text: 'Educational simulator. Does not represent real banking operations.',
                 legal_notice: '© 2026 EMAGES Academy. All rights reserved.',
                 notification_success: 'Operation completed successfully',
                 notification_error: 'Error: Invalid data',
-                notification_code_error: 'Error: Incorrect operation code',
-                notification_breakdown_error: 'Error: Breakdown does not match amount',
-                notification_balance_error: 'Error: Insufficient balance in box',
+                notification_code_error: 'Error: Incorrect code',
+                notification_breakdown_error: 'Error: Breakdown does not match',
+                notification_balance_error: 'Error: Insufficient balance',
                 notification_closed: 'Error: Box already closed',
                 notification_aml: 'ALERT: Complete AML registration',
-                notification_close_success: 'Box closed successfully - Final balance: 0.00',
-                notification_close_error: 'Error: Cannot close with balance different from zero',
+                notification_close_success: 'Box closed - Final balance: 0.00',
+                notification_close_error: 'Error: Cannot close with non-zero balance',
+                notification_account_savings: '✓ SAVINGS Account - Check payments not allowed',
+                notification_account_checking: '✓ CHECKING Account - Check payments allowed',
+                notification_check_invalid: 'Error: Check number not available',
+                notification_check_used: 'Error: Check already used',
                 aml_title: 'ANTI-MONEY LAUNDERING ALERT',
-                aml_message: 'Operation ≥ 50,000. Complete required data:',
+                aml_message: 'Operation ≥ 50,000. Complete required ',
                 aml_acknowledge: 'Register and Continue'
             },
             fr: {
                 simulator_title: 'Simulateur de Guichetier',
                 simulator_subtitle: 'EMAGES Academy | Niveau Agent International',
                 operations_panel: 'Opérations',
-                student_id: 'ID Étudiant:',
+                student_id: 'ID:',
                 session_time: 'Temps:',
-                region: 'Région:',
+                currency: 'Devise:',
                 status: 'Statut:',
                 available_balance: 'Espèces en Caisse',
-                zero_start_warning: '⚠️ Caisse commence à ZÉRO - Faites Provision Initiale (1010)',
+                zero_start_warning: '⚠️ Caisse commence à ZÉRO - Provision Initiale (1010)',
+                select_operation: 'Sélectionner Opération:',
                 operation_code_input: 'Code d\'Opération',
                 account_number_input: 'Numéro de Compte',
+                check_number_input: 'Numéro de Chèque',
+                service_type: 'Type de Service',
+                service_number: 'Numéro de Reçu',
                 amount_label: 'Montant Total',
-                denomination_input: 'Détail Billets/Pièces (Entrez quantité de chaque)',
+                denomination_input: 'Détail (utilisez +/− pour chaque)',
                 confirm: 'Confirmer',
                 cancel: 'Annuler',
-                statement_panel: 'Relevé de Transactions',
-                account_holder: 'Guichetier:',
-                account_number_full: 'ID Caisse:',
-                statement_date: 'Date:',
+                statement_panel: 'Relevé',
+                cashier: 'Guichetier:',
+                box_id: 'ID Caisse:',
+                date: 'Date:',
                 opening_balance: 'Solde d\'Ouverture:',
                 col_code: 'CODE',
                 col_description: 'DESCRIPTION',
                 col_amount: 'MONTANT',
-                no_transactions: 'Aucune transaction - Caisse à zéro',
-                evaluation_title: 'Évaluation de Session',
+                no_transactions: 'Aucune transaction',
+                evaluation_title: 'Évaluation',
                 accuracy: 'Précision:',
                 codes_correct: 'Codes:',
                 breakdowns_correct: 'Détails:',
-                reference_panel: 'Codes et Rapports',
-                codes_opening: 'OUVERTURE/FERMETURE',
-                codes_transactions: 'TRANSACTIONS',
-                codes_reports: 'RAPPORTS',
-                denominations_title: 'Denominations Actives',
-                download_clients: 'Télécharger Liste Clients (TXT)',
-                download_manual: 'Télécharger Manuel Étudiant',
-                download_worksheet: 'Télécharger Feuille de Travail',
-                box_open: 'CAISSE OUVERTE - En Attente de Fermeture',
+                download_clients: 'Télécharger Clients (TXT)',
+                box_open: 'CAISSE OUVERTE - En Attente',
                 box_closed: 'CAISSE FERMÉE - Session Finalisée',
-                report_cash: '📊 Rapport 3043',
-                report_balance: '📋 Rapport 4000',
-                report_transfers: '🔄 Transferts',
-                report_checks: '✓ Chèques',
-                footer_text: 'Simulateur éducatif à des fins de formation. Ne représente pas des opérations bancaires réelles.',
+                report_cash: '📊 3043',
+                report_balance: '📋 4000',
+                footer_text: 'Simulateur éducatif. Ne représente pas des opérations réelles.',
                 legal_notice: '© 2026 EMAGES Academy. Tous droits réservés.',
                 notification_success: 'Opération effectuée avec succès',
                 notification_error: 'Erreur: Données invalides',
-                notification_code_error: 'Erreur: Code d\'opération incorrect',
-                notification_breakdown_error: 'Erreur: Le détail ne correspond pas au montant',
-                notification_balance_error: 'Erreur: Solde insuffisant en caisse',
+                notification_code_error: 'Erreur: Code incorrect',
+                notification_breakdown_error: 'Erreur: Le détail ne correspond pas',
+                notification_balance_error: 'Erreur: Solde insuffisant',
                 notification_closed: 'Erreur: Caisse déjà fermée',
                 notification_aml: 'ALERTE: Complétez l\'enregistrement LBA',
-                notification_close_success: 'Caisse fermée avec succès - Solde final: 0.00',
-                notification_close_error: 'Erreur: Impossible de fermer avec solde différent de zéro',
+                notification_close_success: 'Caisse fermée - Solde final: 0.00',
+                notification_close_error: 'Erreur: Impossible de fermer avec solde non-zéro',
+                notification_account_savings: '✓ Compte ÉPARGNE - Paiements de chèque non autorisés',
+                notification_account_checking: '✓ Compte COURANT - Paiements de chèque autorisés',
+                notification_check_invalid: 'Erreur: Numéro de chèque non disponible',
+                notification_check_used: 'Erreur: Chèque déjà utilisé',
                 aml_title: 'ALERTE PRÉVENTION BLANCHIMENT',
-                aml_message: 'Opération ≥ 50,000. Complétez les données requises:',
+                aml_message: 'Opération ≥ 50,000. Complétez les données:',
                 aml_acknowledge: 'Enregistrer et Continuer'
             }
         };
@@ -1151,61 +1223,65 @@
             document.getElementById('statementDate').textContent = new Date().toLocaleDateString();
             startSessionTimer();
             updateEvaluation();
-            changeRegion();
+            changeCurrency();
         });
 
-        // Region Change
-        function changeRegion() {
-            const region = document.getElementById('regionSelector').value;
-            state.region = region;
-            const config = regions[region];
+        // Currency Change
+        function changeCurrency() {
+            const currency = document.getElementById('currencySelector').value;
+            state.currency = currency;
+            const config = currencies[currency];
             
-            document.getElementById('currentRegion').textContent = config.name;
-            document.getElementById('currencySymbol').textContent = config.currency;
-            document.getElementById('currencySymbol2').textContent = config.currency;
+            document.getElementById('currentCurrency').textContent = config.name;
+            document.getElementById('currencySymbol').textContent = config.symbol;
+            document.getElementById('currencySymbol2').textContent = config.symbol;
             
             updateBalance();
             renderDenominations();
-            renderActiveDenominations();
         }
 
-        // Render Denomination Input Grid
+        // Render Denomination Grid with +/- Buttons
         function renderDenominations() {
-            const config = regions[state.region];
+            const config = currencies[state.currency];
             const grid = document.getElementById('denominationGrid');
             
             grid.innerHTML = config.denominations.map(denom => `
                 <div class="denomination-item">
-                    <label>${config.currency} ${denom}</label>
-                    <input type="number" class="denom-input" data-value="${denom}" 
-                           placeholder="0" min="0" oninput="updateDenominationTotal()">
+                    <label>${config.symbol} ${denom}</label>
+                    <div class="denomination-controls">
+                        <button class="denom-btn minus" onclick="updateDenomQuantity(${denom}, -1)">−</button>
+                        <input type="number" class="denom-input" id="denom-${denom}" 
+                               value="0" min="0" readonly>
+                        <button class="denom-btn plus" onclick="updateDenomQuantity(${denom}, 1)">+</button>
+                    </div>
                 </div>
             `).join('');
             
             grid.innerHTML += `<div class="denomination-total" id="denominationTotal">
-                Total Desglose: <span id="breakdownSum">0.00</span> | Diferencia: <span id="breakdownDiff">0.00</span>
+                Total: <span id="breakdownSum">0.00</span> | Dif: <span id="breakdownDiff">0.00</span>
             </div>`;
         }
 
-        // Render Active Denominations List
-        function renderActiveDenominations() {
-            const config = regions[state.region];
-            const list = document.getElementById('activeDenominations');
-            list.innerHTML = config.denominations.map(d => 
-                `<span style="display:inline-block; background:#e0e0e0; padding:2px 6px; border-radius:4px; margin:2px;">${config.currency} ${d}</span>`
-            ).join('');
+        // Update Denomination Quantity
+        function updateDenomQuantity(denom, change) {
+            const input = document.getElementById(`denom-${denom}`);
+            let value = parseInt(input.value) || 0;
+            value += change;
+            if (value < 0) value = 0;
+            input.value = value;
+            updateDenominationTotal();
         }
 
         // Update Denomination Total
         function updateDenominationTotal() {
             const amount = parseFloat(document.getElementById('opAmount').value) || 0;
-            const inputs = document.querySelectorAll('.denom-input');
+            const config = currencies[state.currency];
             let sum = 0;
             
-            inputs.forEach(input => {
-                const value = parseFloat(input.dataset.value);
+            config.denominations.forEach(denom => {
+                const input = document.getElementById(`denom-${denom}`);
                 const quantity = parseInt(input.value) || 0;
-                sum += value * quantity;
+                sum += denom * quantity;
             });
             
             document.getElementById('breakdownSum').textContent = sum.toFixed(2);
@@ -1222,28 +1298,28 @@
             }
         }
 
-        // Language Switcher
-        function changeLanguage(lang) {
-            state.language = lang;
-            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+        // Operation Selection
+        function onOperationSelect() {
+            const select = document.getElementById('operationSelect');
+            const code = select.value;
+            const btn = document.getElementById('selectedOpBtn');
             
-            document.querySelectorAll('[data-lang]').forEach(element => {
-                const key = element.getAttribute('data-lang');
-                if (translations[lang][key]) {
-                    element.textContent = translations[lang][key];
-                }
-            });
+            if (!code) {
+                btn.classList.remove('visible');
+                state.selectedOperation = null;
+                return;
+            }
+            
+            state.selectedOperation = code;
+            document.getElementById('selectedOpText').textContent = `${code} - ${operationCodes[code]}`;
+            document.getElementById('selectedOpIcon').textContent = operationIcons[code] || '💼';
+            btn.className = `selected-operation-btn visible ${operationStyles[code] || 'op-admin'}`;
         }
 
-        // Session Timer
-        function startSessionTimer() {
-            setInterval(() => {
-                const elapsed = Math.floor((new Date() - state.startTime) / 1000);
-                const minutes = Math.floor(elapsed / 60).toString().padStart(2, '0');
-                const seconds = (elapsed % 60).toString().padStart(2, '0');
-                document.getElementById('sessionTime').textContent = `${minutes}:${seconds}`;
-            }, 1000);
+        // Confirm Operation Selection
+        function confirmOperationSelection() {
+            if (!state.selectedOperation) return;
+            showOperation(state.selectedOperation);
         }
 
         // Show Operation Section
@@ -1262,36 +1338,84 @@
             
             // Show/Hide fields based on operation type
             const accountGroup = document.getElementById('accountGroup');
+            const checkGroup = document.getElementById('checkGroup');
+            const serviceGroup = document.getElementById('serviceGroup');
+            const serviceNumberGroup = document.getElementById('serviceNumberGroup');
             const amountGroup = document.getElementById('amountGroup');
             const denominationGroup = document.getElementById('denominationGroup');
             
-            if(['0740', '0730', '0750', '0732'].includes(code)) {
-                accountGroup.style.display = 'block';
-            } else {
-                accountGroup.style.display = 'none';
-            }
-            
-            if(['101', '3043', '4000'].includes(code)) {
-                amountGroup.style.display = 'none';
-                denominationGroup.style.display = 'none';
-            } else {
-                amountGroup.style.display = 'block';
-                denominationGroup.style.display = 'block';
-            }
+            accountGroup.style.display = ['0730', '0600', '0740', '0750', '0732'].includes(code) ? 'block' : 'none';
+            checkGroup.style.display = ['0750', '0732'].includes(code) ? 'block' : 'none';
+            serviceGroup.style.display = code === '6500' ? 'block' : 'none';
+            serviceNumberGroup.style.display = code === '6500' ? 'block' : 'none';
+            amountGroup.style.display = ['101', '3043', '4000'].includes(code) ? 'none' : 'block';
+            denominationGroup.style.display = ['101', '3043', '4000'].includes(code) ? 'none' : 'block';
             
             // Clear inputs
             document.getElementById('opAmount').value = '';
-            document.querySelectorAll('.denom-input').forEach(input => input.value = '');
+            document.getElementById('opAccount').value = '';
+            document.getElementById('checkNumber').value = '';
+            document.getElementById('serviceNumber').value = '';
+            document.getElementById('accountTypeInfo').textContent = '';
+            
+            // Reset denomination inputs
+            currencies[state.currency].denominations.forEach(denom => {
+                const input = document.getElementById(`denom-${denom}`);
+                if (input) input.value = 0;
+            });
+            
             document.getElementById('breakdownSum').textContent = '0.00';
             document.getElementById('breakdownDiff').textContent = '0.00';
             document.getElementById('denominationTotal').className = 'denomination-total';
             document.getElementById('btnConfirm').disabled = true;
         }
 
+        // Validate Account Type
+        function validateAccountType() {
+            const accountNumber = document.getElementById('opAccount').value.trim();
+            const code = state.currentOpCode;
+            const info = document.getElementById('accountTypeInfo');
+            
+            if (!accountNumber || !['0750', '0732'].includes(code)) {
+                info.textContent = '';
+                return;
+            }
+            
+            // Find client by account number
+            let foundAccount = null;
+            let accountType = null;
+            
+            clients.forEach(client => {
+                Object.values(client.accounts).forEach(currency => {
+                    if (currency.savings.number === accountNumber) {
+                        foundAccount = currency.savings;
+                        accountType = 'savings';
+                    }
+                    if (currency.checking.number === accountNumber) {
+                        foundAccount = currency.checking;
+                        accountType = 'checking';
+                    }
+                });
+            });
+            
+            if (foundAccount) {
+                if (accountType === 'savings') {
+                    info.textContent = translations[state.language].notification_account_savings;
+                    info.style.color = '#856404';
+                } else {
+                    info.textContent = translations[state.language].notification_account_checking;
+                    info.style.color = '#155724';
+                }
+            }
+        }
+
         // Hide Operations
         function hideOperations() {
             document.getElementById('operationSection').classList.remove('active');
+            document.getElementById('operationSelect').value = '';
+            document.getElementById('selectedOpBtn').classList.remove('visible');
             state.currentOpCode = null;
+            state.selectedOperation = null;
         }
 
         // Acknowledge AML
@@ -1313,6 +1437,8 @@
         function executeOperation() {
             const enteredCode = document.getElementById('opCodeInput').value.trim();
             const amount = parseFloat(document.getElementById('opAmount').value) || 0;
+            const accountNumber = document.getElementById('opAccount').value.trim();
+            const checkNumber = document.getElementById('checkNumber').value.trim();
             
             // Check AML for large amounts
             if (amount >= 50000 && !state.amlAcknowledged && !['3043', '4000', '101'].includes(enteredCode)) {
@@ -1333,15 +1459,45 @@
             
             state.correctCodes++;
             
+            // Validate Check Number (for check operations)
+            if (['0750', '0732'].includes(enteredCode)) {
+                const account = findAccountByNumber(accountNumber);
+                if (account && account.type === 'savings') {
+                    showNotification(translations[state.language].notification_account_savings, true);
+                    state.errors++;
+                    updateEvaluation();
+                    return;
+                }
+                if (account && account.checks) {
+                    const check = account.checks.find(c => c.number === checkNumber);
+                    if (!check) {
+                        showNotification(translations[state.language].notification_check_invalid, true);
+                        state.errors++;
+                        updateEvaluation();
+                        return;
+                    }
+                    if (check.used) {
+                        showNotification(translations[state.language].notification_check_used, true);
+                        state.errors++;
+                        updateEvaluation();
+                        return;
+                    }
+                    // Mark check as used
+                    check.used = true;
+                    check.amount = amount;
+                    check.date = new Date();
+                }
+            }
+            
             // Validate Breakdown (if applicable)
             if (document.getElementById('denominationGroup').style.display !== 'none') {
                 state.totalBreakdowns++;
-                const inputs = document.querySelectorAll('.denom-input');
+                const config = currencies[state.currency];
                 let sum = 0;
-                inputs.forEach(input => {
-                    const value = parseFloat(input.dataset.value);
+                config.denominations.forEach(denom => {
+                    const input = document.getElementById(`denom-${denom}`);
                     const quantity = parseInt(input.value) || 0;
-                    sum += value * quantity;
+                    sum += denom * quantity;
                 });
                 
                 if (Math.abs(amount - sum) >= 0.01) {
@@ -1401,6 +1557,17 @@
             }
         }
 
+        // Find Account by Number
+        function findAccountByNumber(accountNumber) {
+            for (const client of clients) {
+                for (const currency of Object.values(client.accounts)) {
+                    if (currency.savings.number === accountNumber) return currency.savings;
+                    if (currency.checking.number === accountNumber) return currency.checking;
+                }
+            }
+            return null;
+        }
+
         // Update Balance Display
         function updateBalance() {
             document.getElementById('balance').textContent = state.balance.toFixed(2);
@@ -1410,7 +1577,6 @@
         function addTransaction(code, description, amount, sign) {
             const transactionList = document.getElementById('transactionList');
             
-            // Remove "no transactions" message
             if (state.transactions.length === 0) {
                 transactionList.innerHTML = '';
             }
@@ -1429,7 +1595,7 @@
             item.innerHTML = `
                 <div class="transaction-code">${code}</div>
                 <div class="transaction-desc">${description}</div>
-                <div class="transaction-amount ${sign}">${regions[state.region].currency} ${amount.toFixed(2)}</div>
+                <div class="transaction-amount ${sign}">${currencies[state.currency].symbol} ${amount.toFixed(2)}</div>
             `;
             transactionList.insertBefore(item, transactionList.firstChild);
         }
@@ -1437,52 +1603,22 @@
         // Generate Report
         function generateReport(type) {
             const display = document.getElementById('reportDisplay');
-            const config = regions[state.region];
+            const config = currencies[state.currency];
             let content = '';
             
             if (type === '3043') {
                 content = `=== REPORTE 3043 - CUADRE DE EFECTIVO ===\n`;
                 content += `Fecha: ${new Date().toLocaleString()}\n`;
                 content += `Cajero: ${document.getElementById('studentId').textContent}\n`;
-                content += `Saldo en Caja: ${config.currency} ${state.balance.toFixed(2)}\n`;
-                content += `\nDesglose por Denominación:\n`;
-                const inputs = document.querySelectorAll('.denom-input');
-                inputs.forEach(input => {
-                    const value = parseFloat(input.dataset.value);
-                    const quantity = parseInt(input.value) || 0;
-                    if (quantity > 0) {
-                        content += `${config.currency} ${value}: ${quantity} unidades = ${config.currency} ${(value * quantity).toFixed(2)}\n`;
-                    }
-                });
+                content += `Saldo en Caja: ${config.symbol} ${state.balance.toFixed(2)}\n`;
             } else if (type === '4000') {
                 content = `=== REPORTE 4000 - BALANCE DE MOVIMIENTOS ===\n`;
                 content += `Fecha: ${new Date().toLocaleString()}\n`;
                 content += `Cajero: ${document.getElementById('studentId').textContent}\n`;
-                content += `Total Operaciones: ${state.operations}\n`;
-                content += `\nMovimientos:\n`;
+                content += `Total Operaciones: ${state.operations}\n\n`;
                 state.transactions.forEach(t => {
-                    content += `${t.code} | ${t.description} | ${config.currency} ${t.amount.toFixed(2)}\n`;
+                    content += `${t.code} | ${t.description} | ${config.symbol} ${t.amount.toFixed(2)}\n`;
                 });
-            } else if (type === 'transfers') {
-                content = `=== REPORTE DE TRANSFERENCIAS ===\n`;
-                const transfers = state.transactions.filter(t => t.code === '0740');
-                if (transfers.length === 0) {
-                    content += 'Sin transferencias registradas\n';
-                } else {
-                    transfers.forEach(t => {
-                        content += `${t.date.toLocaleString()} | ${config.currency} ${t.amount.toFixed(2)}\n`;
-                    });
-                }
-            } else if (type === 'checks') {
-                content = `=== REPORTE DE CHEQUES ===\n`;
-                const checks = state.transactions.filter(t => ['0750', '0732'].includes(t.code));
-                if (checks.length === 0) {
-                    content += 'Sin cheques registrados\n';
-                } else {
-                    checks.forEach(t => {
-                        content += `${t.code} | ${t.description} | ${config.currency} ${t.amount.toFixed(2)}\n`;
-                    });
-                }
             }
             
             display.textContent = content;
@@ -1515,17 +1651,45 @@
             }, 4000);
         }
 
+        // Session Timer
+        function startSessionTimer() {
+            setInterval(() => {
+                const elapsed = Math.floor((new Date() - state.startTime) / 1000);
+                const minutes = Math.floor(elapsed / 60).toString().padStart(2, '0');
+                const seconds = (elapsed % 60).toString().padStart(2, '0');
+                document.getElementById('sessionTime').textContent = `${minutes}:${seconds}`;
+            }, 1000);
+        }
+
+        // Language Switcher
+        function changeLanguage(lang) {
+            state.language = lang;
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            document.querySelectorAll('[data-lang]').forEach(element => {
+                const key = element.getAttribute('data-lang');
+                if (translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+        }
+
         // Download Clients TXT
         function downloadClients() {
             let content = '================================================================================\n';
-            content += '                    LISTA DE CLIENTES - EMAGES ACADEMY\n';
+            content += '                    CLIENTES - EMAGES ACADEMY\n';
             content += '================================================================================\n\n';
-            content += 'ID | NOMBRE COMPLETO | DNI | CUENTA SOLES | CUENTA DÓLARES\n';
+            content += 'ID | NOMBRE | DNI | CUENTA (AHORROS/CORRIENTE)\n';
             content += '='.repeat(80) + '\n';
             clients.forEach(client => {
-                content += `${client.id} | ${client.name} | ${client.dni} | ${client.accountSoles} | ${client.accountDollars}\n`;
+                content += `${client.id} | ${client.name} | ${client.dni}\n`;
+                content += `   SOLES: AHORROS ${client.accounts.pen.savings.number} | CORRIENTE ${client.accounts.pen.checking.number}\n`;
+                content += `   DÓLARES: AHORROS ${client.accounts.usd.savings.number} | CORRIENTE ${client.accounts.usd.checking.number}\n`;
+                content += `   EUROS: AHORROS ${client.accounts.eur.savings.number} | CORRIENTE ${client.accounts.eur.checking.number}\n`;
+                content += '\n';
             });
-            content += '\n' + '='.repeat(80) + '\n';
+            content += '================================================================================\n';
             content += 'EMAGESGROUP E.I.R.L. – RUC 20611427671\n';
             content += 'academy@emagesgroup.com\n';
             
@@ -1538,56 +1702,6 @@
             URL.revokeObjectURL(url);
             
             showNotification('Lista de clientes descargada');
-        }
-
-        // Download Manual
-        function downloadManual() {
-            showNotification('Descargando Manual del Estudiante...');
-            // In production, this would download the actual PDF manual
-            setTimeout(() => {
-                showNotification('Manual descargado - Revise su carpeta de descargas');
-            }, 1500);
-        }
-
-        // Download Worksheet
-        function downloadWorksheet() {
-            let content = '================================================================================\n';
-            content += '                    HOJA DE TRABAJO - SIMULADOR CAJERO\n';
-            content += '                         EMAGES ACADEMY | 2026\n';
-            content += '================================================================================\n\n';
-            content += `ID Estudiante: ${document.getElementById('studentId').textContent}\n`;
-            content += `Fecha: ${new Date().toLocaleDateString()}\n`;
-            content += `Región: ${regions[state.region].name}\n\n`;
-            content += '================================================================================\n';
-            content += 'REGISTRO DE OPERACIONES\n';
-            content += '================================================================================\n\n';
-            content += '# | CÓDIGO | DESCRIPCIÓN | MONTO | DESGLOSE | ✓\n';
-            content += '-'.repeat(60) + '\n';
-            for (let i = 1; i <= 20; i++) {
-                content += `${i} | ________ | __________ | ______ | __________ | __\n`;
-            }
-            content += '\n================================================================================\n';
-            content += 'CUADRE FINAL\n';
-            content += '================================================================================\n\n';
-            content += `Saldo Inicial: ${regions[state.region].currency} 0.00\n`;
-            content += `Provisión Inicial: ${regions[state.region].currency} __________\n`;
-            content += `Total Ingresos: ${regions[state.region].currency} __________\n`;
-            content += `Total Egresos: ${regions[state.region].currency} __________\n`;
-            content += `Saldo Final: ${regions[state.region].currency} __________\n\n`;
-            content += '¿Caja cerrada en cero? ___ SÍ ___ NO\n\n';
-            content += '================================================================================\n';
-            content += 'EMAGESGROUP E.I.R.L. – RUC 20611427671\n';
-            content += '================================================================================\n';
-            
-            const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'hoja-trabajo-cajero.txt';
-            a.click();
-            URL.revokeObjectURL(url);
-            
-            showNotification('Hoja de trabajo descargada');
         }
     </script>
 </body>
