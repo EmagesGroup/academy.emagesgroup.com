@@ -287,6 +287,38 @@
             border-color: var(--gold);
         }
 
+        /* Check Status Display */
+        .check-status-box {
+            background: #fff3cd;
+            border: 1px dashed #856404;
+            padding: 12px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-size: 11px;
+        }
+
+        .check-status-box.available {
+            background: #d4edda;
+            border-color: #155724;
+        }
+
+        .check-status-box.used {
+            background: #f8d7da;
+            border-color: #721c24;
+        }
+
+        .check-status-box strong {
+            color: #856404;
+        }
+
+        .check-status-box.available strong {
+            color: #155724;
+        }
+
+        .check-status-box.used strong {
+            color: #721c24;
+        }
+
         /* Denomination Grid with +/- Buttons */
         .denomination-grid {
             display: grid;
@@ -611,25 +643,6 @@
             color: #721c24;
         }
 
-        .account-type-badge {
-            display: inline-block;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 9px;
-            font-weight: 600;
-            margin-left: 5px;
-        }
-
-        .badge-savings {
-            background: #d4edda;
-            color: #155724;
-        }
-
-        .badge-checking {
-            background: #fff3cd;
-            color: #856404;
-        }
-
         .report-display {
             margin-top: 10px;
             padding: 10px;
@@ -648,17 +661,102 @@
             display: block;
         }
 
-        .check-info {
-            background: #fff3cd;
-            border: 1px dashed #856404;
+        /* Check Book Viewer */
+        .checkbook-viewer {
+            background: white;
+            border: 2px solid var(--gold);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .checkbook-viewer.active {
+            display: block;
+        }
+
+        .checkbook-viewer h4 {
+            font-size: 12px;
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .checkbook-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 5px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .checkbook-item {
+            padding: 8px;
+            border-radius: 4px;
+            text-align: center;
+            font-size: 10px;
+            font-weight: 600;
+            border: 1px solid #e0e0e0;
+        }
+
+        .checkbook-item.available {
+            background: #d4edda;
+            color: #155724;
+            border-color: #28a745;
+        }
+
+        .checkbook-item.used {
+            background: #f8d7da;
+            color: #721c24;
+            border-color: #dc3545;
+        }
+
+        .checkbook-legend {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+            font-size: 10px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .legend-box {
+            width: 15px;
+            height: 15px;
+            border-radius: 3px;
+        }
+
+        .legend-box.available {
+            background: #d4edda;
+            border: 1px solid #28a745;
+        }
+
+        .legend-box.used {
+            background: #f8d7da;
+            border: 1px solid #dc3545;
+        }
+
+        .btn-view-checks {
+            width: 100%;
             padding: 10px;
+            background: var(--info);
+            color: white;
+            border: none;
             border-radius: 6px;
-            margin: 10px 0;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
             font-size: 11px;
         }
 
-        .check-info strong {
-            color: #856404;
+        .btn-view-checks:hover {
+            background: #3a8fd9;
         }
     </style>
 </head>
@@ -759,10 +857,25 @@
                     </div>
 
                     <div class="input-group" id="checkGroup" style="display:none;">
-                        <label data-lang="check_number_input">Número de Cheque</label>
-                        <input type="text" id="checkNumber" placeholder="Ej: 00000123" maxlength="8">
-                        <div class="check-info">
-                            <strong>⚠️ Importante:</strong> El número de cheque debe ser digitado correctamente. El sistema validará si está disponible en la chequera del cliente.
+                        <label data-lang="check_number_input">Número de Cheque (8 dígitos)</label>
+                        <input type="text" id="checkNumber" placeholder="Ej: 00000012" maxlength="8" onblur="validateCheckNumber()">
+                        <div id="checkStatusBox" class="check-status-box" style="display:none;"></div>
+                        <button class="btn-view-checks" onclick="toggleCheckbookViewer()" data-lang="view_available_checks">📋 Ver Cheques Disponibles</button>
+                        
+                        <!-- Checkbook Viewer -->
+                        <div class="checkbook-viewer" id="checkbookViewer">
+                            <h4>📖 Estado de Chequera</h4>
+                            <div class="checkbook-grid" id="checkbookGrid"></div>
+                            <div class="checkbook-legend">
+                                <div class="legend-item">
+                                    <div class="legend-box available"></div>
+                                    <span data-lang="check_available">Disponible</span>
+                                </div>
+                                <div class="legend-item">
+                                    <div class="legend-box used"></div>
+                                    <span data-lang="check_used">Usado</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -872,6 +985,10 @@
                         <span data-lang="breakdowns_correct">Desgloses:</span>
                         <span id="breakdownScore">0/0</span>
                     </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 10px; margin-top: 4px;">
+                        <span data-lang="checks_validated">Cheques:</span>
+                        <span id="checksScore">0/0</span>
+                    </div>
                 </div>
 
                 <div class="report-display" id="reportDisplay"></div>
@@ -905,13 +1022,16 @@
             totalCodes: 0,
             correctBreakdowns: 0,
             totalBreakdowns: 0,
+            correctChecks: 0,
+            totalChecks: 0,
             startTime: new Date(),
             language: 'es',
             currency: 'pen',
             currentOpCode: null,
             selectedOperation: null,
             amlAcknowledged: false,
-            boxClosed: false
+            boxClosed: false,
+            currentCheckAccount: null
         };
 
         // Currency Configuration
@@ -952,19 +1072,10 @@
 
         // Operation Button Styles
         const operationStyles = {
-            '1010': 'op-admin',
-            '1012': 'op-admin',
-            '1014': 'op-admin',
-            '101': 'op-admin',
-            '0730': 'op-deposit',
-            '0732': 'op-check',
-            '0750': 'op-check',
-            '0600': 'op-withdraw',
-            '0740': 'op-transfer',
-            '6500': 'op-payment',
-            '3043': 'op-report',
-            '4000': 'op-report',
-            '4008': 'op-admin'
+            '1010': 'op-admin', '1012': 'op-admin', '1014': 'op-admin', '101': 'op-admin',
+            '0730': 'op-deposit', '0732': 'op-check', '0750': 'op-check',
+            '0600': 'op-withdraw', '0740': 'op-transfer', '6500': 'op-payment',
+            '3043': 'op-report', '4000': 'op-report', '4008': 'op-admin'
         };
 
         // Operation Icons
@@ -975,7 +1086,7 @@
             '3043': '📊', '4000': '📋', '4008': '🏦'
         };
 
-        // Generated Clients (Invented Data)
+        // Generated Clients with Check Books (25 checks each for checking accounts)
         const clients = generateClients();
 
         function generateClients() {
@@ -1000,11 +1111,6 @@
                 const accountEurosSavings = `006-${dni.substring(0, 7)}-10`;
                 const accountEurosChecking = `005-${dni.substring(0, 7)}-20`;
                 
-                // Generate available checks for checking accounts (25 checks each)
-                const checksSoles = generateCheckNumbers(25);
-                const checksDollars = generateCheckNumbers(25);
-                const checksEuros = generateCheckNumbers(25);
-                
                 generatedClients.push({
                     id: clientIds[i],
                     name: `${ln1} ${ln2}, ${fn}`,
@@ -1012,15 +1118,15 @@
                     accounts: {
                         pen: {
                             savings: { number: accountSolesSavings, type: 'savings', balance: 5000.00, checks: null },
-                            checking: { number: accountSolesChecking, type: 'checking', balance: 10000.00, checks: checksSoles }
+                            checking: { number: accountSolesChecking, type: 'checking', balance: 10000.00, checks: generateCheckBook(25) }
                         },
                         usd: {
                             savings: { number: accountDollarsSavings, type: 'savings', balance: 2000.00, checks: null },
-                            checking: { number: accountDollarsChecking, type: 'checking', balance: 5000.00, checks: checksDollars }
+                            checking: { number: accountDollarsChecking, type: 'checking', balance: 5000.00, checks: generateCheckBook(25) }
                         },
                         eur: {
                             savings: { number: accountEurosSavings, type: 'savings', balance: 3000.00, checks: null },
-                            checking: { number: accountEurosChecking, type: 'checking', balance: 4000.00, checks: checksEuros }
+                            checking: { number: accountEurosChecking, type: 'checking', balance: 4000.00, checks: generateCheckBook(25) }
                         }
                     }
                 });
@@ -1029,15 +1135,16 @@
             return generatedClients;
         }
 
-        function generateCheckNumbers(count) {
-            const startNum = Math.floor(Math.random() * 1000000);
+        // Generate Check Book (25 checks, all available initially)
+        function generateCheckBook(count) {
             const checks = [];
-            for (let i = 0; i < count; i++) {
+            for (let i = 1; i <= count; i++) {
                 checks.push({
-                    number: (startNum + i).toString().padStart(8, '0'),
+                    number: i.toString().padStart(8, '0'),
                     used: false,
                     amount: null,
-                    date: null
+                    date: null,
+                    operationType: null
                 });
             }
             return checks;
@@ -1058,7 +1165,7 @@
                 select_operation: 'Seleccionar Operación:',
                 operation_code_input: 'Código de Operación',
                 account_number_input: 'Número de Cuenta',
-                check_number_input: 'Número de Cheque',
+                check_number_input: 'Número de Cheque (8 dígitos)',
                 service_type: 'Tipo de Servicio',
                 service_number: 'Número de Recibo',
                 amount_label: 'Monto Total',
@@ -1078,6 +1185,7 @@
                 accuracy: 'Precisión:',
                 codes_correct: 'Códigos:',
                 breakdowns_correct: 'Desgloses:',
+                checks_validated: 'Cheques:',
                 download_clients: 'Descargar Clientes (TXT)',
                 box_open: 'CAJA ABIERTA - Pendiente Cierre',
                 box_closed: 'CAJA CERRADA - Sesión Finalizada',
@@ -1096,8 +1204,12 @@
                 notification_close_error: 'Error: No puede cerrar con saldo diferente de cero',
                 notification_account_savings: '✓ Cuenta de AHORROS - No permite pagos de cheque',
                 notification_account_checking: '✓ Cuenta CORRIENTE - Permite pagos de cheque',
-                notification_check_invalid: 'Error: Número de cheque no disponible',
-                notification_check_used: 'Error: Cheque ya utilizado',
+                notification_check_invalid: 'Error: Número de cheque no disponible (use 00000001-00000025)',
+                notification_check_used: 'Error: Cheque YA UTILIZADO - Seleccione otro',
+                notification_check_available: '✓ Cheque DISPONIBLE',
+                view_available_checks: '📋 Ver Cheques Disponibles',
+                check_available: 'Disponible',
+                check_used: 'Usado',
                 aml_title: 'ALERTA PREVENCIÓN DE LAVADO DE ACTIVOS',
                 aml_message: 'Operación ≥ 50,000. Complete los datos:',
                 aml_acknowledge: 'Registrar y Continuar'
@@ -1115,7 +1227,7 @@
                 select_operation: 'Select Operation:',
                 operation_code_input: 'Operation Code',
                 account_number_input: 'Account Number',
-                check_number_input: 'Check Number',
+                check_number_input: 'Check Number (8 digits)',
                 service_type: 'Service Type',
                 service_number: 'Receipt Number',
                 amount_label: 'Total Amount',
@@ -1135,6 +1247,7 @@
                 accuracy: 'Accuracy:',
                 codes_correct: 'Codes:',
                 breakdowns_correct: 'Breakdowns:',
+                checks_validated: 'Checks:',
                 download_clients: 'Download Clients (TXT)',
                 box_open: 'BOX OPEN - Pending Close',
                 box_closed: 'BOX CLOSED - Session Finalized',
@@ -1153,8 +1266,12 @@
                 notification_close_error: 'Error: Cannot close with non-zero balance',
                 notification_account_savings: '✓ SAVINGS Account - Check payments not allowed',
                 notification_account_checking: '✓ CHECKING Account - Check payments allowed',
-                notification_check_invalid: 'Error: Check number not available',
-                notification_check_used: 'Error: Check already used',
+                notification_check_invalid: 'Error: Check number not available (use 00000001-00000025)',
+                notification_check_used: 'Error: Check ALREADY USED - Select another',
+                notification_check_available: '✓ Check AVAILABLE',
+                view_available_checks: '📋 View Available Checks',
+                check_available: 'Available',
+                check_used: 'Used',
                 aml_title: 'ANTI-MONEY LAUNDERING ALERT',
                 aml_message: 'Operation ≥ 50,000. Complete required ',
                 aml_acknowledge: 'Register and Continue'
@@ -1172,7 +1289,7 @@
                 select_operation: 'Sélectionner Opération:',
                 operation_code_input: 'Code d\'Opération',
                 account_number_input: 'Numéro de Compte',
-                check_number_input: 'Numéro de Chèque',
+                check_number_input: 'Numéro de Chèque (8 chiffres)',
                 service_type: 'Type de Service',
                 service_number: 'Numéro de Reçu',
                 amount_label: 'Montant Total',
@@ -1192,6 +1309,7 @@
                 accuracy: 'Précision:',
                 codes_correct: 'Codes:',
                 breakdowns_correct: 'Détails:',
+                checks_validated: 'Chèques:',
                 download_clients: 'Télécharger Clients (TXT)',
                 box_open: 'CAISSE OUVERTE - En Attente',
                 box_closed: 'CAISSE FERMÉE - Session Finalisée',
@@ -1210,8 +1328,12 @@
                 notification_close_error: 'Erreur: Impossible de fermer avec solde non-zéro',
                 notification_account_savings: '✓ Compte ÉPARGNE - Paiements de chèque non autorisés',
                 notification_account_checking: '✓ Compte COURANT - Paiements de chèque autorisés',
-                notification_check_invalid: 'Erreur: Numéro de chèque non disponible',
-                notification_check_used: 'Erreur: Chèque déjà utilisé',
+                notification_check_invalid: 'Erreur: Numéro de chèque non disponible (utilisez 00000001-00000025)',
+                notification_check_used: 'Erreur: Chèque DÉJÀ UTILISÉ - Sélectionnez un autre',
+                notification_check_available: '✓ Chèque DISPONIBLE',
+                view_available_checks: '📋 Voir Chèques Disponibles',
+                check_available: 'Disponible',
+                check_used: 'Utilisé',
                 aml_title: 'ALERTE PRÉVENTION BLANCHIMENT',
                 aml_message: 'Opération ≥ 50,000. Complétez les données:',
                 aml_acknowledge: 'Enregistrer et Continuer'
@@ -1357,6 +1479,8 @@
             document.getElementById('checkNumber').value = '';
             document.getElementById('serviceNumber').value = '';
             document.getElementById('accountTypeInfo').textContent = '';
+            document.getElementById('checkStatusBox').style.display = 'none';
+            document.getElementById('checkbookViewer').classList.remove('active');
             
             // Reset denomination inputs
             currencies[state.currency].denominations.forEach(denom => {
@@ -1409,13 +1533,95 @@
             }
         }
 
+        // Validate Check Number
+        function validateCheckNumber() {
+            const checkNumber = document.getElementById('checkNumber').value.trim();
+            const accountNumber = document.getElementById('opAccount').value.trim();
+            const statusBox = document.getElementById('checkStatusBox');
+            
+            if (!checkNumber || !accountNumber) {
+                statusBox.style.display = 'none';
+                return;
+            }
+            
+            // Find account
+            const account = findAccountByNumber(accountNumber);
+            
+            if (!account || account.type !== 'checking' || !account.checks) {
+                statusBox.className = 'check-status-box used';
+                statusBox.innerHTML = '<strong>⚠️</strong> ' + translations[state.language].notification_check_invalid;
+                statusBox.style.display = 'block';
+                document.getElementById('btnConfirm').disabled = true;
+                return;
+            }
+            
+            // Find check in checkbook
+            const check = account.checks.find(c => c.number === checkNumber);
+            
+            if (!check) {
+                statusBox.className = 'check-status-box used';
+                statusBox.innerHTML = '<strong>⚠️</strong> ' + translations[state.language].notification_check_invalid;
+                statusBox.style.display = 'block';
+                document.getElementById('btnConfirm').disabled = true;
+            } else if (check.used) {
+                statusBox.className = 'check-status-box used';
+                statusBox.innerHTML = '<strong>❌</strong> ' + translations[state.language].notification_check_used + `<br><small>Cheque #${checkNumber} usado el ${check.date}</small>`;
+                statusBox.style.display = 'block';
+                document.getElementById('btnConfirm').disabled = true;
+            } else {
+                statusBox.className = 'check-status-box available';
+                statusBox.innerHTML = '<strong>✓</strong> ' + translations[state.language].notification_check_available;
+                statusBox.style.display = 'block';
+                document.getElementById('btnConfirm').disabled = false;
+            }
+            
+            state.currentCheckAccount = account;
+        }
+
+        // Toggle Checkbook Viewer
+        function toggleCheckbookViewer() {
+            const viewer = document.getElementById('checkbookViewer');
+            const accountNumber = document.getElementById('opAccount').value.trim();
+            
+            if (!accountNumber) {
+                showNotification('Primero ingrese el número de cuenta', 'warning');
+                return;
+            }
+            
+            const account = findAccountByNumber(accountNumber);
+            
+            if (!account || account.type !== 'checking' || !account.checks) {
+                showNotification('Esta cuenta no tiene chequera', 'error');
+                return;
+            }
+            
+            viewer.classList.toggle('active');
+            
+            if (viewer.classList.contains('active')) {
+                renderCheckbookGrid(account.checks);
+            }
+        }
+
+        // Render Checkbook Grid
+        function renderCheckbookGrid(checks) {
+            const grid = document.getElementById('checkbookGrid');
+            grid.innerHTML = checks.map(check => `
+                <div class="checkbook-item ${check.used ? 'used' : 'available'}">
+                    ${check.number}
+                    ${check.used ? '<br>✓' : ''}
+                </div>
+            `).join('');
+        }
+
         // Hide Operations
         function hideOperations() {
             document.getElementById('operationSection').classList.remove('active');
             document.getElementById('operationSelect').value = '';
             document.getElementById('selectedOpBtn').classList.remove('visible');
+            document.getElementById('checkbookViewer').classList.remove('active');
             state.currentOpCode = null;
             state.selectedOperation = null;
+            state.currentCheckAccount = null;
         }
 
         // Acknowledge AML
@@ -1461,31 +1667,39 @@
             
             // Validate Check Number (for check operations)
             if (['0750', '0732'].includes(enteredCode)) {
+                state.totalChecks++;
                 const account = findAccountByNumber(accountNumber);
+                
                 if (account && account.type === 'savings') {
                     showNotification(translations[state.language].notification_account_savings, true);
                     state.errors++;
                     updateEvaluation();
                     return;
                 }
+                
                 if (account && account.checks) {
                     const check = account.checks.find(c => c.number === checkNumber);
+                    
                     if (!check) {
                         showNotification(translations[state.language].notification_check_invalid, true);
                         state.errors++;
                         updateEvaluation();
                         return;
                     }
+                    
                     if (check.used) {
                         showNotification(translations[state.language].notification_check_used, true);
                         state.errors++;
                         updateEvaluation();
                         return;
                     }
+                    
                     // Mark check as used
                     check.used = true;
                     check.amount = amount;
-                    check.date = new Date();
+                    check.date = new Date().toLocaleString();
+                    check.operationType = enteredCode;
+                    state.correctChecks++;
                 }
             }
             
@@ -1546,7 +1760,7 @@
             if (!['3043', '4000', '101'].includes(enteredCode)) {
                 state.correctOperations++;
                 state.operations++;
-                addTransaction(enteredCode, description, amount, sign);
+                addTransaction(enteredCode, description, amount, sign, checkNumber);
             }
             
             updateBalance();
@@ -1574,7 +1788,7 @@
         }
 
         // Add Transaction to Statement
-        function addTransaction(code, description, amount, sign) {
+        function addTransaction(code, description, amount, sign, checkNumber = null) {
             const transactionList = document.getElementById('transactionList');
             
             if (state.transactions.length === 0) {
@@ -1586,15 +1800,17 @@
                 description,
                 amount,
                 sign,
-                date: new Date()
+                date: new Date(),
+                checkNumber
             };
             state.transactions.unshift(transaction);
             
             const item = document.createElement('div');
             item.className = 'transaction-item';
+            const checkInfo = checkNumber ? ` (Chq: ${checkNumber})` : '';
             item.innerHTML = `
                 <div class="transaction-code">${code}</div>
-                <div class="transaction-desc">${description}</div>
+                <div class="transaction-desc">${description}${checkInfo}</div>
                 <div class="transaction-amount ${sign}">${currencies[state.currency].symbol} ${amount.toFixed(2)}</div>
             `;
             transactionList.insertBefore(item, transactionList.firstChild);
@@ -1617,7 +1833,8 @@
                 content += `Cajero: ${document.getElementById('studentId').textContent}\n`;
                 content += `Total Operaciones: ${state.operations}\n\n`;
                 state.transactions.forEach(t => {
-                    content += `${t.code} | ${t.description} | ${config.symbol} ${t.amount.toFixed(2)}\n`;
+                    const checkInfo = t.checkNumber ? ` | Chq: ${t.checkNumber}` : '';
+                    content += `${t.code} | ${t.description}${checkInfo} | ${config.symbol} ${t.amount.toFixed(2)}\n`;
                 });
             }
             
@@ -1631,13 +1848,15 @@
             const accuracy = totalOps > 0 ? Math.round((state.correctOperations / totalOps) * 100) : 0;
             const codeAccuracy = state.totalCodes > 0 ? Math.round((state.correctCodes / state.totalCodes) * 100) : 0;
             const breakdownAccuracy = state.totalBreakdowns > 0 ? Math.round((state.correctBreakdowns / state.totalBreakdowns) * 100) : 0;
+            const checkAccuracy = state.totalChecks > 0 ? Math.round((state.correctChecks / state.totalChecks) * 100) : 100;
             
-            const overall = Math.round((accuracy + codeAccuracy + breakdownAccuracy) / 3);
+            const overall = Math.round((accuracy + codeAccuracy + breakdownAccuracy + checkAccuracy) / 4);
             
             document.getElementById('scoreCircle').textContent = `${overall}%`;
             document.getElementById('accuracyScore').textContent = `${state.correctOperations}/${totalOps}`;
             document.getElementById('codesScore').textContent = `${state.correctCodes}/${state.totalCodes}`;
             document.getElementById('breakdownScore').textContent = `${state.correctBreakdowns}/${state.totalBreakdowns}`;
+            document.getElementById('checksScore').textContent = `${state.correctChecks}/${state.totalChecks}`;
         }
 
         // Show Notification
@@ -1687,8 +1906,12 @@
                 content += `   SOLES: AHORROS ${client.accounts.pen.savings.number} | CORRIENTE ${client.accounts.pen.checking.number}\n`;
                 content += `   DÓLARES: AHORROS ${client.accounts.usd.savings.number} | CORRIENTE ${client.accounts.usd.checking.number}\n`;
                 content += `   EUROS: AHORROS ${client.accounts.eur.savings.number} | CORRIENTE ${client.accounts.eur.checking.number}\n`;
+                content += `   CHEQUES DISPONIBLES: 00000001-00000025 (por cada cuenta corriente)\n`;
                 content += '\n';
             });
+            content += '================================================================================\n';
+            content += 'NOTA: Cada cuenta corriente tiene 25 cheques disponibles (00000001 al 00000025)\n';
+            content += 'El sistema validará que el cheque no haya sido usado anteriormente.\n';
             content += '================================================================================\n';
             content += 'EMAGESGROUP E.I.R.L. – RUC 20611427671\n';
             content += 'academy@emagesgroup.com\n';
