@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador Cajero Bancario | EMAGES Academy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Montserrat', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 900px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #d4af37 0%, #f4e4bc 100%);
+            padding: 30px;
+            text-align: center;
+            color: #1a1a2e;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .logo-eg {
+            width: 60px;
+            height: 60px;
+            background: #1a1a2e;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            color: #d4af37;
+            font-weight: bold;
+            font-size: 24px;
+        }
+
+        .language-selector {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .lang-btn {
+            padding: 8px 16px;
+            border: 2px solid #1a1a2e;
+            background: transparent;
+            color: #1a1a2e;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .lang-btn.active, .lang-btn:hover {
+            background: #1a1a2e;
+            color: #d4af37;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .atm-interface {
+            padding: 30px;
+            background: #f8f9fa;
+            border-right: 1px solid #e0e0e0;
+        }
+
+        .balance-display {
+            background: #1a1a2e;
+            color: #d4af37;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .balance-display h3 {
+            font-size: 14px;
+            opacity: 0.8;
+            margin-bottom: 10px;
+        }
+
+        .balance-display .amount {
+            font-size: 36px;
+            font-weight: 700;
+        }
+
+        .operation-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .op-btn {
+            padding: 20px;
+            border: none;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .op-btn.deposit {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+        }
+
+        .op-btn.withdraw {
+            background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+            color: white;
+        }
+
+        .op-btn.transfer {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .op-btn.statement {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        .op-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .op-btn i {
+            font-size: 24px;
+        }
+
+        .input-section {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #e0e0e0;
+            display: none;
+        }
+
+        .input-section.active {
+            display: block;
+        }
+
+        .input-section h4 {
+            margin-bottom: 15px;
+            color: #1a1a2e;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+            font-size: 13px;
+        }
+
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .input-group input:focus, .input-group select:focus {
+            outline: none;
+            border-color: #d4af37;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .btn-confirm {
+            flex: 1;
+            padding: 12px;
+            background: #d4af37;
+            color: #1a1a2e;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-confirm:hover {
+            background: #b8941f;
+        }
+
+        .btn-cancel {
+            flex: 1;
+            padding: 12px;
+            background: #e0e0e0;
+            color: #555;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-cancel:hover {
+            background: #ccc;
+        }
+
+        .transaction-history {
+            padding: 30px;
+            background: white;
+        }
+
+        .transaction-history h3 {
+            color: #1a1a2e;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .transaction-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .transaction-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background 0.3s;
+        }
+
+        .transaction-item:hover {
+            background: #f8f9fa;
+        }
+
+        .transaction-item:last-child {
+            border-bottom: none;
+        }
+
+        .transaction-info {
+            flex: 1;
+        }
+
+        .transaction-type {
+            font-weight: 600;
+            color: #1a1a2e;
+            margin-bottom: 5px;
+        }
+
+        .transaction-date {
+            font-size: 12px;
+            color: #888;
+        }
+
+        .transaction-amount {
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .transaction-amount.positive {
+            color: #11998e;
+        }
+
+        .transaction-amount.negative {
+            color: #eb3349;
+        }
+
+        .evaluation-panel {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            border: 2px solid #e0e0e0;
+        }
+
+        .evaluation-panel h4 {
+            color: #1a1a2e;
+            margin-bottom: 15px;
+        }
+
+        .score-display {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .score-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #d4af37;
+            color: #1a1a2e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .score-details {
+            flex: 1;
+            margin-left: 20px;
+        }
+
+        .score-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 13px;
+        }
+
+        .score-item:last-child {
+            border-bottom: none;
+        }
+
+        .feedback-message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-size: 13px;
+            display: none;
+        }
+
+        .feedback-message.success {
+            background: #d4edda;
+            color: #155724;
+            display: block;
+        }
+
+        .feedback-message.error {
+            background: #f8d7da;
+            color: #721c24;
+            display: block;
+        }
+
+        .footer {
+            background: #1a1a2e;
+            color: #888;
+            padding: 20px;
+            text-align: center;
+            font-size: 11px;
+        }
+
+        .footer strong {
+            color: #d4af37;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            background: #11998e;
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transform: translateX(400px);
+            transition: transform 0.3s;
+            z-index: 1000;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.error {
+            background: #eb3349;
+        }
+
+        .student-info {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #d4af37;
+        }
+
+        .student-info p {
+            font-size: 13px;
+            color: #856404;
+            margin: 5px 0;
+        }
+
+        .reset-btn {
+            width: 100%;
+            padding: 15px;
+            background: #1a1a2e;
+            color: #d4af37;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+
+        .reset-btn:hover {
+            background: #2d2d44;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo-eg">EG</div>
+            <h1 data-lang="simulator_title">Simulador Cajero Bancario</h1>
+            <p data-lang="simulator_subtitle">EMAGES Academy - Formación Empresarial</p>
+            <div class="language-selector">
+                <button class="lang-btn active" onclick="changeLanguage('es')">ES</button>
+                <button class="lang-btn" onclick="changeLanguage('en')">EN</button>
+                <button class="lang-btn" onclick="changeLanguage('fr')">FR</button>
+                <button class="lang-btn" onclick="changeLanguage('ru')">RU</button>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="atm-interface">
+                <div class="student-info">
+                    <p><strong data-lang="student_id">ID Estudiante:</strong> <span id="studentId">EMG-2026-001</span></p>
+                    <p><strong data-lang="session_time">Tiempo de Sesión:</strong> <span id="sessionTime">00:00</span></p>
+                    <p><strong data-lang="operations_count">Operaciones:</strong> <span id="operationsCount">0</span></p>
+                </div>
+
+                <div class="balance-display">
+                    <h3 data-lang="available_balance">Saldo Disponible</h3>
+                    <div class="amount">S/ <span id="balance">1000.00</span></div>
+                </div>
+
+                <div class="operation-buttons">
+                    <button class="op-btn deposit" onclick="showOperation('deposit')">
+                        <span>💰</span>
+                        <span data-lang="deposit">Depositar</span>
+                    </button>
+                    <button class="op-btn withdraw" onclick="showOperation('withdraw')">
+                        <span>💵</span>
+                        <span data-lang="withdraw">Retirar</span>
+                    </button>
+                    <button class="op-btn transfer" onclick="showOperation('transfer')">
+                        <span>🔄</span>
+                        <span data-lang="transfer">Transferir</span>
+                    </button>
+                    <button class="op-btn statement" onclick="showStatement()">
+                        <span>📋</span>
+                        <span data-lang="statement">Extracto</span>
+                    </button>
+                </div>
+
+                <div class="input-section" id="depositSection">
+                    <h4 data-lang="deposit_title">Realizar Depósito</h4>
+                    <div class="input-group">
+                        <label data-lang="amount_label">Monto (S/)</label>
+                        <input type="number" id="depositAmount" placeholder="0.00" min="0.01" step="0.01">
+                    </div>
+                    <div class="input-group">
+                        <label data-lang="concept_label">Concepto</label>
+                        <select id="depositConcept">
+                            <option value="salary">Nómina/Sueldo</option>
+                            <option value="transfer">Transferencia Recibida</option>
+                            <option value="cash">Efectivo</option>
+                            <option value="other">Otro</option>
+                        </select>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="btn-confirm" onclick="executeOperation('deposit')" data-lang="confirm">Confirmar</button>
+                        <button class="btn-cancel" onclick="hideOperations()" data-lang="cancel">Cancelar</button>
+                    </div>
+                </div>
+
+                <div class="input-section" id="withdrawSection">
+                    <h4 data-lang="withdraw_title">Realizar Retiro</h4>
+                    <div class="input-group">
+                        <label data-lang="amount_label">Monto (S/)</label>
+                        <input type="number" id="withdrawAmount" placeholder="0.00" min="0.01" step="0.01">
+                    </div>
+                    <div class="input-group">
+                        <label data-lang="withdraw_type_label">Tipo de Retiro</label>
+                        <select id="withdrawType">
+                            <option value="atm">Cajero Automático</option>
+                            <option value="counter">Ventanilla</option>
+                            <option value="agent">Agente Bancario</option>
+                        </select>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="btn-confirm" onclick="executeOperation('withdraw')" data-lang="confirm">Confirmar</button>
+                        <button class="btn-cancel" onclick="hideOperations()" data-lang="cancel">Cancelar</button>
+                    </div>
+                </div>
+
+                <div class="input-section" id="transferSection">
+                    <h4 data-lang="transfer_title">Realizar Transferencia</h4>
+                    <div class="input-group">
+                        <label data-lang="account_number_label">Número de Cuenta Destino</label>
+                        <input type="text" id="transferAccount" placeholder="000-0000000-00">
+                    </div>
+                    <div class="input-group">
+                        <label data-lang="amount_label">Monto (S/)</label>
+                        <input type="number" id="transferAmount" placeholder="0.00" min="0.01" step="0.01">
+                    </div>
+                    <div class="input-group">
+                        <label data-lang="beneficiary_label">Beneficiario</label>
+                        <input type="text" id="transferBeneficiary" placeholder="Nombre completo">
+                    </div>
+                    <div class="action-buttons">
+                        <button class="btn-confirm" onclick="executeOperation('transfer')" data-lang="confirm">Confirmar</button>
+                        <button class="btn-cancel" onclick="hideOperations()" data-lang="cancel">Cancelar</button>
+                    </div>
+                </div>
+
+                <div class="evaluation-panel">
+                    <h4 data-lang="evaluation_title">Evaluación Automática</h4>
+                    <div class="score-display">
+                        <div class="score-circle" id="scoreCircle">0%</div>
+                        <div class="score-details">
+                            <div class="score-item">
+                                <span data-lang="accuracy">Precisión</span>
+                                <span id="accuracyScore">0/0</span>
+                            </div>
+                            <div class="score-item">
+                                <span data-lang="time">Tiempo</span>
+                                <span id="timeScore">0/0</span>
+                            </div>
+                            <div class="score-item">
+                                <span data-lang="errors">Errores</span>
+                                <span id="errorScore">0</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="feedback-message" id="feedbackMessage"></div>
+                </div>
+
+                <button class="reset-btn" onclick="resetSimulator()" data-lang="reset_simulation">Reiniciar Simulación</button>
+            </div>
+
+            <div class="transaction-history">
+                <h3 data-lang="transaction_history">Historial de Transacciones</h3>
+                <div class="transaction-list" id="transactionList">
+                    <div class="transaction-item">
+                        <div class="transaction-info">
+                            <div class="transaction-type" data-lang="initial_balance">Saldo Inicial</div>
+                            <div class="transaction-date" id="initialDate">--/--/---- --:--</div>
+                        </div>
+                        <div class="transaction-amount positive">S/ 1,000.00</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>EMAGESGROUP E.I.R.L. – RUC 20611427671</strong></p>
+            <p data-lang="footer_text">Simulador educativo con fines de capacitación. No representa operaciones bancarias reales.</p>
+            <p data-lang="legal_notice">© 2026 EMAGES Academy. Todos los derechos reservados.</p>
+        </div>
+    </div>
+
+    <div class="notification" id="notification"></div>
+
+    <script>
+        // State Management
+        let state = {
+            balance: 1000.00,
+            transactions: [],
+            operations: 0,
+            errors: 0,
+            correctOperations: 0,
+            startTime: new Date(),
+            language: 'es'
+        };
+
+        // Translations
+        const translations = {
+            es: {
+                simulator_title: 'Simulador Cajero Bancario',
+                simulator_subtitle: 'EMAGES Academy - Formación Empresarial',
+                available_balance: 'Saldo Disponible',
+                deposit: 'Depositar',
+                withdraw: 'Retirar',
+                transfer: 'Transferir',
+                statement: 'Extracto',
+                student_id: 'ID Estudiante:',
+                session_time: 'Tiempo de Sesión:',
+                operations_count: 'Operaciones:',
+                deposit_title: 'Realizar Depósito',
+                withdraw_title: 'Realizar Retiro',
+                transfer_title: 'Realizar Transferencia',
+                amount_label: 'Monto (S/)',
+                concept_label: 'Concepto',
+                withdraw_type_label: 'Tipo de Retiro',
+                account_number_label: 'Número de Cuenta Destino',
+                beneficiary_label: 'Beneficiario',
+                confirm: 'Confirmar',
+                cancel: 'Cancelar',
+                evaluation_title: 'Evaluación Automática',
+                accuracy: 'Precisión',
+                time: 'Tiempo',
+                errors: 'Errores',
+                transaction_history: 'Historial de Transacciones',
+                initial_balance: 'Saldo Inicial',
+                reset_simulation: 'Reiniciar Simulación',
+                footer_text: 'Simulador educativo con fines de capacitación. No representa operaciones bancarias reales.',
+                legal_notice: '© 2026 EMAGES Academy. Todos los derechos reservados.',
+                notification_deposit: 'Depósito realizado exitosamente',
+                notification_withdraw: 'Retiro realizado exitosamente',
+                notification_transfer: 'Transferencia realizada exitosamente',
+                notification_error: 'Error: Saldo insuficiente',
+                notification_invalid: 'Error: Monto inválido',
+                feedback_excellent: '¡Excelente! Operaciones precisas y rápidas',
+                feedback_good: 'Buen trabajo, pero puedes mejorar la velocidad',
+                feedback_needs_improvement: 'Necesitas practicar más. Revisa los errores'
+            },
+            en: {
+                simulator_title: 'Bank Teller Simulator',
+                simulator_subtitle: 'EMAGES Academy - Business Training',
+                available_balance: 'Available Balance',
+                deposit: 'Deposit',
+                withdraw: 'Withdraw',
+                transfer: 'Transfer',
+                statement: 'Statement',
+                student_id: 'Student ID:',
+                session_time: 'Session Time:',
+                operations_count: 'Operations:',
+                deposit_title: 'Make Deposit',
+                withdraw_title: 'Make Withdrawal',
+                transfer_title: 'Make Transfer',
+                amount_label: 'Amount (S/)',
+                concept_label: 'Concept',
+                withdraw_type_label: 'Withdrawal Type',
+                account_number_label: 'Destination Account Number',
+                beneficiary_label: 'Beneficiary',
+                confirm: 'Confirm',
+                cancel: 'Cancel',
+                evaluation_title: 'Automatic Evaluation',
+                accuracy: 'Accuracy',
+                time: 'Time',
+                errors: 'Errors',
+                transaction_history: 'Transaction History',
+                initial_balance: 'Initial Balance',
+                reset_simulation: 'Reset Simulation',
+                footer_text: 'Educational simulator for training purposes. Does not represent real banking operations.',
+                legal_notice: '© 2026 EMAGES Academy. All rights reserved.',
+                notification_deposit: 'Deposit completed successfully',
+                notification_withdraw: 'Withdrawal completed successfully',
+                notification_transfer: 'Transfer completed successfully',
+                notification_error: 'Error: Insufficient funds',
+                notification_invalid: 'Error: Invalid amount',
+                feedback_excellent: 'Excellent! Precise and fast operations',
+                feedback_good: 'Good job, but you can improve speed',
+                feedback_needs_improvement: 'Need more practice. Review errors'
+            },
+            fr: {
+                simulator_title: 'Simulateur de Guichetier',
+                simulator_subtitle: 'EMAGES Academy - Formation Entreprise',
+                available_balance: 'Solde Disponible',
+                deposit: 'Déposer',
+                withdraw: 'Retirer',
+                transfer: 'Transférer',
+                statement: 'Relevé',
+                student_id: 'ID Étudiant:',
+                session_time: 'Temps de Session:',
+                operations_count: 'Opérations:',
+                deposit_title: 'Effectuer un Dépôt',
+                withdraw_title: 'Effectuer un Retrait',
+                transfer_title: 'Effectuer un Transfert',
+                amount_label: 'Montant (S/)',
+                concept_label: 'Concept',
+                withdraw_type_label: 'Type de Retrait',
+                account_number_label: 'Numéro de Compte Destination',
+                beneficiary_label: 'Bénéficiaire',
+                confirm: 'Confirmer',
+                cancel: 'Annuler',
+                evaluation_title: 'Évaluation Automatique',
+                accuracy: 'Précision',
+                time: 'Temps',
+                errors: 'Erreurs',
+                transaction_history: 'Historique des Transactions',
+                initial_balance: 'Solde Initial',
+                reset_simulation: 'Réinitialiser la Simulation',
+                footer_text: 'Simulateur éducatif à des fins de formation. Ne représente pas des opérations bancaires réelles.',
+                legal_notice: '© 2026 EMAGES Academy. Tous droits réservés.',
+                notification_deposit: 'Dépôt effectué avec succès',
+                notification_withdraw: 'Retrait effectué avec succès',
+                notification_transfer: 'Transfert effectué avec succès',
+                notification_error: 'Erreur: Fonds insuffisants',
+                notification_invalid: 'Erreur: Montant invalide',
+                feedback_excellent: 'Excellent! Opérations précises et rapides',
+                feedback_good: 'Bon travail, mais vous pouvez améliorer la vitesse',
+                feedback_needs_improvement: 'Besoin de plus de pratique. Vérifiez les erreurs'
+            },
+            ru: {
+                simulator_title: 'Симулятор Банковского Кассира',
+                simulator_subtitle: 'EMAGES Academy - Бизнес Обучение',
+                available_balance: 'Доступный Баланс',
+                deposit: 'Депозит',
+                withdraw: 'Снять',
+                transfer: 'Перевод',
+                statement: 'Выписка',
+                student_id: 'ID Студента:',
+                session_time: 'Время Сессии:',
+                operations_count: 'Операции:',
+                deposit_title: 'Внести Депозит',
+                withdraw_title: 'Снять Средства',
+                transfer_title: 'Выполнить Перевод',
+                amount_label: 'Сумма (S/)',
+                concept_label: 'Концепция',
+                withdraw_type_label: 'Тип Снятия',
+                account_number_label: 'Номер Счета Получателя',
+                beneficiary_label: 'Получатель',
+                confirm: 'Подтвердить',
+                cancel: 'Отмена',
+                evaluation_title: 'Автоматическая Оценка',
+                accuracy: 'Точность',
+                time: 'Время',
+                errors: 'Ошибки',
+                transaction_history: 'История Транзакций',
+                initial_balance: 'Начальный Баланс',
+                reset_simulation: 'Перезапустить Симуляцию',
+                footer_text: 'Образовательный симулятор для учебных целей. Не представляет реальные банковские операции.',
+                legal_notice: '© 2026 EMAGES Academy. Все права защищены.',
+                notification_deposit: 'Депозит успешно завершен',
+                notification_withdraw: 'Снятие успешно завершено',
+                notification_transfer: 'Перевод успешно завершен',
+                notification_error: 'Ошибка: Недостаточно средств',
+                notification_invalid: 'Ошибка: Неверная сумма',
+                feedback_excellent: 'Отлично! Точные и быстрые операции',
+                feedback_good: 'Хорошая работа, но можно улучшить скорость',
+                feedback_needs_improvement: 'Нужно больше практики. Проверьте ошибки'
+            }
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('initialDate').textContent = new Date().toLocaleString();
+            startSessionTimer();
+            updateEvaluation();
+        });
+
+        // Language Switcher
+        function changeLanguage(lang) {
+            state.language = lang;
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            document.querySelectorAll('[data-lang]').forEach(element => {
+                const key = element.getAttribute('data-lang');
+                if (translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+        }
+
+        // Session Timer
+        function startSessionTimer() {
+            setInterval(() => {
+                const elapsed = Math.floor((new Date() - state.startTime) / 1000);
+                const minutes = Math.floor(elapsed / 60).toString().padStart(2, '0');
+                const seconds = (elapsed % 60).toString().padStart(2, '0');
+                document.getElementById('sessionTime').textContent = `${minutes}:${seconds}`;
+            }, 1000);
+        }
+
+        // Show Operation Section
+        function showOperation(type) {
+            hideOperations();
+            if (type === 'deposit') {
+                document.getElementById('depositSection').classList.add('active');
+            } else if (type === 'withdraw') {
+                document.getElementById('withdrawSection').classList.add('active');
+            } else if (type === 'transfer') {
+                document.getElementById('transferSection').classList.add('active');
+            }
+        }
+
+        // Hide All Operations
+        function hideOperations() {
+            document.querySelectorAll('.input-section').forEach(section => {
+                section.classList.remove('active');
+            });
+        }
+
+        // Execute Operation
+        function executeOperation(type) {
+            let amount, isValid;
+
+            if (type === 'deposit') {
+                amount = parseFloat(document.getElementById('depositAmount').value);
+                isValid = amount > 0;
+                
+                if (isValid) {
+                    state.balance += amount;
+                    state.correctOperations++;
+                    addTransaction('Depósito', amount, 'positive');
+                    showNotification(translations[state.language].notification_deposit);
+                }
+            } else if (type === 'withdraw') {
+                amount = parseFloat(document.getElementById('withdrawAmount').value);
+                isValid = amount > 0 && amount <= state.balance;
+                
+                if (isValid) {
+                    state.balance -= amount;
+                    state.correctOperations++;
+                    addTransaction('Retiro', amount, 'negative');
+                    showNotification(translations[state.language].notification_withdraw);
+                } else if (amount > state.balance) {
+                    showNotification(translations[state.language].notification_error, true);
+                    state.errors++;
+                }
+            } else if (type === 'transfer') {
+                amount = parseFloat(document.getElementById('transferAmount').value);
+                const account = document.getElementById('transferAccount').value;
+                const beneficiary = document.getElementById('transferBeneficiary').value;
+                isValid = amount > 0 && amount <= state.balance && account && beneficiary;
+                
+                if (isValid) {
+                    state.balance -= amount;
+                    state.correctOperations++;
+                    addTransaction(`Transferencia a ${beneficiary}`, amount, 'negative');
+                    showNotification(translations[state.language].notification_transfer);
+                } else if (amount > state.balance) {
+                    showNotification(translations[state.language].notification_error, true);
+                    state.errors++;
+                } else {
+                    showNotification(translations[state.language].notification_invalid, true);
+                    state.errors++;
+                }
+            }
+
+            if (isValid) {
+                state.operations++;
+                document.getElementById('operationsCount').textContent = state.operations;
+                updateBalance();
+                hideOperations();
+                updateEvaluation();
+                clearInputs();
+            }
+        }
+
+        // Update Balance Display
+        function updateBalance() {
+            document.getElementById('balance').textContent = state.balance.toFixed(2);
+        }
+
+        // Add Transaction to History
+        function addTransaction(type, amount, sign) {
+            const transaction = {
+                type,
+                amount,
+                sign,
+                date: new Date()
+            };
+            state.transactions.unshift(transaction);
+
+            const transactionList = document.getElementById('transactionList');
+            const item = document.createElement('div');
+            item.className = 'transaction-item';
+            item.innerHTML = `
+                <div class="transaction-info">
+                    <div class="transaction-type">${type}</div>
+                    <div class="transaction-date">${transaction.date.toLocaleString()}</div>
+                </div>
+                <div class="transaction-amount ${sign}">S/ ${amount.toFixed(2)}</div>
+            `;
+            transactionList.insertBefore(item, transactionList.firstChild.nextSibling);
+        }
+
+        // Show Statement
+        function showStatement() {
+            showNotification('Extracto generado - Revisa el historial completo');
+        }
+
+        // Update Evaluation
+        function updateEvaluation() {
+            const totalOps = state.operations + state.errors;
+            const accuracy = totalOps > 0 ? Math.round((state.correctOperations / totalOps) * 100) : 0;
+            
+            const elapsed = Math.floor((new Date() - state.startTime) / 1000);
+            const timeScore = state.operations > 0 ? Math.min(100, Math.round((state.operations / elapsed) * 300)) : 0;
+
+            document.getElementById('scoreCircle').textContent = `${accuracy}%`;
+            document.getElementById('accuracyScore').textContent = `${state.correctOperations}/${totalOps}`;
+            document.getElementById('timeScore').textContent = `${timeScore}/100`;
+            document.getElementById('errorScore').textContent = state.errors;
+
+            // Feedback
+            const feedbackEl = document.getElementById('feedbackMessage');
+            feedbackEl.className = 'feedback-message';
+            
+            if (accuracy >= 90 && state.operations >= 5) {
+                feedbackEl.textContent = translations[state.language].feedback_excellent;
+                feedbackEl.classList.add('success');
+            } else if (accuracy >= 70) {
+                feedbackEl.textContent = translations[state.language].feedback_good;
+                feedbackEl.classList.add('success');
+            } else if (state.operations > 0) {
+                feedbackEl.textContent = translations[state.language].feedback_needs_improvement;
+                feedbackEl.classList.add('error');
+            }
+        }
+
+        // Show Notification
+        function showNotification(message, isError = false) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = isError ? 'notification error show' : 'notification show';
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Clear Inputs
+        function clearInputs() {
+            document.querySelectorAll('input').forEach(input => input.value = '');
+            document.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
+        }
+
+        // Reset Simulator
+        function resetSimulator() {
+            if (confirm('¿Estás seguro de reiniciar la simulación? Se perderá todo el progreso.')) {
+                state = {
+                    balance: 1000.00,
+                    transactions: [],
+                    operations: 0,
+                    errors: 0,
+                    correctOperations: 0,
+                    startTime: new Date(),
+                    language: state.language
+                };
+                
+                updateBalance();
+                document.getElementById('operationsCount').textContent = '0';
+                document.getElementById('transactionList').innerHTML = `
+                    <div class="transaction-item">
+                        <div class="transaction-info">
+                            <div class="transaction-type" data-lang="initial_balance">Saldo Inicial</div>
+                            <div class="transaction-date" id="initialDate">${new Date().toLocaleString()}</div>
+                        </div>
+                        <div class="transaction-amount positive">S/ 1,000.00</div>
+                    </div>
+                `;
+                updateEvaluation();
+                hideOperations();
+                showNotification('Simulación reiniciada');
+            }
+        }
+    </script>
+</body>
+</html>
