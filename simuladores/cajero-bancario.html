@@ -3,9 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulador Cajero Bancario | EMAGES Academy</title>
+    <title>Simulador Cajero Bancario Global | EMAGES Academy</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary: #1a1a2e;
+            --gold: #d4af37;
+            --light: #f8f9fa;
+            --success: #11998e;
+            --danger: #eb3349;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -17,6 +25,7 @@
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             min-height: 100vh;
             padding: 20px;
+            color: #333;
         }
 
         .container {
@@ -36,6 +45,7 @@
             align-items: center;
             flex-wrap: wrap;
             gap: 20px;
+            border-bottom: 4px solid var(--primary);
         }
 
         .header-left {
@@ -47,12 +57,12 @@
         .logo-eg {
             width: 60px;
             height: 60px;
-            background: #1a1a2e;
+            background: var(--primary);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #d4af37;
+            color: var(--gold);
             font-weight: bold;
             font-size: 24px;
             flex-shrink: 0;
@@ -60,26 +70,37 @@
 
         .header-title h1 {
             font-size: 24px;
-            color: #1a1a2e;
+            color: var(--primary);
             margin-bottom: 5px;
         }
 
         .header-title p {
             font-size: 13px;
-            color: #1a1a2e;
+            color: var(--primary);
             opacity: 0.8;
         }
 
-        .language-selector {
+        .controls {
             display: flex;
-            gap: 10px;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .region-selector {
+            padding: 10px 15px;
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            background: white;
+            color: var(--primary);
+            font-weight: 600;
+            cursor: pointer;
         }
 
         .lang-btn {
             padding: 8px 16px;
-            border: 2px solid #1a1a2e;
+            border: 2px solid var(--primary);
             background: transparent;
-            color: #1a1a2e;
+            color: var(--primary);
             border-radius: 20px;
             cursor: pointer;
             font-weight: 600;
@@ -88,8 +109,8 @@
         }
 
         .lang-btn.active, .lang-btn:hover {
-            background: #1a1a2e;
-            color: #d4af37;
+            background: var(--primary);
+            color: var(--gold);
         }
 
         .main-grid {
@@ -114,6 +135,7 @@
             padding: 25px;
             border-right: 1px solid #e0e0e0;
             border-bottom: 1px solid #e0e0e0;
+            background: #fff;
         }
 
         .panel:last-child {
@@ -123,26 +145,21 @@
         .panel-title {
             font-size: 16px;
             font-weight: 700;
-            color: #1a1a2e;
+            color: var(--primary);
             margin-bottom: 20px;
             padding-bottom: 10px;
-            border-bottom: 3px solid #d4af37;
+            border-bottom: 3px solid var(--gold);
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        .panel-title span {
-            font-size: 20px;
-        }
-
-        /* Student Info Panel */
         .student-card {
             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
             border-radius: 12px;
             padding: 20px;
             margin-bottom: 20px;
-            border-left: 4px solid #d4af37;
+            border-left: 4px solid var(--gold);
         }
 
         .student-card p {
@@ -152,12 +169,12 @@
         }
 
         .student-card strong {
-            color: #1a1a2e;
+            color: var(--primary);
         }
 
-        .account-display {
-            background: #1a1a2e;
-            color: #d4af37;
+        .balance-display {
+            background: var(--primary);
+            color: var(--gold);
             padding: 20px;
             border-radius: 12px;
             text-align: center;
@@ -165,27 +182,18 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
-        .account-display h3 {
+        .balance-display h3 {
             font-size: 13px;
             opacity: 0.8;
             margin-bottom: 10px;
             text-transform: uppercase;
         }
 
-        .account-display .amount {
+        .balance-display .amount {
             font-size: 32px;
             font-weight: 700;
         }
 
-        .account-display .account-number {
-            font-size: 11px;
-            opacity: 0.7;
-            margin-top: 10px;
-            font-family: 'Courier New', monospace;
-            letter-spacing: 2px;
-        }
-
-        /* Operation Buttons */
         .operation-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -217,61 +225,26 @@
         .op-btn.withdraw { background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%); }
         .op-btn.transfer { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
         .op-btn.payment { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
-        .op-btn.statement { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
-        .op-btn.check { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); color: #1a1a2e; }
+        .op-btn.check { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); color: var(--primary); }
+        .op-btn.admin { background: linear-gradient(135deg, #333 0%, #555 100%); }
 
-        .op-btn span:first-child {
-            font-size: 20px;
-        }
-
-        /* Operation Code Display */
-        .code-display {
-            background: #fff3cd;
-            border: 2px dashed #d4af37;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 20px;
-        }
-
-        .code-display label {
-            font-size: 11px;
-            color: #856404;
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-
-        .code-display .code {
-            font-size: 24px;
-            font-weight: 700;
-            color: #1a1a2e;
-            font-family: 'Courier New', monospace;
-            letter-spacing: 3px;
-        }
-
-        .code-display .description {
-            font-size: 11px;
-            color: #856404;
-            margin-top: 5px;
-        }
-
-        /* Input Section */
         .input-section {
             background: #f8f9fa;
             padding: 20px;
             border-radius: 12px;
             border: 1px solid #e0e0e0;
             display: none;
+            margin-bottom: 20px;
         }
 
         .input-section.active {
             display: block;
+            animation: fadeIn 0.3s;
         }
 
-        .input-section h4 {
-            margin-bottom: 15px;
-            color: #1a1a2e;
-            font-size: 14px;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .input-group {
@@ -298,14 +271,7 @@
 
         .input-group input:focus, .input-group select:focus {
             outline: none;
-            border-color: #d4af37;
-        }
-
-        .input-group .hint {
-            font-size: 10px;
-            color: #888;
-            margin-top: 5px;
-            font-style: italic;
+            border-color: var(--gold);
         }
 
         .action-buttons {
@@ -317,8 +283,8 @@
         .btn-confirm {
             flex: 1;
             padding: 12px;
-            background: #d4af37;
-            color: #1a1a2e;
+            background: var(--gold);
+            color: var(--primary);
             border: none;
             border-radius: 8px;
             font-weight: 600;
@@ -342,11 +308,56 @@
             transition: all 0.3s;
         }
 
-        .btn-cancel:hover {
-            background: #ccc;
+        /* Denomination Breakdown */
+        .breakdown-container {
+            background: white;
+            border: 2px solid var(--gold);
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 15px;
+            display: none;
         }
 
-        /* Transaction History / Statement */
+        .breakdown-container.active {
+            display: block;
+        }
+
+        .breakdown-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .breakdown-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .breakdown-item {
+            background: #f8f9fa;
+            padding: 8px;
+            border-radius: 6px;
+            text-align: center;
+            border: 1px solid #e0e0e0;
+        }
+
+        .breakdown-item .count {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary);
+            display: block;
+        }
+
+        .breakdown-item .label {
+            font-size: 10px;
+            color: #888;
+            display: block;
+        }
+
+        /* Statement */
         .statement-container {
             background: white;
             border: 1px solid #e0e0e0;
@@ -356,8 +367,8 @@
         }
 
         .statement-header {
-            background: #1a1a2e;
-            color: #d4af37;
+            background: var(--primary);
+            color: var(--gold);
             padding: 15px;
             font-size: 13px;
             font-weight: 600;
@@ -382,34 +393,13 @@
         .transaction-code {
             font-family: 'Courier New', monospace;
             font-weight: 600;
-            color: #1a1a2e;
+            color: var(--primary);
         }
 
-        .transaction-desc {
-            color: #555;
-        }
+        .transaction-amount.positive { color: var(--success); }
+        .transaction-amount.negative { color: var(--danger); }
 
-        .transaction-amount {
-            font-weight: 700;
-            text-align: right;
-        }
-
-        .transaction-amount.positive {
-            color: #11998e;
-        }
-
-        .transaction-amount.negative {
-            color: #eb3349;
-        }
-
-        .transaction-date {
-            grid-column: 1 / -1;
-            font-size: 10px;
-            color: #888;
-            margin-top: 5px;
-        }
-
-        /* Evaluation Panel */
+        /* Evaluation */
         .evaluation-panel {
             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
             border-radius: 12px;
@@ -418,167 +408,22 @@
             border: 2px solid #e0e0e0;
         }
 
-        .evaluation-panel h4 {
-            color: #1a1a2e;
-            margin-bottom: 15px;
-            font-size: 14px;
-        }
-
-        .score-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-bottom: 15px;
-        }
-
-        .score-item {
-            text-align: center;
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            border: 1px solid #e0e0e0;
-        }
-
-        .score-item .label {
-            font-size: 11px;
-            color: #888;
-            margin-bottom: 5px;
-        }
-
-        .score-item .value {
-            font-size: 20px;
-            font-weight: 700;
-            color: #1a1a2e;
-        }
-
         .score-circle {
-            width: 70px;
-            height: 70px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
-            background: #d4af37;
-            color: #1a1a2e;
+            background: var(--gold);
+            color: var(--primary);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
+            font-size: 24px;
             font-weight: 700;
-            margin: 0 auto 10px;
+            margin: 0 auto 15px;
         }
 
-        .feedback-message {
-            padding: 12px;
-            border-radius: 8px;
-            margin-top: 15px;
-            font-size: 12px;
-            display: none;
-            text-align: center;
-        }
-
-        .feedback-message.success {
-            background: #d4edda;
-            color: #155724;
-            display: block;
-        }
-
-        .feedback-message.error {
-            background: #f8d7da;
-            color: #721c24;
-            display: block;
-        }
-
-        .feedback-message.warning {
-            background: #fff3cd;
-            color: #856404;
-            display: block;
-        }
-
-        /* Money Laundering Alert */
-        .aml-alert {
-            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
-            color: white;
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            display: none;
-            animation: pulse 2s infinite;
-        }
-
-        .aml-alert.active {
-            display: block;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.8; }
-        }
-
-        .aml-alert h4 {
-            font-size: 14px;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .aml-alert p {
-            font-size: 12px;
-            opacity: 0.9;
-        }
-
-        .aml-alert .btn-acknowledge {
-            background: white;
-            color: #dc3545;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 6px;
-            font-weight: 600;
-            margin-top: 15px;
-            cursor: pointer;
-        }
-
-        /* Worksheet Button */
-        .worksheet-btn {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 15px;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .worksheet-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .reset-btn {
-            width: 100%;
-            padding: 15px;
-            background: #1a1a2e;
-            color: #d4af37;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 15px;
-            transition: all 0.3s;
-        }
-
-        .reset-btn:hover {
-            background: #2d2d44;
-        }
-
-        /* Footer */
         .footer {
-            background: #1a1a2e;
+            background: var(--primary);
             color: #888;
             padding: 20px 40px;
             text-align: center;
@@ -586,16 +431,15 @@
         }
 
         .footer strong {
-            color: #d4af37;
+            color: var(--gold);
         }
 
-        /* Notification */
         .notification {
             position: fixed;
             top: 20px;
             right: 20px;
             padding: 15px 25px;
-            background: #11998e;
+            background: var(--success);
             color: white;
             border-radius: 8px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
@@ -609,37 +453,22 @@
         }
 
         .notification.error {
-            background: #eb3349;
+            background: var(--danger);
         }
 
-        .notification.warning {
-            background: #ffc107;
-            color: #1a1a2e;
+        .code-reference {
+            font-size: 10px;
+            line-height: 1.6;
+            background: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            max-height: 300px;
+            overflow-y: auto;
         }
 
-        /* Print Worksheet */
-        .worksheet-print {
-            display: none;
-        }
-
-        @media print {
-            .worksheet-print {
-                display: block;
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                background: white;
-                padding: 40px;
-            }
-            
-            body * {
-                visibility: hidden;
-            }
-            
-            .worksheet-print, .worksheet-print * {
-                visibility: visible;
-            }
+        .code-reference strong {
+            color: var(--primary);
         }
     </style>
 </head>
@@ -649,15 +478,21 @@
             <div class="header-left">
                 <div class="logo-eg">EG</div>
                 <div class="header-title">
-                    <h1 data-lang="simulator_title">Simulador Cajero Bancario</h1>
-                    <p data-lang="simulator_subtitle">EMAGES Academy - Formación Empresarial | Nivel Agente Bancario</p>
+                    <h1 data-lang="simulator_title">Simulador Cajero Bancario Global</h1>
+                    <p data-lang="simulator_subtitle">EMAGES Academy | Nivel Agente Internacional</p>
                 </div>
             </div>
-            <div class="language-selector">
-                <button class="lang-btn active" onclick="changeLanguage('es')">ES</button>
-                <button class="lang-btn" onclick="changeLanguage('en')">EN</button>
-                <button class="lang-btn" onclick="changeLanguage('fr')">FR</button>
-                <button class="lang-btn" onclick="changeLanguage('ru')">RU</button>
+            <div class="controls">
+                <select class="region-selector" id="regionSelector" onchange="changeRegion()">
+                    <option value="pe">🇵🇪 Perú (Soles)</option>
+                    <option value="af">🌍 África (Dólares)</option>
+                    <option value="eu">🇪🇺 Europa (Euros/Dólares)</option>
+                </select>
+                <div class="language-selector">
+                    <button class="lang-btn active" onclick="changeLanguage('es')">ES</button>
+                    <button class="lang-btn" onclick="changeLanguage('en')">EN</button>
+                    <button class="lang-btn" onclick="changeLanguage('fr')">FR</button>
+                </div>
             </div>
         </div>
 
@@ -671,193 +506,105 @@
 
                 <div class="student-card">
                     <p><strong data-lang="student_id">ID Estudiante:</strong> <span id="studentId">EMG-2026-001</span></p>
-                    <p><strong data-lang="student_name">Nombre:</strong> <span id="studentName">____________________</span></p>
-                    <p><strong data-lang="session_time">Tiempo de Sesión:</strong> <span id="sessionTime">00:00</span></p>
-                    <p><strong data-lang="operations_count">Operaciones:</strong> <span id="operationsCount">0</span></p>
+                    <p><strong data-lang="session_time">Tiempo:</strong> <span id="sessionTime">00:00</span></p>
+                    <p><strong data-lang="region">Región:</strong> <span id="currentRegion">Perú</span></p>
                 </div>
 
-                <div class="account-display">
+                <div class="balance-display">
                     <h3 data-lang="available_balance">Saldo Disponible</h3>
-                    <div class="amount">S/ <span id="balance">10000.00</span></div>
-                    <div class="account-number" data-lang="account_number">CUENTA: <span id="accountNumber">002-1234567-89</span></div>
+                    <div class="amount"><span id="currencySymbol">S/</span> <span id="balance">10000.00</span></div>
                 </div>
 
                 <div class="operation-grid">
-                    <button class="op-btn deposit" onclick="showOperation('deposit')">
+                    <button class="op-btn deposit" onclick="showOperation('0730')">
                         <span>💰</span>
-                        <span data-lang="deposit">Depositar</span>
+                        <span>0730 - Depósito</span>
                     </button>
-                    <button class="op-btn withdraw" onclick="showOperation('withdraw')">
+                    <button class="op-btn withdraw" onclick="showOperation('0600')">
                         <span>💵</span>
-                        <span data-lang="withdraw">Retirar</span>
+                        <span>0600 - Retiro</span>
                     </button>
-                    <button class="op-btn transfer" onclick="showOperation('transfer')">
+                    <button class="op-btn transfer" onclick="showOperation('0740')">
                         <span>🔄</span>
-                        <span data-lang="transfer">Transferir</span>
+                        <span>0740 - Transferencia</span>
                     </button>
-                    <button class="op-btn payment" onclick="showOperation('payment')">
+                    <button class="op-btn payment" onclick="showOperation('6500')">
                         <span>📄</span>
-                        <span data-lang="payment">Pagar Servicio</span>
+                        <span>6500 - Pago Servicios</span>
                     </button>
-                    <button class="op-btn statement" onclick="showStatement()">
-                        <span>📋</span>
-                        <span data-lang="statement">Extracto</span>
-                    </button>
-                    <button class="op-btn check" onclick="showOperation('check')">
+                    <button class="op-btn check" onclick="showOperation('0750')">
                         <span>✓</span>
-                        <span data-lang="check">Cheque</span>
+                        <span>0750 - Cheque Local</span>
                     </button>
-                </div>
-
-                <!-- Operation Code Display -->
-                <div class="code-display">
-                    <label data-lang="operation_code">CÓDIGO DE OPERACIÓN</label>
-                    <div class="code" id="operationCode">----</div>
-                    <div class="description" id="operationDescription" data-lang="code_hint">Anote este código en su cuaderno físico</div>
+                    <button class="op-btn admin" onclick="showOperation('1010')">
+                        <span>🔧</span>
+                        <span>1010 - Provisión</span>
+                    </button>
+                    <button class="op-btn admin" onclick="showOperation('4008')">
+                        <span>🏦</span>
+                        <span>4008 - Transf. Bóveda</span>
+                    </button>
+                    <button class="op-btn admin" onclick="showOperation('3043')">
+                        <span>📊</span>
+                        <span>3043 - Cuadre Efectivo</span>
+                    </button>
                 </div>
 
                 <!-- Input Sections -->
-                <div class="input-section" id="depositSection">
-                    <h4 data-lang="deposit_title">Realizar Depósito</h4>
+                <div class="input-section" id="operationSection">
+                    <h4 id="operationTitle">Realizar Operación</h4>
+                    
                     <div class="input-group">
-                        <label data-lang="operation_code_input">Digite Código de Operación</label>
-                        <input type="text" id="depositCode" placeholder="Ej: 0730" maxlength="4">
-                        <div class="hint" data-lang="code_hint_deposit">Código correcto: 0730 (Depósito en efectivo)</div>
+                        <label data-lang="operation_code_input">Código de Operación</label>
+                        <input type="text" id="opCodeInput" placeholder="Ej: 0730" maxlength="4">
                     </div>
+
                     <div class="input-group">
-                        <label data-lang="account_number_input">Número de Cuenta Destino</label>
-                        <input type="text" id="depositAccount" placeholder="000-0000000-00">
-                        <div class="hint" data-lang="account_hint">Formato: 000-0000000-00 (12 dígitos)</div>
+                        <label data-lang="amount_label">Monto</label>
+                        <input type="number" id="opAmount" placeholder="0.00" min="0.01" step="0.01" oninput="calculateBreakdown()">
                     </div>
-                    <div class="input-group">
-                        <label data-lang="amount_label">Monto (S/)</label>
-                        <input type="number" id="depositAmount" placeholder="0.00" min="0.01" step="0.01">
+
+                    <div class="input-group" id="accountGroup">
+                        <label data-lang="account_number_input">Número de Cuenta</label>
+                        <input type="text" id="opAccount" placeholder="000-0000000-00">
                     </div>
+
+                    <!-- Denomination Breakdown Display -->
+                    <div class="breakdown-container" id="breakdownContainer">
+                        <div class="breakdown-title" data-lang="bill_breakdown">Desglose de Billetes/Monedas</div>
+                        <div class="breakdown-grid" id="breakdownGrid">
+                            <!-- Dynamic Content -->
+                        </div>
+                        <p style="font-size: 10px; color: #888; margin-top: 10px; text-align: center;">
+                            * Verifique físicamente esta cantidad antes de confirmar
+                        </p>
+                    </div>
+
                     <div class="action-buttons">
-                        <button class="btn-confirm" onclick="executeOperation('deposit')" data-lang="confirm">Confirmar</button>
+                        <button class="btn-confirm" onclick="executeOperation()" data-lang="confirm">Confirmar</button>
                         <button class="btn-cancel" onclick="hideOperations()" data-lang="cancel">Cancelar</button>
                     </div>
                 </div>
 
-                <div class="input-section" id="withdrawSection">
-                    <h4 data-lang="withdraw_title">Realizar Retiro</h4>
-                    <div class="input-group">
-                        <label data-lang="operation_code_input">Digite Código de Operación</label>
-                        <input type="text" id="withdrawCode" placeholder="Ej: 0600" maxlength="4">
-                        <div class="hint" data-lang="code_hint_withdraw">Código correcto: 0600 (Retiro efectivo cta. ahorros)</div>
+                <div class="evaluation-panel">
+                    <h4 data-lang="evaluation_title">Evaluación Automática</h4>
+                    <div class="score-circle" id="scoreCircle">0%</div>
+                    <div style="display: flex; justify-content: space-between; font-size: 12px; margin-top: 10px;">
+                        <span data-lang="accuracy">Precisión:</span>
+                        <span id="accuracyScore">0/0</span>
                     </div>
-                    <div class="input-group">
-                        <label data-lang="amount_label">Monto (S/)</label>
-                        <input type="number" id="withdrawAmount" placeholder="0.00" min="0.01" step="0.01">
-                    </div>
-                    <div class="action-buttons">
-                        <button class="btn-confirm" onclick="executeOperation('withdraw')" data-lang="confirm">Confirmar</button>
-                        <button class="btn-cancel" onclick="hideOperations()" data-lang="cancel">Cancelar</button>
+                    <div style="display: flex; justify-content: space-between; font-size: 12px; margin-top: 5px;">
+                        <span data-lang="codes_correct">Códigos:</span>
+                        <span id="codesScore">0/0</span>
                     </div>
                 </div>
-
-                <div class="input-section" id="transferSection">
-                    <h4 data-lang="transfer_title">Realizar Transferencia</h4>
-                    <div class="input-group">
-                        <label data-lang="operation_code_input">Digite Código de Operación</label>
-                        <input type="text" id="transferCode" placeholder="Ej: 0740" maxlength="4">
-                        <div class="hint" data-lang="code_hint_transfer">Código correcto: 0740 (Transferencia entre cuentas)</div>
-                    </div>
-                    <div class="input-group">
-                        <label data-lang="account_number_input">Número de Cuenta Destino</label>
-                        <input type="text" id="transferAccount" placeholder="000-0000000-00">
-                    </div>
-                    <div class="input-group">
-                        <label data-lang="amount_label">Monto (S/)</label>
-                        <input type="number" id="transferAmount" placeholder="0.00" min="0.01" step="0.01">
-                    </div>
-                    <div class="action-buttons">
-                        <button class="btn-confirm" onclick="executeOperation('transfer')" data-lang="confirm">Confirmar</button>
-                        <button class="btn-cancel" onclick="hideOperations()" data-lang="cancel">Cancelar</button>
-                    </div>
-                </div>
-
-                <div class="input-section" id="paymentSection">
-                    <h4 data-lang="payment_title">Pagar Servicio</h4>
-                    <div class="input-group">
-                        <label data-lang="operation_code_input">Digite Código de Operación</label>
-                        <input type="text" id="paymentCode" placeholder="Ej: 6500" maxlength="4">
-                        <div class="hint" data-lang="code_hint_payment">Código correcto: 6500 (Pago de servicios)</div>
-                    </div>
-                    <div class="input-group">
-                        <label data-lang="service_type">Tipo de Servicio</label>
-                        <select id="serviceType">
-                            <option value="light">Luz</option>
-                            <option value="water">Agua</option>
-                            <option value="phone">Teléfono Fijo</option>
-                            <option value="cable">Cable</option>
-                            <option value="cellphone_claro">Celular Claro</option>
-                            <option value="cellphone_entel">Celular Entel</option>
-                            <option value="cellphone_movistar">Celular Movistar</option>
-                        </select>
-                    </div>
-                    <div class="input-group">
-                        <label data-lang="service_number">Número de Suministro/Recibo</label>
-                        <input type="text" id="serviceNumber" placeholder="Ej: 503675">
-                    </div>
-                    <div class="input-group">
-                        <label data-lang="amount_label">Monto (S/)</label>
-                        <input type="number" id="paymentAmount" placeholder="0.00" min="0.01" step="0.01">
-                    </div>
-                    <div class="action-buttons">
-                        <button class="btn-confirm" onclick="executeOperation('payment')" data-lang="confirm">Confirmar</button>
-                        <button class="btn-cancel" onclick="hideOperations()" data-lang="cancel">Cancelar</button>
-                    </div>
-                </div>
-
-                <div class="input-section" id="checkSection">
-                    <h4 data-lang="check_title">Operación con Cheque</h4>
-                    <div class="input-group">
-                        <label data-lang="operation_code_input">Digite Código de Operación</label>
-                        <input type="text" id="checkCode" placeholder="Ej: 0750" maxlength="4">
-                        <div class="hint" data-lang="code_hint_check">Código correcto: 0750 (Cheque M/B Local)</div>
-                    </div>
-                    <div class="input-group">
-                        <label data-lang="check_number">Número de Cheque</label>
-                        <input type="text" id="checkNumber" placeholder="Ej: 00000123">
-                    </div>
-                    <div class="input-group">
-                        <label data-lang="amount_label">Monto (S/)</label>
-                        <input type="number" id="checkAmount" placeholder="0.00" min="0.01" step="0.01">
-                    </div>
-                    <div class="action-buttons">
-                        <button class="btn-confirm" onclick="executeOperation('check')" data-lang="confirm">Confirmar</button>
-                        <button class="btn-cancel" onclick="hideOperations()" data-lang="cancel">Cancelar</button>
-                    </div>
-                </div>
-
-                <!-- AML Alert -->
-                <div class="aml-alert" id="amlAlert">
-                    <h4>⚠️ <span data-lang="aml_title">ALERTA PREVENCIÓN DE LAVADO DE ACTIVOS</span></h4>
-                    <p data-lang="aml_message">Esta operación supera el monto de S/ 50,000. Debe registrar: SOLICITANTE, BENEFICIARIO y ORDENANTE. Capture pantalla del registro.</p>
-                    <button class="btn-acknowledge" onclick="acknowledgeAML()" data-lang="aml_acknowledge">Entendido - Registrar</button>
-                </div>
-
-                <button class="worksheet-btn" onclick="printWorksheet()">
-                    <span>📝</span>
-                    <span data-lang="print_worksheet">Imprimir Hoja de Trabajo</span>
-                </button>
-
-                <button class="reset-btn" onclick="resetSimulator()" data-lang="reset_simulation">Reiniciar Simulación</button>
             </div>
 
-            <!-- PANEL 2: EXTRACTO / HISTORIAL -->
+            <!-- PANEL 2: EXTRACTO -->
             <div class="panel">
                 <div class="panel-title">
                     <span>📋</span>
                     <span data-lang="statement_panel">Extracto de Cuenta</span>
-                </div>
-
-                <div class="student-card">
-                    <p><strong data-lang="account_holder">Titular:</strong> <span id="accountHolder">____________________</span></p>
-                    <p><strong data-lang="account_number_full">Cuenta:</strong> <span id="accountNumberFull">002-1234567-89</span></p>
-                    <p><strong data-lang="statement_date">Fecha de Extracto:</strong> <span id="statementDate">--/--/----</span></p>
-                    <p><strong data-lang="opening_balance">Saldo Inicial:</strong> S/ <span id="openingBalance">10000.00</span></p>
                 </div>
 
                 <div class="statement-container" id="statementContainer">
@@ -871,77 +618,60 @@
                     <div id="transactionList">
                         <div class="transaction-item">
                             <div class="transaction-code">1010</div>
-                            <div class="transaction-desc" data-lang="initial_balance">Saldo Inicial / Provisión</div>
-                            <div class="transaction-amount positive">S/ 10,000.00</div>
-                            <div class="transaction-date" id="initialDate">--/--/---- --:--</div>
+                            <div class="transaction-desc" data-lang="initial_balance">Provisión Inicial</div>
+                            <div class="transaction-amount positive"><span id="initCurrency">S/</span> 10,000.00</div>
                         </div>
                     </div>
-                </div>
-
-                <div class="evaluation-panel">
-                    <h4 data-lang="evaluation_title">Evaluación Automática</h4>
-                    
-                    <div class="score-circle" id="scoreCircle" style="width: 100px; height: 100px; font-size: 28px;">0%</div>
-                    
-                    <div class="score-grid">
-                        <div class="score-item">
-                            <div class="label" data-lang="accuracy">Precisión</div>
-                            <div class="value" id="accuracyScore">0/0</div>
-                        </div>
-                        <div class="score-item">
-                            <div class="label" data-lang="codes_correct">Códigos Correctos</div>
-                            <div class="value" id="codesScore">0/0</div>
-                        </div>
-                        <div class="score-item">
-                            <div class="label" data-lang="errors">Errores</div>
-                            <div class="value" id="errorScore">0</div>
-                        </div>
-                    </div>
-
-                    <div class="feedback-message" id="feedbackMessage"></div>
                 </div>
             </div>
 
-            <!-- PANEL 3: CLIENTES Y REFERENCIAS -->
+            <!-- PANEL 3: REFERENCIAS -->
             <div class="panel">
                 <div class="panel-title">
-                    <span>👥</span>
-                    <span data-lang="clients_panel">Clientes de Referencia</span>
+                    <span>📚</span>
+                    <span data-lang="reference_panel">Códigos de Referencia</span>
                 </div>
 
-                <div class="student-card">
-                    <p style="font-size: 11px; color: #888; margin-bottom: 10px;" data-lang="client_hint">
-                        * Anote estos datos en su cuaderno físico para usar en las transacciones
-                    </p>
-                </div>
-
-                <div class="statement-container" style="max-height: 400px;">
-                    <div id="clientsList">
-                        <!-- Clients will be populated by JavaScript -->
-                    </div>
+                <div class="code-reference">
+                    <strong>1000 - APERTURA/CIERRE</strong><br>
+                    1010: Provisión Inicial<br>
+                    1012: Aumento Efectivo<br>
+                    1014: Disminución Efectivo<br>
+                    101: Cierre de Caja<br>
+                    3069: Cierre de Agencia<br>
+                    <br>
+                    <strong>0600/0700 - TRANSACCIONES</strong><br>
+                    0600: Retiro Efectivo Ahorro<br>
+                    0730: Depósito Efectivo<br>
+                    0740: Transferencia Cuentas<br>
+                    0750: Cheque M/B Local<br>
+                    0732: Cheque Otro Banco<br>
+                    <br>
+                    <strong>6000/7000 - SERVICIOS</strong><br>
+                    6500: Pago de Servicios<br>
+                    7019: Reversión Movimientos<br>
+                    7190: Pago Otros Egresos<br>
+                    7290: Cobro Otros Ingresos<br>
+                    <br>
+                    <strong>3000/4000 - REPORTES</strong><br>
+                    3043: Cuadre Efectivo<br>
+                    3047: Mov. Contables<br>
+                    4000: Balance Movimientos<br>
+                    4008: Transf. Caja-Bóveda<br>
+                    <br>
+                    <strong>0100 - CONSULTAS</strong><br>
+                    0100: Consulta Movimientos<br>
+                    0102: Consulta Saldos<br>
+                    0810: Compra M.E.<br>
+                    0812: Venta M.E.
                 </div>
 
                 <div class="student-card" style="margin-top: 20px;">
-                    <p><strong data-lang="operation_codes_reference">Códigos de Operación (Referencia)</strong></p>
-                    <div style="font-size: 11px; margin-top: 10px; line-height: 1.8;">
-                        <strong>1010</strong> - Provisión Inicial<br>
-                        <strong>1012</strong> - Aumento de Efectivo<br>
-                        <strong>1014</strong> - Disminución de Efectivo<br>
-                        <strong>0730</strong> - Depósito en Efectivo<br>
-                        <strong>0600</strong> - Retiro Efectivo Cta. Ahorros<br>
-                        <strong>0740</strong> - Transferencia entre Cuentas<br>
-                        <strong>6500</strong> - Pago de Servicios<br>
-                        <strong>0750</strong> - Cheque M/B Local<br>
-                        <strong>0732</strong> - Cheque Otro Banco<br>
-                        <strong>0100</strong> - Consulta Movimientos<br>
-                        <strong>0102</strong> - Consulta Saldos<br>
+                    <p><strong data-lang="denominations_title">Denominaciones Activas</strong></p>
+                    <div id="activeDenominations" style="font-size: 11px; margin-top: 5px;">
+                        <!-- Dynamic -->
                     </div>
                 </div>
-
-                <button class="worksheet-btn" onclick="downloadClientsPDF()" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);">
-                    <span>📥</span>
-                    <span data-lang="download_clients">Descargar Lista de Clientes</span>
-                </button>
             </div>
         </div>
 
@@ -952,82 +682,12 @@
         </div>
     </div>
 
-    <!-- Notification -->
     <div class="notification" id="notification"></div>
-
-    <!-- Print Worksheet -->
-    <div class="worksheet-print">
-        <h2 style="text-align: center; color: #1a1a2e;">HOJA DE TRABAJO - SIMULADOR CAJERO</h2>
-        <p style="text-align: center; color: #888;">EMAGES Academy - Formación Empresarial</p>
-        <hr style="margin: 20px 0;">
-        
-        <h3>DATOS DEL ESTUDIANTE</h3>
-        <p>Nombre: _________________________________ ID: _______________</p>
-        <p>Fecha: ___/___/_____ Tiempo Inicio: _______ Tiempo Fin: _______</p>
-        
-        <h3>CUENTA ASIGNADA</h3>
-        <p>Número de Cuenta: _________________________</p>
-        <p>Saldo Inicial: S/ _________________________</p>
-        
-        <h3>CLIENTES DE REFERENCIA</h3>
-        <table border="1" style="width: 100%; border-collapse: collapse;">
-            <tr>
-                <th>Cliente</th>
-                <th>DNI</th>
-                <th>Número de Cuenta</th>
-            </tr>
-            <tr><td>Cliente A</td><td>_____________</td><td>_____________</td></tr>
-            <tr><td>Cliente B</td><td>_____________</td><td>_____________</td></tr>
-            <tr><td>Cliente C</td><td>_____________</td><td>_____________</td></tr>
-            <tr><td>Cliente D</td><td>_____________</td><td>_____________</td></tr>
-            <tr><td>Cliente E</td><td>_____________</td><td>_____________</td></tr>
-            <tr><td>Cliente G</td><td>_____________</td><td>_____________</td></tr>
-            <tr><td>Cliente Z</td><td>_____________</td><td>_____________</td></tr>
-        </table>
-        
-        <h3>CÓDIGOS DE OPERACIÓN</h3>
-        <table border="1" style="width: 100%; border-collapse: collapse;">
-            <tr>
-                <th>Código</th>
-                <th>Descripción</th>
-                <th>✓ Usado</th>
-            </tr>
-            <tr><td>1010</td><td>Provisión Inicial</td><td></td></tr>
-            <tr><td>0730</td><td>Depósito en Efectivo</td><td></td></tr>
-            <tr><td>0600</td><td>Retiro Efectivo</td><td></td></tr>
-            <tr><td>0740</td><td>Transferencia</td><td></td></tr>
-            <tr><td>6500</td><td>Pago de Servicios</td><td></td></tr>
-            <tr><td>0750</td><td>Cheque M/B Local</td><td></td></tr>
-        </table>
-        
-        <h3>TRANSACCIONES REALIZADAS</h3>
-        <table border="1" style="width: 100%; border-collapse: collapse;">
-            <tr>
-                <th>#</th>
-                <th>Código</th>
-                <th>Descripción</th>
-                <th>Monto</th>
-                <th>✓ Correcto</th>
-            </tr>
-            <tr><td>1</td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>2</td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>3</td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>4</td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>5</td><td></td><td></td><td></td><td></td></tr>
-        </table>
-        
-        <h3>ALERTAS PREVENCIÓN DE LAVADO DE ACTIVOS</h3>
-        <p>Operaciones > S/ 50,000: _____  Capturas realizadas: _____</p>
-        
-        <hr style="margin: 20px 0;">
-        <p style="font-size: 11px; color: #888;">EMAGESGROUP E.I.R.L. – RUC 20611427671</p>
-    </div>
 
     <script>
         // State Management
         let state = {
             balance: 10000.00,
-            openingBalance: 10000.00,
             transactions: [],
             operations: 0,
             errors: 0,
@@ -1036,370 +696,187 @@
             totalCodes: 0,
             startTime: new Date(),
             language: 'es',
-            currentOperation: null,
-            amlAlerts: 0
+            region: 'pe',
+            currentOpCode: null
         };
 
-        // Operation Codes (from SARABANK exams)
+        // Configuration by Region
+        const regions = {
+            pe: {
+                name: 'Perú',
+                currency: 'S/',
+                denominations: [200, 100, 50, 20, 10, 5, 2, 1, 0.5, 0.2, 0.1]
+            },
+            af: {
+                name: 'África',
+                currency: '$',
+                denominations: [100, 50, 20, 10, 5, 1] // USD standard
+            },
+            eu: {
+                name: 'Europa',
+                currency: '€',
+                denominations: [500, 200, 100, 50, 20, 10, 5, 2, 1, 0.5, 0.2, 0.1] // EUR standard
+            }
+        };
+
+        // Operation Codes Database (Merged from PDF & SARABANK)
         const operationCodes = {
-            deposit: '0730',
-            withdraw: '0600',
-            transfer: '0740',
-            payment: '6500',
-            check: '0750',
-            initial: '1010',
-            increase: '1012',
-            decrease: '1014',
-            checkOtherBank: '0732',
-            queryMovements: '0100',
-            queryBalance: '0102'
+            '1010': 'Provisión Inicial',
+            '1012': 'Aumento de Efectivo',
+            '1014': 'Disminución de Efectivo',
+            '101': 'Cierre de Caja',
+            '3043': 'Cuadre de Efectivo',
+            '3047': 'Movimientos Contables',
+            '3050': 'Envío Asientos',
+            '3051': 'Integración Contable',
+            '3069': 'Cierre de Agencia',
+            '3500': 'Cuadre Contable',
+            '4000': 'Balance Movimientos',
+            '4008': 'Transf. Caja-Bóveda',
+            '4373': 'Aumento desde Caja',
+            '5102': 'Pago de Préstamos',
+            '7001': 'Cambio Denominaciones',
+            '7019': 'Reversión Movimientos',
+            '7190': 'Pago Otros Egresos',
+            '7290': 'Cobro Otros Ingresos',
+            '9564': 'Reimpresión Comprobantes',
+            '0600': 'Retiro Efectivo Ahorro',
+            '0730': 'Depósito en Efectivo',
+            '0740': 'Transferencia Cuentas',
+            '6500': 'Pago de Servicios',
+            '0750': 'Cheque M/B Local',
+            '0732': 'Cheque Otro Banco',
+            '0100': 'Consulta Movimientos',
+            '0102': 'Consulta Saldos',
+            '0810': 'Compra M.E.',
+            '0812': 'Venta M.E.',
+            '1106': 'Retiro Ahorros (PDF)',
+            '1209': 'Depósito Ahorros (PDF)'
         };
-
-        // Clients Data (from uploaded files)
-        const clients = [
-            { id: 'A', name: 'VIGO ANDRES, VILCHEZ CACERES', dni: '76595101', account: '002-7659510-10' },
-            { id: 'B', name: 'LUZ JUANA, ROMO CHAUPIS', dni: '72217737', account: '002-7221773-70' },
-            { id: 'C', name: 'Paloma Damaris, MARTINEZ QUINTO', dni: '76584670', account: '002-7658467-00' },
-            { id: 'D', name: 'DIANA, CARRASCO LOAYZA', dni: '48290722', account: '002-4829072-20' },
-            { id: 'E', name: 'SOFIA, ARANA CHOCCELAHUA', dni: '48290723', account: '002-4829072-30' },
-            { id: 'G', name: 'GLENNY, DIAZ ALAYO', dni: '75920942', account: '002-7592094-20' },
-            { id: 'Z', name: 'SAORI, ARIAS GARAY', dni: '75920943', account: '002-7592094-30' }
-        ];
 
         // Translations
         const translations = {
             es: {
-                simulator_title: 'Simulador Cajero Bancario',
-                simulator_subtitle: 'EMAGES Academy - Formación Empresarial | Nivel Agente Bancario',
+                simulator_title: 'Simulador Cajero Bancario Global',
+                simulator_subtitle: 'EMAGES Academy | Nivel Agente Internacional',
                 operations_panel: 'Operaciones',
                 student_id: 'ID Estudiante:',
-                student_name: 'Nombre:',
-                session_time: 'Tiempo de Sesión:',
-                operations_count: 'Operaciones:',
+                session_time: 'Tiempo:',
+                region: 'Región:',
                 available_balance: 'Saldo Disponible',
-                account_number: 'CUENTA:',
-                operation_code: 'CÓDIGO DE OPERACIÓN',
-                code_hint: 'Anote este código en su cuaderno físico',
-                deposit: 'Depositar',
-                withdraw: 'Retirar',
-                transfer: 'Transferir',
-                payment: 'Pagar Servicio',
-                statement: 'Extracto',
-                check: 'Cheque',
-                deposit_title: 'Realizar Depósito',
-                withdraw_title: 'Realizar Retiro',
-                transfer_title: 'Realizar Transferencia',
-                payment_title: 'Pagar Servicio',
-                check_title: 'Operación con Cheque',
-                operation_code_input: 'Digite Código de Operación',
-                code_hint_deposit: 'Código correcto: 0730 (Depósito en efectivo)',
-                code_hint_withdraw: 'Código correcto: 0600 (Retiro efectivo cta. ahorros)',
-                code_hint_transfer: 'Código correcto: 0740 (Transferencia entre cuentas)',
-                code_hint_payment: 'Código correcto: 6500 (Pago de servicios)',
-                code_hint_check: 'Código correcto: 0750 (Cheque M/B Local)',
-                account_number_input: 'Número de Cuenta Destino',
-                account_hint: 'Formato: 000-0000000-00 (12 dígitos)',
-                amount_label: 'Monto (S/)',
-                service_type: 'Tipo de Servicio',
-                service_number: 'Número de Suministro/Recibo',
-                check_number: 'Número de Cheque',
+                operation_code_input: 'Código de Operación',
+                amount_label: 'Monto',
+                account_number_input: 'Número de Cuenta',
+                bill_breakdown: 'Desglose de Billetes/Monedas',
                 confirm: 'Confirmar',
                 cancel: 'Cancelar',
+                evaluation_title: 'Evaluación Automática',
+                accuracy: 'Precisión',
+                codes_correct: 'Códigos',
                 statement_panel: 'Extracto de Cuenta',
-                account_holder: 'Titular:',
-                account_number_full: 'Cuenta:',
-                statement_date: 'Fecha de Extracto:',
-                opening_balance: 'Saldo Inicial:',
                 col_code: 'CÓDIGO',
                 col_description: 'DESCRIPCIÓN',
                 col_amount: 'MONTO',
-                initial_balance: 'Saldo Inicial / Provisión',
-                evaluation_title: 'Evaluación Automática',
-                accuracy: 'Precisión',
-                codes_correct: 'Códigos Correctos',
-                errors: 'Errores',
-                clients_panel: 'Clientes de Referencia',
-                client_hint: '* Anote estos datos en su cuaderno físico para usar en las transacciones',
-                operation_codes_reference: 'Códigos de Operación (Referencia)',
-                download_clients: 'Descargar Lista de Clientes',
-                print_worksheet: 'Imprimir Hoja de Trabajo',
-                reset_simulation: 'Reiniciar Simulación',
+                initial_balance: 'Provisión Inicial',
+                reference_panel: 'Códigos de Referencia',
+                denominations_title: 'Denominaciones Activas',
                 footer_text: 'Simulador educativo con fines de capacitación. No representa operaciones bancarias reales.',
                 legal_notice: '© 2026 EMAGES Academy. Todos los derechos reservados.',
-                notification_deposit: 'Depósito realizado exitosamente',
-                notification_withdraw: 'Retiro realizado exitosamente',
-                notification_transfer: 'Transferencia realizada exitosamente',
-                notification_payment: 'Pago de servicio realizado exitosamente',
-                notification_check: 'Operación con cheque realizada exitosamente',
-                notification_error: 'Error: Saldo insuficiente',
-                notification_invalid: 'Error: Datos inválidos',
-                notification_code_error: 'Error: Código de operación incorrecto',
-                notification_aml: 'ALERTA: Operación requiere registro PLA',
-                feedback_excellent: '¡Excelente! Operaciones precisas y códigos correctos',
-                feedback_good: 'Buen trabajo, pero revise los códigos de operación',
-                feedback_needs_improvement: 'Necesitas practicar más. Revise errores y códigos',
-                aml_title: 'ALERTA PREVENCIÓN DE LAVADO DE ACTIVOS',
-                aml_message: 'Esta operación supera el monto de S/ 50,000. Debe registrar: SOLICITANTE, BENEFICIARIO y ORDENANTE. Capture pantalla del registro.',
-                aml_acknowledge: 'Entendido - Registrar'
+                notification_success: 'Operación realizada exitosamente',
+                notification_error: 'Error: Código o monto inválido',
+                notification_code_error: 'Error: Código de operación incorrecto'
             },
             en: {
-                simulator_title: 'Bank Teller Simulator',
-                simulator_subtitle: 'EMAGES Academy - Business Training | Bank Agent Level',
+                simulator_title: 'Global Bank Teller Simulator',
+                simulator_subtitle: 'EMAGES Academy | International Agent Level',
                 operations_panel: 'Operations',
                 student_id: 'Student ID:',
-                student_name: 'Name:',
-                session_time: 'Session Time:',
-                operations_count: 'Operations:',
+                session_time: 'Time:',
+                region: 'Region:',
                 available_balance: 'Available Balance',
-                account_number: 'ACCOUNT:',
-                operation_code: 'OPERATION CODE',
-                code_hint: 'Write this code in your physical notebook',
-                deposit: 'Deposit',
-                withdraw: 'Withdraw',
-                transfer: 'Transfer',
-                payment: 'Pay Service',
-                statement: 'Statement',
-                check: 'Check',
-                deposit_title: 'Make Deposit',
-                withdraw_title: 'Make Withdrawal',
-                transfer_title: 'Make Transfer',
-                payment_title: 'Pay Service',
-                check_title: 'Check Operation',
-                operation_code_input: 'Enter Operation Code',
-                code_hint_deposit: 'Correct code: 0730 (Cash Deposit)',
-                code_hint_withdraw: 'Correct code: 0600 (Savings Withdrawal)',
-                code_hint_transfer: 'Correct code: 0740 (Account Transfer)',
-                code_hint_payment: 'Correct code: 6500 (Service Payment)',
-                code_hint_check: 'Correct code: 0750 (Local Bank Check)',
-                account_number_input: 'Destination Account Number',
-                account_hint: 'Format: 000-0000000-00 (12 digits)',
-                amount_label: 'Amount (S/)',
-                service_type: 'Service Type',
-                service_number: 'Supply/Receipt Number',
-                check_number: 'Check Number',
+                operation_code_input: 'Operation Code',
+                amount_label: 'Amount',
+                account_number_input: 'Account Number',
+                bill_breakdown: 'Bill/Coin Breakdown',
                 confirm: 'Confirm',
                 cancel: 'Cancel',
+                evaluation_title: 'Automatic Evaluation',
+                accuracy: 'Accuracy',
+                codes_correct: 'Codes',
                 statement_panel: 'Account Statement',
-                account_holder: 'Holder:',
-                account_number_full: 'Account:',
-                statement_date: 'Statement Date:',
-                opening_balance: 'Opening Balance:',
                 col_code: 'CODE',
                 col_description: 'DESCRIPTION',
                 col_amount: 'AMOUNT',
-                initial_balance: 'Opening Balance / Provision',
-                evaluation_title: 'Automatic Evaluation',
-                accuracy: 'Accuracy',
-                codes_correct: 'Correct Codes',
-                errors: 'Errors',
-                clients_panel: 'Reference Clients',
-                client_hint: '* Write down this data in your physical notebook for transactions',
-                operation_codes_reference: 'Operation Codes (Reference)',
-                download_clients: 'Download Client List',
-                print_worksheet: 'Print Worksheet',
-                reset_simulation: 'Reset Simulation',
+                initial_balance: 'Initial Provision',
+                reference_panel: 'Reference Codes',
+                denominations_title: 'Active Denominations',
                 footer_text: 'Educational simulator for training purposes. Does not represent real banking operations.',
                 legal_notice: '© 2026 EMAGES Academy. All rights reserved.',
-                notification_deposit: 'Deposit completed successfully',
-                notification_withdraw: 'Withdrawal completed successfully',
-                notification_transfer: 'Transfer completed successfully',
-                notification_payment: 'Service payment completed successfully',
-                notification_check: 'Check operation completed successfully',
-                notification_error: 'Error: Insufficient funds',
-                notification_invalid: 'Error: Invalid data',
-                notification_code_error: 'Error: Incorrect operation code',
-                notification_aml: 'ALERT: Operation requires AML registration',
-                feedback_excellent: 'Excellent! Precise operations and correct codes',
-                feedback_good: 'Good job, but review operation codes',
-                feedback_needs_improvement: 'Need more practice. Review errors and codes',
-                aml_title: 'ANTI-MONEY LAUNDERING ALERT',
-                aml_message: 'This operation exceeds S/ 50,000. Must register: APPLICANT, BENEFICIARY and ORDERER. Screenshot the registration.',
-                aml_acknowledge: 'Understood - Register'
+                notification_success: 'Operation completed successfully',
+                notification_error: 'Error: Invalid code or amount',
+                notification_code_error: 'Error: Incorrect operation code'
             },
             fr: {
-                simulator_title: 'Simulateur de Guichetier',
-                simulator_subtitle: 'EMAGES Academy - Formation Entreprise | Niveau Agent Bancaire',
+                simulator_title: 'Simulateur de Guichetier Global',
+                simulator_subtitle: 'EMAGES Academy | Niveau Agent International',
                 operations_panel: 'Opérations',
                 student_id: 'ID Étudiant:',
-                student_name: 'Nom:',
-                session_time: 'Temps de Session:',
-                operations_count: 'Opérations:',
+                session_time: 'Temps:',
+                region: 'Région:',
                 available_balance: 'Solde Disponible',
-                account_number: 'COMPTE:',
-                operation_code: 'CODE D\'OPÉRATION',
-                code_hint: 'Notez ce code dans votre carnet physique',
-                deposit: 'Déposer',
-                withdraw: 'Retirer',
-                transfer: 'Transférer',
-                payment: 'Payer Service',
-                statement: 'Relevé',
-                check: 'Chèque',
-                deposit_title: 'Effectuer un Dépôt',
-                withdraw_title: 'Effectuer un Retrait',
-                transfer_title: 'Effectuer un Transfert',
-                payment_title: 'Payer un Service',
-                check_title: 'Opération de Chèque',
-                operation_code_input: 'Entrez le Code d\'Opération',
-                code_hint_deposit: 'Code correct: 0730 (Dépôt en espèces)',
-                code_hint_withdraw: 'Code correct: 0600 (Retrait Épargne)',
-                code_hint_transfer: 'Code correct: 0740 (Transfert de Compte)',
-                code_hint_payment: 'Code correct: 6500 (Paiement de Services)',
-                code_hint_check: 'Code correct: 0750 (Chèque Banque Locale)',
-                account_number_input: 'Numéro de Compte Destination',
-                account_hint: 'Format: 000-0000000-00 (12 chiffres)',
-                amount_label: 'Montant (S/)',
-                service_type: 'Type de Service',
-                service_number: 'Numéro de Fourniture/Reçu',
-                check_number: 'Numéro de Chèque',
+                operation_code_input: 'Code d\'Opération',
+                amount_label: 'Montant',
+                account_number_input: 'Numéro de Compte',
+                bill_breakdown: 'Détail Billets/Pièces',
                 confirm: 'Confirmer',
                 cancel: 'Annuler',
+                evaluation_title: 'Évaluation Automatique',
+                accuracy: 'Précision',
+                codes_correct: 'Codes',
                 statement_panel: 'Relevé de Compte',
-                account_holder: 'Titulaire:',
-                account_number_full: 'Compte:',
-                statement_date: 'Date de Relevé:',
-                opening_balance: 'Solde d\'Ouverture:',
                 col_code: 'CODE',
                 col_description: 'DESCRIPTION',
                 col_amount: 'MONTANT',
-                initial_balance: 'Solde Initial / Provision',
-                evaluation_title: 'Évaluation Automatique',
-                accuracy: 'Précision',
-                codes_correct: 'Codes Corrects',
-                errors: 'Erreurs',
-                clients_panel: 'Clients de Référence',
-                client_hint: '* Notez ces données dans votre carnet physique pour les transactions',
-                operation_codes_reference: 'Codes d\'Opération (Référence)',
-                download_clients: 'Télécharger la Liste des Clients',
-                print_worksheet: 'Imprimer la Feuille de Travail',
-                reset_simulation: 'Réinitialiser la Simulation',
+                initial_balance: 'Provision Initiale',
+                reference_panel: 'Codes de Référence',
+                denominations_title: 'Denominations Actives',
                 footer_text: 'Simulateur éducatif à des fins de formation. Ne représente pas des opérations bancaires réelles.',
                 legal_notice: '© 2026 EMAGES Academy. Tous droits réservés.',
-                notification_deposit: 'Dépôt effectué avec succès',
-                notification_withdraw: 'Retrait effectué avec succès',
-                notification_transfer: 'Transfert effectué avec succès',
-                notification_payment: 'Paiement de service effectué avec succès',
-                notification_check: 'Opération de chèque effectuée avec succès',
-                notification_error: 'Erreur: Fonds insuffisants',
-                notification_invalid: 'Erreur: Données invalides',
-                notification_code_error: 'Erreur: Code d\'opération incorrect',
-                notification_aml: 'ALERTE: Opération nécessite enregistrement LBA',
-                feedback_excellent: 'Excellent! Opérations précises et codes corrects',
-                feedback_good: 'Bon travail, mais vérifiez les codes d\'opération',
-                feedback_needs_improvement: 'Besoin de plus de pratique. Vérifiez erreurs et codes',
-                aml_title: 'ALERTE PRÉVENTION BLANCHIMENT',
-                aml_message: 'Cette opération dépasse S/ 50,000. Doit enregistrer: DEMANDEUR, BÉNÉFICIAIRE et DONNEUR D\'ORDRE. Capturez l\'enregistrement.',
-                aml_acknowledge: 'Compris - Enregistrer'
-            },
-            ru: {
-                simulator_title: 'Симулятор Банковского Кассира',
-                simulator_subtitle: 'EMAGES Academy - Бизнес Обучение | Уровень Банковского Агента',
-                operations_panel: 'Операции',
-                student_id: 'ID Студента:',
-                student_name: 'Имя:',
-                session_time: 'Время Сессии:',
-                operations_count: 'Операции:',
-                available_balance: 'Доступный Баланс',
-                account_number: 'СЧЁТ:',
-                operation_code: 'КОД ОПЕРАЦИИ',
-                code_hint: 'Запишите этот код в физический блокнот',
-                deposit: 'Депозит',
-                withdraw: 'Снять',
-                transfer: 'Перевод',
-                payment: 'Оплата Услуг',
-                statement: 'Выписка',
-                check: 'Чек',
-                deposit_title: 'Внести Депозит',
-                withdraw_title: 'Снять Средства',
-                transfer_title: 'Выполнить Перевод',
-                payment_title: 'Оплатить Услугу',
-                check_title: 'Операция с Чеком',
-                operation_code_input: 'Введите Код Операции',
-                code_hint_deposit: 'Правильный код: 0730 (Внесение Наличных)',
-                code_hint_withdraw: 'Правильный код: 0600 (Снятие Со Счёта)',
-                code_hint_transfer: 'Правильный код: 0740 (Перевод Между Счетами)',
-                code_hint_payment: 'Правильный код: 6500 (Оплата Услуг)',
-                code_hint_check: 'Правильный код: 0750 (Чек Местного Банка)',
-                account_number_input: 'Номер Счёта Получателя',
-                account_hint: 'Формат: 000-0000000-00 (12 цифр)',
-                amount_label: 'Сумма (S/)',
-                service_type: 'Тип Услуги',
-                service_number: 'Номер Счёта/Квитанции',
-                check_number: 'Номер Чека',
-                confirm: 'Подтвердить',
-                cancel: 'Отмена',
-                statement_panel: 'Выписка по Счёту',
-                account_holder: 'Владелец:',
-                account_number_full: 'Счёт:',
-                statement_date: 'Дата Выписки:',
-                opening_balance: 'Начальный Баланс:',
-                col_code: 'КОД',
-                col_description: 'ОПИСАНИЕ',
-                col_amount: 'СУММА',
-                initial_balance: 'Начальный Баланс / Обеспечение',
-                evaluation_title: 'Автоматическая Оценка',
-                accuracy: 'Точность',
-                codes_correct: 'Правильные Коды',
-                errors: 'Ошибки',
-                clients_panel: 'Справочные Клиенты',
-                client_hint: '* Запишите эти данные в физический блокнот для транзакций',
-                operation_codes_reference: 'Коды Операций (Справка)',
-                download_clients: 'Скачать Список Клиентов',
-                print_worksheet: 'Распечатать Рабочий Лист',
-                reset_simulation: 'Перезапустить Симуляцию',
-                footer_text: 'Образовательный симулятор для учебных целей. Не представляет реальные банковские операции.',
-                legal_notice: '© 2026 EMAGES Academy. Все права защищены.',
-                notification_deposit: 'Депозит успешно завершен',
-                notification_withdraw: 'Снятие успешно завершено',
-                notification_transfer: 'Перевод успешно завершен',
-                notification_payment: 'Оплата услуги успешно завершена',
-                notification_check: 'Операция с чеком успешно завершена',
-                notification_error: 'Ошибка: Недостаточно средств',
-                notification_invalid: 'Ошибка: Неверные данные',
-                notification_code_error: 'Ошибка: Неверный код операции',
-                notification_aml: 'ВНИМАНИЕ: Операция требует регистрации ПОД/ФТ',
-                feedback_excellent: 'Отлично! Точные операции и правильные коды',
-                feedback_good: 'Хорошая работа, но проверьте коды операций',
-                feedback_needs_improvement: 'Нужно больше практики. Проверьте ошибки и коды',
-                aml_title: 'ПРЕДУПРЕЖДЕНИЕ ПО ПОД/ФТ',
-                aml_message: 'Эта операция превышает S/ 50,000. Должен зарегистрировать: ЗАЯВИТЕЛЬ, ПОЛУЧАТЕЛЬ и ОТПРАВИТЕЛЬ. Сделайте скриншот регистрации.',
-                aml_acknowledge: 'Понятно - Зарегистрировать'
+                notification_success: 'Opération effectuée avec succès',
+                notification_error: 'Erreur: Code ou montant invalide',
+                notification_code_error: 'Erreur: Code d\'opération incorrect'
             }
         };
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('initialDate').textContent = new Date().toLocaleString();
-            document.getElementById('statementDate').textContent = new Date().toLocaleDateString();
-            document.getElementById('accountNumberFull').textContent = document.getElementById('accountNumber').textContent;
             startSessionTimer();
             updateEvaluation();
-            renderClients();
-            generateRandomAccountNumbers();
+            changeRegion(); // Initialize denominations
         });
 
-        // Generate Random Account Numbers for Students
-        function generateRandomAccountNumbers() {
-            const randomSuffix = Math.floor(Math.random() * 100);
-            clients.forEach(client => {
-                client.account = `002-${client.dni.substring(0, 7)}-${randomSuffix}`;
-            });
-        }
+        // Region Change
+        function changeRegion() {
+            const region = document.getElementById('regionSelector').value;
+            state.region = region;
+            const config = regions[region];
+            
+            document.getElementById('currentRegion').textContent = config.name;
+            document.getElementById('currencySymbol').textContent = config.currency;
+            document.getElementById('initCurrency').textContent = config.currency;
+            
+            // Update Balance Display
+            updateBalance();
 
-        // Render Clients List
-        function renderClients() {
-            const clientsList = document.getElementById('clientsList');
-            clientsList.innerHTML = clients.map(client => `
-                <div class="transaction-item">
-                    <div class="transaction-code">Cliente ${client.id}</div>
-                    <div class="transaction-desc">
-                        <strong>${client.name}</strong><br>
-                        DNI: ${client.dni}
-                    </div>
-                    <div class="transaction-amount" style="font-family: 'Courier New', monospace; font-size: 11px;">
-                        ${client.account}
-                    </div>
-                </div>
-            `).join('');
+            // Show Active Denominations
+            const denomList = document.getElementById('activeDenominations');
+            denomList.innerHTML = config.denominations.map(d => 
+                `<span style="display:inline-block; background:#e0e0e0; padding:2px 6px; border-radius:4px; margin:2px;">${config.currency} ${d}</span>`
+            ).join('');
+
+            // Recalculate breakdown if amount exists
+            const amount = document.getElementById('opAmount').value;
+            if(amount) calculateBreakdown();
         }
 
         // Language Switcher
@@ -1427,145 +904,119 @@
         }
 
         // Show Operation Section
-        function showOperation(type) {
-            hideOperations();
-            state.currentOperation = type;
+        function showOperation(code) {
+            document.getElementById('operationSection').classList.add('active');
+            document.getElementById('opCodeInput').value = code;
+            document.getElementById('operationTitle').textContent = `${code} - ${operationCodes[code] || 'Operación'}`;
+            state.currentOpCode = code;
             
-            // Show operation code
-            document.getElementById('operationCode').textContent = operationCodes[type] || '----';
-            document.getElementById('operationDescription').textContent = translations[state.language].code_hint;
+            // Show/Hide Account Field based on operation type
+            const accountGroup = document.getElementById('accountGroup');
+            if(['0740', '0730', '0750', '0732', '1209'].includes(code)) {
+                accountGroup.style.display = 'block';
+            } else {
+                accountGroup.style.display = 'none';
+            }
+
+            document.getElementById('opAmount').value = '';
+            document.getElementById('breakdownContainer').classList.remove('active');
+        }
+
+        // Hide Operations
+        function hideOperations() {
+            document.getElementById('operationSection').classList.remove('active');
+            state.currentOpCode = null;
+        }
+
+        // Calculate Denomination Breakdown
+        function calculateBreakdown() {
+            const amount = parseFloat(document.getElementById('opAmount').value);
+            const container = document.getElementById('breakdownContainer');
+            const grid = document.getElementById('breakdownGrid');
             
-            if (type === 'deposit') {
-                document.getElementById('depositSection').classList.add('active');
-            } else if (type === 'withdraw') {
-                document.getElementById('withdrawSection').classList.add('active');
-            } else if (type === 'transfer') {
-                document.getElementById('transferSection').classList.add('active');
-            } else if (type === 'payment') {
-                document.getElementById('paymentSection').classList.add('active');
-            } else if (type === 'check') {
-                document.getElementById('checkSection').classList.add('active');
+            if (!amount || amount <= 0) {
+                container.classList.remove('active');
+                return;
+            }
+
+            container.classList.add('active');
+            const config = regions[state.region];
+            let remaining = amount;
+            let breakdown = {};
+
+            // Greedy Algorithm for Breakdown
+            config.denominations.forEach(denom => {
+                if (remaining >= denom) {
+                    const count = Math.floor(remaining / denom);
+                    breakdown[denom] = count;
+                    remaining = parseFloat((remaining - (count * denom)).toFixed(2));
+                }
+            });
+
+            // Render Breakdown
+            grid.innerHTML = Object.keys(breakdown).map(denom => `
+                <div class="breakdown-item">
+                    <span class="count">${breakdown[denom]}</span>
+                    <span class="label">${config.currency} ${denom}</span>
+                </div>
+            `).join('');
+
+            if (remaining > 0.001) {
+                grid.innerHTML += `<div style="grid-column: 1/-1; text-align:center; color: var(--danger); font-size:10px;">⚠️ Sin denominación para ${config.currency} ${remaining}</div>`;
             }
         }
 
-        // Hide All Operations
-        function hideOperations() {
-            document.querySelectorAll('.input-section').forEach(section => {
-                section.classList.remove('active');
-            });
-            document.getElementById('operationCode').textContent = '----';
-            state.currentOperation = null;
-        }
-
         // Execute Operation
-        function executeOperation(type) {
-            let amount, isValid, code;
-            
-            // Get and validate operation code
-            const codeInput = document.getElementById(`${type}Code`);
-            const enteredCode = codeInput ? codeInput.value.trim() : '';
-            const correctCode = operationCodes[type];
+        function executeOperation() {
+            const enteredCode = document.getElementById('opCodeInput').value.trim();
+            const amount = parseFloat(document.getElementById('opAmount').value);
             
             state.totalCodes++;
-            
-            if (enteredCode !== correctCode) {
+
+            // Validate Code
+            if (enteredCode !== state.currentOpCode || !operationCodes[enteredCode]) {
                 showNotification(translations[state.language].notification_code_error, true);
                 state.errors++;
                 updateEvaluation();
                 return;
             }
-            
+
             state.correctCodes++;
 
-            if (type === 'deposit') {
-                amount = parseFloat(document.getElementById('depositAmount').value);
-                const account = document.getElementById('depositAccount').value;
-                isValid = amount > 0 && account.match(/^\d{3}-\d{7}-\d{2}$/);
-                
-                if (isValid) {
-                    state.balance += amount;
-                    state.correctOperations++;
-                    addTransaction('0730', 'Depósito en Efectivo', amount, 'positive');
-                    showNotification(translations[state.language].notification_deposit);
-                    
-                    // Check AML
-                    if (amount >= 50000) {
-                        showAMLAlert();
-                    }
-                }
-            } else if (type === 'withdraw') {
-                amount = parseFloat(document.getElementById('withdrawAmount').value);
-                isValid = amount > 0 && amount <= state.balance;
-                
-                if (isValid) {
-                    state.balance -= amount;
-                    state.correctOperations++;
-                    addTransaction('0600', 'Retiro Efectivo Cta. Ahorros', amount, 'negative');
-                    showNotification(translations[state.language].notification_withdraw);
-                } else if (amount > state.balance) {
-                    showNotification(translations[state.language].notification_error, true);
-                    state.errors++;
-                }
-            } else if (type === 'transfer') {
-                amount = parseFloat(document.getElementById('transferAmount').value);
-                const account = document.getElementById('transferAccount').value;
-                isValid = amount > 0 && amount <= state.balance && account.match(/^\d{3}-\d{7}-\d{2}$/);
-                
-                if (isValid) {
-                    state.balance -= amount;
-                    state.correctOperations++;
-                    addTransaction('0740', 'Transferencia entre Cuentas', amount, 'negative');
-                    showNotification(translations[state.language].notification_transfer);
-                } else if (amount > state.balance) {
-                    showNotification(translations[state.language].notification_error, true);
-                    state.errors++;
-                }
-            } else if (type === 'payment') {
-                amount = parseFloat(document.getElementById('paymentAmount').value);
-                const serviceType = document.getElementById('serviceType').value;
-                const serviceNumber = document.getElementById('serviceNumber').value;
-                isValid = amount > 0 && amount <= state.balance && serviceNumber;
-                
-                if (isValid) {
-                    state.balance -= amount;
-                    state.correctOperations++;
-                    const serviceName = document.getElementById('serviceType').options[document.getElementById('serviceType').selectedIndex].text;
-                    addTransaction('6500', `Pago de Servicio: ${serviceName} (${serviceNumber})`, amount, 'negative');
-                    showNotification(translations[state.language].notification_payment);
-                }
-            } else if (type === 'check') {
-                amount = parseFloat(document.getElementById('checkAmount').value);
-                const checkNumber = document.getElementById('checkNumber').value;
-                isValid = amount > 0 && checkNumber;
-                
-                if (isValid) {
-                    state.correctOperations++;
-                    addTransaction('0750', `Cheque M/B Local #${checkNumber}`, amount, 'positive');
-                    showNotification(translations[state.language].notification_check);
-                }
-            }
-
-            if (isValid) {
-                state.operations++;
-                document.getElementById('operationsCount').textContent = state.operations;
-                updateBalance();
-                hideOperations();
+            // Validate Amount & Balance
+            if (!amount || amount <= 0) {
+                showNotification(translations[state.language].notification_error, true);
+                state.errors++;
                 updateEvaluation();
-                clearInputs();
+                return;
             }
-        }
 
-        // Show AML Alert
-        function showAMLAlert() {
-            document.getElementById('amlAlert').classList.add('active');
-            state.amlAlerts++;
-            showNotification(translations[state.language].notification_aml, 'warning');
-        }
+            // Process Transaction
+            let type = 'neutral';
+            let sign = 'positive';
+            
+            // Simple logic for demo (Withdrawals decrease balance, Deposits increase)
+            if(['0600', '1014', '6500', '4008'].includes(enteredCode)) {
+                if(amount > state.balance) {
+                    showNotification('Saldo insuficiente', true);
+                    state.errors++;
+                    return;
+                }
+                state.balance -= amount;
+                sign = 'negative';
+            } else if(['0730', '1010', '1012', '0750'].includes(enteredCode)) {
+                state.balance += amount;
+                sign = 'positive';
+            }
 
-        // Acknowledge AML
-        function acknowledgeAML() {
-            document.getElementById('amlAlert').classList.remove('active');
-            showNotification('Registro PLA completado - Capture pantalla');
+            state.correctOperations++;
+            state.operations++;
+            
+            addTransaction(enteredCode, operationCodes[enteredCode], amount, sign);
+            updateBalance();
+            hideOperations();
+            updateEvaluation();
+            showNotification(translations[state.language].notification_success);
         }
 
         // Update Balance Display
@@ -1575,30 +1026,15 @@
 
         // Add Transaction to Statement
         function addTransaction(code, description, amount, sign) {
-            const transaction = {
-                code,
-                description,
-                amount,
-                sign,
-                date: new Date()
-            };
-            state.transactions.unshift(transaction);
-
             const transactionList = document.getElementById('transactionList');
             const item = document.createElement('div');
             item.className = 'transaction-item';
             item.innerHTML = `
                 <div class="transaction-code">${code}</div>
                 <div class="transaction-desc">${description}</div>
-                <div class="transaction-amount ${sign}">S/ ${amount.toFixed(2)}</div>
-                <div class="transaction-date">${transaction.date.toLocaleString()}</div>
+                <div class="transaction-amount ${sign}">${regions[state.region].currency} ${amount.toFixed(2)}</div>
             `;
             transactionList.insertBefore(item, transactionList.firstChild.nextSibling);
-        }
-
-        // Show Statement
-        function showStatement() {
-            showNotification('Extracto actualizado - Revise el panel derecho');
         }
 
         // Update Evaluation
@@ -1610,100 +1046,17 @@
             document.getElementById('scoreCircle').textContent = `${accuracy}%`;
             document.getElementById('accuracyScore').textContent = `${state.correctOperations}/${totalOps}`;
             document.getElementById('codesScore').textContent = `${state.correctCodes}/${state.totalCodes}`;
-            document.getElementById('errorScore').textContent = state.errors;
-
-            // Feedback
-            const feedbackEl = document.getElementById('feedbackMessage');
-            feedbackEl.className = 'feedback-message';
-            
-            if (accuracy >= 90 && codeAccuracy >= 90 && state.operations >= 5) {
-                feedbackEl.textContent = translations[state.language].feedback_excellent;
-                feedbackEl.classList.add('success');
-            } else if (accuracy >= 70) {
-                feedbackEl.textContent = translations[state.language].feedback_good;
-                feedbackEl.classList.add('success');
-            } else if (state.operations > 0) {
-                feedbackEl.textContent = translations[state.language].feedback_needs_improvement;
-                feedbackEl.classList.add('error');
-            }
         }
 
         // Show Notification
-        function showNotification(message, type = 'success') {
+        function showNotification(message, isError = false) {
             const notification = document.getElementById('notification');
             notification.textContent = message;
-            notification.className = `notification ${type} show`;
+            notification.className = isError ? 'notification error show' : 'notification show';
             
             setTimeout(() => {
                 notification.classList.remove('show');
-            }, 4000);
-        }
-
-        // Clear Inputs
-        function clearInputs() {
-            document.querySelectorAll('input').forEach(input => input.value = '');
-            document.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
-        }
-
-        // Reset Simulator
-        function resetSimulator() {
-            if (confirm('¿Estás seguro de reiniciar la simulación? Se perderá todo el progreso.')) {
-                state = {
-                    balance: 10000.00,
-                    openingBalance: 10000.00,
-                    transactions: [],
-                    operations: 0,
-                    errors: 0,
-                    correctOperations: 0,
-                    correctCodes: 0,
-                    totalCodes: 0,
-                    startTime: new Date(),
-                    language: state.language,
-                    currentOperation: null,
-                    amlAlerts: 0
-                };
-                
-                updateBalance();
-                document.getElementById('operationsCount').textContent = '0';
-                document.getElementById('transactionList').innerHTML = `
-                    <div class="transaction-item">
-                        <div class="transaction-code">1010</div>
-                        <div class="transaction-desc">${translations[state.language].initial_balance}</div>
-                        <div class="transaction-amount positive">S/ 10,000.00</div>
-                        <div class="transaction-date">${new Date().toLocaleString()}</div>
-                    </div>
-                `;
-                updateEvaluation();
-                hideOperations();
-                showNotification('Simulación reiniciada');
-            }
-        }
-
-        // Print Worksheet
-        function printWorksheet() {
-            window.print();
-        }
-
-        // Download Clients List
-        function downloadClientsPDF() {
-            let content = 'CLIENTES DE REFERENCIA - EMAGES ACADEMY\n\n';
-            content += 'Nombre\t\t\tDNI\t\t\tCuenta\n';
-            content += '='.repeat(60) + '\n';
-            clients.forEach(client => {
-                content += `Cliente ${client.id}\t${client.name}\t${client.dni}\t${client.account}\n`;
-            });
-            content += '\n' + '='.repeat(60) + '\n';
-            content += 'EMAGESGROUP E.I.R.L. – RUC 20611427671\n';
-            
-            const blob = new Blob([content], { type: 'text/plain' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'clientes-referencia-emages.txt';
-            a.click();
-            URL.revokeObjectURL(url);
-            
-            showNotification('Lista de clientes descargada');
+            }, 3000);
         }
     </script>
 </body>
