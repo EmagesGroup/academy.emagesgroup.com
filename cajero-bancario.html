@@ -3,29 +3,45 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cajero Bancario | EMAGES Academy</title>
+<title>Doble Certificación Cajero + Gestor Comercial | EMAGES Academy</title>
 <link rel="icon" type="image/png" href="assets/favicon.png">
 
 <style>
-/* EXACTAMENTE EL MISMO CSS QUE ARRIBA */
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:'Segoe UI',Arial,sans-serif;background:#fff;color:#333;}
+
 :root{
---primary:#F57C00;
---secondary:#FFB74D;
---gray:#F8F9FA;
---text:#333;
+--primary:#0F172A;
+--secondary:#F57C00;
+--light:#F8FAFC;
+--accent:#FFB74D;
 }
 
-/* mismo estilo completo... */
-.navbar{position:fixed;top:0;width:100%;height:75px;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 60px;box-shadow:0 2px 10px rgba(0,0,0,0.05);z-index:1000;}
-.logo img{height:50px;}
-.nav-links a{text-decoration:none;color:var(--text);margin-left:30px;font-weight:500;}
-.nav-links a:hover{color:var(--primary);}
+.navbar{
+position:fixed;
+top:0;
+width:100%;
+height:80px;
+background:#fff;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 60px;
+box-shadow:0 2px 15px rgba(0,0,0,0.06);
+z-index:1000;
+}
+.logo img{height:55px;}
+.nav-links a{
+text-decoration:none;
+color:#333;
+margin-left:30px;
+font-weight:500;
+}
+.nav-links a:hover{color:var(--secondary);}
 
 .hero{
-margin-top:75px;
-height:80vh;
+margin-top:80px;
+height:85vh;
 background:url('assets/cajero-gestion.jpg') center/cover no-repeat;
 display:flex;
 align-items:center;
@@ -35,31 +51,119 @@ color:#fff;
 text-align:center;
 padding:20px;
 }
-.hero::after{content:"";position:absolute;width:100%;height:100%;background:rgba(0,0,0,0.55);}
-.hero-content{position:relative;z-index:2;max-width:800px;}
-.hero h1{font-size:48px;margin-bottom:20px;}
-.hero p{font-size:20px;margin-bottom:30px;}
-
+.hero::after{
+content:"";
+position:absolute;
+width:100%;
+height:100%;
+background:linear-gradient(135deg,rgba(15,23,42,0.9),rgba(0,0,0,0.6));
+}
+.hero-content{
+position:relative;
+z-index:2;
+max-width:850px;
+}
+.hero h1{
+font-size:50px;
+margin-bottom:20px;
+}
+.hero p{
+font-size:20px;
+margin-bottom:30px;
+opacity:0.9;
+}
+.badge{
+display:inline-block;
+background:var(--secondary);
+padding:8px 20px;
+border-radius:30px;
+font-weight:600;
+margin-bottom:20px;
+}
 .btn-primary{
-background:var(--primary);
+background:var(--secondary);
 color:#fff;
-padding:14px 30px;
+padding:15px 35px;
 border-radius:30px;
 text-decoration:none;
 font-weight:600;
 display:inline-block;
+transition:0.3s;
+}
+.btn-primary:hover{
+transform:translateY(-3px);
+box-shadow:0 10px 25px rgba(0,0,0,0.3);
 }
 
-.section{padding:100px 20px;text-align:center;max-width:1100px;margin:auto;}
-.section h2{font-size:34px;margin-bottom:50px;color:var(--primary);}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:30px;}
-.card{background:#fff;padding:30px;border-radius:15px;box-shadow:0 10px 30px rgba(0,0,0,0.08);text-align:left;}
-.card h3{margin-bottom:15px;color:var(--primary);}
-.card ul{padding-left:18px;line-height:1.8;}
-.card p{line-height:1.6;}
+.section{
+padding:100px 20px;
+text-align:center;
+max-width:1200px;
+margin:auto;
+}
+.section h2{
+font-size:36px;
+margin-bottom:60px;
+color:var(--primary);
+}
 
-.whatsapp{position:fixed;bottom:25px;right:25px;background:#25D366;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:28px;text-decoration:none;box-shadow:0 4px 15px rgba(0,0,0,0.2);}
-footer{background:#111;color:#fff;text-align:center;padding:25px;margin-top:60px;}
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:30px;
+}
+.card{
+background:#fff;
+padding:35px;
+border-radius:18px;
+box-shadow:0 15px 40px rgba(0,0,0,0.08);
+text-align:left;
+transition:0.3s;
+}
+.card:hover{
+transform:translateY(-5px);
+}
+.card h3{
+margin-bottom:15px;
+color:var(--secondary);
+}
+.card ul{
+padding-left:20px;
+line-height:1.8;
+}
+.highlight{
+background:var(--light);
+padding:60px 20px;
+}
+.cta{
+background:var(--primary);
+color:#fff;
+text-align:center;
+padding:80px 20px;
+}
+.cta h2{margin-bottom:20px;}
+.whatsapp{
+position:fixed;
+bottom:25px;
+right:25px;
+background:#25D366;
+width:65px;
+height:65px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+color:#fff;
+font-size:30px;
+text-decoration:none;
+box-shadow:0 4px 15px rgba(0,0,0,0.2);
+}
+footer{
+background:#111;
+color:#fff;
+text-align:center;
+padding:30px;
+}
 </style>
 </head>
 
@@ -77,59 +181,83 @@ footer{background:#111;color:#fff;text-align:center;padding:25px;margin-top:60px
 
 <section class="hero">
 <div class="hero-content">
-<h1>Cajero Bancario y Comercial</h1>
-<p>Prepárate para trabajar en bancos, financieras y empresas comerciales.</p>
-<a href="https://wa.me/51904466622?text=Hola,%20quiero%20información%20del%20curso%20de%20Cajero%20Bancario" class="btn-primary">
-Hablar con un asesor
+<div class="badge">Doble Certificación Profesional</div>
+<h1>Cajero Bancario + Gestor Comercial</h1>
+<p>Especialízate en operaciones financieras y desarrolla habilidades comerciales para trabajar en bancos, financieras y empresas corporativas.</p>
+<a href="https://wa.me/51904466622?text=Hola,%20quiero%20información%20de%20la%20doble%20certificación%20Cajero%20+%20Gestor%20Comercial" class="btn-primary">
+Hablar con un Asesor Académico
 </a>
 </div>
 </section>
 
 <section class="section">
-<h2>Detalles del Programa</h2>
+<h2>🏛 Estructura Corporativa</h2>
+<p style="max-width:800px;margin:auto;">
+Programa desarrollado por <strong>EMAGES Academy</strong>, división académica de <strong>EMAGES Group</strong>, grupo empresarial orientado a consultoría, talento humano y formación profesional especializada.
+</p>
+</section>
 
+<section class="section highlight">
+<h2>📘 Plan Académico Integral – 192 Horas</h2>
 <div class="grid">
 
 <div class="card">
-<h3>📌 Información General</h3>
-<p><strong>Duración:</strong> 3 meses</p>
-<p><strong>Frecuencia:</strong> 2 veces por semana</p>
-<p><strong>Carga Horaria:</strong> 120 horas académicas</p>
-<p>(48 horas síncronas + 72 horas prácticas)</p>
-<p><strong>Modalidad:</strong> Virtual en vivo</p>
-</div>
-
-<div class="card">
-<h3>📚 Módulos del Programa</h3>
+<h3>Certificación 1: Cajero Bancario y Comercial</h3>
 <ul>
-<li>Módulo 1: Sistema financiero</li>
-<li>Módulo 2: Manejo de efectivo</li>
-<li>Módulo 3: Detección de billetes falsos</li>
-<li>Módulo 4: Atención al cliente</li>
-<li>Módulo 5: Arqueo y cuadre de caja</li>
-<li>Módulo 6: Simulación práctica</li>
+<li>Operaciones de caja</li>
+<li>Gestión de tesorería</li>
+<li>Detección de billetes falsos</li>
+<li>Prevención de lavado de activos</li>
+<li>Simulación de transacciones</li>
 </ul>
 </div>
 
 <div class="card">
-<h3>🎯 Perfil del Egresado</h3>
-<p>Podrás desempeñarte como cajero en entidades financieras y empresas comerciales.</p>
+<h3>Certificación 2: Gestor Comercial</h3>
+<ul>
+<li>Atención al cliente profesional</li>
+<li>Técnicas avanzadas de ventas</li>
+<li>Productos financieros</li>
+<li>Manejo de objeciones</li>
+<li>Indicadores comerciales</li>
+</ul>
+</div>
+
+<div class="card">
+<h3>Beneficios Competitivos</h3>
+<ul>
+<li>Doble certificación oficial</li>
+<li>Clases en vivo + prácticas</li>
+<li>Simulaciones reales</li>
+<li>Enfoque en empleabilidad</li>
+<li>Acceso a bolsa laboral EMAGES</li>
+</ul>
 </div>
 
 </div>
+</section>
 
-<div style="margin-top:60px;">
-<a href="https://wa.me/51904466622?text=Hola,%20quiero%20información%20del%20curso%20de%20Cajero%20Bancario" class="btn-primary">
-Solicitar Información por WhatsApp
+<section class="section">
+<h2>🎯 Perfil Profesional</h2>
+<p style="max-width:800px;margin:auto;">
+Al culminar podrás desempeñarte como Cajero Bancario, Cajero Comercial, Ejecutivo de Ventas Financieras o Gestor Comercial en bancos, financieras, supermercados, tiendas retail y empresas corporativas.
+</p>
+</section>
+
+<section class="cta">
+<h2>Invierte en tu Perfil Profesional</h2>
+<p>Diferénciate con una doble certificación estratégica avalada por EMAGES Academy.</p>
+<br>
+<a href="https://wa.me/51904466622?text=Quiero%20inscribirme%20en%20la%20doble%20certificación" class="btn-primary">
+Solicitar Información Ahora
 </a>
-</div>
-
 </section>
 
 <a class="whatsapp" href="https://wa.me/51904466622" target="_blank">💬</a>
 
 <footer>
-EMAGES Academy © 2026
+EMAGES Academy | División Académica de EMAGES Group © 2026  
+<br>RUC 20611427671
 </footer>
 
 </body>
