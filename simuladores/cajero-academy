@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Caja - Taller Bancario</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .form-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #dee2e6;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 5px;
+            font-size: 13px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #2a5298;
+            box-shadow: 0 0 0 3px rgba(42, 82, 152, 0.1);
+        }
+
+        .fieldset {
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .fieldset legend {
+            font-weight: 600;
+            color: #495057;
+            padding: 0 10px;
+            font-size: 14px;
+        }
+
+        .billetes-grid {
+            display: grid;
+            gap: 10px;
+        }
+
+        .billete-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #dee2e6;
+        }
+
+        .billete-item label {
+            font-weight: 500;
+            color: #495057;
+        }
+
+        .billete-item input {
+            width: 120px;
+            padding: 6px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            text-align: right;
+        }
+
+        .total-dinero {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .total-dinero h3 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(17, 153, 142, 0.4);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(235, 51, 73, 0.4);
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        .buttons-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .operations-list {
+            background: white;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .operations-list h3 {
+            margin-bottom: 15px;
+            color: #1e3c72;
+            border-bottom: 2px solid #dee2e6;
+            padding-bottom: 10px;
+        }
+
+        .operation-item {
+            background: #f8f9fa;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border-left: 4px solid #2a5298;
+        }
+
+        .operation-item .code {
+            font-weight: 600;
+            color: #1e3c72;
+        }
+
+        .operation-item .amount {
+            font-weight: 700;
+            color: #11998e;
+            float: right;
+        }
+
+        .caja-info {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .caja-info h3 {
+            margin-bottom: 15px;
+        }
+
+        .billetes-resumen {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            text-align: center;
+        }
+
+        .billete-resumen {
+            background: rgba(255,255,255,0.2);
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .billete-resumen .cantidad {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .billete-resumen .denominacion {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        .modal-header h2 {
+            color: #1e3c72;
+        }
+
+        .close-modal {
+            font-size: 28px;
+            cursor: pointer;
+            color: #999;
+        }
+
+        .close-modal:hover {
+            color: #333;
+        }
+
+        .cuadre-result {
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .cuadre-exitoso {
+            background: #d4edda;
+            border: 2px solid #28a745;
+            color: #155724;
+        }
+
+        .cuadre-fallido {
+            background: #f8d7da;
+            border: 2px solid #dc3545;
+            color: #721c24;
+        }
+
+        .diferencia {
+            font-size: 32px;
+            font-weight: 700;
+            margin: 15px 0;
+        }
+
+        .sobrante {
+            color: #28a745;
+        }
+
+        .faltante {
+            color: #dc3545;
+        }
+
+        .reporte-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .reporte-table th,
+        .reporte-table td {
+            border: 1px solid #dee2e6;
+            padding: 8px;
+            text-align: left;
+            font-size: 12px;
+        }
+
+        .reporte-table th {
+            background: #1e3c72;
+            color: white;
+        }
+
+        .reporte-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .alert {
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+
+        .alert-info {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+        }
+
+        .alert-warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+        }
+
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            .modal-content, .modal-content * {
+                visibility: visible;
+            }
+            .modal-content {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏦 SIMULADOR DE CAJA BANCARIA</h1>
+            <p>Sistema de Registro de Operaciones de Caja - Taller de Banca y Finanzas</p>
+        </div>
+
+        <div class="main-content">
+            <!-- SECCIÓN IZQUIERDA - FORMULARIO -->
+            <div class="left-panel">
+                <div class="caja-info">
+                    <h3>📊 ESTADO DE CAJA</h3>
+                    <div class="billetes-resumen" id="billetesResumen">
+                        <div class="billete-resumen">
+                            <div class="cantidad" id="count10">0</div>
+                            <div class="denominacion">S/ 10</div>
+                        </div>
+                        <div class="billete-resumen">
+                            <div class="cantidad" id="count20">0</div>
+                            <div class="denominacion">S/ 20</div>
+                        </div>
+                        <div class="billete-resumen">
+                            <div class="cantidad" id="count50">0</div>
+                            <div class="denominacion">S/ 50</div>
+                        </div>
+                        <div class="billete-resumen">
+                            <div class="cantidad" id="count100">0</div>
+                            <div class="denominacion">S/ 100</div>
+                        </div>
+                        <div class="billete-resumen">
+                            <div class="cantidad" id="count200">0</div>
+                            <div class="denominacion">S/ 200</div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 15px; text-align: center;">
+                        <h4 style="font-size: 24px;">TOTAL EN CAJA: S/ <span id="totalCaja">1000.00</span></h4>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3 style="margin-bottom: 15px; color: #1e3c72;">📝 NUEVA OPERACIÓN</h3>
+                    
+                    <div class="form-group">
+                        <label>Código de Operación</label>
+                        <select id="codigoOperacion" onchange="cargarTipoOperacion()">
+                            <option value="">Seleccione...</option>
+                            <option value="C002">C002 - Depósito Cuenta Ahorro</option>
+                            <option value="C003">C003 - Depósito Cuenta Corriente</option>
+                            <option value="C004">C004 - Depósito a Plazo</option>
+                            <option value="C005">C005 - Pago Préstamo Consumo</option>
+                            <option value="C006">C006 - Pago Préstamo Emprendedor</option>
+                            <option value="C007">C007 - Pago Tarjeta Crédito</option>
+                            <option value="C008">C008 - Giro</option>
+                            <option value="C009">C009 - Cheque de Gerencia</option>
+                            <option value="C010">C010 - Pago de Servicios (Luz)</option>
+                            <option value="C011">C011 - Pago de Servicios (Cable)</option>
+                            <option value="C012">C012 - Pago de Servicios (Teléfono)</option>
+                            <option value="C013">C013 - Pago de Servicios (Internet)</option>
+                            <option value="C014">C014 - Pago de Servicios (Universidad)</option>
+                            <option value="C015">C015 - Pago de Servicios (Agua)</option>
+                            <option value="C016">C016 - Cambio de Billetes</option>
+                        </select>
+                    </div>
+
+                    <div class="fieldset">
+                        <legend>Características</legend>
+                        <div class="form-group">
+                            <label>Descripción</label>
+                            <input type="text" id="descripcion" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Agencia</label>
+                            <input type="text" id="agencia" value="AG LIMA CENTRO" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Tipo de Cuenta</label>
+                            <input type="text" id="tipoCuenta" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Código Individual de Cliente</label>
+                            <input type="text" id="codigoCliente" placeholder="Ingrese código de cliente">
+                        </div>
+                    </div>
+
+                    <div class="fieldset">
+                        <legend id="tituloIngreso">Ingreso de Dinero en Caja</legend>
+                        <div class="billetes-grid">
+                            <div class="billete-item">
+                                <label>En billetes de S/ 10:</label>
+                                <input type="number" id="billete10" min="0" value="0" onchange="calcularTotal()">
+                            </div>
+                            <div class="billete-item">
+                                <label>En billetes de S/ 20:</label>
+                                <input type="number" id="billete20" min="0" value="0" onchange="calcularTotal()">
+                            </div>
+                            <div class="billete-item">
+                                <label>En billetes de S/ 50:</label>
+                                <input type="number" id="billete50" min="0" value="0" onchange="calcularTotal()">
+                            </div>
+                            <div class="billete-item">
+                                <label>En billetes de S/ 100:</label>
+                                <input type="number" id="billete100" min="0" value="0" onchange="calcularTotal()">
+                            </div>
+                            <div class="billete-item">
+                                <label>En billetes de S/ 200:</label>
+                                <input type="number" id="billete200" min="0" value="0" onchange="calcularTotal()">
+                            </div>
+                        </div>
+                        <div class="total-dinero">
+                            <h3>TOTAL DE DINERO: S/ <span id="totalOperacion">0.00</span></h3>
+                        </div>
+                    </div>
+
+                    <div class="fieldset">
+                        <legend>Datos Adicionales</legend>
+                        <div class="form-group">
+                            <label>Analista</label>
+                            <input type="text" id="analista" value="Banca Exclusiva" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Fecha de Operación</label>
+                            <input type="date" id="fechaOperacion">
+                        </div>
+                        <div class="form-group">
+                            <label>Es Cliente del Banco</label>
+                            <select id="esClienteBanco">
+                                <option value="SI">SI</option>
+                                <option value="NO">NO</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="buttons-grid">
+                        <button class="btn btn-primary" onclick="registrarOperacion()">
+                            📥 Registrar Operación
+                        </button>
+                        <button class="btn btn-warning" onclick="limpiarFormulario()">
+                            🔄 Limpiar
+                        </button>
+                        <button class="btn btn-success" onclick="mostrarCuadre()">
+                            ✅ Cuadrar Caja
+                        </button>
+                        <button class="btn btn-danger" onclick="descargarReporte()">
+                            📄 Descargar Reporte
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN DERECHA - OPERACIONES -->
+            <div class="right-panel">
+                <div class="operations-list">
+                    <h3>📋 OPERACIONES REGISTRADAS</h3>
+                    <div id="listaOperaciones">
+                        <p style="text-align: center; color: #999; padding: 40px;">
+                            No hay operaciones registradas
+                        </p>
+                    </div>
+                    <div style="margin-top: 20px; padding: 15px; background: #e3f2fd; border-radius: 8px;">
+                        <strong>Total de Operaciones:</strong> <span id="totalOperaciones">0</span>
+                    </div>
+                </div>
+
+                <div class="alert alert-info" style="margin-top: 20px;">
+                    <strong>💡 Instrucciones:</strong>
+                    <ul style="margin: 10px 0 0 20px;">
+                        <li>Registre todas las operaciones del examen</li>
+                        <li>Para giros y cheques de gerencia, el sistema agregará automáticamente S/ 10 de comisión</li>
+                        <li>En cambio de billetes, registre lo que recibe y lo que entrega</li>
+                        <li>Al finalizar, presione "Cuadrar Caja" para validar</li>
+                        <li>Descargue el reporte para comparar con su examen</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE CUADRE -->
+    <div id="modalCuadre" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2> CUADRE DE CAJA</h2>
+                <span class="close-modal" onclick="cerrarModal()">&times;</span>
+            </div>
+            <div id="contenidoCuadre">
+                <!-- Contenido dinámico -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // VARIABLES GLOBALES
+        let operaciones = [];
+        let caja = {
+            billete10: 20,
+            billete20: 10,
+            billete50: 4,
+            billete100: 2,
+            billete200: 1
+        };
+        let cajaInicial = { ...caja };
+
+        // CÓDIGOS DE OPERACIÓN
+        const codigosOperacion = {
+            'C002': { desc: 'Depósito Cuenta Ahorro', tipo: 'Cta Ahorros', config: '191-111-870-0-10' },
+            'C003': { desc: 'Depósito Cuenta Corriente', tipo: 'Cta Corriente', config: '191-222-123-0-20' },
+            'C004': { desc: 'Depósito a Plazo', tipo: 'Cta Deposito Plazo', config: '191-333-212-0-90' },
+            'C005': { desc: 'Pago Préstamo Consumo', tipo: 'Prestamo Consumo', config: '191-000-111-0-01' },
+            'C006': { desc: 'Pago Préstamo Emprendedor', tipo: 'Prestamo Emprendedor', config: '191-000-222-0-01' },
+            'C007': { desc: 'Pago Tarjeta Crédito', tipo: 'Tarjeta de Credito', config: '191-000-333-0-01' },
+            'C008': { desc: 'Giro', tipo: 'Giro', config: '191-000-000-0-01', comision: 10 },
+            'C009': { desc: 'Cheque de Gerencia', tipo: 'Cheque de Gerencia', config: '20S-50S-100S-100S', comision: 10 },
+            'C010': { desc: 'Pago de Servicios - LUZ', tipo: 'Pago de Servicios', config: 'EDELNOR' },
+            'C011': { desc: 'Pago de Servicios - CABLE', tipo: 'Pago de Servicios', config: 'CABLE CLARO' },
+            'C012': { desc: 'Pago de Servicios - TELÉFONO', tipo: 'Pago de Servicios', config: 'TELEFONO FIJO CLARO' },
+            'C013': { desc: 'Pago de Servicios - INTERNET', tipo: 'Pago de Servicios', config: 'INTERNET CLARO' },
+            'C014': { desc: 'Pago de Servicios - UNIVERSIDAD', tipo: 'Pago de Servicios', config: 'UNIVERSIDAD SISE' },
+            'C015': { desc: 'Pago de Servicios - AGUA', tipo: 'Pago de Servicios', config: 'SEDAPAL' },
+            'C016': { desc: 'Cambio de Billetes', tipo: 'Cambio de Billetes', config: 'Cambio de Billetes' }
+        };
+
+        // INICIALIZAR
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('fechaOperacion').valueAsDate = new Date();
+            actualizarResumenCaja();
+        });
+
+        // CARGAR TIPO DE OPERACIÓN
+        function cargarTipoOperacion() {
+            const codigo = document.getElementById('codigoOperacion').value;
+            if (codigo && codigosOperacion[codigo]) {
+                const op = codigosOperacion[codigo];
+                document.getElementById('descripcion').value = op.desc;
+                document.getElementById('tipoCuenta').value = op.tipo;
+                
+                // Cambiar título según tipo de operación
+                if (codigo === 'C008' || codigo === 'C009' || codigo === 'C007' || 
+                    codigo.startsWith('C005') || codigo.startsWith('C006')) {
+                    document.getElementById('tituloIngreso').textContent = 'Entrega de Dinero (Pago)';
+                } else if (codigo === 'C016') {
+                    document.getElementById('tituloIngreso').textContent = 'Cambio de Billetes';
+                } else {
+                    document.getElementById('tituloIngreso').textContent = 'Ingreso de Dinero en Caja';
+                }
+            }
+        }
+
+        // CALCULAR TOTAL
+        function calcularTotal() {
+            const b10 = parseInt(document.getElementById('billete10').value) || 0;
+            const b20 = parseInt(document.getElementById('billete20').value) || 0;
+            const b50 = parseInt(document.getElementById('billete50').value) || 0;
+            const b100 = parseInt(document.getElementById('billete100').value) || 0;
+            const b200 = parseInt(document.getElementById('billete200').value) || 0;
+
+            const total = (b10 * 10) + (b20 * 20) + (b50 * 50) + (b100 * 100) + (b200 * 200);
+            document.getElementById('totalOperacion').textContent = total.toFixed(2);
+            
+            return total;
+        }
+
+        // REGISTRAR OPERACIÓN
+        function registrarOperacion() {
+            const codigo = document.getElementById('codigoOperacion').value;
+            const cliente = document.getElementById('codigoCliente').value;
+            const esCliente = document.getElementById('esClienteBanco').value;
+            
+            if (!codigo) {
+                alert('Por favor seleccione un código de operación');
+                return;
+            }
+
+            if (!cliente) {
+                alert('Por favor ingrese el código de cliente');
+                return;
+            }
+
+            const b10 = parseInt(document.getElementById('billete10').value) || 0;
+            const b20 = parseInt(document.getElementById('billete20').value) || 0;
+            const b50 = parseInt(document.getElementById('billete50').value) || 0;
+            const b100 = parseInt(document.getElementById('billete100').value) || 0;
+            const b200 = parseInt(document.getElementById('billete200').value) || 0;
+
+            let total = calcularTotal();
+            const opConfig = codigosOperacion[codigo];
+
+            // Agregar comisión si aplica
+            let comision = 0;
+            if (opConfig.comision) {
+                comision = opConfig.comision;
+                total += comision;
+            }
+
+            // Crear operación
+            const operacion = {
+                codigo: codigo,
+                descripcion: opConfig.desc,
+                cliente: cliente,
+                tipoCuenta: opConfig.tipo,
+                config: opConfig.config,
+                billete10: b10,
+                billete20: b20,
+                billete50: b50,
+                billete100: b100,
+                billete200: b200,
+                total: total,
+                comision: comision,
+                esCliente: esCliente,
+                fecha: document.getElementById('fechaOperacion').value,
+                hora: new Date().toLocaleTimeString()
+            };
+
+            // Actualizar caja según tipo de operación
+            actualizarCaja(operacion);
+
+            // Guardar operación
+            operaciones.push(operacion);
+            
+            // Limpiar campos de billetes
+            limpiarBilletes();
+            
+            // Actualizar lista
+            actualizarListaOperaciones();
+            actualizarResumenCaja();
+
+            alert(`Operación registrada exitosamente.\nTotal: S/ ${total.toFixed(2)}${comision > 0 ? ' (incluye S/ ' + comision + ' de comisión)' : ''}`);
+        }
+
+        // ACTUALIZAR CAJA
+        function actualizarCaja(operacion) {
+            const codigo = operacion.codigo;
+            
+            // Operaciones que ingresan dinero a caja (depósitos, pagos)
+            if (['C002', 'C003', 'C004', 'C005', 'C006', 'C007', 'C010', 'C011', 'C012', 'C013', 'C014', 'C015'].includes(codigo)) {
+                caja.billete10 += operacion.billete10;
+                caja.billete20 += operacion.billete20;
+                caja.billete50 += operacion.billete50;
+                caja.billete100 += operacion.billete100;
+                caja.billete200 += operacion.billete200;
+            }
+            // Operaciones que retiran dinero de caja (giros, cheques, retiros)
+            else if (['C008', 'C009'].includes(codigo)) {
+                // Para giros y cheques, el banco entrega dinero
+                // Simulamos que se entrega en las denominaciones ingresadas
+                caja.billete10 -= operacion.billete10;
+                caja.billete20 -= operacion.billete20;
+                caja.billete50 -= operacion.billete50;
+                caja.billete100 -= operacion.billete100;
+                caja.billete200 -= operacion.billete200;
+            }
+            // Cambio de billetes
+            else if (codigo === 'C016') {
+                // El cliente entrega billetes de 200 y recibe de 10
+                // Ejemplo: entrega 1 de 200, recibe 20 de 10
+                caja.billete200 += operacion.billete200; // Recibe 200
+                caja.billete10 -= operacion.billete10;   // Entrega 10s
+            }
+        }
+
+        // ACTUALIZAR LISTA DE OPERACIONES
+        function actualizarListaOperaciones() {
+            const lista = document.getElementById('listaOperaciones');
+            
+            if (operaciones.length === 0) {
+                lista.innerHTML = '<p style="text-align: center; color: #999; padding: 40px;">No hay operaciones registradas</p>';
+                document.getElementById('totalOperaciones').textContent = '0';
+                return;
+            }
+
+            let html = '';
+            operaciones.forEach((op, index) => {
+                html += `
+                    <div class="operation-item">
+                        <span class="code">${op.codigo} - ${op.descripcion}</span>
+                        <br><small>Cliente: ${op.cliente} | ${op.esCliente}</small>
+                        <br><small>Billetes: 10x${op.billete10} 20x${op.billete20} 50x${op.billete50} 100x${op.billete100} 200x${op.billete200}</small>
+                        <span class="amount">S/ ${op.total.toFixed(2)}${op.comision > 0 ? ' (+S/ ' + op.comision + ' com.)' : ''}</span>
+                    </div>
+                `;
+            });
+
+            lista.innerHTML = html;
+            document.getElementById('totalOperaciones').textContent = operaciones.length;
+        }
+
+        // ACTUALIZAR RESUMEN DE CAJA
+        function actualizarResumenCaja() {
+            document.getElementById('count10').textContent = caja.billete10;
+            document.getElementById('count20').textContent = caja.billete20;
+            document.getElementById('count50').textContent = caja.billete50;
+            document.getElementById('count100').textContent = caja.billete100;
+            document.getElementById('count200').textContent = caja.billete200;
+
+            const total = (caja.billete10 * 10) + (caja.billete20 * 20) + 
+                         (caja.billete50 * 50) + (caja.billete100 * 100) + 
+                         (caja.billete200 * 200);
+            
+            document.getElementById('totalCaja').textContent = total.toFixed(2);
+        }
+
+        // LIMPIAR BILLETES
+        function limpiarBilletes() {
+            document.getElementById('billete10').value = 0;
+            document.getElementById('billete20').value = 0;
+            document.getElementById('billete50').value = 0;
+            document.getElementById('billete100').value = 0;
+            document.getElementById('billete200').value = 0;
+            document.getElementById('totalOperacion').textContent = '0.00';
+        }
+
+        // LIMPIAR FORMULARIO
+        function limpiarFormulario() {
+            document.getElementById('codigoOperacion').value = '';
+            document.getElementById('descripcion').value = '';
+            document.getElementById('tipoCuenta').value = '';
+            document.getElementById('codigoCliente').value = '';
+            document.getElementById('esClienteBanco').value = 'SI';
+            limpiarBilletes();
+        }
+
+        // MOSTRAR CUADRE
+        function mostrarCuadre() {
+            const modal = document.getElementById('modalCuadre');
+            const contenido = document.getElementById('contenidoCuadre');
+
+            // Calcular totales esperados vs reales
+            const totalInicial = 1000; // Apertura de caja
+            const totalEsperado = calcularTotalEsperado();
+            const totalReal = (caja.billete10 * 10) + (caja.billete20 * 20) + 
+                             (caja.billete50 * 50) + (caja.billete100 * 100) + 
+                             (caja.billete200 * 200);
+            
+            const diferencia = totalReal - totalEsperado;
+
+            let html = `
+                <div class="alert alert-info">
+                    <strong>Resumen del Cuadre:</strong>
+                    <ul style="margin: 10px 0 0 20px;">
+                        <li>Saldo Inicial: S/ ${totalInicial.toFixed(2)}</li>
+                        <li>Total Operaciones: ${operaciones.length}</li>
+                        <li>Total Esperado en Caja: S/ ${totalEsperado.toFixed(2)}</li>
+                        <li>Total Real en Caja: S/ ${totalReal.toFixed(2)}</li>
+                    </ul>
+                </div>
+            `;
+
+            if (Math.abs(diferencia) < 0.01) {
+                html += `
+                    <div class="cuadre-result cuadre-exitoso">
+                        <h3>✅ CAJA CUADRADA</h3>
+                        <p>¡Felicitaciones! Su caja está perfectamente cuadrada.</p>
+                        <div class="diferencia sobrante">S/ ${diferencia.toFixed(2)}</div>
+                    </div>
+                `;
+            } else {
+                const tipoDiferencia = diferencia > 0 ? 'SOBRANTE' : 'FALTANTE';
+                const claseDiferencia = diferencia > 0 ? 'sobrante' : 'faltante';
+                
+                html += `
+                    <div class="cuadre-result cuadre-fallido">
+                        <h3>⚠️ DESCUADRE DETECTADO</h3>
+                        <p>Existe una diferencia en su caja. Revise sus operaciones.</p>
+                        <div class="diferencia ${claseDiferencia}">
+                            ${tipoDiferencia}: S/ ${Math.abs(diferencia).toFixed(2)}
+                        </div>
+                        <div style="text-align: left; margin-top: 20px;">
+                            <h4>Posibles causas:</h4>
+                            <ul>
+                                <li>Error en el registro de billetes</li>
+                                <li>Comisión no considerada en giros/cheques</li>
+                                <li>Operación registrada incorrectamente</li>
+                                <li>Cambio de billetes mal calculado</li>
+                            </ul>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Tabla de operaciones
+            html += `
+                <h3 style="margin-top: 20px; margin-bottom: 15px;">Detalle de Operaciones:</h3>
+                <table class="reporte-table">
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Descripción</th>
+                            <th>Cliente</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            operaciones.forEach(op => {
+                html += `
+                    <tr>
+                        <td>${op.codigo}</td>
+                        <td>${op.descripcion}</td>
+                        <td>${op.cliente}</td>
+                        <td>S/ ${op.total.toFixed(2)}</td>
+                    </tr>
+                `;
+            });
+
+            html += `
+                    </tbody>
+                </table>
+                <div style="margin-top: 20px; text-align: center;">
+                    <button class="btn btn-primary" onclick="window.print()">🖨️ Imprimir Reporte</button>
+                    <button class="btn btn-success" onclick="cerrarModal()">Cerrar</button>
+                </div>
+            `;
+
+            contenido.innerHTML = html;
+            modal.style.display = 'flex';
+        }
+
+        // CALCULAR TOTAL ESPERADO
+        function calcularTotalEsperado() {
+            let total = 1000; // Saldo inicial
+            
+            operaciones.forEach(op => {
+                const codigo = op.codigo;
+                
+                // Operaciones que suman a caja
+                if (['C002', 'C003', 'C004', 'C005', 'C006', 'C007', 'C010', 'C011', 'C012', 'C013', 'C014', 'C015'].includes(codigo)) {
+                    total += op.total;
+                }
+                // Operaciones que restan de caja
+                else if (['C008', 'C009'].includes(codigo)) {
+                    total -= (op.total - op.comision); // Restamos el monto sin comisión
+                }
+                // Cambio de billetes (no afecta el total)
+                else if (codigo === 'C016') {
+                    // No cambia el total, solo las denominaciones
+                }
+            });
+            
+            return total;
+        }
+
+        // CERRAR MODAL
+        function cerrarModal() {
+            document.getElementById('modalCuadre').style.display = 'none';
+        }
+
+        // DESCARGAR REPORTE
+        function descargarReporte() {
+            let contenido = `
+SIMULADOR DE CAJA - REPORTE DE OPERACIONES
+Fecha: ${new Date().toLocaleDateString()}
+Hora: ${new Date().toLocaleTimeString()}
+
+RESUMEN DE CAJA:
+================
+Saldo Inicial: S/ 1000.00
+
+Billetes en Caja:
+- S/ 10: ${caja.billete10} billetes = S/ ${(caja.billete10 * 10).toFixed(2)}
+- S/ 20: ${caja.billete20} billetes = S/ ${(caja.billete20 * 20).toFixed(2)}
+- S/ 50: ${caja.billete50} billetes = S/ ${(caja.billete50 * 50).toFixed(2)}
+- S/ 100: ${caja.billete100} billetes = S/ ${(caja.billete100 * 100).toFixed(2)}
+- S/ 200: ${caja.billete200} billetes = S/ ${(caja.billete200 * 200).toFixed(2)}
+
+TOTAL EN CAJA: S/ ${((caja.billete10 * 10) + (caja.billete20 * 20) + (caja.billete50 * 50) + (caja.billete100 * 100) + (caja.billete200 * 200)).toFixed(2)}
+
+OPERACIONES REGISTRADAS:
+========================
+`;
+
+            operaciones.forEach((op, index) => {
+                contenido += `
+${index + 1}. ${op.codigo} - ${op.descripcion}
+   Cliente: ${op.cliente}
+   Fecha: ${op.fecha} ${op.hora}
+   Billetes: 10x${op.billete10} 20x${op.billete20} 50x${op.billete50} 100x${op.billete100} 200x${op.billete200}
+   Total: S/ ${op.total.toFixed(2)}${op.comision > 0 ? ' (Incluye S/ ' + op.comision + ' de comisión)' : ''}
+   Cliente del Banco: ${op.esCliente}
+   ----------------------------------------
+`;
+            });
+
+            contenido += `
+TOTAL DE OPERACIONES: ${operaciones.length}
+
+========================
+FIN DEL REPORTE
+`;
+
+            // Crear blob y descargar
+            const blob = new Blob([contenido], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Reporte_Caja_${new Date().toISOString().slice(0,10)}.txt`;
+            a.click();
+            window.URL.revokeObjectURL(url);
+
+            alert('Reporte descargado exitosamente. Revíselo y compárelo con su examen.');
+        }
+
+        // Cerrar modal al hacer clic fuera
+        window.onclick = function(event) {
+            const modal = document.getElementById('modalCuadre');
+            if (event.target === modal) {
+                cerrarModal();
+            }
+        }
+    </script>
+</body>
+</html>
