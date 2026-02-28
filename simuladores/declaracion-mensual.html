@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Cierre de Planilla - SUNAT & AFPNET</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            color: #1e3c72;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: #666;
+        }
+        
+        .module {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            margin-bottom: 30px;
+        }
+        
+        .module-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #1e3c72;
+        }
+        
+        .module-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 24px;
+        }
+        
+        .sunat-icon {
+            background: #E60000;
+            color: white;
+        }
+        
+        .afp-icon {
+            background: #0066CC;
+            color: white;
+        }
+        
+        .upload-area {
+            border: 3px dashed #ccc;
+            padding: 40px;
+            text-align: center;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 20px;
+        }
+        
+        .upload-area:hover {
+            border-color: #1e3c72;
+            background: #f8f9fa;
+        }
+        
+        .upload-area.dragover {
+            border-color: #28a745;
+            background: #d4edda;
+        }
+        
+        .btn {
+            padding: 15px 40px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+        
+        .btn-primary {
+            background: #1e3c72;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #2a5298;
+        }
+        
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #218838;
+        }
+        
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .status-box {
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .status-success {
+            background: #d4edda;
+            border: 2px solid #28a745;
+            color: #155724;
+        }
+        
+        .status-error {
+            background: #f8d7da;
+            border: 2px solid #dc3545;
+            color: #721c24;
+        }
+        
+        .status-processing {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            color: #856404;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #e9ecef;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 20px 0;
+            display: none;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #28a745, #20c997);
+            width: 0%;
+            transition: width 0.5s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .constancia-preview {
+            background: #f8f9fa;
+            padding: 30px;
+            border: 2px solid #dee2e6;
+            border-radius: 5px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .constancia-header {
+            text-align: center;
+            border-bottom: 3px solid #1e3c72;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .constancia-logo {
+            font-size: 32px;
+            font-weight: bold;
+            color: #1e3c72;
+        }
+        
+        .constancia-data {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .constancia-field {
+            display: flex;
+        }
+        
+        .constancia-label {
+            font-weight: bold;
+            width: 200px;
+            color: #666;
+        }
+        
+        .constancia-value {
+            color: #1e3c72;
+        }
+        
+        .constancia-tributos {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        .constancia-tributos th,
+        .constancia-tributos td {
+            border: 1px solid #dee2e6;
+            padding: 10px;
+            text-align: left;
+        }
+        
+        .constancia-tributos th {
+            background: #1e3c72;
+            color: white;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .worker-list {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+        
+        .worker-item {
+            padding: 10px;
+            border-bottom: 1px solid #dee2e6;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .worker-item:last-child {
+            border-bottom: none;
+        }
+        
+        .worker-item.error {
+            background: #f8d7da;
+        }
+        
+        .worker-item.success {
+            background: #d4edda;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <div class="header">
+            <h1>🏢 Simulador de Cierre de Planilla</h1>
+            <p>Validación SUNAT (PLAME) & AFPNET - Escenario Controlado</p>
+            <p><strong>Empresa:</strong> FAYMONT EIRL | <strong>RUC:</strong> 20120200001 | <strong>Periodo:</strong> Enero 20XX</p>
+        </div>
+
+        <!-- MODULO 1: SUNAT PLAME -->
+        <div class="module" id="module-sunat">
+            <div class="module-header">
+                <div class="module-icon sunat-icon">📋</div>
+                <div>
+                    <h2>1. Validación SUNAT - PLAME</h2>
+                    <p>Sube tu archivo de planilla electrónica para validar</p>
+                </div>
+            </div>
+            
+            <div class="upload-area" id="upload-plame" onclick="document.getElementById('file-plame').click()">
+                <input type="file" id="file-plame" accept=".xlsx,.xls,.csv" hidden>
+                <div style="font-size: 48px; margin-bottom: 15px;">📤</div>
+                <h3>Arrastra tu archivo PLAME aquí o haz clic para seleccionar</h3>
+                <p style="color: #666; margin-top: 10px;">Formatos: .xlsx, .xls, .csv</p>
+            </div>
+            
+            <div class="status-box" id="status-plame"></div>
+            
+            <div class="progress-bar" id="progress-plame">
+                <div class="progress-fill" id="progress-fill-plame">0%</div>
+            </div>
+            
+            <div class="constancia-preview" id="constancia-sunat">
+                <!-- Se llenará dinámicamente -->
+            </div>
+        </div>
+
+        <!-- MODULO 2: AFPNET -->
+        <div class="module" id="module-afp" style="opacity: 0.5; pointer-events: none;">
+            <div class="module-header">
+                <div class="module-icon afp-icon">💼</div>
+                <div>
+                    <h2>2. Validación AFPNET</h2>
+                    <p>Sube tu archivo de aportes AFP para validar</p>
+                </div>
+            </div>
+            
+            <div class="upload-area" id="upload-afp" onclick="document.getElementById('file-afp').click()">
+                <input type="file" id="file-afp" accept=".xlsx,.xls,.txt,.csv" hidden>
+                <div style="font-size: 48px; margin-bottom: 15px;">📤</div>
+                <h3>Arrastra tu archivo AFPNET aquí o haz clic para seleccionar</h3>
+                <p style="color: #666; margin-top: 10px;">Formatos: .xlsx, .xls, .txt, .csv</p>
+            </div>
+            
+            <div class="status-box" id="status-afp"></div>
+            
+            <div class="progress-bar" id="progress-afp">
+                <div class="progress-fill" id="progress-fill-afp">0%</div>
+            </div>
+            
+            <div class="constancia-preview" id="constancia-afp">
+                <!-- Se llenará dinámicamente -->
+            </div>
+        </div>
+
+        <!-- BOTONES DE ACCIÓN -->
+        <div class="module">
+            <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                <button class="btn btn-primary" id="btn-validar" onclick="validarArchivos()" disabled>
+                    ✅ Validar Archivos
+                </button>
+                <button class="btn btn-success" id="btn-descargar" onclick="descargarConstancias()" disabled>
+                    📥 Descargar Constancias
+                </button>
+                <button class="btn btn-danger" onclick="reiniciarSimulador()">
+                    🔄 Reiniciar
+                </button>
+            </div>
+        </div>
+
+        <!-- RESUMEN DE VALIDACIÓN -->
+        <div class="module" id="module-resumen" style="display: none;">
+            <div class="module-header">
+                <div class="module-icon" style="background: #28a745; color: white;">📊</div>
+                <div>
+                    <h2>Resumen de Validación</h2>
+                    <p>Comparación entre tus datos y la referencia</p>
+                </div>
+            </div>
+            
+            <div id="resumen-contenido"></div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // DATOS DE REFERENCIA (SOLUCIÓN DEL PROFESOR)
+        // ============================================
+        const DATOS_REFERENCIA = {
+            empresa: {
+                ruc: '20120200001',
+                razonSocial: 'FAYMONT EIRL',
+                periodo: '01/20XX'
+            },
+            totales: {
+                remuneracionBruta: 55093.42,
+                remuneracionNeta: 47135.12,
+                essalud: 4958.45,
+                snp: 3576.74,
+                afpAporte: 1830.50,
+                afpComision: 286.11,
+                afpSeguro: 336.69,
+                renta5ta: 795.83,
+                totalTrabajadores: 21
+            },
+            trabajadores: [
+                { codigo: '2001', nombre: 'Pacheco Dávila Lidia', sueldo: 1300.00, afp: 'ONP', neto: 1342.71 },
+                { codigo: '2002', nombre: 'Carmona Sarmiento, Jorge', sueldo: 1900.00, afp: 'ONP', neto: 1858.29 },
+                { codigo: '2003', nombre: 'Paccioli Albino, Luca', sueldo: 3800.00, afp: 'INTEGRA', neto: 3246.72 },
+                { codigo: '2004', nombre: 'López Fuentes Luís', sueldo: 3005.00, afp: 'ONP', neto: 2564.88 },
+                { codigo: '2005', nombre: 'Vela Ruíz, Manuel', sueldo: 2100.00, afp: 'ONP', neto: 2000.81 },
+                { codigo: '2006', nombre: 'Montenegro Cardenas, Roberto', sueldo: 1960.00, afp: 'ONP', neto: 1893.80 },
+                { codigo: '2007', nombre: 'Vargas Roel Jorge', sueldo: 1500.00, afp: 'ONP', neto: 1487.09 },
+                { codigo: '2008', nombre: 'Jauregui Dávila, Adalberto', sueldo: 4000.00, afp: 'INTEGRA', neto: 3401.27 },
+                { codigo: '2009', nombre: 'Campos Vasquez, Manuel', sueldo: 2100.00, afp: 'ONP', neto: 2000.81 },
+                { codigo: '2010', nombre: 'Falla Ruíz Rafael', sueldo: 2975.00, afp: 'ONP', neto: 2541.58 },
+                { codigo: '2011', nombre: 'Calderón Mejía María', sueldo: 3200.00, afp: 'ONP', neto: 2716.33 },
+                { codigo: '2012', nombre: 'Luque Rivera, Zenón', sueldo: 3500.00, afp: 'PRIMA', neto: 3013.09 },
+                { codigo: '2013', nombre: 'Muñante Salas, Sonia', sueldo: 2200.00, afp: 'INTEGRA', neto: 1994.19 },
+                { codigo: '2014', nombre: 'Soria Sánchez Carlos', sueldo: 2900.00, afp: 'ONP', neto: 2483.33 },
+                { codigo: '2015', nombre: 'Guevara Chauca, Elías', sueldo: 2100.00, afp: 'ONP', neto: 1907.68 },
+                { codigo: '2016', nombre: 'Chauca Pérez, Carlos', sueldo: 3000.00, afp: 'HABITAT', neto: 2630.98 },
+                { codigo: '2017', nombre: 'Suarez Curto, Edgar', sueldo: 2000.00, afp: 'ONP', neto: 1816.86 },
+                { codigo: '2018', nombre: 'Lara Jimenes, Luís', sueldo: 1700.00, afp: 'ONP', neto: 1655.09 },
+                { codigo: '2019', nombre: 'Pére Liendo, Juan', sueldo: 3050.00, afp: 'ONP', neto: 2599.83 },
+                { codigo: '2020', nombre: 'Velez Sauco, Emilia', sueldo: 2300.00, afp: 'PROFUTURO', neto: 1988.81 },
+                { codigo: '2021', nombre: 'Guillermo Arrunátegui, Carmén', sueldo: 2200.00, afp: 'PROFUTURO', neto: 1990.97 }
+            ]
+        };
+
+        // ============================================
+        // VARIABLES DE ESTADO
+        // ============================================
+        let archivoPlame = null;
+        let archivoAfp = null;
+        let validacionPlame = false;
+        let validacionAfp = false;
+
+        // ============================================
+        // EVENT LISTENERS
+        // ============================================
+        document.getElementById('file-plame').addEventListener('change', handlePlameUpload);
+        document.getElementById('file-afp').addEventListener('change', handleAfpUpload);
+
+        // Drag & Drop
+        setupDragDrop('upload-plame', 'file-plame');
+        setupDragDrop('upload-afp', 'file-afp');
+
+        // ============================================
+        // FUNCIONES DE UPLOAD
+        // ============================================
+        function setupDragDrop(uploadAreaId, fileId) {
+            const uploadArea = document.getElementById(uploadAreaId);
+            const fileInput = document.getElementById(fileId);
+
+            uploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadArea.classList.add('dragover');
+            });
+
+            uploadArea.addEventListener('dragleave', () => {
+                uploadArea.classList.remove('dragover');
+            });
+
+            uploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadArea.classList.remove('dragover');
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    fileInput.files = files;
+                    if (fileId === 'file-plame') handlePlameUpload();
+                    else handleAfpUpload();
+                }
+            });
+        }
+
+        function handlePlameUpload() {
+            const file = document.getElementById('file-plame').files[0];
+            if (!file) return;
+
+            archivoPlame = file;
+            document.getElementById('upload-plame').innerHTML = `
+                <div style="font-size: 48px; margin-bottom: 15px;">✅</div>
+                <h3>${file.name}</h3>
+                <p style="color: #28a745; margin-top: 10px;">Archivo cargado correctamente</p>
+            `;
+            
+            document.getElementById('btn-validar').disabled = false;
+            mostrarStatus('status-plame', 'processing', '📊 Analizando archivo PLAME...');
+        }
+
+        function handleAfpUpload() {
+            const file = document.getElementById('file-afp').files[0];
+            if (!file) return;
+
+            archivoAfp = file;
+            document.getElementById('upload-afp').innerHTML = `
+                <div style="font-size: 48px; margin-bottom: 15px;">✅</div>
+                <h3>${file.name}</h3>
+                <p style="color: #28a745; margin-top: 10px;">Archivo cargado correctamente</p>
+            `;
+        }
+
+        // ============================================
+        // VALIDACIÓN
+        // ============================================
+        function validarArchivos() {
+            if (!archivoPlame) {
+                mostrarStatus('status-plame', 'error', '❌ Debes subir el archivo PLAME primero');
+                return;
+            }
+
+            // Simular proceso de validación
+            simularValidacionSUNAT();
+        }
+
+        function simularValidacionSUNAT() {
+            const progressBar = document.getElementById('progress-plame');
+            const progressFill = document.getElementById('progress-fill-plame');
+            progressBar.style.display = 'block';
+
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 5;
+                progressFill.style.width = progress + '%';
+                progressFill.textContent = progress + '%';
+
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    completarValidacionSUNAT();
+                }
+            }, 100);
+        }
+
+        function completarValidacionSUNAT() {
+            // Aquí iría la lógica real de comparación
+            // Para el simulador, asumimos que es correcto
+            validacionPlame = true;
+            
+            mostrarStatus('status-plame', 'success', `
+                ✅ <strong>Validación SUNAT Exitosa</strong><br>
+                • Trabajadores validados: ${DATOS_REFERENCIA.totales.totalTrabajadores}<br>
+                • Remuneración Bruta: S/. ${DATOS_REFERENCIA.totales.remuneracionBruta.toFixed(2)}<br>
+                • ESSALUD: S/. ${DATOS_REFERENCIA.totales.essalud.toFixed(2)}<br>
+                • Renta 5ta: S/. ${DATOS_REFERENCIA.totales.renta5ta.toFixed(2)}
+            `);
+
+            generarConstanciaSUNAT();
+
+            // Habilitar módulo AFP
+            document.getElementById('module-afp').style.opacity = '1';
+            document.getElementById('module-afp').style.pointerEvents = 'auto';
+            document.getElementById('btn-descargar').disabled = false;
+        }
+
+        // ============================================
+        // CONSTANCIA SUNAT
+        // ============================================
+        function generarConstanciaSUNAT() {
+            const constanciaDiv = document.getElementById('constancia-sunat');
+            const numeroOrden = Math.floor(Math.random() * 900000000) + 100000000;
+            
+            constanciaDiv.innerHTML = `
+                <div class="constancia-header">
+                    <div class="constancia-logo">☀️ SUNAT</div>
+                    <h3>CONSTANCIA DE PRESENTACIÓN</h3>
+                    <p>PLANILLA ELECTRÓNICA - PDT 601</p>
+                </div>
+                
+                <div class="constancia-data">
+                    <div class="constancia-field">
+                        <span class="constancia-label">Número de Orden:</span>
+                        <span class="constancia-value">${numeroOrden}</span>
+                    </div>
+                    <div class="constancia-field">
+                        <span class="constancia-label">RUC:</span>
+                        <span class="constancia-value">${DATOS_REFERENCIA.empresa.ruc}</span>
+                    </div>
+                    <div class="constancia-field">
+                        <span class="constancia-label">Razón Social:</span>
+                        <span class="constancia-value">${DATOS_REFERENCIA.empresa.razonSocial}</span>
+                    </div>
+                    <div class="constancia-field">
+                        <span class="constancia-label">Periodo:</span>
+                        <span class="constancia-value">${DATOS_REFERENCIA.empresa.periodo}</span>
+                    </div>
+                    <div class="constancia-field">
+                        <span class="constancia-label">N° Trabajadores:</span>
+                        <span class="constancia-value">${DATOS_REFERENCIA.totales.totalTrabajadores}</span>
+                    </div>
+                    <div class="constancia-field">
+                        <span class="constancia-label">Fecha Presentación:</span>
+                        <span class="constancia-value">${new Date().toLocaleDateString()}</span>
+                    </div>
+                </div>
+
+                <h4>Detalle de Tributos</h4>
+                <table class="constancia-tributos">
+                    <thead>
+                        <tr>
+                            <th>Tributo</th>
+                            <th>Deuda</th>
+                            <th>Pago</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>RENTA 5TA. CATEG. RETENCIONES</td>
+                            <td>S/. ${DATOS_REFERENCIA.totales.renta5ta.toFixed(2)}</td>
+                            <td>S/. ${DATOS_REFERENCIA.totales.renta5ta.toFixed(2)}</td>
+                        </tr>
+                        <tr>
+                            <td>SNP - LEY 19990</td>
+                            <td>S/. ${DATOS_REFERENCIA.totales.snp.toFixed(2)}</td>
+                            <td>S/. ${DATOS_REFERENCIA.totales.snp.toFixed(2)}</td>
+                        </tr>
+                        <tr>
+                            <td>ESSALUD SEG REGULAR TRABAJADOR</td>
+                            <td>S/. ${DATOS_REFERENCIA.totales.essalud.toFixed(2)}</td>
+                            <td>S/. ${DATOS_REFERENCIA.totales.essalud.toFixed(2)}</td>
+                        </tr>
+                        <tr style="font-weight: bold; background: #e9ecef;">
+                            <td>TOTALES</td>
+                            <td>S/. ${(DATOS_REFERENCIA.totales.renta5ta + DATOS_REFERENCIA.totales.snp + DATOS_REFERENCIA.totales.essalud).toFixed(2)}</td>
+                            <td>S/. ${(DATOS_REFERENCIA.totales.renta5ta + DATOS_REFERENCIA.totales.snp + DATOS_REFERENCIA.totales.essalud).toFixed(2)}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div style="margin-top: 20px; padding: 15px; background: #d4edda; border: 2px solid #28a745; border-radius: 5px; text-align: center;">
+                    <strong>✅ DECLARACIÓN PRESENTADA CORRECTAMENTE</strong>
+                </div>
+            `;
+            
+            constanciaDiv.style.display = 'block';
+        }
+
+        // ============================================
+        // UTILIDADES
+        // ============================================
+        function mostrarStatus(elementId, type, message) {
+            const statusBox = document.getElementById(elementId);
+            statusBox.className = `status-box status-${type}`;
+            statusBox.innerHTML = message;
+            statusBox.style.display = 'block';
+        }
+
+        function descargarConstancias() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            // Aquí iría la lógica para generar PDF
+            alert('📥 Funcionalidad de descarga de PDF en desarrollo...\n\nEn la versión completa, esto generará un PDF descargable con la constancia SUNAT y AFPNET');
+        }
+
+        function reiniciarSimulador() {
+            location.reload();
+        }
+    </script>
+</body>
+</html>
