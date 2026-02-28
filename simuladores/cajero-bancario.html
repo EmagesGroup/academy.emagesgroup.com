@@ -14,6 +14,7 @@
             --danger: #eb3349;
             --warning: #ffc107;
             --info: #4facfe;
+            --purple: #6c5ce7;
         }
 
         * {
@@ -240,11 +241,12 @@
 
         .op-deposit { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
         .op-withdraw { background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%); }
-        .op-transfer { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .op-transfer { background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%); }
         .op-payment { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
         .op-check { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); color: var(--primary); }
         .op-admin { background: linear-gradient(135deg, #333 0%, #555 100%); }
-        .op-report { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .op-report { background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%); }
+        .op-close { background: linear-gradient(135deg, #2d3436 0%, #000000 100%); }
 
         /* Input Section */
         .input-section {
@@ -307,19 +309,7 @@
             border-color: #721c24;
         }
 
-        .check-status-box strong {
-            color: #856404;
-        }
-
-        .check-status-box.available strong {
-            color: #155724;
-        }
-
-        .check-status-box.used strong {
-            color: #721c24;
-        }
-
-        /* Denomination Grid with DIRECT INPUT */
+        /* Denomination Grid */
         .denomination-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -569,6 +559,7 @@
 
         .transaction-amount.positive { color: var(--success); }
         .transaction-amount.negative { color: var(--danger); }
+        .transaction-amount.neutral { color: var(--info); }
 
         /* Evaluation */
         .evaluation-panel {
@@ -673,7 +664,7 @@
         .download-btn {
             width: 100%;
             padding: 12px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
             color: white;
             border: none;
             border-radius: 6px;
@@ -849,6 +840,78 @@
             font-size: 9px;
             color: #888;
         }
+
+        /* Code Reference Table */
+        .code-reference {
+            background: #fff;
+            border: 2px solid var(--gold);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .code-reference h4 {
+            font-size: 12px;
+            color: var(--primary);
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .code-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 10px;
+        }
+
+        .code-table th {
+            background: var(--gold);
+            color: var(--primary);
+            padding: 8px;
+            text-align: left;
+        }
+
+        .code-table td {
+            padding: 6px 8px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .code-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .code-category {
+            background: var(--primary);
+            color: var(--gold);
+            font-weight: 600;
+            text-align: center;
+        }
+
+        /* Cash Count Display */
+        .cash-count-display {
+            background: linear-gradient(135deg, #d4af37 0%, #f4e4bc 100%);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .cash-count-display h4 {
+            font-size: 12px;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .cash-count-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .cash-count-label {
+            font-size: 10px;
+            color: var(--primary);
+            opacity: 0.8;
+        }
     </style>
 </head>
 <body>
@@ -858,18 +921,16 @@
                 <div class="logo-eg">EG</div>
                 <div class="header-title">
                     <h1 data-lang="simulator_title">Simulador Cajero Bancario</h1>
-                    <p data-lang="simulator_subtitle">EMAGES Academy | Nivel Agente Internacional</p>
+                    <p data-lang="simulator_subtitle">EMAGES Academy | SARABANK 2026 Compatible</p>
                 </div>
             </div>
             <div class="controls">
                 <select class="currency-selector" id="currencySelector" onchange="changeCurrency()">
                     <option value="pen">🇵🇪 Soles (PEN)</option>
                     <option value="usd">🇺🇸 Dólares (USD)</option>
-                    <option value="eur">🇪🇺 Euros (EUR)</option>
                 </select>
                 <button class="lang-btn active" onclick="changeLanguage('es')">ES</button>
                 <button class="lang-btn" onclick="changeLanguage('en')">EN</button>
-                <button class="lang-btn" onclick="changeLanguage('fr')">FR</button>
             </div>
         </div>
 
@@ -889,9 +950,16 @@
                 </div>
 
                 <div class="balance-display">
-                    <h3 data-lang="available_balance">Saldo en Caja</h3>
+                    <h3 data-lang="available_balance">EFECTIVO EN CAJA</h3>
                     <div class="amount"><span id="currencySymbol">S/</span> <span id="balance">0.00</span></div>
                     <div class="zero-warning" data-lang="zero_start_warning">⚠️ Caja inicia en CERO - Provisión Inicial (1010)</div>
+                </div>
+
+                <!-- Cash Count Display -->
+                <div class="cash-count-display">
+                    <h4>📊 CONTADOR DE EFECTIVO FÍSICO</h4>
+                    <div class="cash-count-value"><span id="currencySymbol2">S/</span> <span id="physicalCash">0.00</span></div>
+                    <div class="cash-count-label">Solo operaciones con dinero físico</div>
                 </div>
 
                 <!-- Operation Selector -->
@@ -899,30 +967,38 @@
                     <label data-lang="select_operation">Seleccionar Operación:</label>
                     <select class="operation-select" id="operationSelect" onchange="onOperationSelect()">
                         <option value="">-- Seleccione --</option>
-                        <optgroup label="APERTURA/CIERRE">
+                        <optgroup label="APERTURA Y CIERRE">
                             <option value="1010">1010 - Provisión Inicial</option>
-                            <option value="1012">1012 - Aumento Efectivo</option>
-                            <option value="1014">1014 - Disminución Efectivo</option>
-                            <option value="101">101 - Cierre de Caja</option>
+                            <option value="1012">1012 - Aumento de Efectivo</option>
+                            <option value="1014">1014 - Disminución de Efectivo</option>
+                            <option value="1040">1040 - Faltante/Sobrante</option>
+                            <option value="1050">1050 - Cierre de Operaciones</option>
                         </optgroup>
                         <optgroup label="DEPÓSITOS">
                             <option value="0730">0730 - Depósito Efectivo</option>
-                            <option value="0732">0732 - Cheque Otro Banco</option>
-                            <option value="0750">0750 - Cheque M/B Local</option>
+                            <option value="0732">0732 - Cheque/Otro Banco</option>
+                            <option value="0750">0750 - Cheque/MB Local</option>
                         </optgroup>
                         <optgroup label="RETIROS">
                             <option value="0600">0600 - Retiro Ahorro</option>
+                            <option value="0500">0500 - Pago Efectivo/Cheque</option>
                         </optgroup>
-                        <optgroup label="TRANSFERENCIAS">
-                            <option value="0740">0740 - Transferencia</option>
+                        <optgroup label="TRANSFERENCIAS (No afecta caja)">
+                            <option value="0740">0740 - Transferencia entre Cuentas</option>
                         </optgroup>
                         <optgroup label="SERVICIOS">
-                            <option value="6500">6500 - Pago Servicios ✅</option>
+                            <option value="6500">6500 - Pago de Servicios</option>
+                            <option value="0810">0810 - Compra M.E.</option>
+                            <option value="0812">0812 - Venta M.E.</option>
+                        </optgroup>
+                        <optgroup label="CONSULTAS">
+                            <option value="0100">0100 - Mov. Ctas.</option>
+                            <option value="0102">0102 - Saldos Ctas</option>
+                            <option value="0104">0104 - Estado de Chequera</option>
+                            <option value="0106">0106 - Estado de Cheque</option>
                         </optgroup>
                         <optgroup label="REPORTES">
-                            <option value="3043">3043 - Cuadre Efectivo</option>
-                            <option value="4000">4000 - Balance Movimientos</option>
-                            <option value="4008">4008 - A Bóveda</option>
+                            <option value="3043">3043 - Cuadre de Efectivo</option>
                         </optgroup>
                     </select>
                 </div>
@@ -988,12 +1064,20 @@
                         <input type="text" id="serviceNumber" placeholder="Ej: 503675">
                     </div>
 
+                    <div class="input-group" id="transferGroup" style="display:none;">
+                        <label data-lang="transfer_from">Cuenta Origen</label>
+                        <input type="text" id="transferFrom" placeholder="000-0000000-00">
+                        <label data-lang="transfer_to" style="margin-top: 8px;">Cuenta Destino</label>
+                        <input type="text" id="transferTo" placeholder="000-0000000-00">
+                        <div style="font-size: 10px; color: var(--info); margin-top: 5px;">ⓘ Esta operación NO afecta el efectivo en caja</div>
+                    </div>
+
                     <div class="input-group" id="amountGroup">
                         <label data-lang="amount_label">Monto Total</label>
                         <input type="number" id="opAmount" placeholder="0.00" min="0.01" step="0.01" oninput="updateDenominationTotal()">
                     </div>
 
-                    <!-- Denomination Grid with DIRECT INPUT -->
+                    <!-- Denomination Grid -->
                     <div class="input-group" id="denominationGroup">
                         <label data-lang="denomination_input">Desglose (DIGITE la cantidad de cada denominación)</label>
                         <div class="denomination-grid" id="denominationGrid">
@@ -1033,6 +1117,39 @@
                 <div class="close-status open" id="closeStatus">
                     <span data-lang="box_open">CAJA ABIERTA - Pendiente Cierre</span>
                 </div>
+
+                <!-- Code Reference Table -->
+                <div class="code-reference">
+                    <h4>📋 CÓDIGOS SARABANK 2026</h4>
+                    <table class="code-table">
+                        <tr class="code-category"><td colspan="2">APERTURA Y CIERRE</td></tr>
+                        <tr><td>1010</td><td>Provisión Inicial</td></tr>
+                        <tr><td>1012</td><td>Aumento de Efectivo</td></tr>
+                        <tr><td>1014</td><td>Disminución de Efectivo</td></tr>
+                        <tr><td>1040</td><td>Faltante/Sobrante</td></tr>
+                        <tr><td>1050</td><td>Cierre de Operaciones</td></tr>
+                        <tr class="code-category"><td colspan="2">DEPÓSITOS</td></tr>
+                        <tr><td>0730</td><td>Depósito Efectivo</td></tr>
+                        <tr><td>0732</td><td>Cheque/Otro Banco</td></tr>
+                        <tr><td>0750</td><td>Cheque/MB Local</td></tr>
+                        <tr class="code-category"><td colspan="2">RETIROS</td></tr>
+                        <tr><td>0600</td><td>Retiro Ahorro</td></tr>
+                        <tr><td>0500</td><td>Pago Efectivo/Cheque</td></tr>
+                        <tr class="code-category"><td colspan="2">TRANSFERENCIAS</td></tr>
+                        <tr><td>0740</td><td>Transferencia (No afecta caja)</td></tr>
+                        <tr class="code-category"><td colspan="2">SERVICIOS</td></tr>
+                        <tr><td>6500</td><td>Pago de Servicios</td></tr>
+                        <tr><td>0810</td><td>Compra M.E.</td></tr>
+                        <tr><td>0812</td><td>Venta M.E.</td></tr>
+                        <tr class="code-category"><td colspan="2">CONSULTAS</td></tr>
+                        <tr><td>0100</td><td>Mov. Ctas.</td></tr>
+                        <tr><td>0102</td><td>Saldos Ctas</td></tr>
+                        <tr><td>0104</td><td>Estado de Chequera</td></tr>
+                        <tr><td>0106</td><td>Estado de Cheque</td></tr>
+                        <tr class="code-category"><td colspan="2">REPORTES</td></tr>
+                        <tr><td>3043</td><td>Cuadre de Efectivo</td></tr>
+                    </table>
+                </div>
             </div>
 
             <!-- PANEL 2: EXTRACTO Y EVALUACIÓN -->
@@ -1046,7 +1163,7 @@
                     <p><strong data-lang="cashier">Cajero:</strong> <span id="cashierName">____________________</span></p>
                     <p><strong data-lang="box_id">ID Caja:</strong> <span id="boxId">CAJA-001</span></p>
                     <p><strong data-lang="date">Fecha:</strong> <span id="statementDate">--/--/----</span></p>
-                    <p><strong data-lang="opening_balance">Saldo Inicial:</strong> <span id="currencySymbol2">S/</span> <span id="openingBalance">0.00</span></p>
+                    <p><strong data-lang="opening_balance">Saldo Inicial:</strong> <span id="currencySymbol3">S/</span> <span id="openingBalance">0.00</span></p>
                 </div>
 
                 <div class="statement-container" id="statementContainer">
@@ -1106,7 +1223,7 @@
 
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px;">
                     <button class="download-btn" onclick="generateReport('3043')" style="margin:0;" data-lang="report_cash">📊 3043</button>
-                    <button class="download-btn" onclick="generateReport('4000')" style="margin:0;" data-lang="report_balance">📋 4000</button>
+                    <button class="download-btn" onclick="generateReport('cuadre')" style="margin:0;" data-lang="report_close">🔒 Cuadre</button>
                 </div>
             </div>
         </div>
@@ -1136,6 +1253,7 @@
         // State Management
         let state = {
             balance: 0.00,
+            physicalCash: 0.00,
             openingBalance: 0.00,
             transactions: [],
             operations: 0,
@@ -1170,57 +1288,85 @@
                 name: 'Dólares (USD)',
                 symbol: '$',
                 denominations: [100, 50, 20, 10, 5, 1]
-            },
-            eur: {
-                name: 'Euros (EUR)',
-                symbol: '€',
-                denominations: [500, 200, 100, 50, 20, 10, 5, 2, 1, 0.5, 0.2, 0.1]
             }
         };
 
-        // Operation Codes
+        // Operation Codes (SARABANK 2026)
         const operationCodes = {
             '1010': 'Provisión Inicial',
             '1012': 'Aumento de Efectivo',
             '1014': 'Disminución de Efectivo',
-            '101': 'Cierre de Caja',
-            '3043': 'Cuadre de Efectivo',
-            '4000': 'Balance Movimientos',
-            '4008': 'Transferencia Caja-Bóveda',
+            '1040': 'Faltante/Sobrante',
+            '1050': 'Cierre de Operaciones',
             '0730': 'Depósito en Efectivo',
             '0600': 'Retiro Efectivo Ahorro',
             '0740': 'Transferencia Cuentas',
             '6500': 'Pago de Servicios',
             '0750': 'Cheque M/B Local',
-            '0732': 'Cheque Otro Banco'
+            '0732': 'Cheque Otro Banco',
+            '0500': 'Pago Efectivo/Cheque',
+            '0810': 'Compra M.E.',
+            '0812': 'Venta M.E.',
+            '0100': 'Consulta Movimientos',
+            '0102': 'Consulta Saldos',
+            '0104': 'Estado de Chequera',
+            '0106': 'Estado de Cheque',
+            '3043': 'Cuadre de Efectivo'
+        };
+
+        // Operations that affect physical cash
+        const cashOperations = {
+            '1010': true,   // Provisión Inicial
+            '1012': true,   // Aumento de Efectivo
+            '1014': true,   // Disminución de Efectivo
+            '1040': true,   // Faltante/Sobrante
+            '0730': true,   // Depósito Efectivo
+            '0600': true,   // Retiro Ahorro
+            '6500': true,   // Pago Servicios
+            '0750': true,   // Cheque M/B Local
+            '0732': false,  // Cheque Otro Banco (no hay movimiento físico)
+            '0500': true,   // Pago Efectivo/Cheque
+            '0810': true,   // Compra M.E.
+            '0812': true,   // Venta M.E.
+            '0740': false,  // Transferencia (NO afecta caja)
+            '0100': false,  // Consulta
+            '0102': false,  // Consulta
+            '0104': false,  // Consulta
+            '0106': false,  // Consulta
+            '3043': false,  // Reporte
+            '1050': false   // Cierre
         };
 
         // Operation Button Styles
         const operationStyles = {
-            '1010': 'op-admin', '1012': 'op-admin', '1014': 'op-admin', '101': 'op-admin',
+            '1010': 'op-admin', '1012': 'op-admin', '1014': 'op-admin', '1040': 'op-admin', '1050': 'op-close',
             '0730': 'op-deposit', '0732': 'op-check', '0750': 'op-check',
-            '0600': 'op-withdraw', '0740': 'op-transfer', '6500': 'op-payment',
-            '3043': 'op-report', '4000': 'op-report', '4008': 'op-admin'
+            '0600': 'op-withdraw', '0500': 'op-check', '0740': 'op-transfer',
+            '6500': 'op-payment', '0810': 'op-payment', '0812': 'op-payment',
+            '0100': 'op-report', '0102': 'op-report', '0104': 'op-report', '0106': 'op-report',
+            '3043': 'op-report'
         };
 
         // Operation Icons
         const operationIcons = {
-            '1010': '💰', '1012': '📈', '1014': '📉', '101': '🔒',
+            '1010': '💰', '1012': '📈', '1014': '📉', '1040': '⚠️', '1050': '🔒',
             '0730': '📥', '0732': '🏦', '0750': '✓',
-            '0600': '📤', '0740': '🔄', '6500': '📄',
-            '3043': '📊', '4000': '📋', '4008': '🏦'
+            '0600': '📤', '0500': '💵', '0740': '🔄',
+            '6500': '📄', '0810': '💱', '0812': '💱',
+            '0100': '📋', '0102': '💰', '0104': '📖', '0106': '✓',
+            '3043': '📊'
         };
 
-        // Generated Clients with Check Books (25 checks each for checking accounts)
+        // Generated Clients
         const clients = generateClients();
 
         function generateClients() {
-            const firstNames = ['Carlos', 'María', 'José', 'Ana', 'Luis', 'Carmen', 'Miguel', 'Rosa', 'Pedro', 'Lucía', 'Juan', 'Elena', 'David', 'Sofía', 'Antonio', 'Isabel', 'Francisco', 'Paula', 'Javier', 'Marta'];
-            const lastNames1 = ['García', 'Rodríguez', 'Martínez', 'López', 'González', 'Pérez', 'Sánchez', 'Ramírez', 'Torres', 'Flores', 'Rivera', 'Gómez', 'Díaz', 'Álvarez', 'Moreno', 'Muñoz', 'Ruiz', 'Ortega', 'Delgado', 'Castro'];
-            const lastNames2 = ['Silva', 'Rojas', 'Vega', 'Mendoza', 'Castillo', 'Jiménez', 'Reyes', 'Cruz', 'Morales', 'Ortiz', 'Gutierrez', 'Chavez', 'Ramos', 'Vasquez', 'Palacios', 'Nunez', 'Herrera', 'Medina', 'Aguilar', 'Paredes'];
+            const firstNames = ['Carlos', 'María', 'José', 'Ana', 'Luis', 'Carmen', 'Miguel', 'Rosa', 'Pedro', 'Lucía'];
+            const lastNames1 = ['García', 'Rodríguez', 'Martínez', 'López', 'González', 'Pérez', 'Sánchez', 'Ramírez', 'Torres', 'Flores'];
+            const lastNames2 = ['Silva', 'Rojas', 'Vega', 'Mendoza', 'Castillo', 'Jiménez', 'Reyes', 'Cruz', 'Morales', 'Ortiz'];
             
             const generatedClients = [];
-            const clientIds = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'Z', 'K'];
+            const clientIds = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'Z'];
             
             for (let i = 0; i < clientIds.length; i++) {
                 const fn = firstNames[Math.floor(Math.random() * firstNames.length)];
@@ -1232,8 +1378,6 @@
                 const accountSolesChecking = `001-${dni.substring(0, 7)}-20`;
                 const accountDollarsSavings = `004-${dni.substring(0, 7)}-10`;
                 const accountDollarsChecking = `003-${dni.substring(0, 7)}-20`;
-                const accountEurosSavings = `006-${dni.substring(0, 7)}-10`;
-                const accountEurosChecking = `005-${dni.substring(0, 7)}-20`;
                 
                 generatedClients.push({
                     id: clientIds[i],
@@ -1247,10 +1391,6 @@
                         usd: {
                             savings: { number: accountDollarsSavings, type: 'savings', balance: 2000.00, checks: null },
                             checking: { number: accountDollarsChecking, type: 'checking', balance: 5000.00, checks: generateCheckBook(25) }
-                        },
-                        eur: {
-                            savings: { number: accountEurosSavings, type: 'savings', balance: 3000.00, checks: null },
-                            checking: { number: accountEurosChecking, type: 'checking', balance: 4000.00, checks: generateCheckBook(25) }
                         }
                     }
                 });
@@ -1277,13 +1417,13 @@
         const translations = {
             es: {
                 simulator_title: 'Simulador Cajero Bancario',
-                simulator_subtitle: 'EMAGES Academy | Nivel Agente Internacional',
+                simulator_subtitle: 'EMAGES Academy | SARABANK 2026 Compatible',
                 operations_panel: 'Operaciones',
                 student_id: 'ID:',
                 session_time: 'Tiempo:',
                 currency: 'Moneda:',
                 status: 'Estado:',
-                available_balance: 'Saldo en Caja',
+                available_balance: 'EFECTIVO EN CAJA',
                 zero_start_warning: '⚠️ Caja inicia en CERO - Provisión Inicial (1010)',
                 select_operation: 'Seleccionar Operación:',
                 operation_code_input: 'Código de Operación',
@@ -1292,6 +1432,8 @@
                 service_type: 'Tipo de Servicio',
                 service_number: 'Número de Recibo',
                 amount_label: 'Monto Total',
+                transfer_from: 'Cuenta Origen',
+                transfer_to: 'Cuenta Destino',
                 denomination_input: 'Desglose (DIGITE la cantidad de cada denominación)',
                 confirm: 'Confirmar',
                 cancel: 'Cancelar',
@@ -1314,7 +1456,7 @@
                 box_open: 'CAJA ABIERTA - Pendiente Cierre',
                 box_closed: 'CAJA CERRADA - Sesión Finalizada',
                 report_cash: '📊 3043',
-                report_balance: '📋 4000',
+                report_close: '🔒 Cuadre',
                 footer_text: 'Simulador educativo. No representa operaciones bancarias reales.',
                 legal_notice: '© 2026 EMAGES Academy. Todos los derechos reservados.',
                 notification_success: 'Operación realizada exitosamente',
@@ -1326,6 +1468,7 @@
                 notification_aml: 'ALERTA: Complete registro PLA',
                 notification_close_success: 'Caja cerrada - Saldo final: 0.00',
                 notification_close_error: 'Error: No puede cerrar con saldo diferente de cero',
+                notification_transfer: 'Transferencia registrada (no afecta caja)',
                 notification_account_savings: '✓ Cuenta de AHORROS - No permite pagos de cheque',
                 notification_account_checking: '✓ Cuenta CORRIENTE - Permite pagos de cheque',
                 notification_check_invalid: 'Error: Número de cheque no disponible (use 00000001-00000025)',
@@ -1346,13 +1489,13 @@
             },
             en: {
                 simulator_title: 'Bank Teller Simulator',
-                simulator_subtitle: 'EMAGES Academy | International Agent Level',
+                simulator_subtitle: 'EMAGES Academy | SARABANK 2026 Compatible',
                 operations_panel: 'Operations',
                 student_id: 'ID:',
                 session_time: 'Time:',
                 currency: 'Currency:',
                 status: 'Status:',
-                available_balance: 'Cash in Box',
+                available_balance: 'CASH IN BOX',
                 zero_start_warning: '⚠️ Box starts at ZERO - Initial Provision (1010)',
                 select_operation: 'Select Operation:',
                 operation_code_input: 'Operation Code',
@@ -1361,6 +1504,8 @@
                 service_type: 'Service Type',
                 service_number: 'Receipt Number',
                 amount_label: 'Total Amount',
+                transfer_from: 'From Account',
+                transfer_to: 'To Account',
                 denomination_input: 'Breakdown (TYPE quantity for each)',
                 confirm: 'Confirm',
                 cancel: 'Cancel',
@@ -1383,7 +1528,7 @@
                 box_open: 'BOX OPEN - Pending Close',
                 box_closed: 'BOX CLOSED - Session Finalized',
                 report_cash: '📊 3043',
-                report_balance: '📋 4000',
+                report_close: '🔒 Close',
                 footer_text: 'Educational simulator. Does not represent real banking operations.',
                 legal_notice: '© 2026 EMAGES Academy. All rights reserved.',
                 notification_success: 'Operation completed successfully',
@@ -1395,6 +1540,7 @@
                 notification_aml: 'ALERT: Complete AML registration',
                 notification_close_success: 'Box closed - Final balance: 0.00',
                 notification_close_error: 'Error: Cannot close with non-zero balance',
+                notification_transfer: 'Transfer registered (does not affect cash)',
                 notification_account_savings: '✓ SAVINGS Account - Check payments not allowed',
                 notification_account_checking: '✓ CHECKING Account - Check payments allowed',
                 notification_check_invalid: 'Error: Check number not available (use 00000001-00000025)',
@@ -1404,7 +1550,7 @@
                 check_available: 'Available',
                 check_used: 'Used',
                 aml_title: 'ANTI-MONEY LAUNDERING ALERT',
-                aml_message: 'Operation ≥ 50,000. Complete required ',
+                aml_message: 'Operation ≥ 50,000. Complete required data:',
                 aml_acknowledge: 'Register and Continue',
                 final_score_title: '🏆 FINAL RESULT',
                 final_score_operations: 'Correct Operations',
@@ -1412,75 +1558,6 @@
                 final_score_accuracy: 'Accuracy',
                 final_score_speed: 'Speed',
                 restart: '🔄 NEW SIMULATION'
-            },
-            fr: {
-                simulator_title: 'Simulateur de Guichetier',
-                simulator_subtitle: 'EMAGES Academy | Niveau Agent International',
-                operations_panel: 'Opérations',
-                student_id: 'ID:',
-                session_time: 'Temps:',
-                currency: 'Devise:',
-                status: 'Statut:',
-                available_balance: 'Espèces en Caisse',
-                zero_start_warning: '⚠️ Caisse commence à ZÉRO - Provision Initiale (1010)',
-                select_operation: 'Sélectionner Opération:',
-                operation_code_input: 'Code d\'Opération',
-                account_number_input: 'Numéro de Compte',
-                check_number_input: 'Numéro de Chèque (8 chiffres)',
-                service_type: 'Type de Service',
-                service_number: 'Numéro de Reçu',
-                amount_label: 'Montant Total',
-                denomination_input: 'Détail (TAPEZ quantité pour chaque)',
-                confirm: 'Confirmer',
-                cancel: 'Annuler',
-                statement_panel: 'Relevé',
-                cashier: 'Guichetier:',
-                box_id: 'ID Caisse:',
-                date: 'Date:',
-                opening_balance: 'Solde d\'Ouverture:',
-                col_code: 'CODE',
-                col_description: 'DESCRIPTION',
-                col_amount: 'MONTANT',
-                no_transactions: 'Aucune transaction',
-                evaluation_title: 'Évaluation en Temps Réel',
-                accuracy: 'Précision:',
-                codes_correct: 'Codes:',
-                breakdowns_correct: 'Détails:',
-                checks_validated: 'Chèques:',
-                download_clients: 'Télécharger Clients (TXT)',
-                finish_activity: 'TERMINER ACTIVITÉ',
-                box_open: 'CAISSE OUVERTE - En Attente',
-                box_closed: 'CAISSE FERMÉE - Session Finalisée',
-                report_cash: '📊 3043',
-                report_balance: '📋 4000',
-                footer_text: 'Simulateur éducatif. Ne représente pas des opérations réelles.',
-                legal_notice: '© 2026 EMAGES Academy. Tous droits réservés.',
-                notification_success: 'Opération effectuée avec succès',
-                notification_error: 'Erreur: Données invalides',
-                notification_code_error: 'Erreur: Code incorrect',
-                notification_breakdown_error: 'Erreur: Le détail ne correspond pas',
-                notification_balance_error: 'Erreur: Solde insuffisant',
-                notification_closed: 'Erreur: Caisse déjà fermée',
-                notification_aml: 'ALERTE: Complétez l\'enregistrement LBA',
-                notification_close_success: 'Caisse fermée - Solde final: 0.00',
-                notification_close_error: 'Erreur: Impossible de fermer avec solde non-zéro',
-                notification_account_savings: '✓ Compte ÉPARGNE - Paiements de chèque non autorisés',
-                notification_account_checking: '✓ Compte COURANT - Paiements de chèque autorisés',
-                notification_check_invalid: 'Erreur: Numéro de chèque non disponible (utilisez 00000001-00000025)',
-                notification_check_used: 'Erreur: Chèque DÉJÀ UTILISÉ - Sélectionnez un autre',
-                notification_check_available: '✓ Chèque DISPONIBLE',
-                view_available_checks: '📋 Voir Chèques Disponibles',
-                check_available: 'Disponible',
-                check_used: 'Utilisé',
-                aml_title: 'ALERTE PRÉVENTION BLANCHIMENT',
-                aml_message: 'Opération ≥ 50,000. Complétez les données:',
-                aml_acknowledge: 'Enregistrer et Continuer',
-                final_score_title: '🏆 RÉSULTAT FINAL',
-                final_score_operations: 'Opérations Correctes',
-                final_score_time: 'Temps Total',
-                final_score_accuracy: 'Précision',
-                final_score_speed: 'Vitesse',
-                restart: '🔄 NOUVELLE SIMULATION'
             }
         };
 
@@ -1501,12 +1578,13 @@
             document.getElementById('currentCurrency').textContent = config.name;
             document.getElementById('currencySymbol').textContent = config.symbol;
             document.getElementById('currencySymbol2').textContent = config.symbol;
+            document.getElementById('currencySymbol3').textContent = config.symbol;
             
             updateBalance();
             renderDenominations();
         }
 
-        // Render Denomination Grid with DIRECT INPUT
+        // Render Denomination Grid
         function renderDenominations() {
             const config = currencies[state.currency];
             const grid = document.getElementById('denominationGrid');
@@ -1531,7 +1609,7 @@
             let sum = 0;
             
             config.denominations.forEach(denom => {
-                const input = document.getElementById(`denom-${denom}`) || document.querySelector(`.denom-input[data-value="${denom}"]`);
+                const input = document.querySelector(`.denom-input[data-value="${denom}"]`);
                 const quantity = parseInt(input.value) || 0;
                 sum += denom * quantity;
             });
@@ -1576,7 +1654,7 @@
 
         // Show Operation Section
         function showOperation(code) {
-            if (state.boxClosed && code !== '101') {
+            if (state.boxClosed && code !== '1050') {
                 showNotification(translations[state.language].notification_closed, true);
                 return;
             }
@@ -1592,20 +1670,32 @@
             const checkGroup = document.getElementById('checkGroup');
             const serviceGroup = document.getElementById('serviceGroup');
             const serviceNumberGroup = document.getElementById('serviceNumberGroup');
+            const transferGroup = document.getElementById('transferGroup');
             const amountGroup = document.getElementById('amountGroup');
             const denominationGroup = document.getElementById('denominationGroup');
             
-            accountGroup.style.display = ['0730', '0600', '0740', '0750', '0732'].includes(code) ? 'block' : 'none';
-            checkGroup.style.display = ['0750', '0732'].includes(code) ? 'block' : 'none';
+            accountGroup.style.display = ['0730', '0600', '0740', '0750', '0732', '0500'].includes(code) ? 'block' : 'none';
+            checkGroup.style.display = ['0750', '0732', '0500'].includes(code) ? 'block' : 'none';
             serviceGroup.style.display = code === '6500' ? 'block' : 'none';
             serviceNumberGroup.style.display = code === '6500' ? 'block' : 'none';
-            amountGroup.style.display = ['101', '3043', '4000'].includes(code) ? 'none' : 'block';
-            denominationGroup.style.display = ['101', '3043', '4000'].includes(code) ? 'none' : 'block';
+            transferGroup.style.display = code === '0740' ? 'block' : 'none';
+            
+            // Transferencias NO requieren desglose de billetes
+            if (code === '0740' || ['0100', '0102', '0104', '0106', '3043', '1050'].includes(code)) {
+                amountGroup.style.display = 'block';
+                denominationGroup.style.display = 'none';
+                document.getElementById('btnConfirm').disabled = false;
+            } else {
+                amountGroup.style.display = 'block';
+                denominationGroup.style.display = 'block';
+            }
             
             document.getElementById('opAmount').value = '';
             document.getElementById('opAccount').value = '';
             document.getElementById('checkNumber').value = '';
             document.getElementById('serviceNumber').value = '';
+            document.getElementById('transferFrom').value = '';
+            document.getElementById('transferTo').value = '';
             document.getElementById('accountTypeInfo').textContent = '';
             document.getElementById('checkStatusBox').style.display = 'none';
             document.getElementById('checkbookViewer').classList.remove('active');
@@ -1616,7 +1706,9 @@
             document.getElementById('breakdownSum').textContent = '0.00';
             document.getElementById('breakdownDiff').textContent = '0.00';
             document.getElementById('denominationTotal').className = 'denomination-total';
-            document.getElementById('btnConfirm').disabled = true;
+            if (code !== '0740' && !['0100', '0102', '0104', '0106', '3043', '1050'].includes(code)) {
+                document.getElementById('btnConfirm').disabled = true;
+            }
         }
 
         // Validate Account Type
@@ -1625,7 +1717,7 @@
             const code = state.currentOpCode;
             const info = document.getElementById('accountTypeInfo');
             
-            if (!accountNumber || !['0750', '0732'].includes(code)) {
+            if (!accountNumber || !['0750', '0732', '0500'].includes(code)) {
                 info.textContent = '';
                 return;
             }
@@ -1768,7 +1860,8 @@
             const accountNumber = document.getElementById('opAccount').value.trim();
             const checkNumber = document.getElementById('checkNumber').value.trim();
             
-            if (amount >= 50000 && !state.amlAcknowledged && !['3043', '4000', '101'].includes(enteredCode)) {
+            // Check AML for large amounts
+            if (amount >= 50000 && !state.amlAcknowledged && !['3043', '1050', '0100', '0102', '0104', '0106'].includes(enteredCode)) {
                 document.getElementById('amlAlert').classList.add('active');
                 showNotification(translations[state.language].notification_aml, 'warning');
                 return;
@@ -1785,7 +1878,8 @@
             
             state.correctCodes++;
             
-            if (['0750', '0732'].includes(enteredCode)) {
+            // Validate Check Number
+            if (['0750', '0732', '0500'].includes(enteredCode)) {
                 state.totalChecks++;
                 const account = findAccountByNumber(accountNumber);
                 
@@ -1821,12 +1915,13 @@
                 }
             }
             
-            if (document.getElementById('denominationGroup').style.display !== 'none') {
+            // Validate Breakdown (only for cash operations)
+            if (cashOperations[enteredCode] && document.getElementById('denominationGroup').style.display !== 'none') {
                 state.totalBreakdowns++;
                 const config = currencies[state.currency];
                 let sum = 0;
                 config.denominations.forEach(denom => {
-                    const input = document.getElementById(`denom-${denom}`) || document.querySelector(`.denom-input[data-value="${denom}"]`);
+                    const input = document.querySelector(`.denom-input[data-value="${denom}"]`);
                     const quantity = parseInt(input.value) || 0;
                     sum += denom * quantity;
                 });
@@ -1840,28 +1935,42 @@
                 state.correctBreakdowns++;
             }
             
+            // Process Transaction - TRANSFERENCIAS NO AFECTAN CAJA
             let description = operationCodes[enteredCode];
             let sign = 'neutral';
+            let affectsCash = cashOperations[enteredCode] || false;
             
-            // ✅ CORRECCIÓN: 6500 (Pago de Servicios) es POSITIVO - dinero ENTRA a la caja
-            // El cliente paga su servicio DE LUZ/AGUA/etc. a través del banco
-            if(['0600', '1014', '4008'].includes(enteredCode)) {
-                if(amount > state.balance) {
+            if (enteredCode === '0740') {
+                // Transferencia - NO afecta efectivo en caja
+                state.correctOperations++;
+                state.operations++;
+                addTransaction(enteredCode, description, amount, 'neutral', null, true);
+                showNotification(translations[state.language].notification_transfer);
+                hideOperations();
+                updateEvaluation();
+                updateSpeedIndicator();
+                return;
+            }
+            
+            if(['0600', '1014', '0500'].includes(enteredCode)) {
+                if(amount > state.physicalCash) {
                     showNotification(translations[state.language].notification_balance_error, true);
                     state.errors++;
                     updateEvaluation();
                     return;
                 }
-                state.balance -= amount;
+                state.physicalCash -= amount;
                 sign = 'negative';
-            } else if(['0730', '1010', '1012', '0750', '0732', '6500'].includes(enteredCode)) {
-                // ✅ 6500 incluido aquí - dinero ENTRA
-                state.balance += amount;
+            } else if(['0730', '1010', '1012', '0750', '6500', '0810', '0812'].includes(enteredCode)) {
+                state.physicalCash += amount;
                 sign = 'positive';
             }
             
-            if (enteredCode === '101') {
-                if (Math.abs(state.balance) >= 0.01) {
+            // Update balance display (same as physical cash for simplicity)
+            state.balance = state.physicalCash;
+            
+            if (enteredCode === '1050') {
+                if (Math.abs(state.physicalCash) >= 0.01) {
                     showNotification(translations[state.language].notification_close_error, true);
                     state.errors++;
                     updateEvaluation();
@@ -1875,17 +1984,17 @@
                 showNotification(translations[state.language].notification_close_success);
             }
             
-            if (!['3043', '4000', '101'].includes(enteredCode)) {
+            if (!['3043', '1050', '0100', '0102', '0104', '0106'].includes(enteredCode)) {
                 state.correctOperations++;
                 state.operations++;
-                addTransaction(enteredCode, description, amount, sign, checkNumber);
+                addTransaction(enteredCode, description, amount, sign, checkNumber, false);
             }
             
             updateBalance();
             hideOperations();
             updateEvaluation();
             updateSpeedIndicator();
-            if (enteredCode !== '101') {
+            if (enteredCode !== '1050') {
                 showNotification(translations[state.language].notification_success);
             }
         }
@@ -1903,11 +2012,12 @@
 
         // Update Balance Display
         function updateBalance() {
-            document.getElementById('balance').textContent = state.balance.toFixed(2);
+            document.getElementById('balance').textContent = state.physicalCash.toFixed(2);
+            document.getElementById('physicalCash').textContent = state.physicalCash.toFixed(2);
         }
 
         // Add Transaction to Statement
-        function addTransaction(code, description, amount, sign, checkNumber = null) {
+        function addTransaction(code, description, amount, sign, checkNumber = null, isTransfer = false) {
             const transactionList = document.getElementById('transactionList');
             
             if (state.transactions.length === 0) {
@@ -1920,17 +2030,20 @@
                 amount,
                 sign,
                 date: new Date(),
-                checkNumber
+                checkNumber,
+                isTransfer
             };
             state.transactions.unshift(transaction);
             
             const item = document.createElement('div');
             item.className = 'transaction-item';
             const checkInfo = checkNumber ? ` (Chq: ${checkNumber})` : '';
+            const transferInfo = isTransfer ? ' 🔄' : '';
+            const amountClass = isTransfer ? 'neutral' : sign;
             item.innerHTML = `
                 <div class="transaction-code">${code}</div>
-                <div class="transaction-desc">${description}${checkInfo}</div>
-                <div class="transaction-amount ${sign}">${currencies[state.currency].symbol} ${amount.toFixed(2)}</div>
+                <div class="transaction-desc">${description}${checkInfo}${transferInfo}</div>
+                <div class="transaction-amount ${amountClass}">${currencies[state.currency].symbol} ${amount.toFixed(2)}</div>
             `;
             transactionList.insertBefore(item, transactionList.firstChild);
         }
@@ -1945,16 +2058,24 @@
                 content = `=== REPORTE 3043 - CUADRE DE EFECTIVO ===\n`;
                 content += `Fecha: ${new Date().toLocaleString()}\n`;
                 content += `Cajero: ${document.getElementById('studentId').textContent}\n`;
-                content += `Saldo en Caja: ${config.symbol} ${state.balance.toFixed(2)}\n`;
-            } else if (type === '4000') {
-                content = `=== REPORTE 4000 - BALANCE DE MOVIMIENTOS ===\n`;
+                content += `Efectivo en Caja: ${config.symbol} ${state.physicalCash.toFixed(2)}\n`;
+                content += `\nOperaciones con Efectivo:\n`;
+                state.transactions.filter(t => !t.isTransfer).forEach(t => {
+                    content += `${t.code} | ${t.description} | ${config.symbol} ${t.amount.toFixed(2)}\n`;
+                });
+            } else if (type === 'cuadre') {
+                content = `=== CUADRE DE CAJA ===\n`;
                 content += `Fecha: ${new Date().toLocaleString()}\n`;
                 content += `Cajero: ${document.getElementById('studentId').textContent}\n`;
-                content += `Total Operaciones: ${state.operations}\n\n`;
-                state.transactions.forEach(t => {
-                    const checkInfo = t.checkNumber ? ` | Chq: ${t.checkNumber}` : '';
-                    content += `${t.code} | ${t.description}${checkInfo} | ${config.symbol} ${t.amount.toFixed(2)}\n`;
-                });
+                content += `\nEFECTIVO FÍSICO: ${config.symbol} ${state.physicalCash.toFixed(2)}\n`;
+                content += `SALDO EN SISTEMA: ${config.symbol} ${state.balance.toFixed(2)}\n`;
+                const diff = state.physicalCash - state.balance;
+                content += `DIFERENCIA: ${config.symbol} ${diff.toFixed(2)}\n`;
+                if (Math.abs(diff) < 0.01) {
+                    content += `\n✓ CAJA CUADRADA - Listo para cerrar\n`;
+                } else {
+                    content += `\n⚠️ CAJA NO CUADRADA - Verificar operaciones\n`;
+                }
             }
             
             display.textContent = content;
@@ -2025,13 +2146,9 @@
                 content += `${client.id} | ${client.name} | ${client.dni}\n`;
                 content += `   SOLES: AHORROS ${client.accounts.pen.savings.number} | CORRIENTE ${client.accounts.pen.checking.number}\n`;
                 content += `   DÓLARES: AHORROS ${client.accounts.usd.savings.number} | CORRIENTE ${client.accounts.usd.checking.number}\n`;
-                content += `   EUROS: AHORROS ${client.accounts.eur.savings.number} | CORRIENTE ${client.accounts.eur.checking.number}\n`;
                 content += `   CHEQUES DISPONIBLES: 00000001-00000025 (por cada cuenta corriente)\n`;
                 content += '\n';
             });
-            content += '================================================================================\n';
-            content += 'NOTA: Cada cuenta corriente tiene 25 cheques disponibles (00000001 al 00000025)\n';
-            content += 'El sistema validará que el cheque no haya sido usado anteriormente.\n';
             content += '================================================================================\n';
             content += 'EMAGESGROUP E.I.R.L. – RUC 20611427671\n';
             content += 'academy@emagesgroup.com\n';
@@ -2066,14 +2183,11 @@
             
             const overall = Math.round((accuracy + codeAccuracy + breakdownAccuracy + checkAccuracy) / 4);
             
-            // Speed score (faster = better, max 100 points for < 2 min per op)
             const avgTimePerOp = state.operations > 0 ? (elapsed / state.operations) : 999;
             const speedScore = Math.max(0, Math.min(100, Math.round(100 - (avgTimePerOp / 2))));
             
-            // Final score calculation
             const finalScore = Math.round((overall * 0.7) + (speedScore * 0.3));
             
-            // Show modal
             const modal = document.getElementById('finalModal');
             const scoreDetails = document.getElementById('scoreDetails');
             
@@ -2097,8 +2211,12 @@
                     <span>${speedScore}%</span>
                 </div>
                 <div class="score-item">
-                    <span>Operaciones por minuto</span>
-                    <span>${(state.operations / (elapsed/60)).toFixed(1)}</span>
+                    <span>Efectivo en Caja</span>
+                    <span>${currencies[state.currency].symbol} ${state.physicalCash.toFixed(2)}</span>
+                </div>
+                <div class="score-item">
+                    <span>Transferencias</span>
+                    <span>${state.transactions.filter(t => t.isTransfer).length}</span>
                 </div>
                 <div class="score-item">
                     <span>Errores totales</span>
@@ -2113,6 +2231,7 @@
         function restartSimulation() {
             state = {
                 balance: 0.00,
+                physicalCash: 0.00,
                 openingBalance: 0.00,
                 transactions: [],
                 operations: 0,
