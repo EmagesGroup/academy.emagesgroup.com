@@ -131,10 +131,11 @@ EMAGES ACADEMY - Cajero Bancario y Comercial
 
 <!-- BLOQUE 1 -->
 <div class="bloque" data-bloque="1">
-  <div class="modulo" data-video="https://youtube.com/shorts/-Cnjr8POTqE">🔒 Atención al Cliente - Semana 1</div>
+  <div class="modulo" data-video="VIDEO_ID_1">🔒 Atención al Cliente - Semana 1</div>
   <div class="modulo" data-video="VIDEO_ID_2">🔒 Atención al Cliente - Semana 2</div>
   <div class="modulo" data-video="VIDEO_ID_3">🔒 Atención al Cliente - Semana 3</div>
   <div class="modulo" data-video="VIDEO_ID_4">🔒 Atención al Cliente - Semana 4</div>
+  <button id="activarBloque1">Activar Bloque 1</button>
 </div>
 
 <!-- BLOQUE 2 -->
@@ -143,6 +144,7 @@ EMAGES ACADEMY - Cajero Bancario y Comercial
   <div class="modulo" data-video="VIDEO_ID_6">🔒 Cajero Bancario - Semana 2</div>
   <div class="modulo" data-video="VIDEO_ID_7">🔒 Cajero Bancario - Semana 3</div>
   <div class="modulo" data-video="VIDEO_ID_8">🔒 Cajero Bancario - Semana 4</div>
+  <button id="activarBloque2" disabled>Activar Bloque 2</button>
 </div>
 
 <div class="video">
@@ -171,7 +173,8 @@ if(!nombre){
 document.getElementById("bienvenida").innerText = "Bienvenido " + nombre
 document.getElementById("curso").innerText = curso
 
-let bloqueInicial = 1 // Por defecto, se actualizará según Excel
+let bloqueInicial = 1
+let bloqueActivo = 0
 let progreso = 0
 let player
 let intervalo
@@ -196,83 +199,81 @@ fetch("https://script.google.com/macros/s/1oiA60Lw_gxc2ifHQb3Xc4OjkQqs0zQQKHXQIF
 .then(data=>{
   progreso = parseInt(data.progreso)
   bloqueInicial = data.bloque_inicial ? parseInt(data.bloque_inicial) : 1
+  bloqueActivo = bloqueInicial
+  desbloquearPrimerVideo(bloqueActivo)
   actualizarBarra()
-  actualizarModulos()
 })
+
+// Desbloquear primer video de bloque activo
+function desbloquearPrimerVideo(bloque){
+  const modulosBloque = document.querySelectorAll(`.bloque[data-bloque='${bloque}'] .modulo`)
+  modulosBloque.forEach((m,i)=>{
+    if(i===0){
+      m.style.opacity="1"
+      m.style.pointerEvents="auto"
+      m.innerText = "▶ " + m.innerText.replace("🔒 ","")
+      m.onclick = () => cargarVideo(m)
+    } else {
+      m.style.opacity="0.4"
+      m.style.pointerEvents="none"
+      if(!m.innerText.includes("🔒")) m.innerText = "🔒 " + m.innerText.replace("▶ ","")
+    }
+  })
+}
 
 // Actualizar barra de progreso
 function actualizarBarra(){
-  let modulosBloque = document.querySelectorAll('.bloque[data-bloque="'+bloqueInicial+'"] .modulo')
-  let porcentaje = (progreso / modulosBloque.length) * 100
-  if(porcentaje>100){porcentaje=100}
+  const modulosBloque = document.querySelectorAll(`.bloque[data-bloque='${bloqueActivo}'] .modulo`)
+  const porcentaje = Math.min((progreso / modulosBloque.length) * 100, 100)
   document.getElementById("barra").style.width = porcentaje + "%"
-}
-
-// Actualizar módulos desbloqueados
-function actualizarModulos(){
-  bloques.forEach(bloque=>{
-    let numBloque = parseInt(bloque.dataset.bloque)
-    let modulosBloque = bloque.querySelectorAll(".modulo")
-    modulosBloque.forEach((m,i)=>{
-      if(numBloque === bloqueInicial){
-        if(i < progreso){
-          m.style.opacity="1"
-          m.style.pointerEvents="auto"
-          m.innerText = "▶ " + m.innerText.replace("🔒 ","")
-        } else {
-          m.style.opacity="0.4"
-          m.style.pointerEvents="none"
-          if(!m.innerText.includes("🔒")) m.innerText = "🔒 " + m.innerText.replace("▶ ","")
-        }
-      } else {
-        // Otro bloque siempre bloqueado hasta completar bloque inicial
-        m.style.opacity="0.4"
-        m.style.pointerEvents="none"
-        if(!m.innerText.includes("🔒")) m.innerText = "🔒 " + m.innerText.replace("▶ ","")
-      }
-    })
-  })
 }
 
 // Completar módulo
 function completarModulo(){
-  let moduloBtn = document.getElementById("btnCompletar")
-  moduloBtn.disabled = true
-
+  const modulosBloque = document.querySelectorAll(`.bloque[data-bloque='${bloqueActivo}'] .modulo`)
+  modulosBloque[progreso].innerText = "✔ " + modulosBloque[progreso].innerText.replace("▶ ","").replace("🔒 ","")
   progreso++
-
-  // Obtener cantidad de módulos en bloque actual
-  let modulosBloque = document.querySelectorAll('.bloque[data-bloque="'+bloqueInicial+'"] .modulo')
-  
-  // Si se completó todo el bloque
-  if(progreso > modulosBloque.length){
-    bloqueInicial = bloqueInicial === 1 ? 2 : 1 // cambiar bloque
-    progreso = 1 // iniciar primer módulo del nuevo bloque
+  if(progreso < modulosBloque.length){
+    const siguiente = modulosBloque[progreso]
+    siguiente.style.opacity="1"
+    siguiente.style.pointerEvents="auto"
+    siguiente.innerText = "▶ " + siguiente.innerText.replace("🔒 ","")
+    siguiente.onclick = () => cargarVideo(siguiente)
+  } else {
+    // Bloque completo: habilitar botón del otro bloque
+    const otroBloque = bloqueActivo === 1 ? 2 : 1
+    document.getElementById(`activarBloque${otroBloque}`).disabled = false
   }
 
   // Guardar progreso en Excel
-  fetch("https://script.google.com/macros/s/1oiA60Lw_gxc2ifHQb3Xc4OjkQqs0zQQKHXQIFiGAitw/exec?action=guardarProgreso&usuario="+usuario+"&progreso="+progreso+"&bloque_inicial="+bloqueInicial)
-  .then(r => r.text())
+  fetch(`https://script.google.com/macros/s/1oiA60Lw_gxc2ifHQb3Xc4OjkQqs0zQQKHXQIFiGAitw/exec?action=guardarProgreso&usuario=${usuario}&progreso=${progreso}&bloque_inicial=${bloqueActivo}`)
+  .then(r=>r.text())
   .then(res=>{
-    if(res.trim() === "ok"){
-      actualizarBarra()
-      actualizarModulos()
-      alert("Módulo completado")
-    } else {
-      alert("Error guardando progreso: "+res)
-      progreso--
-    }
-  }).catch(err=>{
-    alert("Error de conexión: "+err)
-    progreso--
+    if(res.trim()!=="ok") alert("Error guardando progreso: "+res)
   })
 }
+
+// Botones para activar bloque
+document.getElementById("activarBloque1").addEventListener("click", function(){
+  bloqueActivo = 1
+  progreso = 0
+  desbloquearPrimerVideo(1)
+  this.disabled = true
+  actualizarBarra()
+})
+
+document.getElementById("activarBloque2").addEventListener("click", function(){
+  bloqueActivo = 2
+  progreso = 0
+  desbloquearPrimerVideo(2)
+  this.disabled = true
+  actualizarBarra()
+})
 
 // Cargar video
 function cargarVideo(elemento){
   document.getElementById("btnCompletar").disabled = true
   let id = elemento.dataset.video
-
   player = new YT.Player('player',{
     height:'400',
     width:'100%',
@@ -281,13 +282,13 @@ function cargarVideo(elemento){
   })
 }
 
+// Control de avance del video
 function iniciarControl(){
   if(intervalo) clearInterval(intervalo)
   intervalo = setInterval(function(){
-    let duracion = player.getDuration()
-    let actual = player.getCurrentTime()
-    let porcentaje = (actual/duracion)*100
-    if(porcentaje >= 80){
+    const duracion = player.getDuration()
+    const actual = player.getCurrentTime()
+    if((actual/duracion)*100 >= 80){
       document.getElementById("btnCompletar").disabled = false
       clearInterval(intervalo)
     }
