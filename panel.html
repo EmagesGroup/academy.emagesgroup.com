@@ -10,75 +10,75 @@
 <style>
 
 body{
-font-family:Arial;
-background:#f4f6fb;
-margin:0;
+  font-family:Arial;
+  background:#f4f6fb;
+  margin:0;
 }
 
 header{
-background:#0b1c3d;
-color:white;
-padding:15px 40px;
-font-size:18px;
+  background:#0b1c3d;
+  color:white;
+  padding:15px 40px;
+  font-size:18px;
 }
 
 .container{
-padding:40px;
-max-width:1000px;
-margin:auto;
+  padding:40px;
+  max-width:1000px;
+  margin:auto;
 }
 
 .card{
-background:white;
-padding:30px;
-border-radius:10px;
-box-shadow:0 10px 25px rgba(0,0,0,0.1);
-margin-bottom:25px;
+  background:white;
+  padding:30px;
+  border-radius:10px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.1);
+  margin-bottom:25px;
 }
 
 .modulo{
-border:1px solid #eee;
-padding:15px;
-border-radius:8px;
-margin-top:10px;
-cursor:pointer;
+  border:1px solid #eee;
+  padding:15px;
+  border-radius:8px;
+  margin-top:10px;
+  cursor:pointer;
 }
 
 .modulo:hover{
-background:#f7f7f7;
+  background:#f7f7f7;
 }
 
 .video{
-margin-top:20px;
+  margin-top:20px;
 }
 
 .progreso{
-height:20px;
-background:#ddd;
-border-radius:10px;
-overflow:hidden;
-margin-top:10px;
+  height:20px;
+  background:#ddd;
+  border-radius:10px;
+  overflow:hidden;
+  margin-top:10px;
 }
 
 .barra{
-height:100%;
-background:#ff7a00;
-width:20%;
+  height:100%;
+  background:#ff7a00;
+  width:20%;
 }
 
 button{
-margin-top:15px;
-padding:12px 20px;
-background:#ff7a00;
-border:none;
-color:white;
-border-radius:6px;
-cursor:pointer;
+  margin-top:15px;
+  padding:12px 20px;
+  background:#ff7a00;
+  border:none;
+  color:white;
+  border-radius:6px;
+  cursor:pointer;
 }
 
 button:disabled{
-background:#ccc;
-cursor:not-allowed;
+  background:#ccc;
+  cursor:not-allowed;
 }
 
 </style>
@@ -102,7 +102,7 @@ EMAGES ACADEMY
 <h3>Progreso del curso</h3>
 
 <div class="progreso">
-<div class="barra" id="barra"></div>
+  <div class="barra" id="barra"></div>
 </div>
 
 </div>
@@ -111,16 +111,16 @@ EMAGES ACADEMY
 
 <h3>Módulos del curso</h3>
 
-<div class="modulo" onclick="cargarVideo('SXXVvQZpXNc')">
-▶ Introducción al curso
+<div class="modulo" data-video="VIDEO_ID_1" onclick="cargarVideo(this)">
+  🔒 Introducción al curso
 </div>
 
-<div class="modulo" onclick="cargarVideo('SXXVvQZpXNc')">
-▶ Sistema financiero
+<div class="modulo" data-video="VIDEO_ID_2" onclick="cargarVideo(this)">
+  🔒 Sistema financiero
 </div>
 
-<div class="modulo">
-🔒 Operaciones bancarias (bloqueado)
+<div class="modulo" data-video="VIDEO_ID_3" onclick="cargarVideo(this)">
+  🔒 Operaciones bancarias
 </div>
 
 <div class="video">
@@ -141,83 +141,105 @@ Marcar módulo como completado
 
 <script>
 
-let nombre=localStorage.getItem("nombre")
-let curso=localStorage.getItem("curso")
-let usuario=localStorage.getItem("usuario")
+// Recuperar info del usuario
+let nombre = localStorage.getItem("nombre")
+let curso = localStorage.getItem("curso")
+let usuario = localStorage.getItem("usuario")
 
 if(!nombre){
-window.location="ingresar.html"
+  window.location="ingresar.html"
 }
 
-document.getElementById("bienvenida").innerText="Bienvenido "+nombre
-document.getElementById("curso").innerText=curso
+document.getElementById("bienvenida").innerText = "Bienvenido " + nombre
+document.getElementById("curso").innerText = curso
 
 let progreso = 1
+let player
+let intervalo
+let modulos = document.querySelectorAll(".modulo")
 
-fetch("https://script.google.com/macros/s/AKfycbwJggPmovvudEzOD6JE8PjVCvhoHHsuBJfvcf1Iyvw_1hmESAwm-0uqmF_qqetItxHvlw/exec?action=obtenerProgreso&usuario="+usuario)
-.then(r=>r.json())
-.then(data=>{
-  progreso = parseInt(data.progreso)
-  actualizarBarra()
-  actualizarModulos()
-})
+// Obtener progreso desde Google Sheets
+fetch("https://script.google.com/macros/s/1oiA60Lw_gxc2ifHQb3Xc4OjkQqs0zQQKHXQIFiGAitw/exec?action=obtenerProgreso&usuario="+usuario)
+  .then(r => r.json())
+  .then(data=>{
+    progreso = parseInt(data.progreso)
+    actualizarBarra()
+    actualizarModulos()
+  })
 
 actualizarBarra()
 actualizarModulos()
 
 function actualizarBarra(){
-let porcentaje = progreso*30
-if(porcentaje>100){porcentaje=100}
-document.getElementById("barra").style.width=porcentaje+"%"
+  let porcentaje = progreso * 30
+  if(porcentaje>100){porcentaje=100}
+  document.getElementById("barra").style.width = porcentaje + "%"
 }
 
 function actualizarModulos(){
-let modulos=document.querySelectorAll(".modulo")
-modulos.forEach((m,i)=>{
-  if(i < progreso){   /* <-- CAMBIO HECHO AQUÍ */
-    m.style.opacity="1"
-    m.style.pointerEvents="auto"
-  }else{
-    m.style.opacity="0.4"
-    m.style.pointerEvents="none"
-  }
-})
+  modulos.forEach((m,i)=>{
+    if(i < progreso){
+      m.style.opacity = "1"
+      m.style.pointerEvents = "auto"
+      m.innerText = "▶ " + m.innerText.replace("🔒 ","")
+    } else {
+      m.style.opacity = "0.4"
+      m.style.pointerEvents = "none"
+      if(!m.innerText.includes("🔒")) m.innerText = "🔒 " + m.innerText.replace("▶ ","")
+    }
+  })
 }
 
 function completarModulo(){
-progreso++
-localStorage.setItem("progreso",progreso)
-fetch("https://script.google.com/macros/s/AKfycbwJggPmovvudEzOD6JE8PjVCvhoHHsuBJfvcf1Iyvw_1hmESAwm-0uqmF_qqetItxHvlw/exec?action=guardarProgreso&usuario="+usuario+"&progreso="+progreso)
-actualizarBarra()
-actualizarModulos()  // <--- Esto desbloquea automáticamente el siguiente módulo
-alert("Módulo completado")
+  let moduloBtn = document.getElementById("btnCompletar");
+  moduloBtn.disabled = true
+
+  progreso++
+  localStorage.setItem("progreso", progreso)
+
+  fetch("https://script.google.com/macros/s/1oiA60Lw_gxc2ifHQb3Xc4OjkQqs0zQQKHXQIFiGAitw/exec?action=guardarProgreso&usuario="+usuario+"&progreso="+progreso)
+    .then(r => r.text())
+    .then(res => {
+      if(res.trim() === "ok"){
+        actualizarBarra()
+        actualizarModulos()
+        alert("Módulo completado")
+      } else {
+        alert("Error guardando progreso: " + res)
+        progreso--  // revertir si falla
+      }
+    })
+    .catch(err=>{
+      alert("Error de conexión: " + err)
+      progreso--  // revertir si falla
+    })
 }
 
-let player
-let intervalo
+function cargarVideo(elemento){
+  document.getElementById("btnCompletar").disabled = true
+  let id = elemento.dataset.video
 
-function cargarVideo(id){
-document.getElementById("btnCompletar").disabled=true
-player = new YT.Player('player', {
-height:'400',
-width:'100%',
-videoId:id,
-events:{
-'onReady':iniciarControl
-}
-})
+  player = new YT.Player('player', {
+    height:'400',
+    width:'100%',
+    videoId: id,
+    events:{
+      'onReady': iniciarControl
+    }
+  })
 }
 
 function iniciarControl(){
-intervalo=setInterval(function(){
-let duracion=player.getDuration()
-let actual=player.getCurrentTime()
-let porcentaje=(actual/duracion)*100
-if(porcentaje>=80){
-document.getElementById("btnCompletar").disabled=false
-clearInterval(intervalo)
-}
-},1000)
+  if(intervalo) clearInterval(intervalo)
+  intervalo = setInterval(function(){
+    let duracion = player.getDuration()
+    let actual = player.getCurrentTime()
+    let porcentaje = (actual / duracion) * 100
+    if(porcentaje >= 80){
+      document.getElementById("btnCompletar").disabled = false
+      clearInterval(intervalo)
+    }
+  }, 1000)
 }
 
 </script>
