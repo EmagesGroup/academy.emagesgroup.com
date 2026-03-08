@@ -49,6 +49,10 @@ header button{
   margin-bottom:25px;
 }
 
+.bloque{
+  margin-top:20px;
+}
+
 .modulo{
   border:1px solid #eee;
   padding:15px;
@@ -125,62 +129,40 @@ EMAGES ACADEMY - Cajero Bancario y Comercial
 
 <h3>Módulos del curso</h3>
 
-<!-- CURSO: Atención al Cliente -->
-<div class="modulo" data-video="VIDEO_ID_1" onclick="cargarVideo(this)">
-  🔒 Atención al Cliente - Semana 1: Principios de atención al cliente y experiencia de servicio
+<!-- BLOQUE 1 -->
+<div class="bloque" data-bloque="1">
+  <div class="modulo" data-video="VIDEO_ID_1">🔒 Atención al Cliente - Semana 1</div>
+  <div class="modulo" data-video="VIDEO_ID_2">🔒 Atención al Cliente - Semana 2</div>
+  <div class="modulo" data-video="VIDEO_ID_3">🔒 Atención al Cliente - Semana 3</div>
+  <div class="modulo" data-video="VIDEO_ID_4">🔒 Atención al Cliente - Semana 4</div>
 </div>
 
-<div class="modulo" data-video="VIDEO_ID_2" onclick="cargarVideo(this)">
-  🔒 Atención al Cliente - Semana 2: Comunicación efectiva y trato con el cliente
-</div>
-
-<div class="modulo" data-video="VIDEO_ID_3" onclick="cargarVideo(this)">
-  🔒 Atención al Cliente - Semana 3: Manejo de reclamos, objeciones y clientes difíciles
-</div>
-
-<div class="modulo" data-video="VIDEO_ID_4" onclick="cargarVideo(this)">
-  🔒 Atención al Cliente - Semana 4: Técnicas de servicio y fidelización del cliente
-</div>
-
-<!-- CURSO: Cajero Bancario -->
-<div class="modulo" data-video="VIDEO_ID_5" onclick="cargarVideo(this)">
-  🔒 Cajero Bancario - Semana 1: Sistema financiero peruano y funciones del cajero bancario
-</div>
-
-<div class="modulo" data-video="VIDEO_ID_6" onclick="cargarVideo(this)">
-  🔒 Cajero Bancario - Semana 2: Operaciones bancarias: depósitos, retiros y transferencias
-</div>
-
-<div class="modulo" data-video="VIDEO_ID_7" onclick="cargarVideo(this)">
-  🔒 Cajero Bancario - Semana 3: Manejo de efectivo, arqueo de caja y detección de billetes
-</div>
-
-<div class="modulo" data-video="VIDEO_ID_8" onclick="cargarVideo(this)">
-  🔒 Cajero Bancario - Semana 4: Cuadre de caja y simulación de ventanilla
+<!-- BLOQUE 2 -->
+<div class="bloque" data-bloque="2">
+  <div class="modulo" data-video="VIDEO_ID_5">🔒 Cajero Bancario - Semana 1</div>
+  <div class="modulo" data-video="VIDEO_ID_6">🔒 Cajero Bancario - Semana 2</div>
+  <div class="modulo" data-video="VIDEO_ID_7">🔒 Cajero Bancario - Semana 3</div>
+  <div class="modulo" data-video="VIDEO_ID_8">🔒 Cajero Bancario - Semana 4</div>
 </div>
 
 <div class="video">
-
-<div id="player"></div>
-
-<button id="btnCompletar" onclick="completarModulo()" disabled>
-Marcar módulo como completado
-</button>
-
+  <div id="player"></div>
+  <button id="btnCompletar" onclick="completarModulo()" disabled>
+    Marcar módulo como completado
+  </button>
 </div>
 
 </div>
-
 </div>
 
 <script src="https://www.youtube.com/iframe_api"></script>
 
 <script>
 
-// Info del usuario
+// Datos del usuario
 let nombre = localStorage.getItem("nombre")
-let curso = "Cajero Bancario y Comercial"
 let usuario = localStorage.getItem("usuario")
+let curso = "Cajero Bancario y Comercial"
 
 if(!nombre){
   window.location="ingresar.html"
@@ -189,92 +171,113 @@ if(!nombre){
 document.getElementById("bienvenida").innerText = "Bienvenido " + nombre
 document.getElementById("curso").innerText = curso
 
-let progreso = 1
+let bloqueInicial = 1 // Por defecto, se actualizará según Excel
+let progreso = 0
 let player
 let intervalo
-let modulos = document.querySelectorAll(".modulo")
 
-// Botón de cerrar sesión con parada del video
+const bloques = document.querySelectorAll(".bloque")
+
+// Cerrar sesión
 document.getElementById("cerrarSesion").addEventListener("click", function(){
   if(player && typeof player.stopVideo === "function"){
-    player.stopVideo()  // Detiene el video
+    player.stopVideo()
   }
-
   localStorage.removeItem("nombre")
   localStorage.removeItem("usuario")
   localStorage.removeItem("curso")
   localStorage.removeItem("progreso")
-  window.location = "ingresar.html"
+  window.location="ingresar.html"
 })
 
-// Obtener progreso desde Google Sheets
+// Obtener progreso y bloque inicial desde Excel
 fetch("https://script.google.com/macros/s/1oiA60Lw_gxc2ifHQb3Xc4OjkQqs0zQQKHXQIFiGAitw/exec?action=obtenerProgreso&usuario="+usuario)
-  .then(r => r.json())
-  .then(data=>{
-    progreso = parseInt(data.progreso)
-    actualizarBarra()
-    actualizarModulos()
-  })
+.then(r => r.json())
+.then(data=>{
+  progreso = parseInt(data.progreso)
+  bloqueInicial = data.bloque_inicial ? parseInt(data.bloque_inicial) : 1
+  actualizarBarra()
+  actualizarModulos()
+})
 
-actualizarBarra()
-actualizarModulos()
-
+// Actualizar barra de progreso
 function actualizarBarra(){
-  let porcentaje = (progreso / modulos.length) * 100
+  let modulosBloque = document.querySelectorAll('.bloque[data-bloque="'+bloqueInicial+'"] .modulo')
+  let porcentaje = (progreso / modulosBloque.length) * 100
   if(porcentaje>100){porcentaje=100}
   document.getElementById("barra").style.width = porcentaje + "%"
 }
 
+// Actualizar módulos desbloqueados
 function actualizarModulos(){
-  modulos.forEach((m,i)=>{
-    if(i < progreso){
-      m.style.opacity = "1"
-      m.style.pointerEvents = "auto"
-      m.innerText = "▶ " + m.innerText.replace("🔒 ","")
-    } else {
-      m.style.opacity = "0.4"
-      m.style.pointerEvents = "none"
-      if(!m.innerText.includes("🔒")) m.innerText = "🔒 " + m.innerText.replace("▶ ","")
-    }
+  bloques.forEach(bloque=>{
+    let numBloque = parseInt(bloque.dataset.bloque)
+    let modulosBloque = bloque.querySelectorAll(".modulo")
+    modulosBloque.forEach((m,i)=>{
+      if(numBloque === bloqueInicial){
+        if(i < progreso){
+          m.style.opacity="1"
+          m.style.pointerEvents="auto"
+          m.innerText = "▶ " + m.innerText.replace("🔒 ","")
+        } else {
+          m.style.opacity="0.4"
+          m.style.pointerEvents="none"
+          if(!m.innerText.includes("🔒")) m.innerText = "🔒 " + m.innerText.replace("▶ ","")
+        }
+      } else {
+        // Otro bloque siempre bloqueado hasta completar bloque inicial
+        m.style.opacity="0.4"
+        m.style.pointerEvents="none"
+        if(!m.innerText.includes("🔒")) m.innerText = "🔒 " + m.innerText.replace("▶ ","")
+      }
+    })
   })
 }
 
+// Completar módulo
 function completarModulo(){
-  let moduloBtn = document.getElementById("btnCompletar");
+  let moduloBtn = document.getElementById("btnCompletar")
   moduloBtn.disabled = true
 
   progreso++
-  localStorage.setItem("progreso", progreso)
 
-  fetch("https://script.google.com/macros/s/1oiA60Lw_gxc2ifHQb3Xc4OjkQqs0zQQKHXQIFiGAitw/exec?action=guardarProgreso&usuario="+usuario+"&progreso="+progreso)
-    .then(r => r.text())
-    .then(res => {
-      if(res.trim() === "ok"){
-        actualizarBarra()
-        actualizarModulos()
-        alert("Módulo completado")
-      } else {
-        alert("Error guardando progreso: " + res)
-        progreso--  // revertir si falla
-      }
-    })
-    .catch(err=>{
-      alert("Error de conexión: " + err)
-      progreso--  // revertir si falla
-    })
+  // Obtener cantidad de módulos en bloque actual
+  let modulosBloque = document.querySelectorAll('.bloque[data-bloque="'+bloqueInicial+'"] .modulo')
+  
+  // Si se completó todo el bloque
+  if(progreso > modulosBloque.length){
+    bloqueInicial = bloqueInicial === 1 ? 2 : 1 // cambiar bloque
+    progreso = 1 // iniciar primer módulo del nuevo bloque
+  }
+
+  // Guardar progreso en Excel
+  fetch("https://script.google.com/macros/s/1oiA60Lw_gxc2ifHQb3Xc4OjkQqs0zQQKHXQIFiGAitw/exec?action=guardarProgreso&usuario="+usuario+"&progreso="+progreso+"&bloque_inicial="+bloqueInicial)
+  .then(r => r.text())
+  .then(res=>{
+    if(res.trim() === "ok"){
+      actualizarBarra()
+      actualizarModulos()
+      alert("Módulo completado")
+    } else {
+      alert("Error guardando progreso: "+res)
+      progreso--
+    }
+  }).catch(err=>{
+    alert("Error de conexión: "+err)
+    progreso--
+  })
 }
 
+// Cargar video
 function cargarVideo(elemento){
   document.getElementById("btnCompletar").disabled = true
   let id = elemento.dataset.video
 
-  player = new YT.Player('player', {
+  player = new YT.Player('player',{
     height:'400',
     width:'100%',
-    videoId: id,
-    events:{
-      'onReady': iniciarControl
-    }
+    videoId:id,
+    events:{'onReady':iniciarControl}
   })
 }
 
@@ -283,12 +286,12 @@ function iniciarControl(){
   intervalo = setInterval(function(){
     let duracion = player.getDuration()
     let actual = player.getCurrentTime()
-    let porcentaje = (actual / duracion) * 100
+    let porcentaje = (actual/duracion)*100
     if(porcentaje >= 80){
       document.getElementById("btnCompletar").disabled = false
       clearInterval(intervalo)
     }
-  }, 1000)
+  },1000)
 }
 
 </script>
