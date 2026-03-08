@@ -136,7 +136,6 @@ EMAGES ACADEMY - Cajero Bancario y Comercial
   <div class="modulo" data-video="VIDEO_ID_2">🔒 Atención al Cliente - Semana 2</div>
   <div class="modulo" data-video="VIDEO_ID_3">🔒 Atención al Cliente - Semana 3</div>
   <div class="modulo" data-video="VIDEO_ID_4">🔒 Atención al Cliente - Semana 4</div>
-  <button id="activarBloque1">Activar Bloque 1</button>
 </div>
 
 <!-- BLOQUE 2: Operaciones Financieras -->
@@ -146,7 +145,6 @@ EMAGES ACADEMY - Cajero Bancario y Comercial
   <div class="modulo" data-video="VIDEO_ID_6">🔒 Operaciones Financieras - Semana 2</div>
   <div class="modulo" data-video="VIDEO_ID_7">🔒 Operaciones Financieras - Semana 3</div>
   <div class="modulo" data-video="VIDEO_ID_8">🔒 Operaciones Financieras - Semana 4</div>
-  <button id="activarBloque2" disabled>Activar Bloque 2</button>
 </div>
 
 <div class="video">
@@ -202,15 +200,20 @@ fetch("https://script.google.com/macros/s/1oiA60Lw_gxc2ifHQb3Xc4OjkQqs0zQQKHXQIF
   progreso = parseInt(data.progreso)
   bloqueInicial = data.bloque_inicial ? parseInt(data.bloque_inicial) : 1
   bloqueActivo = bloqueInicial
-  desbloquearPrimerVideo(bloqueActivo)
+  desbloquearBloque(bloqueActivo, progreso)
   actualizarBarra()
 })
 
-// Función para desbloquear el primer video de un bloque
-function desbloquearPrimerVideo(bloque){
+// Desbloquear bloque y videos según progreso
+function desbloquearBloque(bloque, prog){
   const modulosBloque = document.querySelectorAll(`.bloque[data-bloque='${bloque}'] .modulo`)
   modulosBloque.forEach((m,i)=>{
-    if(i===0){
+    if(i < prog){
+      m.style.opacity="1"
+      m.style.pointerEvents="auto"
+      m.innerText = "✔ " + m.innerText.replace("▶ ","").replace("🔒 ","")
+      m.onclick = () => cargarVideo(m)
+    } else if(i === prog){
       m.style.opacity="1"
       m.style.pointerEvents="auto"
       m.innerText = "▶ " + m.innerText.replace("🔒 ","")
@@ -220,6 +223,14 @@ function desbloquearPrimerVideo(bloque){
       m.style.pointerEvents="none"
       if(!m.innerText.includes("🔒")) m.innerText = "🔒 " + m.innerText.replace("▶ ","")
     }
+  })
+  // Bloquear automáticamente el otro bloque
+  const otroBloque = bloque === 1 ? 2 : 1
+  const modulosOtro = document.querySelectorAll(`.bloque[data-bloque='${otroBloque}'] .modulo`)
+  modulosOtro.forEach(m=>{
+    m.style.opacity="0.4"
+    m.style.pointerEvents="none"
+    if(!m.innerText.includes("🔒")) m.innerText = "🔒 " + m.innerText.replace("▶ ","").replace("✔ ","")
   })
 }
 
@@ -233,19 +244,24 @@ function actualizarBarra(){
 // Completar módulo
 function completarModulo(){
   const modulosBloque = document.querySelectorAll(`.bloque[data-bloque='${bloqueActivo}'] .modulo`)
-  modulosBloque[progreso].innerText = "✔ " + modulosBloque[progreso].innerText.replace("▶ ","").replace("🔒 ","")
-  progreso++
   if(progreso < modulosBloque.length){
-    const siguiente = modulosBloque[progreso]
-    siguiente.style.opacity="1"
-    siguiente.style.pointerEvents="auto"
-    siguiente.innerText = "▶ " + siguiente.innerText.replace("🔒 ","")
-    siguiente.onclick = () => cargarVideo(siguiente)
-  } else {
-    // Bloque completo: habilitar botón del otro bloque
-    const otroBloque = bloqueActivo === 1 ? 2 : 1
-    document.getElementById(`activarBloque${otroBloque}`).disabled = false
+    modulosBloque[progreso].innerText = "✔ " + modulosBloque[progreso].innerText.replace("▶ ","").replace("🔒 ","")
+    progreso++
+    if(progreso < modulosBloque.length){
+      const siguiente = modulosBloque[progreso]
+      siguiente.style.opacity="1"
+      siguiente.style.pointerEvents="auto"
+      siguiente.innerText = "▶ " + siguiente.innerText.replace("🔒 ","")
+      siguiente.onclick = () => cargarVideo(siguiente)
+    } else {
+      // Bloque completo: desbloquear automáticamente el otro bloque
+      bloqueActivo = bloqueActivo === 1 ? 2 : 1
+      progreso = 0
+      desbloquearBloque(bloqueActivo, progreso)
+    }
   }
+
+  actualizarBarra()
 
   // Guardar progreso en Excel
   fetch(`https://script.google.com/macros/s/1oiA60Lw_gxc2ifHQb3Xc4OjkQqs0zQQKHXQIFiGAitw/exec?action=guardarProgreso&usuario=${usuario}&progreso=${progreso}&bloque_inicial=${bloqueActivo}`)
@@ -254,23 +270,6 @@ function completarModulo(){
     if(res.trim()!=="ok") alert("Error guardando progreso: "+res)
   })
 }
-
-// Botones para activar bloque
-document.getElementById("activarBloque1").addEventListener("click", function(){
-  bloqueActivo = 1
-  progreso = 0
-  desbloquearPrimerVideo(1)
-  this.disabled = true
-  actualizarBarra()
-})
-
-document.getElementById("activarBloque2").addEventListener("click", function(){
-  bloqueActivo = 2
-  progreso = 0
-  desbloquearPrimerVideo(2)
-  this.disabled = true
-  actualizarBarra()
-})
 
 // Cargar video
 function cargarVideo(elemento){
