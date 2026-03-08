@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+<title>Panel del Estudiante</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f5f6fa;
+padding:40px;
+}
+
+.panel{
+background:white;
+padding:30px;
+border-radius:10px;
+max-width:600px;
+}
+
+.progreso{
+height:20px;
+background:#ddd;
+border-radius:10px;
+overflow:hidden;
+}
+
+.barra{
+height:100%;
+background:#ff7a00;
+width:20%;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="panel">
+
+<h2 id="bienvenida"></h2>
+
+<h3>Curso:</h3>
+
+<p id="curso"></p>
+
+<h3>Progreso</h3>
+
+<div class="progreso">
+<div class="barra"></div>
+</div>
+
+</div>
+
+<script>
+
+let nombre=localStorage.getItem("nombre")
+let curso=localStorage.getItem("curso")
+
+document.getElementById("bienvenida").innerText="Bienvenido "+nombre
+document.getElementById("curso").innerText=curso
+
+</script>
+
+</body>
+</html>
