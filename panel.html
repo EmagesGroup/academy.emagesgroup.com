@@ -8,7 +8,6 @@
 <title>Panel del Estudiante | Emages Academy</title>
 
 <style>
-
 body{
   font-family:Arial;
   background:#f4f6fb;
@@ -97,7 +96,6 @@ button:disabled{
   background:#ccc;
   cursor:not-allowed;
 }
-
 </style>
 
 </head>
@@ -161,9 +159,9 @@ EMAGES ACADEMY - Cajero Bancario y Comercial
 
 <script>
 
-// Datos del usuario
-let nombre = localStorage.getItem("nombre")
-let usuario = localStorage.getItem("usuario")
+// Cambiado a sessionStorage
+let nombre = sessionStorage.getItem("nombre")
+let usuario = sessionStorage.getItem("usuario")
 let curso = "Cajero Bancario y Comercial"
 
 if(!nombre){
@@ -186,15 +184,15 @@ document.getElementById("cerrarSesion").addEventListener("click", function(){
   if(player && typeof player.stopVideo === "function"){
     player.stopVideo()
   }
-  localStorage.removeItem("nombre")
-  localStorage.removeItem("usuario")
-  localStorage.removeItem("curso")
-  localStorage.removeItem("progreso")
+  sessionStorage.removeItem("nombre")
+  sessionStorage.removeItem("usuario")
+  sessionStorage.removeItem("curso")
+  sessionStorage.removeItem("progreso")
   window.location="ingresar.html"
 })
 
 // Obtener progreso y bloque inicial desde Excel
-fetch("https://script.google.com/macros/s/1oiA60Lw_gxc2ifHQb3Xc4OjkQqs0zQQKHXQIFiGAitw/exec?action=obtenerProgreso&usuario="+usuario)
+fetch("https://script.google.com/macros/s/TU_SCRIPT_ID/exec?action=obtenerProgreso&usuario="+usuario)
 .then(r => r.json())
 .then(data=>{
   progreso = parseInt(data.progreso)
@@ -204,7 +202,7 @@ fetch("https://script.google.com/macros/s/1oiA60Lw_gxc2ifHQb3Xc4OjkQqs0zQQKHXQIF
   actualizarBarra()
 })
 
-// Desbloquear bloque y videos según progreso
+// Funciones para desbloquear bloque y manejar videos
 function desbloquearBloque(bloque, prog){
   const modulosBloque = document.querySelectorAll(`.bloque[data-bloque='${bloque}'] .modulo`)
   modulosBloque.forEach((m,i)=>{
@@ -224,7 +222,6 @@ function desbloquearBloque(bloque, prog){
       if(!m.innerText.includes("🔒")) m.innerText = "🔒 " + m.innerText.replace("▶ ","")
     }
   })
-  // Bloquear automáticamente el otro bloque
   const otroBloque = bloque === 1 ? 2 : 1
   const modulosOtro = document.querySelectorAll(`.bloque[data-bloque='${otroBloque}'] .modulo`)
   modulosOtro.forEach(m=>{
@@ -234,14 +231,12 @@ function desbloquearBloque(bloque, prog){
   })
 }
 
-// Actualizar barra de progreso
 function actualizarBarra(){
   const modulosBloque = document.querySelectorAll(`.bloque[data-bloque='${bloqueActivo}'] .modulo`)
   const porcentaje = Math.min((progreso / modulosBloque.length) * 100, 100)
   document.getElementById("barra").style.width = porcentaje + "%"
 }
 
-// Completar módulo
 function completarModulo(){
   const modulosBloque = document.querySelectorAll(`.bloque[data-bloque='${bloqueActivo}'] .modulo`)
   if(progreso < modulosBloque.length){
@@ -254,7 +249,6 @@ function completarModulo(){
       siguiente.innerText = "▶ " + siguiente.innerText.replace("🔒 ","")
       siguiente.onclick = () => cargarVideo(siguiente)
     } else {
-      // Bloque completo: desbloquear automáticamente el otro bloque
       bloqueActivo = bloqueActivo === 1 ? 2 : 1
       progreso = 0
       desbloquearBloque(bloqueActivo, progreso)
@@ -263,15 +257,13 @@ function completarModulo(){
 
   actualizarBarra()
 
-  // Guardar progreso en Excel
-  fetch(`https://script.google.com/macros/s/1oiA60Lw_gxc2ifHQb3Xc4OjkQqs0zQQKHXQIFiGAitw/exec?action=guardarProgreso&usuario=${usuario}&progreso=${progreso}&bloque_inicial=${bloqueActivo}`)
+  fetch(`https://script.google.com/macros/s/TU_SCRIPT_ID/exec?action=guardarProgreso&usuario=${usuario}&progreso=${progreso}&bloque_inicial=${bloqueActivo}`)
   .then(r=>r.text())
   .then(res=>{
     if(res.trim()!=="ok") alert("Error guardando progreso: "+res)
   })
 }
 
-// Cargar video
 function cargarVideo(elemento){
   document.getElementById("btnCompletar").disabled = true
   let id = elemento.dataset.video
@@ -283,7 +275,6 @@ function cargarVideo(elemento){
   })
 }
 
-// Control de avance del video
 function iniciarControl(){
   if(intervalo) clearInterval(intervalo)
   intervalo = setInterval(function(){
