@@ -153,12 +153,20 @@ window.location="ingresar.html"
 document.getElementById("bienvenida").innerText="Bienvenido "+nombre
 document.getElementById("curso").innerText=curso
 
-let progreso = localStorage.getItem("progreso")
+let progreso = 1
 
-if(!progreso){
-progreso=1
-localStorage.setItem("progreso",1)
-}
+fetch("https://script.google.com/macros/s/AKfycbwJggPmovvudEzOD6JE8PjVCvhoHHsuBJfvcf1Iyvw_1hmESAwm-0uqmF_qqetItxHvlw/exec?action=obtenerProgreso&usuario="+usuario)
+
+.then(r=>r.json())
+
+.then(data=>{
+
+progreso = parseInt(data.progreso)
+
+actualizarBarra()
+actualizarModulos()
+
+})
 
 actualizarBarra()
 actualizarModulos()
