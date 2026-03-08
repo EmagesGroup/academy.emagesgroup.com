@@ -132,6 +132,7 @@ Marcar módulo como completado
 
 let nombre=localStorage.getItem("nombre")
 let curso=localStorage.getItem("curso")
+let usuario=localStorage.getItem("usuario")
 
 if(!nombre){
 window.location="ingresar.html"
@@ -139,6 +140,7 @@ window.location="ingresar.html"
 
 document.getElementById("bienvenida").innerText="Bienvenido "+nombre
 document.getElementById("curso").innerText=curso
+
 
 let progreso = localStorage.getItem("progreso")
 
@@ -148,6 +150,7 @@ localStorage.setItem("progreso",1)
 }
 
 actualizarModulos()
+
 
 function actualizarModulos(){
 
@@ -171,17 +174,21 @@ m.style.pointerEvents="none"
 
 }
 
+
 function completarModulo(){
 
 progreso++
 
 localStorage.setItem("progreso",progreso)
 
+fetch("https://script.google.com/macros/s/AKfycbwJggPmovvudEzOD6JE8PjVCvhoHHsuBJfvcf1Iyvw_1hmESAwm-0uqmF_qqetItxHvlw/exec?action=guardarProgreso&usuario="+usuario+"&progreso="+progreso)
+
 actualizarModulos()
 
 alert("Módulo completado")
 
 }
+
 
 let player
 let intervalo
