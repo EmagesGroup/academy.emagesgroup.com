@@ -1,14 +1,17 @@
 <!DOCTYPE html>
+
 <html lang="es">
 <head>
 
 <meta charset="UTF-8">
-<title>Emages Academy - Acceso Estudiantes</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Emages Academy | Acceso Estudiantes</title>
 
 <style>
 
 body{
-font-family:Arial;
+font-family:Arial, Helvetica, sans-serif;
 background:#0b1c3d;
 display:flex;
 justify-content:center;
@@ -17,17 +20,18 @@ height:100vh;
 margin:0;
 }
 
-.login{
+.login-box{
 background:white;
 padding:40px;
 border-radius:10px;
-width:320px;
+width:340px;
 text-align:center;
-box-shadow:0 10px 30px rgba(0,0,0,0.2);
+box-shadow:0 15px 35px rgba(0,0,0,0.25);
 }
 
 h2{
 margin-bottom:20px;
+color:#0b1c3d;
 }
 
 input{
@@ -35,7 +39,8 @@ width:100%;
 padding:12px;
 margin-top:10px;
 border:1px solid #ccc;
-border-radius:5px;
+border-radius:6px;
+font-size:14px;
 }
 
 button{
@@ -45,18 +50,25 @@ padding:12px;
 background:#ff7a00;
 border:none;
 color:white;
-border-radius:5px;
+border-radius:6px;
 font-size:16px;
 cursor:pointer;
 }
 
 button:hover{
-background:#e66d00;
+background:#e66900;
 }
 
 #mensaje{
-margin-top:10px;
+margin-top:12px;
 color:red;
+font-size:14px;
+}
+
+.logo{
+font-weight:bold;
+margin-bottom:10px;
+color:#ff7a00;
 }
 
 </style>
@@ -65,7 +77,9 @@ color:red;
 
 <body>
 
-<div class="login">
+<div class="login-box">
+
+<div class="logo">EMAGES ACADEMY</div>
 
 <h2>Acceso Estudiantes</h2>
 
@@ -88,22 +102,28 @@ let clave=document.getElementById("clave").value
 
 fetch("https://script.google.com/macros/s/AKfycbwJggPmovvudEzOD6JE8PjVCvhoHHsuBJfvcf1Iyvw_1hmESAwm-0uqmF_qqetItxHvlw/exec?usuario="+usuario+"&clave="+clave)
 
-.then(r=>r.json())
+.then(res => res.json())
 
-.then(data=>{
+.then(data => {
 
 if(data.status=="ok"){
 
 localStorage.setItem("nombre",data.nombre)
 localStorage.setItem("curso",data.curso)
 
-window.location="panel.html"
+window.location.href="panel.html"
 
 }else{
 
-document.getElementById("mensaje").innerText="Usuario o clave incorrectos"
+document.getElementById("mensaje").innerText="Usuario o contraseña incorrectos"
 
 }
+
+})
+
+.catch(error => {
+
+document.getElementById("mensaje").innerText="Error de conexión"
 
 })
 
