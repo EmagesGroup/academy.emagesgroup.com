@@ -120,8 +120,11 @@ height="400"
 src=""
 frameborder="0"
 allowfullscreen>
-
 </iframe>
+
+<button onclick="completarModulo()">
+Marcar módulo como completado
+</button>
 
 </div>
 
@@ -135,13 +138,54 @@ let nombre=localStorage.getItem("nombre")
 let curso=localStorage.getItem("curso")
 
 if(!nombre){
-
 window.location="ingresar.html"
-
 }
 
 document.getElementById("bienvenida").innerText="Bienvenido "+nombre
 document.getElementById("curso").innerText=curso
+
+let progreso = localStorage.getItem("progreso")
+
+if(!progreso){
+progreso=1
+localStorage.setItem("progreso",1)
+}
+
+actualizarModulos()
+
+function actualizarModulos(){
+
+let modulos=document.querySelectorAll(".modulo")
+
+modulos.forEach((m,i)=>{
+
+if(i+1<=progreso){
+
+m.style.opacity="1"
+m.style.pointerEvents="auto"
+
+}else{
+
+m.style.opacity="0.4"
+m.style.pointerEvents="none"
+
+}
+
+})
+
+}
+
+function completarModulo(){
+
+progreso++
+
+localStorage.setItem("progreso",progreso)
+
+actualizarModulos()
+
+alert("Módulo completado")
+
+}
 
 function cargarVideo(id){
 
