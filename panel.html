@@ -1,24 +1,57 @@
 <!DOCTYPE html>
+
 <html lang="es">
 
 <head>
 
 <meta charset="UTF-8">
-<title>Panel del Estudiante</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Panel del Estudiante | Emages Academy</title>
 
 <style>
 
 body{
 font-family:Arial;
-background:#f5f6fa;
-padding:40px;
+background:#f4f6fb;
+margin:0;
 }
 
-.panel{
+header{
+background:#0b1c3d;
+color:white;
+padding:15px 40px;
+font-size:18px;
+}
+
+.container{
+padding:40px;
+max-width:1000px;
+margin:auto;
+}
+
+.card{
 background:white;
 padding:30px;
 border-radius:10px;
-max-width:600px;
+box-shadow:0 10px 25px rgba(0,0,0,0.1);
+margin-bottom:25px;
+}
+
+.modulo{
+border:1px solid #eee;
+padding:15px;
+border-radius:8px;
+margin-top:10px;
+cursor:pointer;
+}
+
+.modulo:hover{
+background:#f7f7f7;
+}
+
+.video{
+margin-top:20px;
 }
 
 .progreso{
@@ -26,6 +59,7 @@ height:20px;
 background:#ddd;
 border-radius:10px;
 overflow:hidden;
+margin-top:10px;
 }
 
 .barra{
@@ -40,18 +74,57 @@ width:20%;
 
 <body>
 
-<div class="panel">
+<header>
+
+EMAGES ACADEMY
+
+</header>
+
+<div class="container">
+
+<div class="card">
 
 <h2 id="bienvenida"></h2>
 
-<h3>Curso:</h3>
+<p><b>Curso:</b> <span id="curso"></span></p>
 
-<p id="curso"></p>
-
-<h3>Progreso</h3>
+<h3>Progreso del curso</h3>
 
 <div class="progreso">
 <div class="barra"></div>
+</div>
+
+</div>
+
+<div class="card">
+
+<h3>Módulos del curso</h3>
+
+<div class="modulo" onclick="cargarVideo('SXXVvQZpXNc')">
+▶ Introducción al curso
+</div>
+
+<div class="modulo" onclick="cargarVideo('SXXVvQZpXNc')">
+▶ Sistema financiero
+</div>
+
+<div class="modulo">
+🔒 Operaciones bancarias (bloqueado)
+</div>
+
+<div class="video">
+
+<iframe id="video"
+width="100%"
+height="400"
+src=""
+frameborder="0"
+allowfullscreen>
+
+</iframe>
+
+</div>
+
 </div>
 
 </div>
@@ -61,8 +134,20 @@ width:20%;
 let nombre=localStorage.getItem("nombre")
 let curso=localStorage.getItem("curso")
 
+if(!nombre){
+
+window.location="ingresar.html"
+
+}
+
 document.getElementById("bienvenida").innerText="Bienvenido "+nombre
 document.getElementById("curso").innerText=curso
+
+function cargarVideo(id){
+
+document.getElementById("video").src="https://www.youtube.com/embed/"+id
+
+}
 
 </script>
 
