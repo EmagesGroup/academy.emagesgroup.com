@@ -129,8 +129,9 @@ EMAGES ACADEMY - Cajero Bancario y Comercial
 
 <h3>Módulos del curso</h3>
 
-<!-- BLOQUE 1 -->
+<!-- BLOQUE 1: Atención al Cliente -->
 <div class="bloque" data-bloque="1">
+  <h4>BLOQUE ATENCIÓN AL CLIENTE</h4>
   <div class="modulo" data-video="VIDEO_ID_1">🔒 Atención al Cliente - Semana 1</div>
   <div class="modulo" data-video="VIDEO_ID_2">🔒 Atención al Cliente - Semana 2</div>
   <div class="modulo" data-video="VIDEO_ID_3">🔒 Atención al Cliente - Semana 3</div>
@@ -138,12 +139,13 @@ EMAGES ACADEMY - Cajero Bancario y Comercial
   <button id="activarBloque1">Activar Bloque 1</button>
 </div>
 
-<!-- BLOQUE 2 -->
+<!-- BLOQUE 2: Operaciones Financieras -->
 <div class="bloque" data-bloque="2">
-  <div class="modulo" data-video="VIDEO_ID_5">🔒 Cajero Bancario - Semana 1</div>
-  <div class="modulo" data-video="VIDEO_ID_6">🔒 Cajero Bancario - Semana 2</div>
-  <div class="modulo" data-video="VIDEO_ID_7">🔒 Cajero Bancario - Semana 3</div>
-  <div class="modulo" data-video="VIDEO_ID_8">🔒 Cajero Bancario - Semana 4</div>
+  <h4>BLOQUE OPERACIONES FINANCIERAS</h4>
+  <div class="modulo" data-video="VIDEO_ID_5">🔒 Operaciones Financieras - Semana 1</div>
+  <div class="modulo" data-video="VIDEO_ID_6">🔒 Operaciones Financieras - Semana 2</div>
+  <div class="modulo" data-video="VIDEO_ID_7">🔒 Operaciones Financieras - Semana 3</div>
+  <div class="modulo" data-video="VIDEO_ID_8">🔒 Operaciones Financieras - Semana 4</div>
   <button id="activarBloque2" disabled>Activar Bloque 2</button>
 </div>
 
@@ -204,7 +206,7 @@ fetch("https://script.google.com/macros/s/1oiA60Lw_gxc2ifHQb3Xc4OjkQqs0zQQKHXQIF
   actualizarBarra()
 })
 
-// Desbloquear primer video de bloque activo
+// Función para desbloquear el primer video de un bloque
 function desbloquearPrimerVideo(bloque){
   const modulosBloque = document.querySelectorAll(`.bloque[data-bloque='${bloque}'] .modulo`)
   modulosBloque.forEach((m,i)=>{
