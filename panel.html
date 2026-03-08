@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 
 <html lang="es">
-
 <head>
 
 <meta charset="UTF-8">
@@ -68,6 +67,21 @@ background:#ff7a00;
 width:20%;
 }
 
+button{
+margin-top:15px;
+padding:12px 20px;
+background:#ff7a00;
+border:none;
+color:white;
+border-radius:6px;
+cursor:pointer;
+}
+
+button:disabled{
+background:#ccc;
+cursor:not-allowed;
+}
+
 </style>
 
 </head>
@@ -75,9 +89,7 @@ width:20%;
 <body>
 
 <header>
-
 EMAGES ACADEMY
-
 </header>
 
 <div class="container">
@@ -91,7 +103,7 @@ EMAGES ACADEMY
 <h3>Progreso del curso</h3>
 
 <div class="progreso">
-<div class="barra"></div>
+<div class="barra" id="barra"></div>
 </div>
 
 </div>
@@ -141,7 +153,6 @@ window.location="ingresar.html"
 document.getElementById("bienvenida").innerText="Bienvenido "+nombre
 document.getElementById("curso").innerText=curso
 
-
 let progreso = localStorage.getItem("progreso")
 
 if(!progreso){
@@ -149,8 +160,17 @@ progreso=1
 localStorage.setItem("progreso",1)
 }
 
+actualizarBarra()
 actualizarModulos()
 
+function actualizarBarra(){
+
+let porcentaje = progreso*30
+if(porcentaje>100){porcentaje=100}
+
+document.getElementById("barra").style.width=porcentaje+"%"
+
+}
 
 function actualizarModulos(){
 
@@ -174,7 +194,6 @@ m.style.pointerEvents="none"
 
 }
 
-
 function completarModulo(){
 
 progreso++
@@ -182,12 +201,13 @@ progreso++
 localStorage.setItem("progreso",progreso)
 
 fetch("https://script.google.com/macros/s/AKfycbwJggPmovvudEzOD6JE8PjVCvhoHHsuBJfvcf1Iyvw_1hmESAwm-0uqmF_qqetItxHvlw/exec?action=guardarProgreso&usuario="+usuario+"&progreso="+progreso)
+
+actualizarBarra()
 actualizarModulos()
 
 alert("Módulo completado")
 
 }
-
 
 let player
 let intervalo
@@ -198,12 +218,12 @@ document.getElementById("btnCompletar").disabled=true
 
 player = new YT.Player('player', {
 
-height: '400',
-width: '100%',
-videoId: id,
+height:'400',
+width:'100%',
+videoId:id,
 
-events: {
-'onReady': iniciarControl
+events:{
+'onReady':iniciarControl
 }
 
 })
@@ -214,10 +234,10 @@ function iniciarControl(){
 
 intervalo=setInterval(function(){
 
-let duracion = player.getDuration()
-let actual = player.getCurrentTime()
+let duracion=player.getDuration()
+let actual=player.getCurrentTime()
 
-let porcentaje = (actual/duracion)*100
+let porcentaje=(actual/duracion)*100
 
 if(porcentaje>=80){
 
