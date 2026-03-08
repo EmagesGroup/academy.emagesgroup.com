@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="es">
 <head>
 
@@ -156,106 +155,69 @@ document.getElementById("curso").innerText=curso
 let progreso = 1
 
 fetch("https://script.google.com/macros/s/AKfycbwJggPmovvudEzOD6JE8PjVCvhoHHsuBJfvcf1Iyvw_1hmESAwm-0uqmF_qqetItxHvlw/exec?action=obtenerProgreso&usuario="+usuario)
-
 .then(r=>r.json())
-
 .then(data=>{
-
-progreso = parseInt(data.progreso)
-
-actualizarBarra()
-actualizarModulos()
-
+  progreso = parseInt(data.progreso)
+  actualizarBarra()
+  actualizarModulos()
 })
 
 actualizarBarra()
 actualizarModulos()
 
 function actualizarBarra(){
-
 let porcentaje = progreso*30
 if(porcentaje>100){porcentaje=100}
-
 document.getElementById("barra").style.width=porcentaje+"%"
-
 }
 
 function actualizarModulos(){
-
 let modulos=document.querySelectorAll(".modulo")
-
 modulos.forEach((m,i)=>{
-
-if(i+1<=progreso){
-
-m.style.opacity="1"
-m.style.pointerEvents="auto"
-
-}else{
-
-m.style.opacity="0.4"
-m.style.pointerEvents="none"
-
-}
-
+  if(i < progreso){   /* <-- CAMBIO HECHO AQUÍ */
+    m.style.opacity="1"
+    m.style.pointerEvents="auto"
+  }else{
+    m.style.opacity="0.4"
+    m.style.pointerEvents="none"
+  }
 })
-
 }
 
 function completarModulo(){
-
 progreso++
-
 localStorage.setItem("progreso",progreso)
-
 fetch("https://script.google.com/macros/s/AKfycbwJggPmovvudEzOD6JE8PjVCvhoHHsuBJfvcf1Iyvw_1hmESAwm-0uqmF_qqetItxHvlw/exec?action=guardarProgreso&usuario="+usuario+"&progreso="+progreso)
-
 actualizarBarra()
-actualizarModulos()
-
+actualizarModulos()  // <--- Esto desbloquea automáticamente el siguiente módulo
 alert("Módulo completado")
-
 }
 
 let player
 let intervalo
 
 function cargarVideo(id){
-
 document.getElementById("btnCompletar").disabled=true
-
 player = new YT.Player('player', {
-
 height:'400',
 width:'100%',
 videoId:id,
-
 events:{
 'onReady':iniciarControl
 }
-
 })
-
 }
 
 function iniciarControl(){
-
 intervalo=setInterval(function(){
-
 let duracion=player.getDuration()
 let actual=player.getCurrentTime()
-
 let porcentaje=(actual/duracion)*100
-
 if(porcentaje>=80){
-
 document.getElementById("btnCompletar").disabled=false
 clearInterval(intervalo)
-
 }
-
 },1000)
-
 }
 
 </script>
