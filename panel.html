@@ -188,7 +188,7 @@ document.getElementById("cerrarSesion").addEventListener("click", function(){
 })
 
 // Obtener progreso y bloque inicial desde Excel
-fetch("https://script.google.com/macros/s/TU_SCRIPT_ID/exec?action=obtenerProgreso&usuario="+usuario)
+fetch("https://script.google.com/macros/s/AKfycbwJggPmovvudEzOD6JE8PjVCvhoHHsuBJfvcf1Iyvw_1hmESAwm-0uqmF_qqetItxHvlw/exec?action=obtenerProgreso&usuario="+usuario)
 .then(r => r.json())
 .then(data=>{
   progreso = parseInt(data.progreso) || 0
