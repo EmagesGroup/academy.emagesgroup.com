@@ -108,6 +108,7 @@ fetch("https://script.google.com/macros/s/AKfycbwJggPmovvudEzOD6JE8PjVCvhoHHsuBJ
 
 if(data.status=="ok"){
 
+localStorage.setItem("usuario",usuario)
 localStorage.setItem("nombre",data.nombre)
 localStorage.setItem("curso",data.curso)
 
