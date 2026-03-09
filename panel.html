@@ -25,11 +25,11 @@ position:relative;
 header button{
 position:absolute;
 right:40px;
-top:10px;
+top:12px;
+padding:6px 10px;
 background:red;
 color:white;
 border:none;
-padding:6px 10px;
 cursor:pointer;
 }
 
@@ -64,7 +64,7 @@ width:0%;
 .curso-layout{
 display:flex;
 gap:30px;
-margin-top:20px;
+margin-top:10px;
 }
 
 .sidebar{
@@ -211,7 +211,7 @@ sessionStorage.clear()
 window.location="ingresar.html"
 }
 
-fetch("TU_SCRIPT_URL?action=obtenerProgreso&usuario="+usuario)
+fetch("https://script.google.com/macros/s/AKfycbwvf9RFU1ko7RWxRB7gyFuJt9IwwkgNb7ICbQDPyxMZncrh5y0iG4-PCfXTYzFN92_NIg/exec?action=obtenerProgreso&usuario="+usuario)
 
 .then(r=>r.json())
 
@@ -237,14 +237,9 @@ function bloqueActivo(b){
 
 if(bloqueInicial==0 && bloqueFinal==0) return false
 
-if((bloqueInicial==1 && bloqueFinal==0) || (bloqueInicial==0 && bloqueFinal==1))
-return b==1
+if((bloqueInicial==1 || bloqueFinal==1) && b==1) return true
 
-if((bloqueInicial==2 && bloqueFinal==0) || (bloqueInicial==0 && bloqueFinal==2))
-return b==2
-
-if((bloqueInicial==1 && bloqueFinal==2) || (bloqueInicial==2 && bloqueFinal==1))
-return true
+if((bloqueInicial==2 || bloqueFinal==2) && b==2) return true
 
 return false
 
@@ -255,7 +250,6 @@ function actualizarModulos(){
 bloques.forEach(bloque=>{
 
 let num=parseInt(bloque.dataset.bloque)
-
 let modulos=bloque.querySelectorAll(".modulo")
 
 modulos.forEach(m=>{
@@ -264,6 +258,7 @@ if(bloqueActivo(num)){
 
 m.style.opacity="1"
 m.style.pointerEvents="auto"
+
 m.innerText="▶ "+m.innerText.replace("🔒 ","")
 
 m.onclick=()=>cargarVideo(m)
