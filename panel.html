@@ -190,7 +190,7 @@ document.getElementById("cerrarSesion").addEventListener("click", function(){
 })
 
 // Obtener progreso y bloque inicial desde Excel
-fetch("https://script.google.com/macros/s/AKfycbwJggPmovvudEzOD6JE8PjVCvhoHHsuBJfvcf1Iyvw_1hmESAwm-0uqmF_qqetItxHvlw/exec?action=obtenerProgreso&usuario="+usuario)
+fetch("https://script.google.com/macros/s/AKfycbwvf9RFU1ko7RWxRB7gyFuJt9IwwkgNb7ICbQDPyxMZncrh5y0iG4-PCfXTYzFN92_NIg/exec?action=obtenerProgreso&usuario="+usuario)
 .then(r => r.json())
 .then(data=>{
   progreso = parseInt(data.progreso) || 0
@@ -252,7 +252,7 @@ function completarModulo(){
     progreso = 0
   }
 
-  fetch(`https://script.google.com/macros/s/AKfycbwJggPmovvudEzOD6JE8PjVCvhoHHsuBJfvcf1Iyvw_1hmESAwm-0uqmF_qqetItxHvlw/exec?action=guardarProgreso&usuario=${usuario}&progreso=${progreso}&bloque_inicial=${bloqueInicial}`)
+  fetch(`https://script.google.com/macros/s/AKfycbwvf9RFU1ko7RWxRB7gyFuJt9IwwkgNb7ICbQDPyxMZncrh5y0iG4-PCfXTYzFN92_NIg/exec?action=guardarProgreso&usuario=${usuario}&progreso=${progreso}&bloque_inicial=${bloqueInicial}`)
   .then(r=>r.text())
   .then(res=>{
     if(res.trim()==="ok"){
