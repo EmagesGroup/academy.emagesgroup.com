@@ -19,19 +19,17 @@ header{
 background:#0b1c3d;
 color:white;
 padding:15px 40px;
-font-size:18px;
 position:relative;
 }
 
 header button{
 position:absolute;
 right:40px;
-top:12px;
-padding:5px 10px;
-background:#ff0000;
+top:10px;
+background:red;
 color:white;
 border:none;
-border-radius:4px;
+padding:6px 10px;
 cursor:pointer;
 }
 
@@ -66,7 +64,7 @@ width:0%;
 .curso-layout{
 display:flex;
 gap:30px;
-margin-top:10px;
+margin-top:20px;
 }
 
 .sidebar{
@@ -74,23 +72,15 @@ width:320px;
 background:#fafafa;
 border-radius:10px;
 padding:20px;
-max-height:500px;
-overflow-y:auto;
-box-shadow:0 5px 15px rgba(0,0,0,0.08);
 }
 
 .modulo{
 background:white;
 border:1px solid #eee;
-padding:12px;
-border-radius:8px;
+padding:10px;
+border-radius:6px;
 margin-top:8px;
 cursor:pointer;
-transition:.2s;
-}
-
-.modulo:hover{
-background:#f3f6ff;
 }
 
 .video-area{
@@ -126,8 +116,8 @@ cursor:not-allowed;
 <body>
 
 <header>
-EMAGES ACADEMY - Cajero Bancario y Comercial
-<button id="cerrarSesion">Cerrar sesión</button>
+EMAGES ACADEMY
+<button onclick="cerrarSesion()">Cerrar sesión</button>
 </header>
 
 <div class="container">
@@ -151,10 +141,10 @@ EMAGES ACADEMY - Cajero Bancario y Comercial
 
 <div class="sidebar">
 
-<h3>Módulos del curso</h3>
+<h3>Módulos</h3>
 
 <div class="bloque" data-bloque="1">
-<h4>BLOQUE ATENCIÓN AL CLIENTE</h4>
+<h4>BLOQUE 1</h4>
 
 <div class="modulo" data-video="hUdubWZEgYM">🔒 Video 1</div>
 <div class="modulo" data-video="o_K7KXqy--s">🔒 Video 2</div>
@@ -164,7 +154,7 @@ EMAGES ACADEMY - Cajero Bancario y Comercial
 </div>
 
 <div class="bloque" data-bloque="2">
-<h4>BLOQUE OPERACIONES FINANCIERAS</h4>
+<h4>BLOQUE 2</h4>
 
 <div class="modulo" data-video="thAF8YBFYhM">🔒 Video 1</div>
 <div class="modulo" data-video="hUdubWZEgYM">🔒 Video 2</div>
@@ -195,9 +185,9 @@ Marcar módulo como completado
 
 <script>
 
-let nombre = sessionStorage.getItem("nombre")
-let usuario = sessionStorage.getItem("usuario")
-let curso = "Cajero Bancario y Comercial"
+let nombre=sessionStorage.getItem("nombre")
+let usuario=sessionStorage.getItem("usuario")
+let curso="Cajero Bancario y Comercial"
 
 if(!nombre || !usuario){
 window.location="ingresar.html"
@@ -216,20 +206,20 @@ let intervalo
 const TOTAL_VIDEOS=8
 const bloques=document.querySelectorAll(".bloque")
 
-document.getElementById("cerrarSesion").onclick=function(){
+function cerrarSesion(){
 sessionStorage.clear()
 window.location="ingresar.html"
 }
 
-fetch("https://script.google.com/macros/s/AKfycbwvf9RFU1ko7RWxRB7gyFuJt9IwwkgNb7ICbQDPyxMZncrh5y0iG4-PCfXTYzFN92_NIg/exec?action=obtenerProgreso&usuario="+usuario)
+fetch("TU_SCRIPT_URL?action=obtenerProgreso&usuario="+usuario)
 
 .then(r=>r.json())
 
 .then(data=>{
 
-progreso=parseInt(data.progreso)||0
-bloqueInicial=parseInt(data.bloque_inicial)||0
-bloqueFinal=parseInt(data.bloque_final)||0
+progreso=parseInt(data.progreso)
+bloqueInicial=parseInt(data.bloque_inicial)
+bloqueFinal=parseInt(data.bloque_final)
 
 actualizarBarra()
 actualizarModulos()
@@ -243,27 +233,18 @@ document.getElementById("barra").style.width=porcentaje+"%"
 
 }
 
-function bloqueActivo(numBloque){
+function bloqueActivo(b){
 
-if(bloqueInicial===0 && bloqueFinal===0){
-return false
-}
+if(bloqueInicial==0 && bloqueFinal==0) return false
 
-if(bloqueInicial===1 && bloqueFinal===0){
-return numBloque===1
-}
+if((bloqueInicial==1 && bloqueFinal==0) || (bloqueInicial==0 && bloqueFinal==1))
+return b==1
 
-if(bloqueInicial===2 && bloqueFinal===0){
-return numBloque===2
-}
+if((bloqueInicial==2 && bloqueFinal==0) || (bloqueInicial==0 && bloqueFinal==2))
+return b==2
 
-if(bloqueInicial===1 && bloqueFinal===2){
+if((bloqueInicial==1 && bloqueFinal==2) || (bloqueInicial==2 && bloqueFinal==1))
 return true
-}
-
-if(bloqueInicial===2 && bloqueFinal===1){
-return true
-}
 
 return false
 
@@ -273,12 +254,13 @@ function actualizarModulos(){
 
 bloques.forEach(bloque=>{
 
-const numBloque=parseInt(bloque.dataset.bloque)
-const modulos=bloque.querySelectorAll(".modulo")
+let num=parseInt(bloque.dataset.bloque)
+
+let modulos=bloque.querySelectorAll(".modulo")
 
 modulos.forEach(m=>{
 
-if(bloqueActivo(numBloque)){
+if(bloqueActivo(num)){
 
 m.style.opacity="1"
 m.style.pointerEvents="auto"
@@ -307,11 +289,9 @@ function cargarVideo(elemento){
 
 document.getElementById("btnCompletar").disabled=true
 
-const id=elemento.dataset.video
+let id=elemento.dataset.video
 
-if(player){
-player.destroy()
-}
+if(player) player.destroy()
 
 player=new YT.Player('player',{
 height:'420',
@@ -324,7 +304,7 @@ events:{'onReady':iniciarControl}
 
 function iniciarControl(){
 
-if(intervalo)clearInterval(intervalo)
+if(intervalo) clearInterval(intervalo)
 
 intervalo=setInterval(function(){
 
