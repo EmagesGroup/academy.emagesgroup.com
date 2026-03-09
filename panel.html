@@ -75,9 +75,7 @@ width:20%;
 <body>
 
 <header>
-
 EMAGES ACADEMY
-
 </header>
 
 <div class="container">
@@ -91,7 +89,7 @@ EMAGES ACADEMY
 <h3>Progreso del curso</h3>
 
 <div class="progreso">
-<div class="barra"></div>
+<div class="barra" id="barra"></div>
 </div>
 
 </div>
@@ -108,15 +106,21 @@ EMAGES ACADEMY
 ▶ Sistema financiero
 </div>
 
-<div class="modulo">
-🔒 Operaciones bancarias (bloqueado)
+<div class="modulo" onclick="cargarVideo('SXXVvQZpXNc')">
+▶ Operaciones bancarias
 </div>
 
 <div class="video">
 
-<div id="player"></div>
+<iframe id="video"
+width="100%"
+height="400"
+src=""
+frameborder="0"
+allowfullscreen>
+</iframe>
 
-<button id="btnCompletar" onclick="completarModulo()" disabled>
+<button onclick="completarModulo()">
 Marcar módulo como completado
 </button>
 
@@ -126,12 +130,10 @@ Marcar módulo como completado
 
 </div>
 
-<script src="https://www.youtube.com/iframe_api"></script>
-
 <script>
 
-let nombre=localStorage.getItem("nombre")
-let curso=localStorage.getItem("curso")
+let nombre = localStorage.getItem("nombre")
+let curso = localStorage.getItem("curso")
 
 if(!nombre){
 window.location="ingresar.html"
@@ -143,19 +145,20 @@ document.getElementById("curso").innerText=curso
 let progreso = localStorage.getItem("progreso")
 
 if(!progreso){
-progreso=1
+progreso = 1
 localStorage.setItem("progreso",1)
 }
 
 actualizarModulos()
+actualizarBarra()
 
 function actualizarModulos(){
 
-let modulos=document.querySelectorAll(".modulo")
+let modulos = document.querySelectorAll(".modulo")
 
 modulos.forEach((m,i)=>{
 
-if(i+1<=progreso){
+if(i+1 <= progreso){
 
 m.style.opacity="1"
 m.style.pointerEvents="auto"
@@ -171,6 +174,15 @@ m.style.pointerEvents="none"
 
 }
 
+function actualizarBarra(){
+
+let total = 3
+let porcentaje = (progreso/total)*100
+
+document.getElementById("barra").style.width = porcentaje+"%"
+
+}
+
 function completarModulo(){
 
 progreso++
@@ -178,49 +190,15 @@ progreso++
 localStorage.setItem("progreso",progreso)
 
 actualizarModulos()
+actualizarBarra()
 
 alert("Módulo completado")
 
 }
 
-let player
-let intervalo
-
 function cargarVideo(id){
 
-document.getElementById("btnCompletar").disabled=true
-
-player = new YT.Player('player', {
-
-height: '400',
-width: '100%',
-videoId: id,
-
-events: {
-'onReady': iniciarControl
-}
-
-})
-
-}
-
-function iniciarControl(){
-
-intervalo=setInterval(function(){
-
-let duracion = player.getDuration()
-let actual = player.getCurrentTime()
-
-let porcentaje = (actual/duracion)*100
-
-if(porcentaje>=80){
-
-document.getElementById("btnCompletar").disabled=false
-clearInterval(intervalo)
-
-}
-
-},1000)
+document.getElementById("video").src="https://www.youtube.com/embed/"+id
 
 }
 
