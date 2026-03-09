@@ -132,12 +132,12 @@ window.location="ingresar.html"
 fetch("https://script.google.com/macros/s/AKfycbwvf9RFU1ko7RWxRB7gyFuJt9IwwkgNb7ICbQDPyxMZncrh5y0iG4-PCfXTYzFN92_NIg/exec?action=obtenerProgreso&usuario="+usuario)
 
 .then(r=>r.json())
-
 .then(data=>{
 
 bloqueInicial = parseInt(data.bloque_inicial) || 0
 
 controlAcceso()
+iniciarPrimerVideo()
 
 })
 
@@ -162,6 +162,8 @@ bloquear(m)
 if(bloqueInicial === 2 && num === 1){
 bloquear(m)
 }
+
+/* 3 = ambos bloques → no se bloquea nada */
 
 })
 
@@ -209,6 +211,19 @@ progreso = index
 
 }
 
+function iniciarPrimerVideo(){
+
+for(let i=0;i<modulos.length;i++){
+
+if(!modulos[i].classList.contains("bloqueado")){
+cargarVideo(modulos[i],i)
+break
+}
+
+}
+
+}
+
 function estadoVideo(event){
 
 if(event.data === YT.PlayerState.ENDED){
@@ -220,9 +235,7 @@ while(siguiente < modulos.length){
 if(!modulos[siguiente].classList.contains("bloqueado")){
 
 setTimeout(()=>{
-
 cargarVideo(modulos[siguiente],siguiente)
-
 },1500)
 
 break
