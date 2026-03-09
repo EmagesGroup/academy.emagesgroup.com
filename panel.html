@@ -1,157 +1,203 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+
 <meta charset="UTF-8">
-<title>Academia</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Panel del Estudiante | Emages Academy</title>
 
 <style>
 
 body{
-margin:0;
 font-family:Arial;
-background:#f4f6f9;
-display:flex;
-height:100vh;
-}
-
-.sidebar{
-width:320px;
-background:white;
-border-right:1px solid #ddd;
-overflow-y:auto;
-}
-
-.sidebar h2{
-padding:20px;
+background:#f4f6fb;
 margin:0;
-border-bottom:1px solid #eee;
 }
 
-.bloque{
-padding:10px 20px;
-}
-
-.bloque h3{
-margin-top:20px;
-font-size:16px;
-}
-
-.modulo{
-padding:10px;
-cursor:pointer;
-border-radius:6px;
-margin-bottom:5px;
-}
-
-.modulo:hover{
-background:#f1f1f1;
-}
-
-.modulo.activo{
-background:#e7f3ff;
-}
-
-.player-area{
-flex:1;
-display:flex;
-flex-direction:column;
-}
-
-.video-container{
-flex:1;
-display:flex;
-justify-content:center;
-align-items:center;
-background:black;
-}
-
-#player{
-width:90%;
-height:80%;
-}
-
-.controls{
-padding:20px;
-background:white;
-border-top:1px solid #ddd;
-}
-
-#btnCompletar{
-background:#ff7a00;
-border:none;
+header{
+background:#0b1c3d;
 color:white;
-padding:12px 20px;
-font-size:16px;
-border-radius:6px;
+padding:15px 40px;
+font-size:18px;
+position:relative;
+}
+
+header button{
+position:absolute;
+right:40px;
+top:12px;
+padding:5px 10px;
+background:#ff0000;
+color:white;
+border:none;
+border-radius:4px;
 cursor:pointer;
 }
 
-#btnCompletar:disabled{
-background:#ccc;
-cursor:not-allowed;
+.container{
+padding:40px;
+max-width:1200px;
+margin:auto;
+}
+
+.card{
+background:white;
+padding:30px;
+border-radius:10px;
+box-shadow:0 10px 25px rgba(0,0,0,0.1);
+margin-bottom:25px;
 }
 
 .progreso{
-height:8px;
+height:20px;
 background:#ddd;
-margin-top:10px;
-border-radius:4px;
+border-radius:10px;
 overflow:hidden;
+margin-top:10px;
 }
 
 .barra{
 height:100%;
-background:#4caf50;
+background:#ff7a00;
 width:0%;
 }
 
+/* NUEVO DISEÑO */
+
+.curso-layout{
+display:flex;
+gap:30px;
+margin-top:10px;
+}
+
+.sidebar{
+width:320px;
+background:#fafafa;
+border-radius:10px;
+padding:20px;
+max-height:500px;
+overflow-y:auto;
+box-shadow:0 5px 15px rgba(0,0,0,0.08);
+}
+
+.sidebar h3{
+margin-top:0;
+color:#0b1c3d;
+}
+
+.sidebar h4{
+margin-top:20px;
+font-size:14px;
+color:#666;
+}
+
+.modulo{
+background:white;
+border:1px solid #eee;
+padding:12px;
+border-radius:8px;
+margin-top:8px;
+cursor:pointer;
+transition:all .2s;
+font-size:14px;
+}
+
+.modulo:hover{
+background:#f3f6ff;
+border-color:#d9e1ff;
+}
+
+.video-area{
+flex:1;
+}
+
+#player{
+width:100%;
+height:420px;
+background:black;
+border-radius:10px;
+box-shadow:0 10px 25px rgba(0,0,0,0.15);
+}
+
+button{
+margin-top:20px;
+padding:12px 25px;
+background:#ff7a00;
+border:none;
+color:white;
+border-radius:6px;
+cursor:pointer;
+}
+
+button:disabled{
+background:#ccc;
+cursor:not-allowed;
+}
+
 </style>
+
 </head>
 
 <body>
 
-<div class="sidebar">
+<header>
+EMAGES ACADEMY - Cajero Bancario y Comercial
+<button id="cerrarSesion">Cerrar sesión</button>
+</header>
 
-<h2>Curso Cajero Bancario</h2>
+<div class="container">
 
-<div class="bloque" data-bloque="1">
+<div class="card">
 
-<h3>Bloque Atención al Cliente</h3>
+<h2 id="bienvenida"></h2>
 
-<div class="modulo" data-video="hUdubWZEgYM">Semana 1</div>
-<div class="modulo" data-video="o_K7KXqy--s">Semana 2</div>
-<div class="modulo" data-video="NWV_aCHRdB4">Semana 3</div>
-<div class="modulo" data-video="UYQ8RwQLZFw">Semana 4</div>
+<p><b>Curso:</b> <span id="curso"></span></p>
 
-</div>
-
-<div class="bloque" data-bloque="2">
-
-<h3>Bloque Operaciones Financieras</h3>
-
-<div class="modulo" data-video="thAF8YBFYhM">Semana 5</div>
-<div class="modulo" data-video="hUdubWZEgYM">Semana 6</div>
-<div class="modulo" data-video="NWV_aCHRdB4">Semana 7</div>
-<div class="modulo" data-video="UYQ8RwQLZFw">Semana 8</div>
-
-</div>
-
-</div>
-
-<div class="player-area">
-
-<div class="video-container">
-<div id="player"></div>
-</div>
-
-<div class="controls">
-
-<button id="btnCompletar" disabled>
-Marcar módulo como completado
-</button>
+<h3>Progreso del curso</h3>
 
 <div class="progreso">
 <div class="barra" id="barra"></div>
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="curso-layout">
+
+<div class="sidebar">
+
+<h3>Módulos del curso</h3>
+
+<div class="bloque" data-bloque="1">
+<h4>BLOQUE ATENCIÓN AL CLIENTE</h4>
+<div class="modulo" data-video="hUdubWZEgYM">🔒 Atención al Cliente - Semana 1</div>
+<div class="modulo" data-video="o_K7KXqy--s">🔒 Atención al Cliente - Semana 2</div>
+<div class="modulo" data-video="NWV_aCHRdB4">🔒 Atención al Cliente - Semana 3</div>
+<div class="modulo" data-video="UYQ8RwQLZFw">🔒 Atención al Cliente - Semana 4</div>
+</div>
+
+<div class="bloque" data-bloque="2">
+<h4>BLOQUE OPERACIONES FINANCIERAS</h4>
+<div class="modulo" data-video="thAF8YBFYhM">🔒 Operaciones Financieras - Semana 1</div>
+<div class="modulo" data-video="hUdubWZEgYM">🔒 Operaciones Financieras - Semana 2</div>
+<div class="modulo" data-video="NWV_aCHRdB4">🔒 Operaciones Financieras - Semana 3</div>
+<div class="modulo" data-video="UYQ8RwQLZFw">🔒 Operaciones Financieras - Semana 4</div>
+</div>
+
+</div>
+
+<div class="video-area">
+
+<div id="player"></div>
+
+<button id="btnCompletar" onclick="completarModulo()" disabled>
+Marcar módulo como completado
+</button>
+
+</div>
+
 </div>
 
 </div>
@@ -162,102 +208,193 @@ Marcar módulo como completado
 
 <script>
 
-let player
-let modulos = document.querySelectorAll(".modulo")
+let nombre = sessionStorage.getItem("nombre")
+let usuario = sessionStorage.getItem("usuario")
+let curso = "Cajero Bancario y Comercial"
+
+if(!nombre || !usuario){
+window.location="ingresar.html"
+}
+
+document.getElementById("bienvenida").innerText = "Bienvenido " + nombre
+document.getElementById("curso").innerText = curso
+
+let bloqueInicial = 1
 let progreso = 0
+let player
+let intervalo
 
-function onYouTubeIframeAPIReady(){
+const TOTAL_VIDEOS = 8
 
-player = new YT.Player('player',{
-height:'500',
-width:'800',
-videoId:'hUdubWZEgYM',
-events:{
-'onStateChange':estadoVideo
+const bloques = document.querySelectorAll(".bloque")
+
+document.getElementById("cerrarSesion").addEventListener("click",function(){
+
+if(player && typeof player.stopVideo==="function"){
+player.stopVideo()
 }
-})
 
-}
-
-modulos.forEach((modulo,index)=>{
-
-modulo.addEventListener("click",()=>{
-
-cargarVideo(modulo,index)
+sessionStorage.clear()
+window.location="ingresar.html"
 
 })
 
-})
+fetch("https://script.google.com/macros/s/AKfycbwvf9RFU1ko7RWxRB7gyFuJt9IwwkgNb7ICbQDPyxMZncrh5y0iG4-PCfXTYzFN92_NIg/exec?action=obtenerProgreso&usuario="+usuario)
 
-function cargarVideo(modulo,index){
+.then(r=>r.json())
 
-modulos.forEach(m=>m.classList.remove("activo"))
-modulo.classList.add("activo")
+.then(data=>{
 
-let videoID = modulo.dataset.video
-
-player.loadVideoById(videoID)
-
-progreso = index
-
-}
-
-function estadoVideo(event){
-
-if(event.data === YT.PlayerState.ENDED){
-
-guardarProgreso()
-
-let siguiente = progreso + 1
-
-if(siguiente < modulos.length){
-
-setTimeout(()=>{
-
-cargarVideo(modulos[siguiente],siguiente)
-
-},1500)
-
-}
-
-if(progreso === 3 || progreso === 7){
-
-document.getElementById("btnCompletar").disabled=false
-
-}
-
-}
-
-}
-
-function guardarProgreso(){
-
-fetch("https://script.google.com/macros/s/AKfycbwvf9RFU1ko7RWxRB7gyFuJt9IwwkgNb7ICbQDPyxMZncrh5y0iG4-PCfXTYzFN92_NIg/exec",{
-method:"POST",
-body:JSON.stringify({
-video:progreso
-})
-})
+progreso=parseInt(data.progreso)||0
+bloqueInicial=parseInt(data.bloque_inicial)||1
 
 actualizarBarra()
+actualizarModulos()
 
-}
+})
 
 function actualizarBarra(){
 
-let porcentaje = ((progreso+1)/modulos.length)*100
+let progresoTotal=progreso
+
+if(bloqueInicial===1){
+progresoTotal=progreso+4
+}
+
+let porcentaje=(progresoTotal/TOTAL_VIDEOS)*100
 
 document.getElementById("barra").style.width=porcentaje+"%"
 
 }
 
-document.getElementById("btnCompletar").addEventListener("click",()=>{
+function actualizarModulos(){
 
-alert("Bloque completado, se desbloquea el siguiente")
+bloques.forEach(bloque=>{
 
-location.reload()
+const numBloque=parseInt(bloque.dataset.bloque)
+const modulos=bloque.querySelectorAll(".modulo")
+
+modulos.forEach((m,i)=>{
+
+if(numBloque===bloqueInicial){
+
+if(i<progreso){
+
+m.style.opacity="1"
+m.style.pointerEvents="auto"
+m.innerText="✔ "+m.innerText.replace("▶ ","").replace("🔒 ","")
+m.onclick=()=>cargarVideo(m)
+
+}
+
+else if(i===progreso){
+
+m.style.opacity="1"
+m.style.pointerEvents="auto"
+m.innerText="▶ "+m.innerText.replace("🔒 ","")
+m.onclick=()=>cargarVideo(m)
+
+}
+
+else{
+
+m.style.opacity="0.4"
+m.style.pointerEvents="none"
+
+if(!m.innerText.includes("🔒"))
+m.innerText="🔒 "+m.innerText.replace("▶ ","")
+
+}
+
+}
+
+else{
+
+m.style.opacity="0.4"
+m.style.pointerEvents="none"
+
+if(!m.innerText.includes("🔒"))
+m.innerText="🔒 "+m.innerText.replace("▶ ","").replace("✔ ","")
+
+}
 
 })
+
+})
+
+}
+
+function completarModulo(){
+
+const moduloBtn=document.getElementById("btnCompletar")
+moduloBtn.disabled=true
+
+progreso = progreso + 1
+
+const modulosBloque=document.querySelectorAll(`.bloque[data-bloque='${bloqueInicial}'] .modulo`)
+
+if (progreso >= modulosBloque.length) {
+bloqueInicial = bloqueInicial === 1 ? 2 : 1;
+progreso = 0;
+}
+
+fetch(`https://script.google.com/macros/s/AKfycbwvf9RFU1ko7RWxRB7gyFuJt9IwwkgNb7ICbQDPyxMZncrh5y0iG4-PCfXTYzFN92_NIg/exec?action=guardarProgreso&usuario=${usuario}&progreso=${progreso}&bloque_inicial=${bloqueInicial}`)
+
+.then(r=>r.text())
+
+.then(res => {
+if(res.trim() === "ok"){
+location.reload();
+}
+})
+
+}
+
+function cargarVideo(elemento){
+
+document.getElementById("btnCompletar").disabled=true
+
+const id=elemento.dataset.video
+
+if(player){
+player.destroy()
+}
+
+player=new YT.Player('player',{
+
+height:'420',
+width:'100%',
+videoId:id,
+
+events:{
+'onReady':iniciarControl
+}
+
+})
+
+}
+
+function iniciarControl(){
+
+if(intervalo)clearInterval(intervalo)
+
+intervalo=setInterval(function(){
+
+let duracion=player.getDuration()
+let actual=player.getCurrentTime()
+
+let porcentaje=(actual/duracion)*100
+
+if(porcentaje>=80){
+
+document.getElementById("btnCompletar").disabled=false
+clearInterval(intervalo)
+
+}
+
+},1000)
+
+}
 
 </script>
 
