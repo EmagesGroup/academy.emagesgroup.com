@@ -2,187 +2,262 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Panel Curso</title>
+<title>Academia</title>
 
 <style>
+
 body{
-font-family:Arial;
 margin:0;
+font-family:Arial;
+background:#f4f6f9;
 display:flex;
 height:100vh;
 }
 
 .sidebar{
-width:300px;
-background:#f4f4f4;
-padding:20px;
+width:320px;
+background:white;
+border-right:1px solid #ddd;
 overflow-y:auto;
+}
+
+.sidebar h2{
+padding:20px;
+margin:0;
+border-bottom:1px solid #eee;
+}
+
+.bloque{
+padding:10px 20px;
+}
+
+.bloque h3{
+margin-top:20px;
+font-size:16px;
 }
 
 .modulo{
 padding:10px;
-border:1px solid #ccc;
-margin-bottom:8px;
 cursor:pointer;
+border-radius:6px;
+margin-bottom:5px;
 }
 
-.modulo.bloqueado{
-opacity:0.4;
-pointer-events:none;
-}
-
-.modulo.visto{
-background:#cfe2ff;
+.modulo:hover{
+background:#f1f1f1;
 }
 
 .modulo.activo{
-background:#0d6efd;
-color:white;
+background:#e7f3ff;
 }
 
-.player{
+.player-area{
 flex:1;
 display:flex;
-align-items:center;
+flex-direction:column;
+}
+
+.video-container{
+flex:1;
+display:flex;
 justify-content:center;
+align-items:center;
 background:black;
 }
 
 #player{
-width:80%;
+width:90%;
 height:80%;
 }
-</style>
 
+.controls{
+padding:20px;
+background:white;
+border-top:1px solid #ddd;
+}
+
+#btnCompletar{
+background:#ff7a00;
+border:none;
+color:white;
+padding:12px 20px;
+font-size:16px;
+border-radius:6px;
+cursor:pointer;
+}
+
+#btnCompletar:disabled{
+background:#ccc;
+cursor:not-allowed;
+}
+
+.progreso{
+height:8px;
+background:#ddd;
+margin-top:10px;
+border-radius:4px;
+overflow:hidden;
+}
+
+.barra{
+height:100%;
+background:#4caf50;
+width:0%;
+}
+
+</style>
 </head>
 
 <body>
 
 <div class="sidebar">
 
-<h3>Bloque 1</h3>
+<h2>Curso Cajero Bancario</h2>
 
-<div class="modulo" data-video="hUdubWZEgYM">Video 1</div>
-<div class="modulo" data-video="o_K7KXqy--s">Video 2</div>
-<div class="modulo" data-video="NWV_aCHRdB4">Video 3</div>
-<div class="modulo" data-video="UYQ8RwQLZFw">Video 4</div>
+<div class="bloque" data-bloque="1">
 
-<h3>Bloque 2</h3>
+<h3>Bloque Atención al Cliente</h3>
 
-<div class="modulo" data-video="thAF8YBFYhM">Video 5</div>
-<div class="modulo" data-video="hUdubWZEgYM">Video 6</div>
-<div class="modulo" data-video="NWV_aCHRdB4">Video 7</div>
-<div class="modulo" data-video="UYQ8RwQLZFw">Video 8</div>
+<div class="modulo" data-video="hUdubWZEgYM">Semana 1</div>
+<div class="modulo" data-video="o_K7KXqy--s">Semana 2</div>
+<div class="modulo" data-video="NWV_aCHRdB4">Semana 3</div>
+<div class="modulo" data-video="UYQ8RwQLZFw">Semana 4</div>
 
 </div>
 
-<div class="player">
+<div class="bloque" data-bloque="2">
+
+<h3>Bloque Operaciones Financieras</h3>
+
+<div class="modulo" data-video="thAF8YBFYhM">Semana 5</div>
+<div class="modulo" data-video="hUdubWZEgYM">Semana 6</div>
+<div class="modulo" data-video="NWV_aCHRdB4">Semana 7</div>
+<div class="modulo" data-video="UYQ8RwQLZFw">Semana 8</div>
+
+</div>
+
+</div>
+
+<div class="player-area">
+
+<div class="video-container">
 <div id="player"></div>
+</div>
+
+<div class="controls">
+
+<button id="btnCompletar" disabled>
+Marcar módulo como completado
+</button>
+
+<div class="progreso">
+<div class="barra" id="barra"></div>
+</div>
+
+</div>
+
 </div>
 
 <script src="https://www.youtube.com/iframe_api"></script>
 
 <script>
 
-let modulos=document.querySelectorAll(".modulo")
 let player
-
-let progreso=0
-let bloqueInicial=0
-let progresoActual=0
-
-let usuario=sessionStorage.getItem("usuario")
-
-fetch("https://script.google.com/macros/s/TU_SCRIPT/exec?action=obtenerProgreso&usuario="+usuario)
-.then(r=>r.json())
-.then(data=>{
-
-progreso=parseInt(data.progreso)||0
-bloqueInicial=parseInt(data.bloque_inicial)||0
-
-configurarBloques()
-marcarProgreso()
-
-})
-
-function configurarBloques(){
-
-modulos.forEach((m,i)=>{
-
-if(bloqueInicial==1 && i>=4) m.classList.add("bloqueado")
-
-if(bloqueInicial==2 && i<4) m.classList.add("bloqueado")
-
-})
-
-}
-
-function marcarProgreso(){
-
-for(let i=0;i<progreso;i++){
-
-if(modulos[i]) modulos[i].classList.add("visto")
-
-}
-
-}
+let modulos = document.querySelectorAll(".modulo")
+let progreso = 0
 
 function onYouTubeIframeAPIReady(){
 
-player=new YT.Player('player',{
-
+player = new YT.Player('player',{
+height:'500',
+width:'800',
+videoId:'hUdubWZEgYM',
 events:{
 'onStateChange':estadoVideo
 }
-
 })
 
 }
 
-modulos.forEach((m,i)=>{
+modulos.forEach((modulo,index)=>{
 
-m.addEventListener("click",()=>{
+modulo.addEventListener("click",()=>{
 
-if(m.classList.contains("bloqueado")) return
-
-player.loadVideoById(m.dataset.video)
-
-modulos.forEach(x=>x.classList.remove("activo"))
-m.classList.add("activo")
-
-progresoActual=i
+cargarVideo(modulo,index)
 
 })
 
 })
+
+function cargarVideo(modulo,index){
+
+modulos.forEach(m=>m.classList.remove("activo"))
+modulo.classList.add("activo")
+
+let videoID = modulo.dataset.video
+
+player.loadVideoById(videoID)
+
+progreso = index
+
+}
 
 function estadoVideo(event){
 
-if(event.data===YT.PlayerState.ENDED){
+if(event.data === YT.PlayerState.ENDED){
 
-modulos[progresoActual].classList.add("visto")
+guardarProgreso()
 
-fetch("https://script.google.com/macros/s/TU_SCRIPT/exec?action=guardarProgreso&usuario="+usuario+"&progreso="+(progresoActual+1))
+let siguiente = progreso + 1
 
-let siguiente=progresoActual+1
-
-if(modulos[siguiente] && !modulos[siguiente].classList.contains("bloqueado")){
+if(siguiente < modulos.length){
 
 setTimeout(()=>{
 
-player.loadVideoById(modulos[siguiente].dataset.video)
+cargarVideo(modulos[siguiente],siguiente)
 
-modulos[siguiente].classList.add("activo")
+},1500)
 
-progresoActual=siguiente
+}
 
-},1000)
+if(progreso === 3 || progreso === 7){
+
+document.getElementById("btnCompletar").disabled=false
 
 }
 
 }
 
 }
+
+function guardarProgreso(){
+
+fetch("TU_SCRIPT_GOOGLE_APPS_SCRIPT",{
+method:"POST",
+body:JSON.stringify({
+video:progreso
+})
+})
+
+actualizarBarra()
+
+}
+
+function actualizarBarra(){
+
+let porcentaje = ((progreso+1)/modulos.length)*100
+
+document.getElementById("barra").style.width=porcentaje+"%"
+
+}
+
+document.getElementById("btnCompletar").addEventListener("click",()=>{
+
+alert("Bloque completado, se desbloquea el siguiente")
+
+location.reload()
+
+})
 
 </script>
 
