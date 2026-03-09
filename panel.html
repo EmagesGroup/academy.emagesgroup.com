@@ -34,6 +34,7 @@ margin-top:8px;
 border:1px solid #eee;
 cursor:pointer;
 font-size:14px;
+transition:0.3s;
 }
 
 .modulo:hover{
@@ -43,6 +44,13 @@ background:#f3f6ff;
 .modulo.bloqueado{
 opacity:0.4;
 pointer-events:none;
+}
+
+.modulo.activo{
+background:#2d6cdf;
+color:white;
+border-color:#2d6cdf;
+font-weight:bold;
 }
 
 .player-area{
@@ -163,8 +171,6 @@ if(bloqueInicial === 2 && num === 1){
 bloquear(m)
 }
 
-/* 3 = ambos bloques → no se bloquea nada */
-
 })
 
 })
@@ -201,6 +207,14 @@ cargarVideo(modulo,index)
 
 })
 
+function resaltarModulo(index){
+
+modulos.forEach(m=>m.classList.remove("activo"))
+
+modulos[index].classList.add("activo")
+
+}
+
 function cargarVideo(modulo,index){
 
 let videoID = modulo.dataset.video
@@ -208,6 +222,8 @@ let videoID = modulo.dataset.video
 player.loadVideoById(videoID)
 
 progreso = index
+
+resaltarModulo(index)
 
 }
 
