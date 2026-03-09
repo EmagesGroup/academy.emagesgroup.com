@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="es">
 <head>
 
@@ -59,6 +58,11 @@ button:hover{
 background:#e66900;
 }
 
+button:disabled{
+background:#ccc;
+cursor:not-allowed;
+}
+
 #mensaje{
 margin-top:12px;
 color:red;
@@ -87,7 +91,7 @@ color:#ff7a00;
 
 <input id="clave" type="password" placeholder="Clave">
 
-<button onclick="login()">Ingresar</button>
+<button id="btnLogin" onclick="login()">Ingresar</button>
 
 <p id="mensaje"></p>
 
@@ -95,10 +99,24 @@ color:#ff7a00;
 
 <script>
 
+sessionStorage.clear()
+
 function login(){
 
-let usuario=document.getElementById("usuario").value
-let clave=document.getElementById("clave").value
+let usuario=document.getElementById("usuario").value.trim()
+let clave=document.getElementById("clave").value.trim()
+let mensaje=document.getElementById("mensaje")
+let btn=document.getElementById("btnLogin")
+
+mensaje.innerText=""
+
+if(usuario=="" || clave==""){
+mensaje.innerText="Ingrese usuario y contraseña"
+return
+}
+
+btn.disabled=true
+btn.innerText="Verificando..."
 
 fetch("https://script.google.com/macros/s/AKfycbwJggPmovvudEzOD6JE8PjVCvhoHHsuBJfvcf1Iyvw_1hmESAwm-0uqmF_qqetItxHvlw/exec?usuario="+usuario+"&clave="+clave)
 
@@ -108,15 +126,18 @@ fetch("https://script.google.com/macros/s/AKfycbwJggPmovvudEzOD6JE8PjVCvhoHHsuBJ
 
 if(data.status=="ok"){
 
-localStorage.setItem("usuario",usuario)
-localStorage.setItem("nombre",data.nombre)
-localStorage.setItem("curso",data.curso)
+sessionStorage.setItem("usuario",usuario)
+sessionStorage.setItem("nombre",data.nombre)
+sessionStorage.setItem("curso",data.curso)
+sessionStorage.setItem("loginTime",Date.now())
 
-window.location.href="panel.html"
+window.location.replace("panel.html")
 
 }else{
 
-document.getElementById("mensaje").innerText="Usuario o contraseña incorrectos"
+mensaje.innerText="Usuario o contraseña incorrectos"
+btn.disabled=false
+btn.innerText="Ingresar"
 
 }
 
@@ -124,7 +145,9 @@ document.getElementById("mensaje").innerText="Usuario o contraseña incorrectos"
 
 .catch(error => {
 
-document.getElementById("mensaje").innerText="Error de conexión"
+mensaje.innerText="Error de conexión"
+btn.disabled=false
+btn.innerText="Ingresar"
 
 })
 
