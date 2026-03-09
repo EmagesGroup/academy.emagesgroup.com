@@ -161,7 +161,6 @@ EMAGES ACADEMY - Cajero Bancario y Comercial
 
 <script>
 
-// Datos del usuario
 let nombre = localStorage.getItem("nombre")
 let usuario = localStorage.getItem("usuario")
 let curso = "Cajero Bancario y Comercial"
@@ -180,7 +179,6 @@ let intervalo
 
 const bloques = document.querySelectorAll(".bloque")
 
-// Cerrar sesión
 document.getElementById("cerrarSesion").addEventListener("click", function(){
   if(player && typeof player.stopVideo === "function"){
     player.stopVideo()
@@ -189,17 +187,22 @@ document.getElementById("cerrarSesion").addEventListener("click", function(){
   window.location="ingresar.html"
 })
 
-// Obtener progreso y bloque inicial desde Excel
 fetch("https://script.google.com/macros/s/AKfycbwvf9RFU1ko7RWxRB7gyFuJt9IwwkgNb7ICbQDPyxMZncrh5y0iG4-PCfXTYzFN92_NIg/exec?action=obtenerProgreso&usuario="+usuario)
 .then(r => r.json())
 .then(data=>{
+
   progreso = parseInt(data.progreso) || 0
   bloqueInicial = parseInt(data.bloque_inicial) || 1
+
+  // CORRECCIÓN PARA BLOQUE INICIAL 2
+  if(bloqueInicial === 2){
+    progreso = 0
+  }
+
   actualizarBarra()
   actualizarModulos()
 })
 
-// Actualizar barra de progreso
 function actualizarBarra(){
   const modulosBloque = document.querySelectorAll(`.bloque[data-bloque='${bloqueInicial}'] .modulo`)
   let porcentaje = (progreso / modulosBloque.length) * 100
@@ -207,7 +210,6 @@ function actualizarBarra(){
   document.getElementById("barra").style.width = porcentaje + "%"
 }
 
-// Actualizar módulos según bloque inicial y progreso
 function actualizarModulos(){
   bloques.forEach(bloque=>{
     const numBloque = parseInt(bloque.dataset.bloque)
@@ -230,7 +232,6 @@ function actualizarModulos(){
           if(!m.innerText.includes("🔒")) m.innerText = "🔒 " + m.innerText.replace("▶ ","")
         }
       } else {
-        // Otro bloque siempre bloqueado
         m.style.opacity="0.4"
         m.style.pointerEvents="none"
         if(!m.innerText.includes("🔒")) m.innerText = "🔒 " + m.innerText.replace("▶ ","").replace("✔ ","")
@@ -239,7 +240,6 @@ function actualizarModulos(){
   })
 }
 
-// Completar módulo
 function completarModulo(){
   const moduloBtn = document.getElementById("btnCompletar")
   moduloBtn.disabled = true
@@ -269,7 +269,6 @@ function completarModulo(){
   })
 }
 
-// Cargar video
 function cargarVideo(elemento){
   document.getElementById("btnCompletar").disabled = true
   const id = elemento.dataset.video
