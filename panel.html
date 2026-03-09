@@ -300,14 +300,25 @@ fetch(`https://script.google.com/macros/s/AKfycbwvf9RFU1ko7RWxRB7gyFuJt9IwwkgNb7
 
 .then(res => {
     if(res.trim() === "ok"){
+
         actualizarBarra();
         actualizarModulos();
 
-        // Cargar automáticamente el primer módulo del bloque activo
+        // obtener módulos del bloque activo
         const modulos = document.querySelectorAll(`.bloque[data-bloque='${bloqueInicial}'] .modulo`);
+
+        // cargar el módulo correspondiente al progreso actual
         if(modulos.length > 0){
-            cargarVideo(modulos[0]);  // siempre el primer módulo del bloque
+
+            let indice = progreso;
+
+            if(indice >= modulos.length){
+                indice = modulos.length - 1;
+            }
+
+            cargarVideo(modulos[indice]);
         }
+
     }
 })
 
