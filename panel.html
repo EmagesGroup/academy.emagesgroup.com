@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Panel del Estudiante | Emages Academy</title>
@@ -78,7 +77,6 @@ height:80%;
 }
 
 </style>
-
 </head>
 
 <body>
@@ -130,18 +128,22 @@ EMAGES ACADEMY
 let player
 let modulos = document.querySelectorAll(".modulo")
 let progreso = 0
+let bloqueInicial = 0
 
 let usuario = sessionStorage.getItem("usuario")
 
-let acceso = 0
+if(!usuario){
+window.location="ingresar.html"
+}
 
-fetch("https://script.google.com/macros/s/AKfycbwvf9RFU1ko7RWxRB7gyFuJt9IwwkgNb7ICbQDPyxMZncrh5y0iG4-PCfXTYzFN92_NIg/exec?action=acceso&usuario="+usuario)
+// CONSULTAR EXCEL
+fetch("https://script.google.com/macros/s/AKfycbwvf9RFU1ko7RWxRB7gyFuJt9IwwkgNb7ICbQDPyxMZncrh5y0iG4-PCfXTYzFN92_NIg/exec?action=obtenerProgreso&usuario="+usuario)
 
 .then(r=>r.json())
 
 .then(data=>{
 
-acceso = parseInt(data.bloque_inicial)
+bloqueInicial = parseInt(data.bloque_inicial) || 0
 
 controlAcceso()
 
@@ -157,31 +159,27 @@ let modulosBloque = bloque.querySelectorAll(".modulo")
 
 modulosBloque.forEach(m=>{
 
-if(acceso === 0){
-
-m.classList.add("bloqueado")
-m.innerText="🔒 "+m.innerText
-
+if(bloqueInicial === 0){
+bloquear(m)
 }
 
-if(acceso === 1 && num === 2){
-
-m.classList.add("bloqueado")
-m.innerText="🔒 "+m.innerText
-
+if(bloqueInicial === 1 && num === 2){
+bloquear(m)
 }
 
-if(acceso === 2 && num === 1){
-
-m.classList.add("bloqueado")
-m.innerText="🔒 "+m.innerText
-
+if(bloqueInicial === 2 && num === 1){
+bloquear(m)
 }
 
 })
 
 })
 
+}
+
+function bloquear(m){
+m.classList.add("bloqueado")
+m.innerText="🔒 "+m.innerText
 }
 
 function onYouTubeIframeAPIReady(){
@@ -190,6 +188,9 @@ player = new YT.Player('player',{
 height:'500',
 width:'800',
 videoId:'',
+events:{
+'onStateChange':estadoVideo
+}
 })
 
 }
