@@ -26,6 +26,11 @@ padding:20px;
 
 .sidebar h3{
 margin-top:0;
+color:#0b1c3d;
+}
+
+.bloque{
+margin-bottom:25px;
 }
 
 .modulo{
@@ -52,6 +57,13 @@ display:flex;
 flex-direction:column;
 }
 
+header{
+background:#0b1c3d;
+color:white;
+padding:15px 30px;
+font-size:18px;
+}
+
 .video-container{
 flex:1;
 display:flex;
@@ -63,13 +75,6 @@ background:black;
 #player{
 width:90%;
 height:80%;
-}
-
-header{
-background:#0b1c3d;
-color:white;
-padding:15px 30px;
-font-size:18px;
 }
 
 </style>
@@ -125,10 +130,10 @@ EMAGES ACADEMY
 let player
 let modulos = document.querySelectorAll(".modulo")
 let progreso = 0
+
 let usuario = sessionStorage.getItem("usuario")
 
-let bloque1 = 0
-let bloque2 = 0
+let acceso = 0
 
 fetch("https://script.google.com/macros/s/AKfycbwvf9RFU1ko7RWxRB7gyFuJt9IwwkgNb7ICbQDPyxMZncrh5y0iG4-PCfXTYzFN92_NIg/exec?action=acceso&usuario="+usuario)
 
@@ -136,14 +141,13 @@ fetch("https://script.google.com/macros/s/AKfycbwvf9RFU1ko7RWxRB7gyFuJt9IwwkgNb7
 
 .then(data=>{
 
-bloque1 = parseInt(data.bloque1)
-bloque2 = parseInt(data.bloque2)
+acceso = parseInt(data.bloque_inicial)
 
-controlBloques()
+controlAcceso()
 
 })
 
-function controlBloques(){
+function controlAcceso(){
 
 document.querySelectorAll(".bloque").forEach(bloque=>{
 
@@ -153,14 +157,21 @@ let modulosBloque = bloque.querySelectorAll(".modulo")
 
 modulosBloque.forEach(m=>{
 
-if(num===1 && bloque1===0){
+if(acceso === 0){
 
 m.classList.add("bloqueado")
 m.innerText="🔒 "+m.innerText
 
 }
 
-if(num===2 && bloque2===0){
+if(acceso === 1 && num === 2){
+
+m.classList.add("bloqueado")
+m.innerText="🔒 "+m.innerText
+
+}
+
+if(acceso === 2 && num === 1){
 
 m.classList.add("bloqueado")
 m.innerText="🔒 "+m.innerText
@@ -178,10 +189,7 @@ function onYouTubeIframeAPIReady(){
 player = new YT.Player('player',{
 height:'500',
 width:'800',
-videoId:'hUdubWZEgYM',
-events:{
-'onStateChange':estadoVideo
-}
+videoId:'',
 })
 
 }
