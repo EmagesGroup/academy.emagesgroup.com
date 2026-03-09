@@ -133,13 +133,13 @@ height:80%;
 <script>
 
 let player
-let modulos = document.querySelectorAll(".modulo")
+let modulos=document.querySelectorAll(".modulo")
 
-let progreso = 0
-let progresoActual = 0
-let bloqueInicial = 0
+let progreso=0
+let progresoActual=0
+let bloqueInicial=0
 
-let usuario = sessionStorage.getItem("usuario")
+let usuario=sessionStorage.getItem("usuario")
 
 if(!usuario){
 window.location="ingresar.html"
@@ -151,35 +151,30 @@ fetch("https://script.google.com/macros/s/AKfycbwvf9RFU1ko7RWxRB7gyFuJt9IwwkgNb7
 
 .then(data=>{
 
-bloqueInicial = parseInt(data.bloque_inicial) || 0
-progreso = parseInt(data.progreso) || 0
+bloqueInicial=parseInt(data.bloque_inicial)||0
+progreso=parseInt(data.progreso)||0
 
 if(progreso>4) progreso=4
 
 controlAcceso()
 marcarProgreso()
+iniciarVideo()
 
 })
 
 function controlAcceso(){
 
-document.querySelectorAll(".bloque").forEach(bloque=>{
+document.querySelectorAll(".bloque").forEach(b=>{
 
-let num = parseInt(bloque.dataset.bloque)
+let num=parseInt(b.dataset.bloque)
 
-bloque.querySelectorAll(".modulo").forEach(m=>{
+b.querySelectorAll(".modulo").forEach(m=>{
 
-if(bloqueInicial === 0){
-bloquear(m)
-}
+if(bloqueInicial===0) bloquear(m)
 
-if(bloqueInicial === 1 && num === 2){
-bloquear(m)
-}
+if(bloqueInicial===1 && num===2) bloquear(m)
 
-if(bloqueInicial === 2 && num === 1){
-bloquear(m)
-}
+if(bloqueInicial===2 && num===1) bloquear(m)
 
 })
 
@@ -198,43 +193,46 @@ function marcarProgreso(){
 
 if(progreso===0) return
 
-let inicioBloque = 0
+let inicio=0
 
-if(bloqueInicial===2) inicioBloque=4
+if(bloqueInicial===2) inicio=4
 
 for(let i=0;i<progreso;i++){
-modulos[inicioBloque+i].classList.add("visto")
+
+let pos=inicio+i
+
+if(modulos[pos]) modulos[pos].classList.add("visto")
+
 }
 
 }
 
 function onYouTubeIframeAPIReady(){
 
-player = new YT.Player('player',{
+player=new YT.Player('player',{
+
 height:'500',
 width:'800',
-videoId: modulos[0].dataset.video,
+videoId:'',
 events:{
-'onReady': iniciarVideo,
-'onStateChange': estadoVideo
+'onStateChange':estadoVideo
 }
+
 })
 
 }
 
 function iniciarVideo(){
 
-let inicioBloque = 0
+let inicio=0
 
-if(bloqueInicial===2) inicioBloque=4
+if(bloqueInicial===2) inicio=4
 
-let indice = inicioBloque + progreso
+let indice=inicio+progreso
 
-if(indice>=modulos.length){
-indice = modulos.length-1
-}
+if(indice>=modulos.length) indice=modulos.length-1
 
-while(indice<modulos.length && modulos[indice].classList.contains("bloqueado")){
+while(modulos[indice].classList.contains("bloqueado") && indice<modulos.length-1){
 indice++
 }
 
@@ -242,31 +240,25 @@ cargarVideo(modulos[indice],indice)
 
 }
 
-modulos.forEach((modulo,index)=>{
+modulos.forEach((m,i)=>{
 
-modulo.addEventListener("click",()=>{
+m.addEventListener("click",()=>{
 
-if(modulo.classList.contains("bloqueado")) return
+if(m.classList.contains("bloqueado")) return
 
-cargarVideo(modulo,index)
-
-})
+cargarVideo(m,i)
 
 })
 
-function resaltarModulo(index){
-
-modulos.forEach(m=>m.classList.remove("activo"))
-
-modulos[index].classList.add("activo")
-
-}
+})
 
 function cargarVideo(modulo,index){
 
 player.loadVideoById(modulo.dataset.video)
 
-resaltarModulo(index)
+modulos.forEach(m=>m.classList.remove("activo"))
+
+modulo.classList.add("activo")
 
 progresoActual=index
 
@@ -296,7 +288,9 @@ while(siguiente<modulos.length){
 if(!modulos[siguiente].classList.contains("bloqueado")){
 
 setTimeout(()=>{
+
 cargarVideo(modulos[siguiente],siguiente)
+
 },1500)
 
 break
