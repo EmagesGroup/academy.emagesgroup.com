@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Panel del Estudiante | Emages Academy</title>
+<title>Panel del Estudiante</title>
 
 <style>
 
@@ -21,11 +21,6 @@ background:white;
 border-right:1px solid #ddd;
 overflow-y:auto;
 padding:20px;
-}
-
-.sidebar h3{
-margin-top:0;
-color:#0b1c3d;
 }
 
 .bloque{
@@ -111,9 +106,7 @@ height:80%;
 
 <div class="player-area">
 
-<header>
-EMAGES ACADEMY
-</header>
+<header>EMAGES ACADEMY</header>
 
 <div class="video-container">
 <div id="player"></div>
@@ -127,7 +120,7 @@ EMAGES ACADEMY
 
 let player
 let modulos = document.querySelectorAll(".modulo")
-let progreso = 0
+let progreso = -1
 let bloqueInicial = 0
 
 let usuario = sessionStorage.getItem("usuario")
@@ -136,7 +129,6 @@ if(!usuario){
 window.location="ingresar.html"
 }
 
-// CONSULTAR EXCEL
 fetch("https://script.google.com/macros/s/AKfycbwvf9RFU1ko7RWxRB7gyFuJt9IwwkgNb7ICbQDPyxMZncrh5y0iG4-PCfXTYzFN92_NIg/exec?action=obtenerProgreso&usuario="+usuario)
 
 .then(r=>r.json())
@@ -223,19 +215,21 @@ if(event.data === YT.PlayerState.ENDED){
 
 let siguiente = progreso + 1
 
-if(siguiente < modulos.length){
+while(siguiente < modulos.length){
 
-let siguienteModulo = modulos[siguiente]
-
-if(!siguienteModulo.classList.contains("bloqueado")){
+if(!modulos[siguiente].classList.contains("bloqueado")){
 
 setTimeout(()=>{
 
-cargarVideo(siguienteModulo,siguiente)
+cargarVideo(modulos[siguiente],siguiente)
 
 },1500)
 
+break
+
 }
+
+siguiente++
 
 }
 
