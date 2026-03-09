@@ -34,7 +34,7 @@ margin-top:8px;
 border:1px solid #eee;
 cursor:pointer;
 font-size:14px;
-transition:0.3s;
+transition:.3s;
 }
 
 .modulo:hover{
@@ -42,7 +42,7 @@ background:#f3f6ff;
 }
 
 .modulo.bloqueado{
-opacity:0.4;
+opacity:.4;
 pointer-events:none;
 }
 
@@ -130,7 +130,6 @@ let player
 let modulos = document.querySelectorAll(".modulo")
 let progreso = -1
 let bloqueInicial = 0
-
 let usuario = sessionStorage.getItem("usuario")
 
 if(!usuario){
@@ -138,14 +137,11 @@ window.location="ingresar.html"
 }
 
 fetch("https://script.google.com/macros/s/AKfycbwvf9RFU1ko7RWxRB7gyFuJt9IwwkgNb7ICbQDPyxMZncrh5y0iG4-PCfXTYzFN92_NIg/exec?action=obtenerProgreso&usuario="+usuario)
-
 .then(r=>r.json())
 .then(data=>{
 
 bloqueInicial = parseInt(data.bloque_inicial) || 0
-
 controlAcceso()
-iniciarPrimerVideo()
 
 })
 
@@ -154,7 +150,6 @@ function controlAcceso(){
 document.querySelectorAll(".bloque").forEach(bloque=>{
 
 let num = parseInt(bloque.dataset.bloque)
-
 let modulosBloque = bloque.querySelectorAll(".modulo")
 
 modulosBloque.forEach(m=>{
@@ -189,7 +184,8 @@ height:'500',
 width:'800',
 videoId:'',
 events:{
-'onStateChange':estadoVideo
+'onStateChange':estadoVideo,
+'onReady': iniciarPrimerVideo
 }
 })
 
@@ -210,7 +206,6 @@ cargarVideo(modulo,index)
 function resaltarModulo(index){
 
 modulos.forEach(m=>m.classList.remove("activo"))
-
 modulos[index].classList.add("activo")
 
 }
