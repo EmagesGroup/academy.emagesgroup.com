@@ -169,15 +169,15 @@ let num = parseInt(bloque.dataset.bloque)
 
 bloque.querySelectorAll(".modulo").forEach(m=>{
 
-if(bloqueInicial===0){
+if(bloqueInicial === 0){
 bloquear(m)
 }
 
-if(bloqueInicial===1 && num===2){
+if(bloqueInicial === 1 && num === 2){
 bloquear(m)
 }
 
-if(bloqueInicial===2 && num===1){
+if(bloqueInicial === 2 && num === 1){
 bloquear(m)
 }
 
@@ -198,18 +198,12 @@ function marcarProgreso(){
 
 if(progreso===0) return
 
-let inicioBloque=0
+let inicioBloque = 0
 
 if(bloqueInicial===2) inicioBloque=4
 
 for(let i=0;i<progreso;i++){
-
-let pos=inicioBloque+i
-
-if(modulos[pos]){
-modulos[pos].classList.add("visto")
-}
-
+modulos[inicioBloque+i].classList.add("visto")
 }
 
 }
@@ -230,25 +224,31 @@ events:{
 
 function iniciarVideo(){
 
-let inicioBloque=0
+let inicioBloque = 0
 
-if(bloqueInicial===2) inicioBloque=4
-
-let indice=inicioBloque+progreso
-
-if(indice>=modulos.length){
-indice=modulos.length-1
+if(bloqueInicial === 2){
+inicioBloque = 4
 }
 
-while(indice<modulos.length && modulos[indice].classList.contains("bloqueado")){
+let indice = inicioBloque + progreso
+
+if(progreso === 4){
+indice = inicioBloque + 3
+}
+
+if(indice >= modulos.length){
+indice = modulos.length - 1
+}
+
+while(indice < modulos.length && modulos[indice].classList.contains("bloqueado")){
 indice++
 }
 
-if(indice>=modulos.length){
-indice=inicioBloque
+if(indice >= modulos.length){
+indice = inicioBloque
 }
 
-cargarVideo(modulos[indice],indice)
+cargarVideo(modulos[indice], indice)
 
 }
 
