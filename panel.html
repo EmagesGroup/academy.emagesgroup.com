@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+
 <meta charset="UTF-8">
-<title>Academia</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel del Estudiante | Emages Academy</title>
 
 <style>
 
 body{
 margin:0;
 font-family:Arial;
-background:#f4f6f9;
+background:#f4f6fb;
 display:flex;
 height:100vh;
 }
@@ -19,36 +21,29 @@ width:320px;
 background:white;
 border-right:1px solid #ddd;
 overflow-y:auto;
-}
-
-.sidebar h2{
 padding:20px;
-margin:0;
-border-bottom:1px solid #eee;
 }
 
-.bloque{
-padding:10px 20px;
-}
-
-.bloque h3{
-margin-top:20px;
-font-size:16px;
+.sidebar h3{
+margin-top:0;
 }
 
 .modulo{
-padding:10px;
-cursor:pointer;
+padding:12px;
 border-radius:6px;
-margin-bottom:5px;
+margin-top:8px;
+border:1px solid #eee;
+cursor:pointer;
+font-size:14px;
 }
 
 .modulo:hover{
-background:#f1f1f1;
+background:#f3f6ff;
 }
 
-.modulo.activo{
-background:#e7f3ff;
+.modulo.bloqueado{
+opacity:0.4;
+pointer-events:none;
 }
 
 .player-area{
@@ -70,53 +65,26 @@ width:90%;
 height:80%;
 }
 
-.controls{
-padding:20px;
-background:white;
-border-top:1px solid #ddd;
-}
-
-#btnCompletar{
-background:#ff7a00;
-border:none;
+header{
+background:#0b1c3d;
 color:white;
-padding:12px 20px;
-font-size:16px;
-border-radius:6px;
-cursor:pointer;
-}
-
-#btnCompletar:disabled{
-background:#ccc;
-cursor:not-allowed;
-}
-
-.progreso{
-height:8px;
-background:#ddd;
-margin-top:10px;
-border-radius:4px;
-overflow:hidden;
-}
-
-.barra{
-height:100%;
-background:#4caf50;
-width:0%;
+padding:15px 30px;
+font-size:18px;
 }
 
 </style>
+
 </head>
 
 <body>
 
 <div class="sidebar">
 
-<h2>Curso Cajero Bancario</h2>
+<h3>Módulos del Curso</h3>
 
 <div class="bloque" data-bloque="1">
 
-<h3>Bloque Atención al Cliente</h3>
+<h4>BLOQUE ATENCIÓN AL CLIENTE</h4>
 
 <div class="modulo" data-video="hUdubWZEgYM">Semana 1</div>
 <div class="modulo" data-video="o_K7KXqy--s">Semana 2</div>
@@ -127,7 +95,7 @@ width:0%;
 
 <div class="bloque" data-bloque="2">
 
-<h3>Bloque Operaciones Financieras</h3>
+<h4>BLOQUE OPERACIONES FINANCIERAS</h4>
 
 <div class="modulo" data-video="thAF8YBFYhM">Semana 5</div>
 <div class="modulo" data-video="hUdubWZEgYM">Semana 6</div>
@@ -140,20 +108,12 @@ width:0%;
 
 <div class="player-area">
 
+<header>
+EMAGES ACADEMY
+</header>
+
 <div class="video-container">
 <div id="player"></div>
-</div>
-
-<div class="controls">
-
-<button id="btnCompletar" disabled>
-Marcar módulo como completado
-</button>
-
-<div class="progreso">
-<div class="barra" id="barra"></div>
-</div>
-
 </div>
 
 </div>
@@ -165,6 +125,53 @@ Marcar módulo como completado
 let player
 let modulos = document.querySelectorAll(".modulo")
 let progreso = 0
+let usuario = sessionStorage.getItem("usuario")
+
+let bloque1 = 0
+let bloque2 = 0
+
+fetch("https://script.google.com/macros/s/AKfycbwvf9RFU1ko7RWxRB7gyFuJt9IwwkgNb7ICbQDPyxMZncrh5y0iG4-PCfXTYzFN92_NIg/exec?action=acceso&usuario="+usuario)
+
+.then(r=>r.json())
+
+.then(data=>{
+
+bloque1 = parseInt(data.bloque1)
+bloque2 = parseInt(data.bloque2)
+
+controlBloques()
+
+})
+
+function controlBloques(){
+
+document.querySelectorAll(".bloque").forEach(bloque=>{
+
+let num = parseInt(bloque.dataset.bloque)
+
+let modulosBloque = bloque.querySelectorAll(".modulo")
+
+modulosBloque.forEach(m=>{
+
+if(num===1 && bloque1===0){
+
+m.classList.add("bloqueado")
+m.innerText="🔒 "+m.innerText
+
+}
+
+if(num===2 && bloque2===0){
+
+m.classList.add("bloqueado")
+m.innerText="🔒 "+m.innerText
+
+}
+
+})
+
+})
+
+}
 
 function onYouTubeIframeAPIReady(){
 
@@ -183,6 +190,8 @@ modulos.forEach((modulo,index)=>{
 
 modulo.addEventListener("click",()=>{
 
+if(modulo.classList.contains("bloqueado")) return
+
 cargarVideo(modulo,index)
 
 })
@@ -190,9 +199,6 @@ cargarVideo(modulo,index)
 })
 
 function cargarVideo(modulo,index){
-
-modulos.forEach(m=>m.classList.remove("activo"))
-modulo.classList.add("activo")
 
 let videoID = modulo.dataset.video
 
@@ -206,58 +212,27 @@ function estadoVideo(event){
 
 if(event.data === YT.PlayerState.ENDED){
 
-guardarProgreso()
-
 let siguiente = progreso + 1
 
 if(siguiente < modulos.length){
 
+let siguienteModulo = modulos[siguiente]
+
+if(!siguienteModulo.classList.contains("bloqueado")){
+
 setTimeout(()=>{
 
-cargarVideo(modulos[siguiente],siguiente)
+cargarVideo(siguienteModulo,siguiente)
 
 },1500)
 
 }
 
-if(progreso === 3 || progreso === 7){
-
-document.getElementById("btnCompletar").disabled=false
-
 }
 
 }
 
 }
-
-function guardarProgreso(){
-
-fetch("TU_SCRIPT_GOOGLE_APPS_SCRIPT",{
-method:"POST",
-body:JSON.stringify({
-video:progreso
-})
-})
-
-actualizarBarra()
-
-}
-
-function actualizarBarra(){
-
-let porcentaje = ((progreso+1)/modulos.length)*100
-
-document.getElementById("barra").style.width=porcentaje+"%"
-
-}
-
-document.getElementById("btnCompletar").addEventListener("click",()=>{
-
-alert("Bloque completado, se desbloquea el siguiente")
-
-location.reload()
-
-})
 
 </script>
 
