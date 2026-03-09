@@ -37,7 +37,7 @@ cursor:pointer;
 
 .container{
 padding:40px;
-max-width:1000px;
+max-width:1200px;
 margin:auto;
 }
 
@@ -47,26 +47,6 @@ padding:30px;
 border-radius:10px;
 box-shadow:0 10px 25px rgba(0,0,0,0.1);
 margin-bottom:25px;
-}
-
-.bloque{
-margin-top:20px;
-}
-
-.modulo{
-border:1px solid #eee;
-padding:15px;
-border-radius:8px;
-margin-top:10px;
-cursor:pointer;
-}
-
-.modulo:hover{
-background:#f7f7f7;
-}
-
-.video{
-margin-top:20px;
 }
 
 .progreso{
@@ -83,9 +63,66 @@ background:#ff7a00;
 width:0%;
 }
 
+/* NUEVO DISEÑO */
+
+.curso-layout{
+display:flex;
+gap:30px;
+margin-top:10px;
+}
+
+.sidebar{
+width:320px;
+background:#fafafa;
+border-radius:10px;
+padding:20px;
+max-height:500px;
+overflow-y:auto;
+box-shadow:0 5px 15px rgba(0,0,0,0.08);
+}
+
+.sidebar h3{
+margin-top:0;
+color:#0b1c3d;
+}
+
+.sidebar h4{
+margin-top:20px;
+font-size:14px;
+color:#666;
+}
+
+.modulo{
+background:white;
+border:1px solid #eee;
+padding:12px;
+border-radius:8px;
+margin-top:8px;
+cursor:pointer;
+transition:all .2s;
+font-size:14px;
+}
+
+.modulo:hover{
+background:#f3f6ff;
+border-color:#d9e1ff;
+}
+
+.video-area{
+flex:1;
+}
+
+#player{
+width:100%;
+height:420px;
+background:black;
+border-radius:10px;
+box-shadow:0 10px 25px rgba(0,0,0,0.15);
+}
+
 button{
-margin-top:15px;
-padding:12px 20px;
+margin-top:20px;
+padding:12px 25px;
 background:#ff7a00;
 border:none;
 color:white;
@@ -127,6 +164,10 @@ EMAGES ACADEMY - Cajero Bancario y Comercial
 
 <div class="card">
 
+<div class="curso-layout">
+
+<div class="sidebar">
+
 <h3>Módulos del curso</h3>
 
 <div class="bloque" data-bloque="1">
@@ -145,7 +186,10 @@ EMAGES ACADEMY - Cajero Bancario y Comercial
 <div class="modulo" data-video="UYQ8RwQLZFw">🔒 Operaciones Financieras - Semana 4</div>
 </div>
 
-<div class="video">
+</div>
+
+<div class="video-area">
+
 <div id="player"></div>
 
 <button id="btnCompletar" onclick="completarModulo()" disabled>
@@ -155,6 +199,9 @@ Marcar módulo como completado
 </div>
 
 </div>
+
+</div>
+
 </div>
 
 <script src="https://www.youtube.com/iframe_api"></script>
@@ -287,21 +334,18 @@ progreso = progreso + 1
 const modulosBloque=document.querySelectorAll(`.bloque[data-bloque='${bloqueInicial}'] .modulo`)
 
 if (progreso >= modulosBloque.length) {
-    // Cambiar al siguiente bloque
-    bloqueInicial = bloqueInicial === 1 ? 2 : 1;
-    progreso = 0;
+bloqueInicial = bloqueInicial === 1 ? 2 : 1;
+progreso = 0;
 }
-
-console.log("GUARDANDO:", usuario, progreso, bloqueInicial)
 
 fetch(`https://script.google.com/macros/s/AKfycbwvf9RFU1ko7RWxRB7gyFuJt9IwwkgNb7ICbQDPyxMZncrh5y0iG4-PCfXTYzFN92_NIg/exec?action=guardarProgreso&usuario=${usuario}&progreso=${progreso}&bloque_inicial=${bloqueInicial}`)
 
 .then(r=>r.text())
 
 .then(res => {
-    if(res.trim() === "ok"){
-        location.reload();
-    }
+if(res.trim() === "ok"){
+location.reload();
+}
 })
 
 }
@@ -318,7 +362,7 @@ player.destroy()
 
 player=new YT.Player('player',{
 
-height:'400',
+height:'420',
 width:'100%',
 videoId:id,
 
