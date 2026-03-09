@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Panel del Estudiante</title>
 
 <style>
@@ -51,6 +52,12 @@ background:#2d6cdf;
 color:white;
 border-color:#2d6cdf;
 font-weight:bold;
+}
+
+.modulo.visto{
+background:#dbe7ff;
+border-color:#9bb8ff;
+color:#1a3c8f;
 }
 
 .player-area{
@@ -128,7 +135,7 @@ height:80%;
 
 let player
 let modulos = document.querySelectorAll(".modulo")
-let progreso = -1
+let progreso = 0
 let bloqueInicial = 0
 let usuario = sessionStorage.getItem("usuario")
 
@@ -137,11 +144,16 @@ window.location="ingresar.html"
 }
 
 fetch("https://script.google.com/macros/s/AKfycbwvf9RFU1ko7RWxRB7gyFuJt9IwwkgNb7ICbQDPyxMZncrh5y0iG4-PCfXTYzFN92_NIg/exec?action=obtenerProgreso&usuario="+usuario)
+
 .then(r=>r.json())
+
 .then(data=>{
 
 bloqueInicial = parseInt(data.bloque_inicial) || 0
+progreso = parseInt(data.progreso) || 0
+
 controlAcceso()
+marcarProgreso()
 
 })
 
@@ -150,9 +162,8 @@ function controlAcceso(){
 document.querySelectorAll(".bloque").forEach(bloque=>{
 
 let num = parseInt(bloque.dataset.bloque)
-let modulosBloque = bloque.querySelectorAll(".modulo")
 
-modulosBloque.forEach(m=>{
+bloque.querySelectorAll(".modulo").forEach(m=>{
 
 if(bloqueInicial === 0){
 bloquear(m)
@@ -166,6 +177,8 @@ if(bloqueInicial === 2 && num === 1){
 bloquear(m)
 }
 
+/* bloque_inicial 3 no bloquea nada */
+
 })
 
 })
@@ -173,8 +186,40 @@ bloquear(m)
 }
 
 function bloquear(m){
+
 m.classList.add("bloqueado")
 m.innerText="🔒 "+m.innerText
+
+}
+
+function marcarProgreso(){
+
+if(progreso === 0) return
+
+if(bloqueInicial === 1){
+
+for(let i=0;i<progreso;i++){
+modulos[i].classList.add("visto")
+}
+
+}
+
+if(bloqueInicial === 2){
+
+for(let i=4;i<4+progreso;i++){
+modulos[i].classList.add("visto")
+}
+
+}
+
+if(bloqueInicial === 3){
+
+for(let i=0;i<progreso;i++){
+modulos[i].classList.add("visto")
+}
+
+}
+
 }
 
 function onYouTubeIframeAPIReady(){
@@ -185,9 +230,25 @@ width:'800',
 videoId:'',
 events:{
 'onStateChange':estadoVideo,
-'onReady': iniciarPrimerVideo
+'onReady': iniciarVideo
 }
 })
+
+}
+
+function iniciarVideo(){
+
+let inicio = 0
+
+if(bloqueInicial === 2){
+inicio = 4
+}
+
+if(progreso>0){
+inicio += progreso
+}
+
+cargarVideo(modulos[inicio],inicio)
 
 }
 
@@ -206,42 +267,41 @@ cargarVideo(modulo,index)
 function resaltarModulo(index){
 
 modulos.forEach(m=>m.classList.remove("activo"))
+
 modulos[index].classList.add("activo")
 
 }
 
 function cargarVideo(modulo,index){
 
-let videoID = modulo.dataset.video
-
-player.loadVideoById(videoID)
-
-progreso = index
+player.loadVideoById(modulo.dataset.video)
 
 resaltarModulo(index)
 
-}
-
-function iniciarPrimerVideo(){
-
-for(let i=0;i<modulos.length;i++){
-
-if(!modulos[i].classList.contains("bloqueado")){
-cargarVideo(modulos[i],i)
-break
-}
+progresoActual=index
 
 }
+
+function guardarProgreso(indice){
+
+let progresoBloque=(indice%4)+1
+
+fetch("https://script.google.com/macros/s/AKfycbwvf9RFU1ko7RWxRB7gyFuJt9IwwkgNb7ICbQDPyxMZncrh5y0iG4-PCfXTYzFN92_NIg/exec?action=guardarProgreso&usuario="+usuario+"&progreso="+progresoBloque)
 
 }
 
 function estadoVideo(event){
 
-if(event.data === YT.PlayerState.ENDED){
+if(event.data===YT.PlayerState.ENDED){
 
-let siguiente = progreso + 1
+modulos[progresoActual].classList.remove("activo")
+modulos[progresoActual].classList.add("visto")
 
-while(siguiente < modulos.length){
+guardarProgreso(progresoActual)
+
+let siguiente=progresoActual+1
+
+while(siguiente<modulos.length){
 
 if(!modulos[siguiente].classList.contains("bloqueado")){
 
