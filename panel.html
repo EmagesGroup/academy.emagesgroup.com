@@ -154,6 +154,8 @@ fetch("https://script.google.com/macros/s/AKfycbwvf9RFU1ko7RWxRB7gyFuJt9IwwkgNb7
 bloqueInicial = parseInt(data.bloque_inicial) || 0
 progreso = parseInt(data.progreso) || 0
 
+if(progreso>4) progreso=4
+
 controlAcceso()
 marcarProgreso()
 
@@ -194,30 +196,14 @@ m.innerText="🔒 "+m.innerText
 
 function marcarProgreso(){
 
-if(progreso === 0) return
+if(progreso===0) return
 
-if(bloqueInicial === 1){
+let inicioBloque = 0
 
-for(let i=0;i<progreso;i++){
-modulos[i].classList.add("visto")
-}
-
-}
-
-if(bloqueInicial === 2){
-
-for(let i=4;i<4+progreso;i++){
-modulos[i].classList.add("visto")
-}
-
-}
-
-if(bloqueInicial === 3){
+if(bloqueInicial===2) inicioBloque=4
 
 for(let i=0;i<progreso;i++){
-modulos[i].classList.add("visto")
-}
-
+modulos[inicioBloque+i].classList.add("visto")
 }
 
 }
@@ -229,8 +215,8 @@ height:'500',
 width:'800',
 videoId:'',
 events:{
-'onStateChange':estadoVideo,
-'onReady': iniciarVideo
+'onReady': iniciarVideo,
+'onStateChange': estadoVideo
 }
 })
 
@@ -238,29 +224,25 @@ events:{
 
 function iniciarVideo(){
 
-let inicio = 0
+let inicioBloque = 0
 
-if(bloqueInicial === 2){
-inicio = 4
+if(bloqueInicial===2) inicioBloque=4
+
+let indice = inicioBloque + progreso
+
+if(indice>=modulos.length){
+indice = modulos.length-1
 }
 
-if(bloqueInicial === 3){
-inicio = 0
+while(indice<modulos.length && modulos[indice].classList.contains("bloqueado")){
+indice++
 }
 
-inicio += progreso
-
-if(inicio >= modulos.length){
-inicio = modulos.length - 1
+if(indice>=modulos.length){
+indice=inicioBloque
 }
 
-while(inicio < modulos.length && modulos[inicio].classList.contains("bloqueado")){
-inicio++
-}
-
-if(inicio < modulos.length){
-cargarVideo(modulos[inicio],inicio)
-}
+cargarVideo(modulos[indice],indice)
 
 }
 
