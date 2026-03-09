@@ -286,13 +286,10 @@ progreso = progreso + 1
 
 const modulosBloque=document.querySelectorAll(`.bloque[data-bloque='${bloqueInicial}'] .modulo`)
 
-if(progreso>=modulosBloque.length){
-
-if(bloqueInicial===2){
-bloqueInicial=1
-progreso=0
-}
-
+if (progreso >= modulosBloque.length) {
+    // Cambiar al siguiente bloque
+    bloqueInicial = bloqueInicial === 1 ? 2 : 1;
+    progreso = 0;
 }
 
 console.log("GUARDANDO:", usuario, progreso, bloqueInicial)
@@ -301,22 +298,17 @@ fetch(`https://script.google.com/macros/s/AKfycbwvf9RFU1ko7RWxRB7gyFuJt9IwwkgNb7
 
 .then(r=>r.text())
 
-.then(res=>{
+.then(res => {
+    if(res.trim() === "ok"){
+        actualizarBarra();
+        actualizarModulos();
 
-if(res.trim()==="ok"){
-
-actualizarBarra()
-actualizarModulos()
-
-const modulos=document.querySelectorAll(`.bloque[data-bloque='${bloqueInicial}'] .modulo`)
-const siguiente=modulos[progreso]
-
-if(siguiente){
-cargarVideo(siguiente)
-}
-
-}
-
+        // Cargar automáticamente el primer módulo del bloque activo
+        const modulos = document.querySelectorAll(`.bloque[data-bloque='${bloqueInicial}'] .modulo`);
+        if(modulos.length > 0){
+            cargarVideo(modulos[0]);  // siempre el primer módulo del bloque
+        }
+    }
 })
 
 }
