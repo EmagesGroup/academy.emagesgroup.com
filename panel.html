@@ -330,6 +330,10 @@ document.getElementById("btnCompletar").disabled=true
 
 const id=elemento.dataset.video
 
+if(player){
+player.destroy()
+}
+
 player=new YT.Player('player',{
 
 height:'400',
