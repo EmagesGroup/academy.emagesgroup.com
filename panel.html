@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-
 <html lang="es">
-
 <head>
 
 <meta charset="UTF-8">
@@ -22,6 +20,19 @@ background:#0b1c3d;
 color:white;
 padding:15px 40px;
 font-size:18px;
+position:relative;
+}
+
+header button{
+position:absolute;
+right:40px;
+top:12px;
+padding:5px 10px;
+background:#ff0000;
+color:white;
+border:none;
+border-radius:4px;
+cursor:pointer;
 }
 
 .container{
@@ -36,6 +47,10 @@ padding:30px;
 border-radius:10px;
 box-shadow:0 10px 25px rgba(0,0,0,0.1);
 margin-bottom:25px;
+}
+
+.bloque{
+margin-top:20px;
 }
 
 .modulo{
@@ -65,7 +80,22 @@ margin-top:10px;
 .barra{
 height:100%;
 background:#ff7a00;
-width:20%;
+width:0%;
+}
+
+button{
+margin-top:15px;
+padding:12px 20px;
+background:#ff7a00;
+border:none;
+color:white;
+border-radius:6px;
+cursor:pointer;
+}
+
+button:disabled{
+background:#ccc;
+cursor:not-allowed;
 }
 
 </style>
@@ -75,7 +105,8 @@ width:20%;
 <body>
 
 <header>
-EMAGES ACADEMY
+EMAGES ACADEMY - Cajero Bancario y Comercial
+<button id="cerrarSesion">Cerrar sesión</button>
 </header>
 
 <div class="container">
@@ -98,107 +129,226 @@ EMAGES ACADEMY
 
 <h3>Módulos del curso</h3>
 
-<div class="modulo" onclick="cargarVideo('SXXVvQZpXNc')">
-▶ Introducción al curso
+<div class="bloque" data-bloque="1">
+<h4>BLOQUE ATENCIÓN AL CLIENTE</h4>
+<div class="modulo" data-video="hUdubWZEgYM">🔒 Atención al Cliente - Semana 1</div>
+<div class="modulo" data-video="o_K7KXqy--s">🔒 Atención al Cliente - Semana 2</div>
+<div class="modulo" data-video="NWV_aCHRdB4">🔒 Atención al Cliente - Semana 3</div>
+<div class="modulo" data-video="UYQ8RwQLZFw">🔒 Atención al Cliente - Semana 4</div>
 </div>
 
-<div class="modulo" onclick="cargarVideo('SXXVvQZpXNc')">
-▶ Sistema financiero
-</div>
-
-<div class="modulo" onclick="cargarVideo('SXXVvQZpXNc')">
-▶ Operaciones bancarias
+<div class="bloque" data-bloque="2">
+<h4>BLOQUE OPERACIONES FINANCIERAS</h4>
+<div class="modulo" data-video="thAF8YBFYhM">🔒 Operaciones Financieras - Semana 1</div>
+<div class="modulo" data-video="hUdubWZEgYM">🔒 Operaciones Financieras - Semana 2</div>
+<div class="modulo" data-video="NWV_aCHRdB4">🔒 Operaciones Financieras - Semana 3</div>
+<div class="modulo" data-video="UYQ8RwQLZFw">🔒 Operaciones Financieras - Semana 4</div>
 </div>
 
 <div class="video">
+<div id="player"></div>
 
-<iframe id="video"
-width="100%"
-height="400"
-src=""
-frameborder="0"
-allowfullscreen>
-</iframe>
-
-<button onclick="completarModulo()">
+<button id="btnCompletar" onclick="completarModulo()" disabled>
 Marcar módulo como completado
 </button>
 
 </div>
 
 </div>
-
 </div>
+
+<script src="https://www.youtube.com/iframe_api"></script>
 
 <script>
 
-let nombre = localStorage.getItem("nombre")
-let curso = localStorage.getItem("curso")
+let nombre = sessionStorage.getItem("nombre")
+let usuario = sessionStorage.getItem("usuario")
+let curso = "Cajero Bancario y Comercial"
 
-if(!nombre){
+if(!nombre || !usuario){
 window.location="ingresar.html"
 }
 
-document.getElementById("bienvenida").innerText="Bienvenido "+nombre
-document.getElementById("curso").innerText=curso
+document.getElementById("bienvenida").innerText = "Bienvenido " + nombre
+document.getElementById("curso").innerText = curso
 
-let progreso = localStorage.getItem("progreso")
+let bloqueInicial = 1
+let progreso = 0
+let player
+let intervalo
 
-if(!progreso){
-progreso = 1
-localStorage.setItem("progreso",1)
+const TOTAL_VIDEOS = 8
+
+const bloques = document.querySelectorAll(".bloque")
+
+document.getElementById("cerrarSesion").addEventListener("click",function(){
+
+if(player && typeof player.stopVideo==="function"){
+player.stopVideo()
 }
 
-actualizarModulos()
+sessionStorage.clear()
+window.location="ingresar.html"
+
+})
+
+fetch("https://script.google.com/macros/s/AKfycbwvf9RFU1ko7RWxRB7gyFuJt9IwwkgNb7ICbQDPyxMZncrh5y0iG4-PCfXTYzFN92_NIg/exec?action=obtenerProgreso&usuario="+usuario)
+
+.then(r=>r.json())
+
+.then(data=>{
+
+progreso=parseInt(data.progreso)||0
+bloqueInicial=parseInt(data.bloque_inicial)||1
+
 actualizarBarra()
+actualizarModulos()
+
+})
+
+function actualizarBarra(){
+
+let progresoTotal=progreso
+
+if(bloqueInicial===1){
+progresoTotal=progreso+4
+}
+
+let porcentaje=(progresoTotal/TOTAL_VIDEOS)*100
+
+document.getElementById("barra").style.width=porcentaje+"%"
+
+}
 
 function actualizarModulos(){
 
-let modulos = document.querySelectorAll(".modulo")
+bloques.forEach(bloque=>{
+
+const numBloque=parseInt(bloque.dataset.bloque)
+const modulos=bloque.querySelectorAll(".modulo")
 
 modulos.forEach((m,i)=>{
 
-if(i+1 <= progreso){
+if(numBloque===bloqueInicial){
+
+if(i<progreso){
 
 m.style.opacity="1"
 m.style.pointerEvents="auto"
+m.innerText="✔ "+m.innerText.replace("▶ ","").replace("🔒 ","")
+m.onclick=()=>cargarVideo(m)
 
-}else{
+}
+
+else if(i===progreso){
+
+m.style.opacity="1"
+m.style.pointerEvents="auto"
+m.innerText="▶ "+m.innerText.replace("🔒 ","")
+m.onclick=()=>cargarVideo(m)
+
+}
+
+else{
 
 m.style.opacity="0.4"
 m.style.pointerEvents="none"
 
+if(!m.innerText.includes("🔒"))
+m.innerText="🔒 "+m.innerText.replace("▶ ","")
+
+}
+
+}
+
+else{
+
+m.style.opacity="0.4"
+m.style.pointerEvents="none"
+
+if(!m.innerText.includes("🔒"))
+m.innerText="🔒 "+m.innerText.replace("▶ ","").replace("✔ ","")
+
+}
+
+})
+
+})
+
+}
+
+function completarModulo(){
+
+const moduloBtn=document.getElementById("btnCompletar")
+moduloBtn.disabled=true
+
+progreso = progreso + 1
+
+const modulosBloque=document.querySelectorAll(`.bloque[data-bloque='${bloqueInicial}'] .modulo`)
+
+if (progreso >= modulosBloque.length) {
+    // Cambiar al siguiente bloque
+    bloqueInicial = bloqueInicial === 1 ? 2 : 1;
+    progreso = 0;
+}
+
+console.log("GUARDANDO:", usuario, progreso, bloqueInicial)
+
+fetch(`https://script.google.com/macros/s/AKfycbwvf9RFU1ko7RWxRB7gyFuJt9IwwkgNb7ICbQDPyxMZncrh5y0iG4-PCfXTYzFN92_NIg/exec?action=guardarProgreso&usuario=${usuario}&progreso=${progreso}&bloque_inicial=${bloqueInicial}`)
+
+.then(r=>r.text())
+
+.then(res => {
+    if(res.trim() === "ok"){
+        location.reload();
+    }
+})
+
+}
+
+function cargarVideo(elemento){
+
+document.getElementById("btnCompletar").disabled=true
+
+const id=elemento.dataset.video
+
+if(player){
+player.destroy()
+}
+
+player=new YT.Player('player',{
+
+height:'400',
+width:'100%',
+videoId:id,
+
+events:{
+'onReady':iniciarControl
 }
 
 })
 
 }
 
-function actualizarBarra(){
+function iniciarControl(){
 
-let total = 3
-let porcentaje = (progreso/total)*100
+if(intervalo)clearInterval(intervalo)
 
-document.getElementById("barra").style.width = porcentaje+"%"
+intervalo=setInterval(function(){
 
-}
+let duracion=player.getDuration()
+let actual=player.getCurrentTime()
 
-function completarModulo(){
+let porcentaje=(actual/duracion)*100
 
-progreso++
+if(porcentaje>=80){
 
-localStorage.setItem("progreso",progreso)
-
-actualizarModulos()
-actualizarBarra()
-
-alert("Módulo completado")
+document.getElementById("btnCompletar").disabled=false
+clearInterval(intervalo)
 
 }
 
-function cargarVideo(id){
-
-document.getElementById("video").src="https://www.youtube.com/embed/"+id
+},1000)
 
 }
 
