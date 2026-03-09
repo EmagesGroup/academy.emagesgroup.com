@@ -161,11 +161,11 @@ Marcar módulo como completado
 
 <script>
 
-let nombre = localStorage.getItem("nombre")
-let usuario = localStorage.getItem("usuario")
+let nombre = sessionStorage.getItem("nombre")
+let usuario = sessionStorage.getItem("usuario")
 let curso = "Cajero Bancario y Comercial"
 
-if(!nombre){
+if(!nombre || !usuario){
 window.location="ingresar.html"
 }
 
@@ -187,7 +187,7 @@ if(player && typeof player.stopVideo==="function"){
 player.stopVideo()
 }
 
-localStorage.clear()
+sessionStorage.clear()
 window.location="ingresar.html"
 
 })
