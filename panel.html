@@ -129,7 +129,6 @@ EMAGES ACADEMY - Cajero Bancario y Comercial
 
 <h3>Módulos del curso</h3>
 
-<!-- BLOQUE 1 -->
 <div class="bloque" data-bloque="1">
   <h4>BLOQUE ATENCIÓN AL CLIENTE</h4>
   <div class="modulo" data-video="hUdubWZEgYM">🔒 Atención al Cliente - Semana 1</div>
@@ -138,13 +137,12 @@ EMAGES ACADEMY - Cajero Bancario y Comercial
   <div class="modulo" data-video="UYQ8RwQLZFw">🔒 Atención al Cliente - Semana 4</div>
 </div>
 
-<!-- BLOQUE 2 -->
 <div class="bloque" data-bloque="2">
   <h4>BLOQUE OPERACIONES FINANCIERAS</h4>
   <div class="modulo" data-video="thAF8YBFYhM">🔒 Operaciones Financieras - Semana 1</div>
-  <div class="modulo" data-video="https://youtu.be/hUdubWZEgYM">🔒 Operaciones Financieras - Semana 2</div>
-  <div class="modulo" data-video="https://youtu.be/hUdubWZEgYM">🔒 Operaciones Financieras - Semana 3</div>
-  <div class="modulo" data-video="https://youtu.be/hUdubWZEgYM">🔒 Operaciones Financieras - Semana 4</div>
+  <div class="modulo" data-video="hUdubWZEgYM">🔒 Operaciones Financieras - Semana 2</div>
+  <div class="modulo" data-video="hUdubWZEgYM">🔒 Operaciones Financieras - Semana 3</div>
+  <div class="modulo" data-video="hUdubWZEgYM">🔒 Operaciones Financieras - Semana 4</div>
 </div>
 
 <div class="video">
@@ -194,13 +192,13 @@ fetch("https://script.google.com/macros/s/AKfycbwvf9RFU1ko7RWxRB7gyFuJt9IwwkgNb7
   progreso = parseInt(data.progreso) || 0
   bloqueInicial = parseInt(data.bloque_inicial) || 1
 
-  // CORRECCIÓN PARA BLOQUE INICIAL 2
   if(bloqueInicial === 2){
     progreso = 0
   }
 
   actualizarBarra()
   actualizarModulos()
+
 })
 
 function actualizarBarra(){
@@ -214,83 +212,129 @@ function actualizarModulos(){
   bloques.forEach(bloque=>{
     const numBloque = parseInt(bloque.dataset.bloque)
     const modulos = bloque.querySelectorAll(".modulo")
+
     modulos.forEach((m,i)=>{
-      if(numBloque === bloqueInicial){ 
+
+      if(numBloque === bloqueInicial){
+
         if(i < progreso){
           m.style.opacity="1"
           m.style.pointerEvents="auto"
           m.innerText = "✔ " + m.innerText.replace("▶ ","").replace("🔒 ","")
           m.onclick = () => cargarVideo(m)
-        } else if(i === progreso){
+        }
+
+        else if(i === progreso){
           m.style.opacity="1"
           m.style.pointerEvents="auto"
           m.innerText = "▶ " + m.innerText.replace("🔒 ","")
           m.onclick = () => cargarVideo(m)
-        } else {
+        }
+
+        else{
           m.style.opacity="0.4"
           m.style.pointerEvents="none"
-          if(!m.innerText.includes("🔒")) m.innerText = "🔒 " + m.innerText.replace("▶ ","")
+          if(!m.innerText.includes("🔒"))
+          m.innerText = "🔒 " + m.innerText.replace("▶ ","")
         }
-      } else {
+
+      }else{
+
         m.style.opacity="0.4"
         m.style.pointerEvents="none"
-        if(!m.innerText.includes("🔒")) m.innerText = "🔒 " + m.innerText.replace("▶ ","").replace("✔ ","")
+
+        if(!m.innerText.includes("🔒"))
+        m.innerText = "🔒 " + m.innerText.replace("▶ ","").replace("✔ ","")
+
       }
+
     })
+
   })
 }
 
 function completarModulo(){
+
   const moduloBtn = document.getElementById("btnCompletar")
   moduloBtn.disabled = true
+
   progreso++
 
   const modulosBloque = document.querySelectorAll(`.bloque[data-bloque='${bloqueInicial}'] .modulo`)
-  
-  if(progreso > modulosBloque.length){
-    bloqueInicial = bloqueInicial === 1 ? 2 : 1
+
+  if(progreso >= modulosBloque.length){
+
+    bloqueInicial = 2
     progreso = 0
+
   }
 
   fetch(`https://script.google.com/macros/s/AKfycbwvf9RFU1ko7RWxRB7gyFuJt9IwwkgNb7ICbQDPyxMZncrh5y0iG4-PCfXTYzFN92_NIg/exec?action=guardarProgreso&usuario=${usuario}&progreso=${progreso}&bloque_inicial=${bloqueInicial}`)
   .then(r=>r.text())
   .then(res=>{
+
     if(res.trim()==="ok"){
+
       actualizarBarra()
       actualizarModulos()
-      alert("Módulo completado")
-    } else {
+
+      const siguiente = document.querySelector(
+        `.bloque[data-bloque='${bloqueInicial}'] .modulo:nth-child(${progreso+1})`
+      )
+
+      if(siguiente){
+        cargarVideo(siguiente)
+      }
+
+    }else{
+
       alert("Error guardando progreso: "+res)
       progreso--
+
     }
+
   }).catch(err=>{
     alert("Error de conexión: "+err)
     progreso--
   })
+
 }
 
 function cargarVideo(elemento){
+
   document.getElementById("btnCompletar").disabled = true
+
   const id = elemento.dataset.video
+
   player = new YT.Player('player',{
     height:'400',
     width:'100%',
     videoId:id,
     events:{'onReady':iniciarControl}
   })
+
 }
 
 function iniciarControl(){
+
   if(intervalo) clearInterval(intervalo)
+
   intervalo = setInterval(function(){
+
     let duracion = player.getDuration()
     let actual = player.getCurrentTime()
+
     let porcentaje = (actual/duracion)*100
+
     if(porcentaje >= 80){
+
       document.getElementById("btnCompletar").disabled = false
       clearInterval(intervalo)
+
     }
+
   },1000)
+
 }
 
 </script>
