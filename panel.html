@@ -1,398 +1,186 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Panel del Estudiante | Emages Academy</title>
+<title>Panel Curso</title>
 
 <style>
-
 body{
 font-family:Arial;
-background:#f4f6fb;
 margin:0;
-}
-
-header{
-background:#0b1c3d;
-color:white;
-padding:15px 40px;
-font-size:18px;
-position:relative;
-}
-
-header button{
-position:absolute;
-right:40px;
-top:12px;
-padding:5px 10px;
-background:#ff0000;
-color:white;
-border:none;
-border-radius:4px;
-cursor:pointer;
-}
-
-.container{
-padding:40px;
-max-width:1200px;
-margin:auto;
-}
-
-.card{
-background:white;
-padding:30px;
-border-radius:10px;
-box-shadow:0 10px 25px rgba(0,0,0,0.1);
-margin-bottom:25px;
-}
-
-.progreso{
-height:20px;
-background:#ddd;
-border-radius:10px;
-overflow:hidden;
-margin-top:10px;
-}
-
-.barra{
-height:100%;
-background:#ff7a00;
-width:0%;
-}
-
-/* NUEVO DISEÑO */
-
-.curso-layout{
 display:flex;
-gap:30px;
-margin-top:10px;
+height:100vh;
 }
 
 .sidebar{
-width:320px;
-background:#fafafa;
-border-radius:10px;
+width:300px;
+background:#f4f4f4;
 padding:20px;
-max-height:500px;
 overflow-y:auto;
-box-shadow:0 5px 15px rgba(0,0,0,0.08);
-}
-
-.sidebar h3{
-margin-top:0;
-color:#0b1c3d;
-}
-
-.sidebar h4{
-margin-top:20px;
-font-size:14px;
-color:#666;
 }
 
 .modulo{
-background:white;
-border:1px solid #eee;
-padding:12px;
-border-radius:8px;
-margin-top:8px;
+padding:10px;
+border:1px solid #ccc;
+margin-bottom:8px;
 cursor:pointer;
-transition:all .2s;
-font-size:14px;
 }
 
-.modulo:hover{
-background:#f3f6ff;
-border-color:#d9e1ff;
+.modulo.bloqueado{
+opacity:0.4;
+pointer-events:none;
 }
 
-.video-area{
+.modulo.visto{
+background:#cfe2ff;
+}
+
+.modulo.activo{
+background:#0d6efd;
+color:white;
+}
+
+.player{
 flex:1;
+display:flex;
+align-items:center;
+justify-content:center;
+background:black;
 }
 
 #player{
-width:100%;
-height:420px;
-background:black;
-border-radius:10px;
-box-shadow:0 10px 25px rgba(0,0,0,0.15);
+width:80%;
+height:80%;
 }
-
-button{
-margin-top:20px;
-padding:12px 25px;
-background:#ff7a00;
-border:none;
-color:white;
-border-radius:6px;
-cursor:pointer;
-}
-
-button:disabled{
-background:#ccc;
-cursor:not-allowed;
-}
-
 </style>
 
 </head>
 
 <body>
 
-<header>
-EMAGES ACADEMY - Cajero Bancario y Comercial
-<button id="cerrarSesion">Cerrar sesión</button>
-</header>
-
-<div class="container">
-
-<div class="card">
-
-<h2 id="bienvenida"></h2>
-
-<p><b>Curso:</b> <span id="curso"></span></p>
-
-<h3>Progreso del curso</h3>
-
-<div class="progreso">
-<div class="barra" id="barra"></div>
-</div>
-
-</div>
-
-<div class="card">
-
-<div class="curso-layout">
-
 <div class="sidebar">
 
-<h3>Módulos del curso</h3>
+<h3>Bloque 1</h3>
 
-<div class="bloque" data-bloque="1">
-<h4>BLOQUE ATENCIÓN AL CLIENTE</h4>
-<div class="modulo" data-video="hUdubWZEgYM">🔒 Atención al Cliente - Semana 1</div>
-<div class="modulo" data-video="o_K7KXqy--s">🔒 Atención al Cliente - Semana 2</div>
-<div class="modulo" data-video="NWV_aCHRdB4">🔒 Atención al Cliente - Semana 3</div>
-<div class="modulo" data-video="UYQ8RwQLZFw">🔒 Atención al Cliente - Semana 4</div>
-</div>
+<div class="modulo" data-video="hUdubWZEgYM">Video 1</div>
+<div class="modulo" data-video="o_K7KXqy--s">Video 2</div>
+<div class="modulo" data-video="NWV_aCHRdB4">Video 3</div>
+<div class="modulo" data-video="UYQ8RwQLZFw">Video 4</div>
 
-<div class="bloque" data-bloque="2">
-<h4>BLOQUE OPERACIONES FINANCIERAS</h4>
-<div class="modulo" data-video="thAF8YBFYhM">🔒 Operaciones Financieras - Semana 1</div>
-<div class="modulo" data-video="hUdubWZEgYM">🔒 Operaciones Financieras - Semana 2</div>
-<div class="modulo" data-video="NWV_aCHRdB4">🔒 Operaciones Financieras - Semana 3</div>
-<div class="modulo" data-video="UYQ8RwQLZFw">🔒 Operaciones Financieras - Semana 4</div>
-</div>
+<h3>Bloque 2</h3>
+
+<div class="modulo" data-video="thAF8YBFYhM">Video 5</div>
+<div class="modulo" data-video="hUdubWZEgYM">Video 6</div>
+<div class="modulo" data-video="NWV_aCHRdB4">Video 7</div>
+<div class="modulo" data-video="UYQ8RwQLZFw">Video 8</div>
 
 </div>
 
-<div class="video-area">
-
+<div class="player">
 <div id="player"></div>
-
-<button id="btnCompletar" onclick="completarModulo()" disabled>
-Marcar módulo como completado
-</button>
-
-</div>
-
-</div>
-
-</div>
-
 </div>
 
 <script src="https://www.youtube.com/iframe_api"></script>
 
 <script>
 
-let nombre = sessionStorage.getItem("nombre")
-let usuario = sessionStorage.getItem("usuario")
-let curso = "Cajero Bancario y Comercial"
-
-if(!nombre || !usuario){
-window.location="ingresar.html"
-}
-
-document.getElementById("bienvenida").innerText = "Bienvenido " + nombre
-document.getElementById("curso").innerText = curso
-
-let bloqueInicial = 1
-let progreso = 0
+let modulos=document.querySelectorAll(".modulo")
 let player
-let intervalo
 
-const TOTAL_VIDEOS = 8
+let progreso=0
+let bloqueInicial=0
+let progresoActual=0
 
-const bloques = document.querySelectorAll(".bloque")
+let usuario=sessionStorage.getItem("usuario")
 
-document.getElementById("cerrarSesion").addEventListener("click",function(){
-
-if(player && typeof player.stopVideo==="function"){
-player.stopVideo()
-}
-
-sessionStorage.clear()
-window.location="ingresar.html"
-
-})
-
-fetch("https://script.google.com/macros/s/AKfycbwvf9RFU1ko7RWxRB7gyFuJt9IwwkgNb7ICbQDPyxMZncrh5y0iG4-PCfXTYzFN92_NIg/exec?action=obtenerProgreso&usuario="+usuario)
-
+fetch("https://script.google.com/macros/s/TU_SCRIPT/exec?action=obtenerProgreso&usuario="+usuario)
 .then(r=>r.json())
-
 .then(data=>{
 
 progreso=parseInt(data.progreso)||0
-bloqueInicial=parseInt(data.bloque_inicial)||1
+bloqueInicial=parseInt(data.bloque_inicial)||0
 
-actualizarBarra()
-actualizarModulos()
+configurarBloques()
+marcarProgreso()
 
 })
 
-function actualizarBarra(){
-
-let progresoTotal=progreso
-
-if(bloqueInicial===1){
-progresoTotal=progreso+4
-}
-
-let porcentaje=(progresoTotal/TOTAL_VIDEOS)*100
-
-document.getElementById("barra").style.width=porcentaje+"%"
-
-}
-
-function actualizarModulos(){
-
-bloques.forEach(bloque=>{
-
-const numBloque=parseInt(bloque.dataset.bloque)
-const modulos=bloque.querySelectorAll(".modulo")
+function configurarBloques(){
 
 modulos.forEach((m,i)=>{
 
-if(numBloque===bloqueInicial){
+if(bloqueInicial==1 && i>=4) m.classList.add("bloqueado")
 
-if(i<progreso){
-
-m.style.opacity="1"
-m.style.pointerEvents="auto"
-m.innerText="✔ "+m.innerText.replace("▶ ","").replace("🔒 ","")
-m.onclick=()=>cargarVideo(m)
-
-}
-
-else if(i===progreso){
-
-m.style.opacity="1"
-m.style.pointerEvents="auto"
-m.innerText="▶ "+m.innerText.replace("🔒 ","")
-m.onclick=()=>cargarVideo(m)
-
-}
-
-else{
-
-m.style.opacity="0.4"
-m.style.pointerEvents="none"
-
-if(!m.innerText.includes("🔒"))
-m.innerText="🔒 "+m.innerText.replace("▶ ","")
-
-}
-
-}
-
-else{
-
-m.style.opacity="0.4"
-m.style.pointerEvents="none"
-
-if(!m.innerText.includes("🔒"))
-m.innerText="🔒 "+m.innerText.replace("▶ ","").replace("✔ ","")
-
-}
-
-})
+if(bloqueInicial==2 && i<4) m.classList.add("bloqueado")
 
 })
 
 }
 
-function completarModulo(){
+function marcarProgreso(){
 
-const moduloBtn=document.getElementById("btnCompletar")
-moduloBtn.disabled=true
+for(let i=0;i<progreso;i++){
 
-progreso = progreso + 1
-
-const modulosBloque=document.querySelectorAll(`.bloque[data-bloque='${bloqueInicial}'] .modulo`)
-
-if (progreso >= modulosBloque.length) {
-bloqueInicial = bloqueInicial === 1 ? 2 : 1;
-progreso = 0;
-}
-
-fetch(`https://script.google.com/macros/s/AKfycbwvf9RFU1ko7RWxRB7gyFuJt9IwwkgNb7ICbQDPyxMZncrh5y0iG4-PCfXTYzFN92_NIg/exec?action=guardarProgreso&usuario=${usuario}&progreso=${progreso}&bloque_inicial=${bloqueInicial}`)
-
-.then(r=>r.text())
-
-.then(res => {
-if(res.trim() === "ok"){
-location.reload();
-}
-})
+if(modulos[i]) modulos[i].classList.add("visto")
 
 }
 
-function cargarVideo(elemento){
-
-document.getElementById("btnCompletar").disabled=true
-
-const id=elemento.dataset.video
-
-if(player){
-player.destroy()
 }
+
+function onYouTubeIframeAPIReady(){
 
 player=new YT.Player('player',{
 
-height:'420',
-width:'100%',
-videoId:id,
-
 events:{
-'onReady':iniciarControl
+'onStateChange':estadoVideo
 }
 
 })
 
 }
 
-function iniciarControl(){
+modulos.forEach((m,i)=>{
 
-if(intervalo)clearInterval(intervalo)
+m.addEventListener("click",()=>{
 
-intervalo=setInterval(function(){
+if(m.classList.contains("bloqueado")) return
 
-let duracion=player.getDuration()
-let actual=player.getCurrentTime()
+player.loadVideoById(m.dataset.video)
 
-let porcentaje=(actual/duracion)*100
+modulos.forEach(x=>x.classList.remove("activo"))
+m.classList.add("activo")
 
-if(porcentaje>=80){
+progresoActual=i
 
-document.getElementById("btnCompletar").disabled=false
-clearInterval(intervalo)
+})
+
+})
+
+function estadoVideo(event){
+
+if(event.data===YT.PlayerState.ENDED){
+
+modulos[progresoActual].classList.add("visto")
+
+fetch("https://script.google.com/macros/s/TU_SCRIPT/exec?action=guardarProgreso&usuario="+usuario+"&progreso="+(progresoActual+1))
+
+let siguiente=progresoActual+1
+
+if(modulos[siguiente] && !modulos[siguiente].classList.contains("bloqueado")){
+
+setTimeout(()=>{
+
+player.loadVideoById(modulos[siguiente].dataset.video)
+
+modulos[siguiente].classList.add("activo")
+
+progresoActual=siguiente
+
+},1000)
 
 }
 
-},1000)
+}
 
 }
 
