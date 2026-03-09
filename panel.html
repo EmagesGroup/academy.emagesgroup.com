@@ -282,7 +282,7 @@ function completarModulo(){
 const moduloBtn=document.getElementById("btnCompletar")
 moduloBtn.disabled=true
 
-progreso++
+progreso = progreso + 1
 
 const modulosBloque=document.querySelectorAll(`.bloque[data-bloque='${bloqueInicial}'] .modulo`)
 
@@ -294,6 +294,8 @@ progreso=0
 }
 
 }
+
+console.log("GUARDANDO:", usuario, progreso, bloqueInicial)
 
 fetch(`https://script.google.com/macros/s/AKfycbwvf9RFU1ko7RWxRB7gyFuJt9IwwkgNb7ICbQDPyxMZncrh5y0iG4-PCfXTYzFN92_NIg/exec?action=guardarProgreso&usuario=${usuario}&progreso=${progreso}&bloque_inicial=${bloqueInicial}`)
 
