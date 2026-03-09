@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Panel del Estudiante</title>
 
 <style>
@@ -135,8 +134,11 @@ height:80%;
 
 let player
 let modulos = document.querySelectorAll(".modulo")
+
 let progreso = 0
+let progresoActual = 0
 let bloqueInicial = 0
+
 let usuario = sessionStorage.getItem("usuario")
 
 if(!usuario){
@@ -176,8 +178,6 @@ bloquear(m)
 if(bloqueInicial === 2 && num === 1){
 bloquear(m)
 }
-
-/* bloque_inicial 3 no bloquea nada */
 
 })
 
@@ -244,11 +244,23 @@ if(bloqueInicial === 2){
 inicio = 4
 }
 
-if(progreso>0){
-inicio += progreso
+if(bloqueInicial === 3){
+inicio = 0
 }
 
+inicio += progreso
+
+if(inicio >= modulos.length){
+inicio = modulos.length - 1
+}
+
+while(inicio < modulos.length && modulos[inicio].classList.contains("bloqueado")){
+inicio++
+}
+
+if(inicio < modulos.length){
 cargarVideo(modulos[inicio],inicio)
+}
 
 }
 
