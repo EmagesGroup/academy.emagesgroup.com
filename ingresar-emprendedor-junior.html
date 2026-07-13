@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Emages Academy | Acceso Emprendedor Junior</title>
+
+<style>
+
+body{
+font-family:Arial, Helvetica, sans-serif;
+background:#0b1c3d;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+margin:0;
+}
+
+.login-box{
+background:white;
+padding:40px;
+border-radius:10px;
+width:340px;
+text-align:center;
+box-shadow:0 15px 35px rgba(0,0,0,.25);
+}
+
+.logo{
+font-size:22px;
+font-weight:bold;
+color:#ff7a00;
+margin-bottom:5px;
+}
+
+.subtitulo{
+color:#555;
+font-size:14px;
+margin-bottom:20px;
+}
+
+h2{
+margin-bottom:20px;
+color:#0b1c3d;
+}
+
+input{
+width:100%;
+padding:12px;
+margin-top:10px;
+border:1px solid #ccc;
+border-radius:6px;
+font-size:14px;
+box-sizing:border-box;
+}
+
+button{
+margin-top:20px;
+width:100%;
+padding:12px;
+background:#ff7a00;
+border:none;
+color:white;
+border-radius:6px;
+font-size:16px;
+cursor:pointer;
+}
+
+button:hover{
+background:#e66900;
+}
+
+button:disabled{
+background:#ccc;
+cursor:not-allowed;
+}
+
+#mensaje{
+margin-top:15px;
+color:red;
+font-size:14px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="login-box">
+
+<div class="logo">EMAGES ACADEMY</div>
+
+<div class="subtitulo">Programa Emprendedor Junior</div>
+
+<h2>Ingreso de Estudiantes</h2>
+
+<input id="dni" maxlength="8" placeholder="Ingrese su DNI">
+
+<input id="clave" type="password" placeholder="Ingrese su clave">
+
+<button id="btnLogin" onclick="login()">Ingresar</button>
+
+<p id="mensaje"></p>
+
+</div>
+
+<script>
+
+sessionStorage.clear();
+
+function login(){
+
+let dni=document.getElementById("dni").value.trim();
+let clave=document.getElementById("clave").value.trim();
+
+let mensaje=document.getElementById("mensaje");
+let btn=document.getElementById("btnLogin");
+
+mensaje.innerText="";
+
+if(dni=="" || clave==""){
+mensaje.innerText="Ingrese su DNI y su clave.";
+return;
+}
+
+if(dni.length!=8 || isNaN(dni)){
+mensaje.innerText="Ingrese un DNI válido.";
+return;
+}
+
+btn.disabled=true;
+btn.innerText="Verificando...";
+
+fetch("https://script.google.com/macros/s/AKfycbwJggPmovvudEzOD6JE8PjVCvhoHHsuBJfvcf1Iyvw_1hmESAwm-0uqmF_qqetItxHvlw/exec?dni="+dni+"&clave="+clave)
+
+.then(res=>res.json())
+
+.then(data=>{
+
+if(data.status=="ok"){
+
+sessionStorage.setItem("dni",dni);
+sessionStorage.setItem("nombre",data.nombre);
+sessionStorage.setItem("curso",data.curso);
+sessionStorage.setItem("loginTime",Date.now());
+
+window.location.replace("panel.html");
+
+}else{
+
+mensaje.innerText="DNI o clave incorrectos.";
+btn.disabled=false;
+btn.innerText="Ingresar";
+
+}
+
+})
+
+.catch(()=>{
+
+mensaje.innerText="No se pudo conectar con el servidor.";
+btn.disabled=false;
+btn.innerText="Ingresar";
+
+});
+
+}
+
+</script>
+
+</body>
+</html>
