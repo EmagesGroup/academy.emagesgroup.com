@@ -113,7 +113,7 @@ sessionStorage.clear();
 
 function login(){
 
-let dni=document.getElementById("dni").value.trim();
+let usuario=document.getElementById("dni").value.trim();
 let clave=document.getElementById("clave").value.trim();
 
 let mensaje=document.getElementById("mensaje");
@@ -121,12 +121,12 @@ let btn=document.getElementById("btnLogin");
 
 mensaje.innerText="";
 
-if(dni=="" || clave==""){
+if(usuario=="" || clave==""){
 mensaje.innerText="Ingrese su DNI y su clave.";
 return;
 }
 
-if(dni.length!=8 || isNaN(dni)){
+if(usuario.length!=8 || isNaN(usuario)){
 mensaje.innerText="Ingrese un DNI válido.";
 return;
 }
@@ -134,7 +134,7 @@ return;
 btn.disabled=true;
 btn.innerText="Verificando...";
 
-fetch("https://script.google.com/macros/s/AKfycbwJggPmovvudEzOD6JE8PjVCvhoHHsuBJfvcf1Iyvw_1hmESAwm-0uqmF_qqetItxHvlw/exec?dni="+dni+"&clave="+clave)
+fetch("https://script.google.com/macros/s/AKfycbwJggPmovvudEzOD6JE8PjVCvhoHHsuBJfvcf1Iyvw_1hmESAwm-0uqmF_qqetItxHvlw/exec?usuario="+encodeURIComponent(usuario)+"&clave="+encodeURIComponent(clave))
 
 .then(res=>res.json())
 
@@ -142,12 +142,12 @@ fetch("https://script.google.com/macros/s/AKfycbwJggPmovvudEzOD6JE8PjVCvhoHHsuBJ
 
 if(data.status=="ok"){
 
-sessionStorage.setItem("dni",dni);
+sessionStorage.setItem("usuario",usuario);
 sessionStorage.setItem("nombre",data.nombre);
 sessionStorage.setItem("curso",data.curso);
 sessionStorage.setItem("loginTime",Date.now());
 
-window.location.replace("panel.html");
+window.location.replace("panel-emprendedor-junior.html");
 
 }else{
 
@@ -159,7 +159,9 @@ btn.innerText="Ingresar";
 
 })
 
-.catch(()=>{
+.catch(error=>{
+
+console.error(error);
 
 mensaje.innerText="No se pudo conectar con el servidor.";
 btn.disabled=false;
