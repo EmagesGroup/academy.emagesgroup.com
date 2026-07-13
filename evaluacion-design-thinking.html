@@ -7,201 +7,13 @@
 
 <title>Evaluación Oficial | Design Thinking</title>
 
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
-
-body{
-
-font-family:Arial,Helvetica,sans-serif;
-
-background:#eef3fb;
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-min-height:100vh;
-
-padding:30px;
-
-}
-
-.card{
-
-width:900px;
-
-max-width:100%;
-
-background:white;
-
-border-radius:15px;
-
-padding:50px;
-
-box-shadow:0 20px 50px rgba(0,0,0,.12);
-
-}
-
-.logo{
-
-text-align:center;
-
-font-size:34px;
-
-font-weight:bold;
-
-color:#0b1c3d;
-
-}
-
-.logo span{
-
-color:#ff7a00;
-
-}
-
-.subtitulo{
-
-text-align:center;
-
-margin-top:8px;
-
-font-size:18px;
-
-color:#666;
-
-}
-
-h1{
-
-margin-top:35px;
-
-text-align:center;
-
-color:#0b1c3d;
-
-}
-
-.info{
-
-margin-top:40px;
-
-display:grid;
-
-grid-template-columns:repeat(2,1fr);
-
-gap:20px;
-
-}
-
-.item{
-
-background:#f8f9fc;
-
-padding:18px;
-
-border-radius:10px;
-
-}
-
-.item strong{
-
-display:block;
-
-color:#0b1c3d;
-
-margin-bottom:5px;
-
-}
-
-.competencias{
-
-margin-top:35px;
-
-padding:25px;
-
-background:#fffaf2;
-
-border-left:6px solid #ff7a00;
-
-border-radius:8px;
-
-}
-
-.competencias ul{
-
-margin-top:15px;
-
-padding-left:20px;
-
-line-height:2;
-
-}
-
-.advertencia{
-
-margin-top:30px;
-
-padding:20px;
-
-background:#fdecec;
-
-border-left:6px solid #d32f2f;
-
-border-radius:8px;
-
-}
-
-.advertencia ul{
-
-margin-top:10px;
-
-padding-left:20px;
-
-line-height:2;
-
-}
-
-button{
-
-display:block;
-
-margin:45px auto 0;
-
-background:#ff7a00;
-
-color:white;
-
-border:none;
-
-padding:18px 45px;
-
-font-size:18px;
-
-border-radius:8px;
-
-cursor:pointer;
-
-}
-
-button:hover{
-
-background:#e56d00;
-
-}
-
-</style>
+<link rel="stylesheet" href="css/evaluacion.css">
 
 </head>
 
 <body>
+
+<div id="pantallaInicio" class="pantalla">
 
 <div class="card">
 
@@ -211,49 +23,55 @@ EMAGES <span>ACADEMY</span>
 
 </div>
 
-<div class="subtitulo">
-
-Programa Emprendedor Junior
-
-</div>
-
 <h1>
 
-Evaluación Oficial de Design Thinking
+Evaluación Oficial
 
 </h1>
 
-<div class="info">
+<h2>
 
-<div class="item">
+DESIGN THINKING
+
+</h2>
+
+<p class="curso">
+
+Programa Emprendedor Junior
+
+</p>
+
+<div class="datos">
+
+<div>
 
 <strong>Duración</strong>
 
-60 minutos
+<p>60 minutos</p>
 
 </div>
 
-<div class="item">
+<div>
 
-<strong>Número de preguntas</strong>
+<strong>Preguntas</strong>
 
-20 preguntas
+<p>20</p>
 
 </div>
 
-<div class="item">
+<div>
 
 <strong>Nivel</strong>
 
-Universitario Avanzado
+<p>Universitario Avanzado</p>
 
 </div>
 
-<div class="item">
+<div>
 
 <strong>Modalidad</strong>
 
-Evaluación Individual
+<p>Individual</p>
 
 </div>
 
@@ -261,51 +79,51 @@ Evaluación Individual
 
 <div class="competencias">
 
-<h2>Competencias que serán evaluadas</h2>
+<h3>Competencias evaluadas</h3>
 
 <ul>
 
-<li>Empatía con el usuario.</li>
+<li>Empatía.</li>
 
 <li>Definición del problema.</li>
 
-<li>Generación de ideas innovadoras.</li>
+<li>Ideación.</li>
 
 <li>Prototipado.</li>
 
-<li>Validación de soluciones.</li>
-
-<li>Toma de decisiones basada en evidencia.</li>
+<li>Validación.</li>
 
 <li>Análisis estratégico.</li>
 
+<li>Toma de decisiones.</li>
+
 </ul>
 
 </div>
 
-<div class="advertencia">
+<div class="reglas">
 
-<h2>Antes de comenzar</h2>
+<h3>Indicaciones</h3>
 
 <ul>
 
-<li>Dispones de 60 minutos para completar la evaluación.</li>
+<li>Dispones de 60 minutos.</li>
 
-<li>Una vez iniciado el examen, el tiempo no podrá detenerse.</li>
+<li>La evaluación contiene 20 preguntas.</li>
 
-<li>Procura responder todas las preguntas.</li>
+<li>Cada pregunta tiene una sola respuesta correcta.</li>
 
-<li>Las preguntas están orientadas al análisis y aplicación de casos.</li>
+<li>Lee cuidadosamente cada caso.</li>
 
-<li>Esta evaluación busca medir competencias, no únicamente memoria.</li>
+<li>No cierres el navegador.</li>
 
-<li>Al finalizar se generará un reporte personalizado de desempeño.</li>
+<li>Al finalizar se calculará automáticamente tu resultado.</li>
 
 </ul>
 
 </div>
 
-<button onclick="comenzar()">
+<button id="btnComenzar">
 
 Comenzar Evaluación
 
@@ -313,25 +131,216 @@ Comenzar Evaluación
 
 </div>
 
-<script>
+</div>
 
-const nombre=sessionStorage.getItem("nombre");
+<div id="pantallaExamen" class="oculto">
 
-const usuario=sessionStorage.getItem("usuario");
+<header>
 
-if(!nombre || !usuario){
+<div>
 
-window.location="ingresar-emprendedor-junior.html";
+<h2>EMAGES ACADEMY</h2>
 
-}
+<p>Evaluación Oficial Design Thinking</p>
 
-function comenzar(){
+</div>
 
-window.location="pregunta-1.html";
+<div class="contador">
 
-}
+<div>
 
-</script>
+Pregunta
+
+<span id="numeroPregunta">
+
+1
+
+</span>
+
+/
+
+<span id="totalPreguntas">
+
+20
+
+</span>
+
+</div>
+
+<div id="tiempo">
+
+60:00
+
+</div>
+
+</div>
+
+</header>
+
+<div class="barra">
+
+<div id="barraProgreso"></div>
+
+</div>
+
+<div class="contenido">
+
+<div id="competencia">
+
+</div>
+
+<h2 id="tituloPregunta">
+
+</h2>
+
+<div id="opciones">
+
+</div>
+
+</div>
+
+<footer>
+
+<button id="btnAnterior">
+
+← Anterior
+
+</button>
+
+<button id="btnSiguiente">
+
+Siguiente →
+
+</button>
+
+<button id="btnFinalizar" class="oculto">
+
+Finalizar Evaluación
+
+</button>
+
+</footer>
+
+</div>
+
+<div id="pantallaResultado" class="oculto">
+
+<div class="resultado">
+
+<h1>
+
+Evaluación Finalizada
+
+</h1>
+
+<div id="insignia">
+
+🏆
+
+</div>
+
+<h2 id="nivel">
+
+Nivel
+
+</h2>
+
+<div id="estrellas">
+
+⭐⭐⭐⭐⭐
+
+</div>
+
+<div class="puntaje">
+
+<span id="puntaje">
+
+0
+
+</span>
+
+%
+
+</div>
+
+<div class="detalle">
+
+<table>
+
+<tr>
+
+<td>Empatía</td>
+
+<td id="cEmpatia"></td>
+
+</tr>
+
+<tr>
+
+<td>Definición</td>
+
+<td id="cDefinicion"></td>
+
+</tr>
+
+<tr>
+
+<td>Ideación</td>
+
+<td id="cIdeacion"></td>
+
+</tr>
+
+<tr>
+
+<td>Prototipado</td>
+
+<td id="cPrototipado"></td>
+
+</tr>
+
+<tr>
+
+<td>Validación</td>
+
+<td id="cValidacion"></td>
+
+</tr>
+
+</table>
+
+</div>
+
+<div id="recomendacion">
+
+</div>
+
+<div class="botones">
+
+<button id="btnSolicitar">
+
+Solicitar Resultado
+
+</button>
+
+<button id="btnSalir">
+
+Salir
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<script src="js/preguntas.js"></script>
+
+<script src="js/timer.js"></script>
+
+<script src="js/evaluacion.js"></script>
 
 </body>
+
 </html>
