@@ -113,7 +113,7 @@ EMAGES ACADEMY
 
 <h2 id="bienvenida"></h2>
 
-<p><strong>Programa:</strong> Emprendedor Junior</p>
+<p><strong>Programa:</strong> <span id="curso"></span></p>
 
 <h3>Progreso General</h3>
 
@@ -130,30 +130,22 @@ EMAGES ACADEMY
 <div class="evaluacion">
 
 <p>
-
-Antes de continuar con el programa debes desarrollar la evaluación
-de <strong>Design Thinking</strong>.
-
+Antes de continuar con el programa debes desarrollar la evaluación de
+<strong>Design Thinking</strong>.
 </p>
 
 <p>
-
 La evaluación medirá tu capacidad para identificar problemas,
-comprender a los usuarios, generar ideas innovadoras y plantear
-una solución emprendedora.
-
+comprender a los usuarios, generar ideas innovadoras y plantear una
+solución emprendedora.
 </p>
 
 <button onclick="irEvaluacion()">
-
 Iniciar Evaluación
-
 </button>
 
 <div class="estado" id="estado">
-
 Estado: Pendiente
-
 </div>
 
 </div>
@@ -164,32 +156,33 @@ Estado: Pendiente
 
 <script>
 
-let nombre=sessionStorage.getItem("nombre");
-let dni=sessionStorage.getItem("dni");
+const nombre = sessionStorage.getItem("nombre");
+const usuario = sessionStorage.getItem("usuario");
+const curso = sessionStorage.getItem("curso");
 
-if(!nombre || !dni){
+if(!nombre || !usuario){
 
-window.location="ingresar-emprendedor-junior.html";
+window.location.replace("ingresar-emprendedor-junior.html");
 
 }
 
 document.getElementById("bienvenida").innerHTML="Bienvenido <b>"+nombre+"</b>";
 
-let progreso=0;
+document.getElementById("curso").innerText = curso || "Emprendedor Junior";
 
-document.getElementById("barra").style.width=progreso+"%";
+document.getElementById("barra").style.width="0%";
 
 function cerrarSesion(){
 
 sessionStorage.clear();
 
-window.location="ingresar-emprendedor-junior.html";
+window.location.replace("ingresar-emprendedor-junior.html");
 
 }
 
 function irEvaluacion(){
 
-window.location="evaluacion-design-thinking.html";
+window.location.href="evaluacion-design-thinking.html";
 
 }
 
