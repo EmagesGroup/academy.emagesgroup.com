@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Evaluación Oficial | Design Thinking</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+
+font-family:Arial,Helvetica,sans-serif;
+
+background:#eef3fb;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+min-height:100vh;
+
+padding:30px;
+
+}
+
+.card{
+
+width:900px;
+
+max-width:100%;
+
+background:white;
+
+border-radius:15px;
+
+padding:50px;
+
+box-shadow:0 20px 50px rgba(0,0,0,.12);
+
+}
+
+.logo{
+
+text-align:center;
+
+font-size:34px;
+
+font-weight:bold;
+
+color:#0b1c3d;
+
+}
+
+.logo span{
+
+color:#ff7a00;
+
+}
+
+.subtitulo{
+
+text-align:center;
+
+margin-top:8px;
+
+font-size:18px;
+
+color:#666;
+
+}
+
+h1{
+
+margin-top:35px;
+
+text-align:center;
+
+color:#0b1c3d;
+
+}
+
+.info{
+
+margin-top:40px;
+
+display:grid;
+
+grid-template-columns:repeat(2,1fr);
+
+gap:20px;
+
+}
+
+.item{
+
+background:#f8f9fc;
+
+padding:18px;
+
+border-radius:10px;
+
+}
+
+.item strong{
+
+display:block;
+
+color:#0b1c3d;
+
+margin-bottom:5px;
+
+}
+
+.competencias{
+
+margin-top:35px;
+
+padding:25px;
+
+background:#fffaf2;
+
+border-left:6px solid #ff7a00;
+
+border-radius:8px;
+
+}
+
+.competencias ul{
+
+margin-top:15px;
+
+padding-left:20px;
+
+line-height:2;
+
+}
+
+.advertencia{
+
+margin-top:30px;
+
+padding:20px;
+
+background:#fdecec;
+
+border-left:6px solid #d32f2f;
+
+border-radius:8px;
+
+}
+
+.advertencia ul{
+
+margin-top:10px;
+
+padding-left:20px;
+
+line-height:2;
+
+}
+
+button{
+
+display:block;
+
+margin:45px auto 0;
+
+background:#ff7a00;
+
+color:white;
+
+border:none;
+
+padding:18px 45px;
+
+font-size:18px;
+
+border-radius:8px;
+
+cursor:pointer;
+
+}
+
+button:hover{
+
+background:#e56d00;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<div class="logo">
+
+EMAGES <span>ACADEMY</span>
+
+</div>
+
+<div class="subtitulo">
+
+Programa Emprendedor Junior
+
+</div>
+
+<h1>
+
+Evaluación Oficial de Design Thinking
+
+</h1>
+
+<div class="info">
+
+<div class="item">
+
+<strong>Duración</strong>
+
+60 minutos
+
+</div>
+
+<div class="item">
+
+<strong>Número de preguntas</strong>
+
+20 preguntas
+
+</div>
+
+<div class="item">
+
+<strong>Nivel</strong>
+
+Universitario Avanzado
+
+</div>
+
+<div class="item">
+
+<strong>Modalidad</strong>
+
+Evaluación Individual
+
+</div>
+
+</div>
+
+<div class="competencias">
+
+<h2>Competencias que serán evaluadas</h2>
+
+<ul>
+
+<li>Empatía con el usuario.</li>
+
+<li>Definición del problema.</li>
+
+<li>Generación de ideas innovadoras.</li>
+
+<li>Prototipado.</li>
+
+<li>Validación de soluciones.</li>
+
+<li>Toma de decisiones basada en evidencia.</li>
+
+<li>Análisis estratégico.</li>
+
+</ul>
+
+</div>
+
+<div class="advertencia">
+
+<h2>Antes de comenzar</h2>
+
+<ul>
+
+<li>Dispones de 60 minutos para completar la evaluación.</li>
+
+<li>Una vez iniciado el examen, el tiempo no podrá detenerse.</li>
+
+<li>Procura responder todas las preguntas.</li>
+
+<li>Las preguntas están orientadas al análisis y aplicación de casos.</li>
+
+<li>Esta evaluación busca medir competencias, no únicamente memoria.</li>
+
+<li>Al finalizar se generará un reporte personalizado de desempeño.</li>
+
+</ul>
+
+</div>
+
+<button onclick="comenzar()">
+
+Comenzar Evaluación
+
+</button>
+
+</div>
+
+<script>
+
+const nombre=sessionStorage.getItem("nombre");
+
+const usuario=sessionStorage.getItem("usuario");
+
+if(!nombre || !usuario){
+
+window.location="ingresar-emprendedor-junior.html";
+
+}
+
+function comenzar(){
+
+window.location="pregunta-1.html";
+
+}
+
+</script>
+
+</body>
+</html>
