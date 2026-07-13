@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Panel Emprendedor Junior | Emages Academy</title>
+
+<style>
+
+body{
+font-family:Arial,Helvetica,sans-serif;
+background:#f4f6fb;
+margin:0;
+}
+
+header{
+background:#0b1c3d;
+color:white;
+padding:18px 40px;
+position:relative;
+font-size:22px;
+font-weight:bold;
+}
+
+header button{
+position:absolute;
+right:40px;
+top:14px;
+background:#e53935;
+color:white;
+border:none;
+padding:8px 15px;
+border-radius:5px;
+cursor:pointer;
+}
+
+.container{
+max-width:1100px;
+margin:auto;
+padding:40px;
+}
+
+.card{
+background:white;
+padding:30px;
+border-radius:12px;
+box-shadow:0 10px 30px rgba(0,0,0,.1);
+margin-bottom:25px;
+}
+
+.progreso{
+height:20px;
+background:#ddd;
+border-radius:20px;
+overflow:hidden;
+margin-top:15px;
+}
+
+.barra{
+height:100%;
+width:0%;
+background:#ff7a00;
+transition:.4s;
+}
+
+.evaluacion{
+margin-top:20px;
+padding:25px;
+border:2px solid #ff7a00;
+border-radius:10px;
+background:#fffaf5;
+}
+
+.estado{
+font-weight:bold;
+margin-top:15px;
+}
+
+button{
+background:#ff7a00;
+color:white;
+border:none;
+padding:12px 25px;
+border-radius:6px;
+cursor:pointer;
+font-size:15px;
+margin-top:20px;
+}
+
+button:hover{
+background:#e86d00;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+EMAGES ACADEMY
+
+<button onclick="cerrarSesion()">Cerrar sesión</button>
+
+</header>
+
+<div class="container">
+
+<div class="card">
+
+<h2 id="bienvenida"></h2>
+
+<p><strong>Programa:</strong> Emprendedor Junior</p>
+
+<h3>Progreso General</h3>
+
+<div class="progreso">
+<div class="barra" id="barra"></div>
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>Evaluación: Design Thinking</h2>
+
+<div class="evaluacion">
+
+<p>
+
+Antes de continuar con el programa debes desarrollar la evaluación
+de <strong>Design Thinking</strong>.
+
+</p>
+
+<p>
+
+La evaluación medirá tu capacidad para identificar problemas,
+comprender a los usuarios, generar ideas innovadoras y plantear
+una solución emprendedora.
+
+</p>
+
+<button onclick="irEvaluacion()">
+
+Iniciar Evaluación
+
+</button>
+
+<div class="estado" id="estado">
+
+Estado: Pendiente
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+let nombre=sessionStorage.getItem("nombre");
+let dni=sessionStorage.getItem("dni");
+
+if(!nombre || !dni){
+
+window.location="ingresar-emprendedor-junior.html";
+
+}
+
+document.getElementById("bienvenida").innerHTML="Bienvenido <b>"+nombre+"</b>";
+
+let progreso=0;
+
+document.getElementById("barra").style.width=progreso+"%";
+
+function cerrarSesion(){
+
+sessionStorage.clear();
+
+window.location="ingresar-emprendedor-junior.html";
+
+}
+
+function irEvaluacion(){
+
+window.location="evaluacion-design-thinking.html";
+
+}
+
+</script>
+
+</body>
+</html>
