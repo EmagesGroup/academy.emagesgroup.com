@@ -19,142 +19,49 @@
         .btn-buscar:hover { background-color: #2980b9; }
         .btn-pdf { background-color: #27ae60; margin-top: 20px; font-size: 1.1rem; }
         .btn-pdf:hover { background-color: #229954; }
+        .btn-logout { background-color: #95a5a6; margin-top: 10px; font-size: 0.9rem; padding: 10px; }
+        .btn-logout:hover { background-color: #7f8c8d; }
         .resultado { display: none; margin-top: 30px; }
         .error { color: #e74c3c; text-align: center; margin-top: 10px; font-weight: bold; }
         .exito { color: #27ae60; text-align: center; margin-top: 10px; font-weight: bold; }
         .cargando { color: #2980b9; text-align: center; margin-top: 10px; }
         
-        /* PÁGINAS A4 EXACTAS - 794x1123px = 210x297mm a 96dpi */
-        .pagina-a4 {
-            width: 794px;
-            height: 1123px;
-            background: white;
-            padding: 40px 50px;
-            margin: 20px auto;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-        }
+        /* LOGIN STYLES */
+        .login-container { max-width: 400px; margin: 100px auto; text-align: center; }
+        .login-container h2 { margin-bottom: 20px; color: #2c3e50; }
         
-        /* Header */
-        .header-pdf {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            border-bottom: 3px solid #e74c3c;
-            padding-bottom: 15px;
-            margin-bottom: 20px;
-            flex-shrink: 0;
+        /* PÁGINAS A4 EXACTAS */
+        .pagina-a4 {
+            width: 794px; height: 1123px; background: white; padding: 40px 50px;
+            margin: 20px auto; box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex; flex-direction: column; position: relative;
         }
+        .header-pdf { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 3px solid #e74c3c; padding-bottom: 15px; margin-bottom: 20px; flex-shrink: 0; }
         .header-logo { font-size: 1.8rem; font-weight: bold; color: #e74c3c; }
         .header-titulo { font-size: 1.3rem; color: #2c3e50; font-weight: bold; }
         .header-subtitulo { color: #7f8c8d; font-size: 0.9rem; margin-top: 4px; }
-        
-        /* Datos del estudiante */
-        .datos-box {
-            background: #f8f9fa;
-            padding: 18px 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            flex-shrink: 0;
-        }
+        .datos-box { background: #f8f9fa; padding: 18px 20px; border-radius: 10px; margin-bottom: 20px; flex-shrink: 0; }
         .datos-box h2 { color: #2c3e50; font-size: 1.2rem; margin-bottom: 10px; }
-        .datos-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px 20px;
-        }
+        .datos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 20px; }
         .datos-box p { margin: 0; font-size: 0.95rem; }
         .datos-box p strong { color: #2c3e50; }
-        
-        /* Perfil destacado */
-        .perfil-banner {
-            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-            color: white;
-            padding: 22px;
-            border-radius: 12px;
-            text-align: center;
-            margin-bottom: 20px;
-            flex-shrink: 0;
-        }
+        .perfil-banner { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color: white; padding: 22px; border-radius: 12px; text-align: center; margin-bottom: 20px; flex-shrink: 0; }
         .perfil-banner h3 { font-size: 1rem; font-weight: normal; opacity: 0.95; margin-bottom: 6px; }
         .perfil-banner .perfil-nombre { font-size: 2.2rem; font-weight: bold; margin: 0; }
-        
-        /* Gráfico */
-        .grafico-box {
-            background: #f8f9fa;
-            padding: 18px;
-            border-radius: 10px;
-            border: 1px solid #e0e0e0;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            min-height: 0;
-        }
+        .grafico-box { background: #f8f9fa; padding: 18px; border-radius: 10px; border: 1px solid #e0e0e0; flex: 1; display: flex; flex-direction: column; min-height: 0; }
         .grafico-box h3 { color: #2c3e50; text-align: center; font-size: 1.2rem; margin-bottom: 10px; flex-shrink: 0; }
-        .chart-container { 
-            position: relative; 
-            flex: 1; 
-            width: 100%; 
-            max-width: 500px; 
-            margin: 0 auto;
-            min-height: 0;
-        }
-        
-        /* Footer - siempre al fondo gracias a flexbox */
-        .footer-pdf {
-            text-align: center;
-            padding-top: 12px;
-            border-top: 2px solid #e0e0e0;
-            color: #7f8c8d;
-            font-size: 0.8rem;
-            margin-top: auto;
-            flex-shrink: 0;
-        }
+        .chart-container { position: relative; flex: 1; width: 100%; max-width: 500px; margin: 0 auto; min-height: 0; }
+        .footer-pdf { text-align: center; padding-top: 12px; border-top: 2px solid #e0e0e0; color: #7f8c8d; font-size: 0.8rem; margin-top: auto; flex-shrink: 0; }
         .footer-pdf p { margin: 3px 0; }
         
-        /* PÁGINA 2 */
         .puntajes-titulo { color: #2c3e50; font-size: 1.4rem; margin-bottom: 18px; flex-shrink: 0; }
-        .puntajes-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            flex-shrink: 0;
-        }
-        .puntaje-card {
-            background: white;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            padding: 14px;
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-        }
-        .circulo-progreso {
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            background: conic-gradient(#27ae60 0deg, #27ae60 var(--progreso), #e0e0e0 var(--progreso));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1.2rem;
-            color: #27ae60;
-            flex-shrink: 0;
-            position: relative;
-        }
-        .circulo-progreso::before {
-            content: '';
-            position: absolute;
-            width: 44px;
-            height: 44px;
-            background: white;
-            border-radius: 50%;
-        }
-        .circulo-progreso span { position: relative; z-index: 1; }
+        .puntajes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; flex-shrink: 0; }
+        .puntaje-card { background: white; border: 2px solid #e0e0e0; border-radius: 10px; padding: 14px; display: flex; align-items: flex-start; gap: 12px; }
+        .circulo-svg { width: 60px; height: 60px; flex-shrink: 0; }
+        .circulo-svg .fondo { fill: none; stroke: #e0e0e0; stroke-width: 6; }
+        .circulo-svg .progreso { fill: none; stroke: #27ae60; stroke-width: 6; stroke-linecap: round; transform: rotate(-90deg); transform-origin: 50% 50%; }
+        .circulo-svg .numero { font-size: 18px; font-weight: bold; fill: #27ae60; text-anchor: middle; dominant-baseline: central; }
         .puntaje-info { flex: 1; min-width: 0; }
         .puntaje-info h4 { margin: 0 0 4px 0; color: #2c3e50; font-size: 1rem; }
         .puntaje-info .desc { margin: 0; font-size: 0.8rem; color: #7f8c8d; line-height: 1.25; }
@@ -162,51 +69,49 @@
         .puntaje-barra-fill { height: 100%; background: linear-gradient(90deg, #27ae60, #2ecc71); border-radius: 3px; }
         .puntaje-info .puntos { font-size: 0.75rem; color: #95a5a6; margin-top: 4px; }
         
-        /* Carreras */
-        .carreras-box {
-            margin-top: 18px;
-            padding: 18px;
-            background: #fff9e6;
-            border-left: 5px solid #f39c12;
-            border-radius: 8px;
-            flex: 1;
-        }
+        .carreras-box { margin-top: 18px; padding: 18px; background: #fff9e6; border-left: 5px solid #f39c12; border-radius: 8px; flex: 1; }
         .carreras-box h3 { color: #e67e22; font-size: 1.2rem; margin-bottom: 12px; }
         .carreras-box h4 { color: #2c3e50; font-size: 1rem; margin: 10px 0 6px 0; }
         .carreras-box ul { margin: 4px 0 10px 0; padding-left: 22px; }
         .carreras-box li { font-size: 0.9rem; margin: 4px 0; color: #2c3e50; }
         .carreras-box .nota { font-size: 0.8rem; color: #7f8c8d; font-style: italic; margin-top: 10px; }
-        
-        @media (max-width: 850px) {
-            .pagina-a4 { width: 100%; height: auto; padding: 20px; }
-        }
     </style>
 </head>
 <body>
 
-<div class="container">
+<!-- SECCIÓN DE LOGIN -->
+<div class="container login-container" id="loginSection">
+    <h1>🔐 Acceso Administrativo</h1>
+    <h2>EMAGES Academy</h2>
+    <input type="password" id="passwordInput" placeholder="Ingresa la contraseña de administrador">
+    <button onclick="verificarPassword()">Ingresar al Panel</button>
+    <p id="loginError" class="error" style="margin-top: 15px;"></p>
+</div>
+
+<!-- SECCIÓN DEL PANEL (Oculta por defecto) -->
+<div class="container" id="panelSection" style="display: none;">
     <h1>📊 Panel Administrativo EMAGES</h1>
     
     <div style="margin-bottom: 20px;">
         <label style="font-weight: bold;">Buscar estudiante por DNI:</label>
         <input type="text" id="dniBusqueda" placeholder="Ingresa el DNI (8 dígitos)" maxlength="8">
         <button onclick="buscarEstudiante()" class="btn-buscar">🔍 Buscar</button>
+        <button onclick="cerrarSesion()" class="btn-logout">🚪 Cerrar Sesión</button>
         <p id="mensajeBusqueda"></p>
     </div>
 
     <div class="resultado" id="resultadoBusqueda">
-        <button onclick="generarPDF()" class="btn-pdf">📄 Descargar PDF Profesional </button>
+        <button onclick="generarPDF()" class="btn-pdf">📄 Descargar PDF Profesional</button>
         
         <!-- PÁGINA 1 -->
         <div class="pagina-a4" id="pagina1">
             <div class="header-pdf">
-                <div class="header-logo"> EMAGES Academy</div>
+                <div class="header-logo">🎓 EMAGES Academy</div>
                 <div>
                     <div class="header-titulo">Informe de Evaluación Vocacional</div>
                     <div class="header-subtitulo">Test RIASEC - 50 preguntas</div>
                 </div>
             </div>
-
             <div class="datos-box">
                 <h2>👤 Datos del Estudiante</h2>
                 <div class="datos-grid">
@@ -217,19 +122,16 @@
                     <p style="grid-column: 1 / -1;"><strong>Fecha de Evaluación:</strong> <span id="p1Fecha"></span></p>
                 </div>
             </div>
-
             <div class="perfil-banner">
                 <h3>🎯 Perfil Predominante</h3>
                 <p class="perfil-nombre" id="p1Perfil"></p>
             </div>
-
             <div class="grafico-box">
                 <h3>🕸️ Mapa de Competencias Vocacionales</h3>
                 <div class="chart-container">
                     <canvas id="chartRadar"></canvas>
                 </div>
             </div>
-
             <div class="footer-pdf">
                 <p><strong>EMAGES GROUP S.A.C.</strong> - RUC: 20611427671</p>
                 <p>www.emagesgroup.com | academy.emagesgroup.com</p>
@@ -239,14 +141,11 @@
         <!-- PÁGINA 2 -->
         <div class="pagina-a4" id="pagina2">
             <h2 class="puntajes-titulo">📊 Puntuaciones del Test Vocacional</h2>
-            
             <div class="puntajes-grid" id="puntajesGrid"></div>
-
             <div class="carreras-box">
                 <h3>💼 Carreras Más Demandadas en Perú</h3>
                 <div id="carrerasContenido"></div>
             </div>
-
             <div class="footer-pdf">
                 <p><strong>EMAGES GROUP S.A.C.</strong> - RUC: 20611427671</p>
                 <p>www.emagesgroup.com | academy.emagesgroup.com</p>
@@ -260,16 +159,37 @@
 
 <script>
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw6xpApuz9Es7NGuDlVefKemVYEPVo3MZcrS71DAGa3YQmLLIkmEY6KSLtBJlmJ_3Yr/exec';
+    const PASSWORD_ADMIN = 'emages2026'; // ¡Puedes cambiar esta contraseña si quieres!
     
     let datosEstudiante = null;
     let datosResultado = null;
     let chartInstance = null;
 
-    const maximosPorPerfil = {
-        'Realista': 32, 'Investigador': 36, 'Artístico': 32,
-        'Social': 36, 'Emprendedor': 32, 'Convencional': 32
-    };
+    // Verificar si ya inició sesión en esta pestaña
+    if (sessionStorage.getItem('emages_admin_logged') === 'true') {
+        document.getElementById('loginSection').style.display = 'none';
+        document.getElementById('panelSection').style.display = 'block';
+    }
 
+    function verificarPassword() {
+        const pass = document.getElementById('passwordInput').value;
+        if (pass === PASSWORD_ADMIN) {
+            sessionStorage.setItem('emages_admin_logged', 'true');
+            document.getElementById('loginSection').style.display = 'none';
+            document.getElementById('panelSection').style.display = 'block';
+            document.getElementById('passwordInput').value = '';
+            document.getElementById('loginError').textContent = '';
+        } else {
+            document.getElementById('loginError').textContent = '⚠️ Contraseña incorrecta. Intenta de nuevo.';
+        }
+    }
+
+    function cerrarSesion() {
+        sessionStorage.removeItem('emages_admin_logged');
+        location.reload();
+    }
+
+    const maximosPorPerfil = { 'Realista': 32, 'Investigador': 36, 'Artístico': 32, 'Social': 36, 'Emprendedor': 32, 'Convencional': 32 };
     const descripcionesPerfiles = {
         'Realista': 'Eres práctico, te gusta trabajar con las manos, herramientas o al aire libre.',
         'Investigador': 'Eres analítico, curioso y disfrutas resolviendo problemas complejos.',
@@ -278,74 +198,36 @@
         'Emprendedor': 'Eres líder, te motiva organizar, persuadir y alcanzar metas económicas.',
         'Convencional': 'Eres organizado, detallista y te sientes cómodo trabajando con datos y estructuras.'
     };
-
     const carrerasPorPerfil = {
-        'Realista': {
-            principal: { facultad: 'Ingeniería y Tecnología', carreras: [
-                { nombre: 'Ingeniería de Sistemas', demanda: 'Alta' },
-                { nombre: 'Ingeniería Industrial', demanda: 'Alta' },
-                { nombre: 'Ingeniería Civil', demanda: 'Media' }
-            ]},
-            otras: ['Arquitectura', 'Ingeniería Mecánica', 'Agronomía']
-        },
-        'Investigador': {
-            principal: { facultad: 'Ciencias de la Salud', carreras: [
-                { nombre: 'Medicina Humana', demanda: 'Alta' },
-                { nombre: 'Enfermería', demanda: 'Alta' },
-                { nombre: 'Farmacia y Bioquímica', demanda: 'Media' }
-            ]},
-            otras: ['Biología', 'Ingeniería Ambiental', 'Nutrición']
-        },
-        'Artístico': {
-            principal: { facultad: 'Comunicación y Artes', carreras: [
-                { nombre: 'Comunicación Audiovisual', demanda: 'Alta' },
-                { nombre: 'Diseño Gráfico', demanda: 'Alta' },
-                { nombre: 'Publicidad', demanda: 'Media' }
-            ]},
-            otras: ['Arquitectura', 'Diseño de Interiores', 'Música']
-        },
-        'Social': {
-            principal: { facultad: 'Ciencias Sociales y Humanas', carreras: [
-                { nombre: 'Psicología', demanda: 'Alta' },
-                { nombre: 'Educación', demanda: 'Alta' },
-                { nombre: 'Trabajo Social', demanda: 'Media' }
-            ]},
-            otras: ['Sociología', 'Antropología', 'Ciencias Políticas']
-        },
-        'Emprendedor': {
-            principal: { facultad: 'Ciencias Empresariales', carreras: [
-                { nombre: 'Administración de Empresas', demanda: 'Alta' },
-                { nombre: 'Marketing', demanda: 'Alta' },
-                { nombre: 'Negocios Internacionales', demanda: 'Alta' }
-            ]},
-            otras: ['Contabilidad', 'Turismo y Hotelería', 'Economía']
-        },
-        'Convencional': {
-            principal: { facultad: 'Ciencias Contables y Financieras', carreras: [
-                { nombre: 'Contabilidad', demanda: 'Alta' },
-                { nombre: 'Finanzas', demanda: 'Alta' },
-                { nombre: 'Administración', demanda: 'Media' }
-            ]},
-            otras: ['Economía', 'Estadística', 'Gestión Pública']
-        }
+        'Realista': { principal: { facultad: 'Ingeniería y Tecnología', carreras: [{ nombre: 'Ingeniería de Sistemas', demanda: 'Alta' }, { nombre: 'Ingeniería Industrial', demanda: 'Alta' }, { nombre: 'Ingeniería Civil', demanda: 'Media' }] }, otras: ['Arquitectura', 'Ingeniería Mecánica', 'Agronomía'] },
+        'Investigador': { principal: { facultad: 'Ciencias de la Salud', carreras: [{ nombre: 'Medicina Humana', demanda: 'Alta' }, { nombre: 'Enfermería', demanda: 'Alta' }, { nombre: 'Farmacia y Bioquímica', demanda: 'Media' }] }, otras: ['Biología', 'Ingeniería Ambiental', 'Nutrición'] },
+        'Artístico': { principal: { facultad: 'Comunicación y Artes', carreras: [{ nombre: 'Comunicación Audiovisual', demanda: 'Alta' }, { nombre: 'Diseño Gráfico', demanda: 'Alta' }, { nombre: 'Publicidad', demanda: 'Media' }] }, otras: ['Arquitectura', 'Diseño de Interiores', 'Música'] },
+        'Social': { principal: { facultad: 'Ciencias Sociales y Humanas', carreras: [{ nombre: 'Psicología', demanda: 'Alta' }, { nombre: 'Educación', demanda: 'Alta' }, { nombre: 'Trabajo Social', demanda: 'Media' }] }, otras: ['Sociología', 'Antropología', 'Ciencias Políticas'] },
+        'Emprendedor': { principal: { facultad: 'Ciencias Empresariales', carreras: [{ nombre: 'Administración de Empresas', demanda: 'Alta' }, { nombre: 'Marketing', demanda: 'Alta' }, { nombre: 'Negocios Internacionales', demanda: 'Alta' }] }, otras: ['Contabilidad', 'Turismo y Hotelería', 'Economía'] },
+        'Convencional': { principal: { facultad: 'Ciencias Contables y Financieras', carreras: [{ nombre: 'Contabilidad', demanda: 'Alta' }, { nombre: 'Finanzas', demanda: 'Alta' }, { nombre: 'Administración', demanda: 'Media' }] }, otras: ['Economía', 'Estadística', 'Gestión Pública'] }
     };
+
+    function generarCirculoSVG(puntaje, maximo) {
+        const porcentaje = puntaje / maximo;
+        const radio = 24;
+        const circunferencia = 2 * Math.PI * radio;
+        const offset = circunferencia * (1 - porcentaje);
+        return `<svg class="circulo-svg" viewBox="0 0 60 60">
+            <circle class="fondo" cx="30" cy="30" r="${radio}"></circle>
+            <circle class="progreso" cx="30" cy="30" r="${radio}" stroke-dasharray="${circunferencia}" stroke-dashoffset="${offset}"></circle>
+            <text class="numero" x="30" y="32">${puntaje}</text>
+        </svg>`;
+    }
 
     function buscarEstudiante() {
         const dni = document.getElementById('dniBusqueda').value;
         const mensajeDiv = document.getElementById('mensajeBusqueda');
-        
         if (!dni || dni.length !== 8) {
-            mensajeDiv.className = 'error';
-            mensajeDiv.textContent = '⚠️ Ingresa un DNI válido de 8 dígitos';
-            return;
+            mensajeDiv.className = 'error'; mensajeDiv.textContent = '⚠️ Ingresa un DNI válido de 8 dígitos'; return;
         }
-
-        mensajeDiv.className = 'cargando';
-        mensajeDiv.textContent = '🔍 Buscando...';
+        mensajeDiv.className = 'cargando'; mensajeDiv.textContent = '🔍 Buscando...';
         
-        const datos = { accion: 'buscarEstudiante', dni: dni };
-        
-        fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(datos) })
+        fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({ accion: 'buscarEstudiante', dni: dni }) })
         .then(response => response.json())
         .then(data => {
             if (data.exito) {
@@ -364,26 +246,21 @@
                 crearCarrerasSeccion(datosResultado);
                 
                 document.getElementById('resultadoBusqueda').style.display = 'block';
-                mensajeDiv.className = 'exito';
-                mensajeDiv.textContent = '✅ Estudiante encontrado';
+                mensajeDiv.className = 'exito'; mensajeDiv.textContent = '✅ Estudiante encontrado';
             } else {
-                mensajeDiv.className = 'error';
-                mensajeDiv.textContent = '❌ ' + data.mensaje;
+                mensajeDiv.className = 'error'; mensajeDiv.textContent = '❌ ' + data.mensaje;
                 document.getElementById('resultadoBusqueda').style.display = 'none';
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            mensajeDiv.className = 'error';
-            mensajeDiv.textContent = '❌ Error de conexión';
+            mensajeDiv.className = 'error'; mensajeDiv.textContent = '❌ Error de conexión';
         });
     }
 
     function crearGraficoRadar(datos) {
         const ctx = document.getElementById('chartRadar').getContext('2d');
-        
         if (chartInstance) chartInstance.destroy();
-        
         chartInstance = new Chart(ctx, {
             type: 'radar',
             data: {
@@ -402,13 +279,10 @@
                 }]
             },
             options: {
-                responsive: true,
-                maintainAspectRatio: false,
+                responsive: true, maintainAspectRatio: false,
                 scales: {
                     r: {
-                        beginAtZero: true,
-                        min: 0,
-                        max: 36,
+                        beginAtZero: true, min: 0, max: 36,
                         ticks: { stepSize: 6, backdropColor: 'transparent', font: { size: 11, weight: 'bold' } },
                         grid: { color: 'rgba(0, 0, 0, 0.15)', lineWidth: 1 },
                         angleLines: { color: 'rgba(0, 0, 0, 0.15)', lineWidth: 1 },
@@ -429,26 +303,18 @@
             { nombre: 'Emprendedor', puntaje: datos.puntajeE, max: 32, desc: descripcionesPerfiles['Emprendedor'] },
             { nombre: 'Convencional', puntaje: datos.puntajeC, max: 32, desc: descripcionesPerfiles['Convencional'] }
         ];
-        
         const grid = document.getElementById('puntajesGrid');
         grid.innerHTML = '';
-        
         puntajes.forEach(p => {
             const porcentaje = (p.puntaje / p.max) * 100;
-            const grados = (porcentaje / 100) * 360;
-            
             const card = document.createElement('div');
             card.className = 'puntaje-card';
             card.innerHTML = `
-                <div class="circulo-progreso" style="--progreso: ${grados}deg;">
-                    <span>${p.puntaje}</span>
-                </div>
+                ${generarCirculoSVG(p.puntaje, p.max)}
                 <div class="puntaje-info">
                     <h4>${p.nombre}</h4>
                     <p class="desc">${p.desc}</p>
-                    <div class="puntaje-barra">
-                        <div class="puntaje-barra-fill" style="width: ${porcentaje}%;"></div>
-                    </div>
+                    <div class="puntaje-barra"><div class="puntaje-barra-fill" style="width: ${porcentaje}%;"></div></div>
                     <p class="puntos">${p.puntaje}/${p.max} puntos (${Math.round(porcentaje)}%)</p>
                 </div>
             `;
@@ -460,85 +326,43 @@
         const perfilLimpio = datos.perfil.replace('Perfil ', '');
         const carrerasData = carrerasPorPerfil[perfilLimpio];
         const contenedor = document.getElementById('carrerasContenido');
-        
-        if (!carrerasData) {
-            contenedor.innerHTML = '<p>No hay información disponible.</p>';
-            return;
-        }
-        
+        if (!carrerasData) { contenedor.innerHTML = '<p>No hay información disponible.</p>'; return; }
         let html = `<h4>🏛️ Facultad Principal: ${carrerasData.principal.facultad}</h4><ul>`;
         carrerasData.principal.carreras.forEach(carrera => {
-            const icono = carrera.demanda === 'Alta' ? '🔥' : '⭐';
-            html += `<li>${icono} <strong>${carrera.nombre}</strong> (Demanda: ${carrera.demanda})</li>`;
+            html += `<li>${carrera.demanda === 'Alta' ? '🔥' : '⭐'} <strong>${carrera.nombre}</strong> (Demanda: ${carrera.demanda})</li>`;
         });
-        html += `</ul>`;
-        
-        html += `<h4> Otras opciones compatibles:</h4><ul>`;
-        carrerasData.otras.forEach(carrera => {
-            html += `<li>• ${carrera}</li>`;
-        });
-        html += `</ul>`;
-        html += `<p class="nota">¿Te interesa alguna en particular? Escríbenos y te contamos más sobre universidades y planes de estudio.</p>`;
-        
+        html += `</ul><h4>🔍 Otras opciones compatibles:</h4><ul>`;
+        carrerasData.otras.forEach(carrera => { html += `<li>• ${carrera}</li>`; });
+        html += `</ul><p class="nota">¿Te interesa alguna en particular? Escríbenos y te contamos más sobre universidades y planes de estudio.</p>`;
         contenedor.innerHTML = html;
     }
 
     async function generarPDF() {
         const { jsPDF } = window.jspdf;
         const pdf = new jsPDF('p', 'mm', 'a4');
-        
         const btn = document.querySelector('.btn-pdf');
         const textoOriginal = btn.textContent;
         btn.textContent = '⏳ Generando PDF...';
         btn.disabled = true;
         
         try {
-            const pagina1 = document.getElementById('pagina1');
-            const pagina2 = document.getElementById('pagina2');
-            
-            // Capturar Página 1 con ALTA ESCALA
-            const canvas1 = await html2canvas(pagina1, {
-                scale: 2,
-                useCORS: true,
-                logging: false,
-                backgroundColor: '#ffffff',
-                windowWidth: 794,
-                windowHeight: 1123
-            });
-            
-            // Página 1: imagen exacta A4
+            const canvas1 = await html2canvas(document.getElementById('pagina1'), { scale: 2, useCORS: true, logging: false, backgroundColor: '#ffffff', windowWidth: 794, windowHeight: 1123 });
             pdf.addImage(canvas1.toDataURL('image/png'), 'PNG', 0, 0, 210, 297);
             
-            // Capturar Página 2 con ALTA ESCALA
-            const canvas2 = await html2canvas(pagina2, {
-                scale: 2,
-                useCORS: true,
-                logging: false,
-                backgroundColor: '#ffffff',
-                windowWidth: 794,
-                windowHeight: 1123
-            });
-            
-            // Página 2
+            const canvas2 = await html2canvas(document.getElementById('pagina2'), { scale: 2, useCORS: true, logging: false, backgroundColor: '#ffffff', windowWidth: 794, windowHeight: 1123 });
             pdf.addPage();
             pdf.addImage(canvas2.toDataURL('image/png'), 'PNG', 0, 0, 210, 297);
             
-            // Guardar
             const dni = datosEstudiante.dni;
             const nombres = datosEstudiante.nombres.replace(/\s+/g, '_');
             pdf.save(`${dni}_${nombres}_EMAGES.pdf`);
             
-            btn.textContent = '✅ PDF Descargado ';
-            setTimeout(() => {
-                btn.textContent = textoOriginal;
-                btn.disabled = false;
-            }, 2000);
-            
+            btn.textContent = '✅ PDF Descargado';
+            setTimeout(() => { btn.textContent = textoOriginal; btn.disabled = false; }, 2000);
         } catch (error) {
             console.error('Error al generar PDF:', error);
             alert('Error al generar el PDF. Intenta nuevamente.');
-            btn.textContent = textoOriginal;
-            btn.disabled = false;
+            btn.textContent = textoOriginal; btn.disabled = false;
         }
     }
 </script>
