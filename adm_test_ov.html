@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel Admin - EMAGES Academy</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         * { box-sizing: border-box; }
@@ -23,72 +24,83 @@
         .exito { color: #27ae60; text-align: center; margin-top: 10px; font-weight: bold; }
         .cargando { color: #2980b9; text-align: center; margin-top: 10px; }
         
+        /* DISEÑO COMPACTO PARA PDF - Máximo 2 páginas A4 */
         #reportePDF {
             background: white;
-            padding: 30px;
-            max-width: 800px;
+            padding: 25px;
+            max-width: 750px;
             margin: 0 auto;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         .reporte-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-bottom: 3px solid #e74c3c;
-            padding-bottom: 20px;
-            margin-bottom: 25px;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
         }
-        .reporte-logo { font-size: 1.8rem; font-weight: bold; color: #e74c3c; }
-        .reporte-titulo { font-size: 1.3rem; color: #2c3e50; margin: 0; }
-        .reporte-subtitulo { margin: 5px 0 0 0; color: #7f8c8d; font-size: 0.9rem; }
+        .reporte-logo { font-size: 1.6rem; font-weight: bold; color: #e74c3c; }
+        .reporte-titulo { font-size: 1.1rem; color: #2c3e50; margin: 0; }
+        .reporte-subtitulo { margin: 3px 0 0 0; color: #7f8c8d; font-size: 0.85rem; }
+        
         .datos-estudiante {
             background: #f8f9fa;
-            padding: 20px;
+            padding: 15px;
             border-radius: 8px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
-        .datos-estudiante h2 { color: #2c3e50; margin-top: 0; font-size: 1.3rem; }
-        .datos-estudiante p { margin: 8px 0; font-size: 0.95rem; }
+        .datos-estudiante h2 { color: #2c3e50; margin: 0 0 10px 0; font-size: 1.1rem; }
+        .datos-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+        .datos-estudiante p { margin: 0; font-size: 0.9rem; }
+        
         .perfil-destacado {
             background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
             color: white;
-            padding: 20px;
+            padding: 15px;
             border-radius: 8px;
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
-        .perfil-destacado h3 { margin: 0 0 5px 0; font-size: 1.1rem; font-weight: normal; opacity: 0.9; }
-        .perfil-destacado .perfil-nombre { font-size: 2rem; font-weight: bold; margin: 0; }
+        .perfil-destacado h3 { margin: 0 0 5px 0; font-size: 1rem; font-weight: normal; opacity: 0.9; }
+        .perfil-destacado .perfil-nombre { font-size: 1.8rem; font-weight: bold; margin: 0; }
+        
         .grafico-container {
-            margin: 25px 0;
-            padding: 20px;
+            margin: 20px 0;
+            padding: 15px;
             background: #f8f9fa;
             border-radius: 8px;
             border: 1px solid #e0e0e0;
         }
-        .grafico-container h3 { color: #2c3e50; text-align: center; margin: 0 0 20px 0; font-size: 1.2rem; }
-        .chart-container { position: relative; height: 350px; width: 100%; max-width: 500px; margin: 0 auto; }
-        .puntajes-seccion { margin: 25px 0; }
-        .puntajes-seccion h3 { color: #2c3e50; font-size: 1.2rem; margin-bottom: 15px; }
-        .puntajes-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+        .grafico-container h3 { color: #2c3e50; text-align: center; margin: 0 0 15px 0; font-size: 1.1rem; }
+        .chart-container { position: relative; height: 280px; width: 100%; max-width: 400px; margin: 0 auto; }
+        
+        .puntajes-seccion { margin: 20px 0; }
+        .puntajes-seccion h3 { color: #2c3e50; font-size: 1.1rem; margin-bottom: 12px; }
+        .puntajes-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
         .puntaje-card {
             background: white;
             border: 2px solid #e0e0e0;
             border-radius: 8px;
-            padding: 15px;
+            padding: 12px;
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
         }
         .circulo-progreso {
-            width: 55px;
-            height: 55px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             background: conic-gradient(#27ae60 0deg, #27ae60 var(--progreso), #e0e0e0 var(--progreso));
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: #27ae60;
             flex-shrink: 0;
             position: relative;
@@ -96,22 +108,44 @@
         .circulo-progreso::before {
             content: '';
             position: absolute;
-            width: 45px;
-            height: 45px;
+            width: 40px;
+            height: 40px;
             background: white;
             border-radius: 50%;
         }
         .circulo-progreso span { position: relative; z-index: 1; }
         .puntaje-info { flex: 1; }
-        .puntaje-info h4 { margin: 0 0 5px 0; color: #2c3e50; font-size: 1rem; }
-        .puntaje-info p { margin: 0; font-size: 0.85rem; color: #7f8c8d; line-height: 1.3; }
-        .puntaje-barra { height: 6px; background: #e0e0e0; border-radius: 3px; margin-top: 8px; overflow: hidden; }
+        .puntaje-info h4 { margin: 0 0 3px 0; color: #2c3e50; font-size: 0.95rem; }
+        .puntaje-info p { margin: 0; font-size: 0.75rem; color: #7f8c8d; line-height: 1.2; }
+        .puntaje-barra { height: 5px; background: #e0e0e0; border-radius: 3px; margin-top: 6px; overflow: hidden; }
         .puntaje-barra-fill { height: 100%; background: linear-gradient(90deg, #27ae60, #2ecc71); border-radius: 3px; }
-        .footer-reporte { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 2px solid #e0e0e0; color: #7f8c8d; font-size: 0.85rem; }
-        .footer-reporte p { margin: 5px 0; }
+        
+        .carreras-seccion {
+            margin: 20px 0;
+            padding: 15px;
+            background: #fff9e6;
+            border-left: 4px solid #f39c12;
+            border-radius: 6px;
+        }
+        .carreras-seccion h3 { color: #e67e22; font-size: 1.1rem; margin: 0 0 10px 0; }
+        .carreras-seccion h4 { color: #2c3e50; font-size: 0.95rem; margin: 10px 0 5px 0; }
+        .carreras-seccion ul { margin: 5px 0; padding-left: 25px; }
+        .carreras-seccion li { font-size: 0.9rem; margin: 4px 0; color: #2c3e50; }
+        .carreras-seccion .nota { font-size: 0.8rem; color: #7f8c8d; font-style: italic; margin-top: 10px; }
+        
+        .footer-reporte {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 2px solid #e0e0e0;
+            color: #7f8c8d;
+            font-size: 0.8rem;
+        }
+        .footer-reporte p { margin: 3px 0; }
         
         @media (max-width: 600px) {
             .puntajes-grid { grid-template-columns: 1fr; }
+            .datos-grid { grid-template-columns: 1fr; }
             .reporte-header { flex-direction: column; text-align: center; gap: 10px; }
         }
     </style>
@@ -142,11 +176,13 @@
 
             <div class="datos-estudiante">
                 <h2>👤 Datos del Estudiante</h2>
-                <p><strong>DNI:</strong> <span id="pdfDni"></span></p>
-                <p><strong>Nombres:</strong> <span id="pdfNombres"></span></p>
-                <p><strong>Celular:</strong> <span id="pdfCelular"></span></p>
-                <p><strong>Correo:</strong> <span id="pdfCorreo"></span></p>
-                <p><strong>Fecha de Evaluación:</strong> <span id="pdfFecha"></span></p>
+                <div class="datos-grid">
+                    <p><strong>DNI:</strong> <span id="pdfDni"></span></p>
+                    <p><strong>Celular:</strong> <span id="pdfCelular"></span></p>
+                    <p><strong>Nombres:</strong> <span id="pdfNombres"></span></p>
+                    <p><strong>Correo:</strong> <span id="pdfCorreo"></span></p>
+                    <p style="grid-column: 1 / -1;"><strong>Fecha:</strong> <span id="pdfFecha"></span></p>
+                </div>
             </div>
 
             <div class="perfil-destacado">
@@ -166,12 +202,16 @@
                 <div class="puntajes-grid" id="puntajesGrid"></div>
             </div>
 
+            <div class="carreras-seccion">
+                <h3>💼 Carreras Más Demandadas en Perú</h3>
+                <div id="carrerasContenido"></div>
+            </div>
+
             <div class="footer-reporte">
-                <p><strong>EMAGES GROUP S.A.C.</strong></p>
-                <p>RUC: 20611427671</p>
+                <p><strong>EMAGES GROUP S.A.C.</strong> - RUC: 20611427671</p>
                 <p>www.emagesgroup.com | academy.emagesgroup.com</p>
-                <p style="margin-top: 15px; font-style: italic; font-size: 0.8rem;">
-                    Este informe es una orientación vocacional basada en el modelo RIASEC de Holland.
+                <p style="font-style: italic; font-size: 0.75rem; margin-top: 8px;">
+                    Informe de orientación vocacional basado en el modelo RIASEC de Holland.
                 </p>
             </div>
         </div>
@@ -199,15 +239,14 @@
         'Convencional': 'Eres organizado, detallista y te sientes cómodo trabajando con datos y estructuras.'
     };
 
-    // Carreras más demandadas en Perú por perfil
     const carrerasPorPerfil = {
         'Realista': {
             principal: {
                 facultad: 'Ingeniería y Tecnología',
                 carreras: [
-                    { nombre: 'Ingeniería de Sistemas', demanda: '⭐⭐⭐' },
-                    { nombre: 'Ingeniería Industrial', demanda: '⭐⭐⭐' },
-                    { nombre: 'Ingeniería Civil', demanda: '⭐⭐' }
+                    { nombre: 'Ingeniería de Sistemas', demanda: 'Alta' },
+                    { nombre: 'Ingeniería Industrial', demanda: 'Alta' },
+                    { nombre: 'Ingeniería Civil', demanda: 'Media' }
                 ]
             },
             otras: ['Arquitectura', 'Ingeniería Mecánica', 'Agronomía']
@@ -216,9 +255,9 @@
             principal: {
                 facultad: 'Ciencias de la Salud',
                 carreras: [
-                    { nombre: 'Medicina Humana', demanda: '⭐⭐⭐' },
-                    { nombre: 'Enfermería', demanda: '⭐⭐⭐' },
-                    { nombre: 'Farmacia y Bioquímica', demanda: '⭐⭐' }
+                    { nombre: 'Medicina Humana', demanda: 'Alta' },
+                    { nombre: 'Enfermería', demanda: 'Alta' },
+                    { nombre: 'Farmacia y Bioquímica', demanda: 'Media' }
                 ]
             },
             otras: ['Biología', 'Ingeniería Ambiental', 'Nutrición']
@@ -227,9 +266,9 @@
             principal: {
                 facultad: 'Comunicación y Artes',
                 carreras: [
-                    { nombre: 'Comunicación Audiovisual', demanda: '⭐⭐⭐' },
-                    { nombre: 'Diseño Gráfico', demanda: '⭐⭐⭐' },
-                    { nombre: 'Publicidad', demanda: '⭐⭐' }
+                    { nombre: 'Comunicación Audiovisual', demanda: 'Alta' },
+                    { nombre: 'Diseño Gráfico', demanda: 'Alta' },
+                    { nombre: 'Publicidad', demanda: 'Media' }
                 ]
             },
             otras: ['Arquitectura', 'Diseño de Interiores', 'Música']
@@ -238,9 +277,9 @@
             principal: {
                 facultad: 'Ciencias Sociales y Humanas',
                 carreras: [
-                    { nombre: 'Psicología', demanda: '⭐⭐⭐' },
-                    { nombre: 'Educación', demanda: '⭐⭐⭐' },
-                    { nombre: 'Trabajo Social', demanda: '⭐⭐' }
+                    { nombre: 'Psicología', demanda: 'Alta' },
+                    { nombre: 'Educación', demanda: 'Alta' },
+                    { nombre: 'Trabajo Social', demanda: 'Media' }
                 ]
             },
             otras: ['Sociología', 'Antropología', 'Ciencias Políticas']
@@ -249,9 +288,9 @@
             principal: {
                 facultad: 'Ciencias Empresariales',
                 carreras: [
-                    { nombre: 'Administración de Empresas', demanda: '⭐⭐⭐' },
-                    { nombre: 'Marketing', demanda: '⭐⭐⭐' },
-                    { nombre: 'Negocios Internacionales', demanda: '⭐⭐⭐' }
+                    { nombre: 'Administración de Empresas', demanda: 'Alta' },
+                    { nombre: 'Marketing', demanda: 'Alta' },
+                    { nombre: 'Negocios Internacionales', demanda: 'Alta' }
                 ]
             },
             otras: ['Contabilidad', 'Turismo y Hotelería', 'Economía']
@@ -260,9 +299,9 @@
             principal: {
                 facultad: 'Ciencias Contables y Financieras',
                 carreras: [
-                    { nombre: 'Contabilidad', demanda: '⭐⭐⭐' },
-                    { nombre: 'Finanzas', demanda: '⭐⭐⭐' },
-                    { nombre: 'Administración', demanda: '⭐⭐' }
+                    { nombre: 'Contabilidad', demanda: 'Alta' },
+                    { nombre: 'Finanzas', demanda: 'Alta' },
+                    { nombre: 'Administración', demanda: 'Media' }
                 ]
             },
             otras: ['Economía', 'Estadística', 'Gestión Pública']
@@ -303,6 +342,7 @@
                 
                 crearGraficoRadar(datosResultado);
                 crearPuntajesCards(datosResultado);
+                crearCarrerasSeccion(datosResultado);
                 
                 document.getElementById('resultadoBusqueda').style.display = 'block';
                 mensajeDiv.className = 'exito';
@@ -360,7 +400,7 @@
                         },
                         grid: { color: 'rgba(0, 0, 0, 0.1)' },
                         angleLines: { color: 'rgba(0, 0, 0, 0.1)' },
-                        pointLabels: { font: { size: 12, weight: 'bold' }, color: '#2c3e50' }
+                        pointLabels: { font: { size: 11, weight: 'bold' }, color: '#2c3e50' }
                     }
                 },
                 plugins: {
@@ -414,16 +454,43 @@
                     <div class="puntaje-barra">
                         <div class="puntaje-barra-fill" style="width: ${porcentaje}%;"></div>
                     </div>
-                    <p style="font-size: 0.75rem; margin-top: 5px; color: #95a5a6;">${p.puntaje}/${p.max} puntos (${Math.round(porcentaje)}%)</p>
+                    <p style="font-size: 0.7rem; margin-top: 4px; color: #95a5a6;">${p.puntaje}/${p.max} puntos (${Math.round(porcentaje)}%)</p>
                 </div>
             `;
             grid.appendChild(card);
         });
     }
 
+    function crearCarrerasSeccion(datos) {
+        const perfilLimpio = datos.perfil.replace('Perfil ', '');
+        const carrerasData = carrerasPorPerfil[perfilLimpio];
+        const contenedor = document.getElementById('carrerasContenido');
+        
+        if (!carrerasData) {
+            contenedor.innerHTML = '<p>No hay información disponible.</p>';
+            return;
+        }
+        
+        let html = `<h4>🏛️ Facultad Principal: ${carrerasData.principal.facultad}</h4><ul>`;
+        carrerasData.principal.carreras.forEach(carrera => {
+            const icono = carrera.demanda === 'Alta' ? '🔥' : '⭐';
+            html += `<li>${icono} <strong>${carrera.nombre}</strong> (Demanda: ${carrera.demanda})</li>`;
+        });
+        html += `</ul>`;
+        
+        html += `<h4>🔍 Otras opciones compatibles:</h4><ul>`;
+        carrerasData.otras.forEach(carrera => {
+            html += `<li>• ${carrera}</li>`;
+        });
+        html += `</ul>`;
+        html += `<p class="nota">¿Te interesa alguna en particular? Escríbenos y te contamos más sobre universidades y planes de estudio.</p>`;
+        
+        contenedor.innerHTML = html;
+    }
+
     async function generarPDF() {
         const { jsPDF } = window.jspdf;
-        const pdf = new jsPDF('p', 'mm', 'a4');
+        const reporte = document.getElementById('reportePDF');
         
         const btn = document.querySelector('.btn-pdf');
         const textoOriginal = btn.textContent;
@@ -431,129 +498,44 @@
         btn.disabled = true;
         
         try {
-            const pageWidth = pdf.internal.pageSize.getWidth();
-            const pageHeight = pdf.internal.pageSize.getHeight();
-            const margin = 15;
-            let yPos = margin;
-            
-            // Encabezado
-            pdf.setFillColor(231, 76, 60);
-            pdf.rect(0, 0, pageWidth, 35, 'F');
-            pdf.setTextColor(255, 255, 255);
-            pdf.setFontSize(20);
-            pdf.text('EMAGES Academy', pageWidth / 2, 15, { align: 'center' });
-            pdf.setFontSize(12);
-            pdf.text('Informe de Evaluación Vocacional', pageWidth / 2, 25, { align: 'center' });
-            
-            yPos = 45;
-            pdf.setTextColor(0, 0, 0);
-            
-            // Datos del estudiante
-            pdf.setFontSize(14);
-            pdf.text('Datos del Estudiante', margin, yPos);
-            yPos += 8;
-            
-            pdf.setFontSize(10);
-            pdf.text(`DNI: ${datosEstudiante.dni}`, margin, yPos);
-            yPos += 6;
-            pdf.text(`Nombres: ${datosEstudiante.nombres}`, margin, yPos);
-            yPos += 6;
-            pdf.text(`Celular: ${datosEstudiante.celular}`, margin, yPos);
-            yPos += 6;
-            pdf.text(`Correo: ${datosEstudiante.correo}`, margin, yPos);
-            yPos += 6;
-            pdf.text(`Fecha: ${new Date(datosResultado.fecha).toLocaleString('es-PE')}`, margin, yPos);
-            yPos += 12;
-            
-            // Perfil
-            pdf.setFillColor(231, 76, 60);
-            pdf.rect(margin, yPos, pageWidth - 2 * margin, 15, 'F');
-            pdf.setTextColor(255, 255, 255);
-            pdf.setFontSize(14);
-            pdf.text(`Perfil: ${datosResultado.perfil}`, pageWidth / 2, yPos + 10, { align: 'center' });
-            yPos += 20;
-            
-            pdf.setTextColor(0, 0, 0);
-            
-            // Capturar gráfico como imagen
-            const canvas = document.getElementById('chartRadar');
-            const chartImg = canvas.toDataURL('image/png');
-            
-            pdf.setFontSize(12);
-            pdf.text('Mapa de Competencias Vocacionales', margin, yPos);
-            yPos += 5;
-            
-            pdf.addImage(chartImg, 'PNG', margin, yPos, 80, 80);
-            yPos += 85;
-            
-            // Puntajes
-            pdf.setFontSize(12);
-            pdf.text('Puntuaciones por Área:', margin, yPos);
-            yPos += 8;
-            
-            pdf.setFontSize(10);
-            const areas = [
-                { nombre: 'Realista', puntaje: datosResultado.puntajeR, max: 32 },
-                { nombre: 'Investigador', puntaje: datosResultado.puntajeI, max: 36 },
-                { nombre: 'Artístico', puntaje: datosResultado.puntajeA, max: 32 },
-                { nombre: 'Social', puntaje: datosResultado.puntajeS, max: 36 },
-                { nombre: 'Emprendedor', puntaje: datosResultado.puntajeE, max: 32 },
-                { nombre: 'Convencional', puntaje: datosResultado.puntajeC, max: 32 }
-            ];
-            
-            areas.forEach(area => {
-                const porcentaje = Math.round((area.puntaje / area.max) * 100);
-                pdf.text(`${area.nombre}: ${area.puntaje}/${area.max} (${porcentaje}%)`, margin, yPos);
-                yPos += 6;
+            // Capturar el HTML completo como imagen de alta calidad
+            const canvas = await html2canvas(reporte, {
+                scale: 2,
+                useCORS: true,
+                logging: false,
+                backgroundColor: '#ffffff',
+                windowWidth: 750
             });
             
-            // Carreras sugeridas
-            yPos += 5;
-            if (yPos > pageHeight - 40) {
+            const imgData = canvas.toDataURL('image/png');
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            
+            const pdfWidth = 210; // A4 width in mm
+            const pdfHeight = 297; // A4 height in mm
+            const margin = 10;
+            const contentWidth = pdfWidth - 2 * margin;
+            
+            const imgWidth = canvas.width;
+            const imgHeight = canvas.height;
+            const ratio = contentWidth / imgWidth;
+            const scaledHeight = imgHeight * ratio;
+            
+            let heightLeft = scaledHeight;
+            let position = 0;
+            let firstPage = true;
+            
+            // Primera página
+            pdf.addImage(imgData, 'PNG', margin, margin, contentWidth, scaledHeight);
+            heightLeft -= (pdfHeight - 2 * margin);
+            
+            // Páginas adicionales si el contenido es muy largo
+            while (heightLeft > 0) {
+                position = heightLeft - scaledHeight;
                 pdf.addPage();
-                yPos = margin;
+                pdf.addImage(imgData, 'PNG', margin, margin + position, contentWidth, scaledHeight);
+                heightLeft -= (pdfHeight - 2 * margin);
             }
             
-            const perfilLimpio = datosResultado.perfil.replace('Perfil ', '');
-            const carrerasData = carrerasPorPerfil[perfilLimpio];
-            
-            if (carrerasData) {
-                pdf.setFontSize(12);
-                pdf.text('Carreras Más Demandadas en Perú:', margin, yPos);
-                yPos += 8;
-                
-                pdf.setFontSize(10);
-                pdf.text(`Facultad: ${carrerasData.principal.facultad}`, margin, yPos);
-                yPos += 6;
-                
-                carrerasData.principal.carreras.forEach(carrera => {
-                    pdf.text(`• ${carrera.nombre} ${carrera.demanda}`, margin + 5, yPos);
-                    yPos += 6;
-                });
-                
-                yPos += 4;
-                pdf.text('Otras opciones compatibles:', margin, yPos);
-                yPos += 6;
-                
-                carrerasData.otras.forEach(carrera => {
-                    pdf.text(`• ${carrera}`, margin + 5, yPos);
-                    yPos += 6;
-                });
-            }
-            
-            // Footer
-            if (yPos > pageHeight - 30) {
-                pdf.addPage();
-                yPos = margin;
-            }
-            
-            yPos = pageHeight - 20;
-            pdf.setFontSize(8);
-            pdf.setTextColor(128, 128, 128);
-            pdf.text('EMAGES GROUP S.A.C. - RUC: 20611427671', pageWidth / 2, yPos, { align: 'center' });
-            pdf.text('www.emagesgroup.com | academy.emagesgroup.com', pageWidth / 2, yPos + 5, { align: 'center' });
-            
-            // Guardar
             const dni = datosEstudiante.dni;
             const nombres = datosEstudiante.nombres.replace(/\s+/g, '_');
             pdf.save(`${dni}_${nombres}_EMAGES.pdf`);
