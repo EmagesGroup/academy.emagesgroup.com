@@ -24,43 +24,19 @@
             top: 0;
             z-index: 100;
         }
-        .logo {
-            font-weight: bold;
-            font-size: 1.2rem;
-            color: #e74c3c;
-        }
-        .progreso-texto {
-            font-size: 0.9rem;
-            color: #7f8c8d;
-            font-weight: bold;
-        }
-        .barra-progreso-container {
-            width: 100%;
-            height: 6px;
-            background: #e0e0e0;
-        }
+        .logo { font-weight: bold; font-size: 1.2rem; color: #e74c3c; }
+        .progreso-texto { font-size: 0.9rem; color: #7f8c8d; font-weight: bold; }
+        .barra-progreso-container { width: 100%; height: 6px; background: #e0e0e0; }
         .barra-progreso {
             height: 100%;
             background: linear-gradient(90deg, #e74c3c, #c0392b);
             transition: width 0.3s ease;
             width: 0%;
         }
-        .container {
-            max-width: 700px;
-            margin: 0 auto;
-            padding: 30px 20px;
-        }
-        .welcome {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .welcome h2 {
-            color: #2c3e50;
-            margin-bottom: 10px;
-        }
-        .welcome p {
-            color: #7f8c8d;
-        }
+        .container { max-width: 700px; margin: 0 auto; padding: 30px 20px; }
+        .welcome { text-align: center; margin-bottom: 30px; }
+        .welcome h2 { color: #2c3e50; margin-bottom: 10px; }
+        .welcome p { color: #7f8c8d; }
         .pregunta-card {
             background: white;
             border-radius: 16px;
@@ -88,11 +64,7 @@
             text-align: center;
             font-weight: 500;
         }
-        .opciones {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+        .opciones { display: flex; flex-direction: column; gap: 12px; }
         .opcion {
             background: white;
             border: 2px solid #e0e0e0;
@@ -105,34 +77,12 @@
             justify-content: space-between;
             font-size: 1.05rem;
         }
-        .opcion:hover {
-            border-color: #e74c3c;
-            background: #fdf2f0;
-            transform: translateX(5px);
-        }
-        .opcion.seleccionada {
-            border-color: #e74c3c;
-            background: #fdf2f0;
-            font-weight: bold;
-        }
-        .opcion-color {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            margin-right: 12px;
-        }
-        .opcion-texto {
-            flex: 1;
-        }
-        .opcion-flecha {
-            color: #95a5a6;
-            font-size: 1.2rem;
-        }
-        .navegacion {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
+        .opcion:hover { border-color: #e74c3c; background: #fdf2f0; transform: translateX(5px); }
+        .opcion.seleccionada { border-color: #e74c3c; background: #fdf2f0; font-weight: bold; }
+        .opcion-color { width: 12px; height: 12px; border-radius: 50%; margin-right: 12px; }
+        .opcion-texto { flex: 1; }
+        .opcion-flecha { color: #95a5a6; font-size: 1.2rem; }
+        .navegacion { display: flex; gap: 15px; margin-top: 20px; }
         .btn-nav {
             flex: 1;
             padding: 16px;
@@ -143,40 +93,70 @@
             cursor: pointer;
             transition: all 0.2s ease;
         }
-        .btn-anterior {
-            background: white;
-            color: #7f8c8d;
-            border: 2px solid #e0e0e0;
-        }
-        .btn-anterior:hover:not(:disabled) {
-            border-color: #3498db;
-            color: #3498db;
-        }
-        .btn-anterior:disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-        }
-        .btn-siguiente {
-            background: #e74c3c;
-            color: white;
-        }
-        .btn-siguiente:hover:not(:disabled) {
-            background: #c0392b;
-        }
-        .btn-siguiente:disabled {
-            background: #95a5a6;
-            cursor: not-allowed;
-        }
+        .btn-anterior { background: white; color: #7f8c8d; border: 2px solid #e0e0e0; }
+        .btn-anterior:hover:not(:disabled) { border-color: #3498db; color: #3498db; }
+        .btn-anterior:disabled { opacity: 0.4; cursor: not-allowed; }
+        .btn-siguiente { background: #e74c3c; color: white; }
+        .btn-siguiente:hover:not(:disabled) { background: #c0392b; }
+        .btn-siguiente:disabled { background: #95a5a6; cursor: not-allowed; }
         
-        /* Sección de resultados */
         #resultado { display: none; text-align: center; animation: fadeIn 0.5s; }
         .perfil-titulo { font-size: 2rem; color: #e74c3c; margin: 20px 0; font-weight: bold; }
         .mensaje-whatsapp { background: #dcf8c6; padding: 25px; border-radius: 12px; margin: 30px 0; }
-        .btn-whatsapp { background-color: #25D366; color: white; font-size: 1.1rem; padding: 16px; border: none; border-radius: 10px; cursor: pointer; width: 100%; font-weight: bold; margin-top: 15px; }
+        .btn-whatsapp {
+            background-color: #25D366;
+            color: white;
+            font-size: 1.1rem;
+            padding: 16px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            margin-top: 15px;
+        }
         .btn-whatsapp:hover { background-color: #128C7E; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         
-        /* Responsive */
+        /* Modal de recuperación de progreso */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .modal-overlay.activo { display: flex; }
+        .modal {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        .modal h3 { color: #e74c3c; margin-top: 0; font-size: 1.4rem; }
+        .modal p { color: #555; line-height: 1.5; margin-bottom: 25px; }
+        .modal-botones { display: flex; flex-direction: column; gap: 12px; }
+        .btn-modal {
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .btn-continuar { background: #27ae60; color: white; }
+        .btn-continuar:hover { background: #229954; }
+        .btn-reiniciar { background: #e74c3c; color: white; }
+        .btn-reiniciar:hover { background: #c0392b; }
+        
         @media (max-width: 600px) {
             .pregunta-texto { font-size: 1.2rem; }
             .pregunta-card { padding: 30px 20px; min-height: 350px; }
@@ -186,9 +166,21 @@
 </head>
 <body>
 
+<!-- Modal de recuperación de progreso -->
+<div class="modal-overlay" id="modalProgreso">
+    <div class="modal">
+        <h3>📝 Tienes un test en progreso</h3>
+        <p id="modalMensaje">Detectamos que no completaste el test la última vez. ¿Deseas continuar donde lo dejaste?</p>
+        <div class="modal-botones">
+            <button class="btn-modal btn-continuar" onclick="continuarProgreso()">✅ Continuar donde lo dejé</button>
+            <button class="btn-modal btn-reiniciar" onclick="reiniciarTest()">🔄 Reiniciar desde el inicio</button>
+        </div>
+    </div>
+</div>
+
 <!-- Header con progreso -->
 <div class="header" id="headerTest">
-    <div class="logo">🎓 EMAGES Academy</div>
+    <div class="logo"> EMAGES Academy</div>
     <div class="progreso-texto" id="progresoTexto">1 / 50</div>
 </div>
 <div class="barra-progreso-container">
@@ -227,7 +219,7 @@
         </div>
 
         <div class="mensaje-whatsapp">
-            <h3 style="margin-top: 0; color: #075e54;">📲 Recibe tu Informe Completo GRATIS</h3>
+            <h3 style="margin-top: 0; color: #075e54;"> Recibe tu Informe Completo GRATIS</h3>
             <p style="text-align: left; line-height: 1.6;">
                 Te enviaremos por WhatsApp:<br>
                 ✓ <strong>Análisis detallado</strong> de tu perfil<br>
@@ -241,7 +233,7 @@
             </button>
         </div>
 
-        <button onclick="window.location.href='https://academy.emagesgroup.com/registro_test_ov.html'" style="background-color: #34495e; color: white; width: 100%; padding: 16px; border: none; border-radius: 10px; font-size: 1rem; font-weight: bold; margin-top: 20px; cursor: pointer;">Volver al Inicio</button>
+        <button onclick="volverAlInicio()" style="background-color: #34495e; color: white; width: 100%; padding: 16px; border: none; border-radius: 10px; font-size: 1rem; font-weight: bold; margin-top: 20px; cursor: pointer;">Volver al Inicio</button>
     </div>
 </div>
 
@@ -258,6 +250,10 @@
     } else {
         document.getElementById('nombre-estudiante').textContent = nombre;
     }
+
+    // Clave única para guardar el progreso de ESTE estudiante
+    const CLAVE_PROGRESO = `emages_progreso_${dni}`;
+    const CLAVE_COMPLETADO = `emages_completado_${dni}`;
 
     // BANCO DE 50 PREGUNTAS RIASEC
     const preguntas = [
@@ -277,7 +273,7 @@
         { id: 11, perfil: 'I', texto: 'Siento curiosidad por entender cómo funcionan las cosas.' },
         { id: 12, perfil: 'I', texto: 'Prefiero tareas que requieran pensamiento analítico y crítico.' },
         { id: 13, perfil: 'I', texto: 'Me atraen las carreras de ciencias, medicina o tecnología.' },
-        { id: 14, perfil: 'I', texto: 'Disfruto leer artículos científicos o documentalies educativos.' },
+        { id: 14, perfil: 'I', texto: 'Disfruto leer artículos científicos o documentales educativos.' },
         { id: 15, perfil: 'I', texto: 'Me gusta trabajar de forma independiente en proyectos complejos.' },
         { id: 16, perfil: 'I', texto: 'Suelo hacerme muchas preguntas sobre el mundo y buscar respuestas.' },
         { id: 17, perfil: 'I', texto: 'Me interesa la programación, la robótica o la inteligencia artificial.' },
@@ -324,7 +320,6 @@
         { id: 50, perfil: 'C', texto: 'Disfruto verificando que las cosas se hagan correctamente y según las normas.' }
     ];
 
-    // Escala Likert de 5 puntos
     const opciones = [
         { texto: 'Muy de acuerdo', valor: 4, color: '#27ae60' },
         { texto: 'De acuerdo', valor: 3, color: '#82c97a' },
@@ -336,20 +331,74 @@
     let preguntaActual = 0;
     const respuestas = new Array(preguntas.length).fill(null);
 
+    // === FUNCIONES DE GUARDADO DE PROGRESO ===
+    function guardarProgreso() {
+        const progreso = {
+            preguntaActual: preguntaActual,
+            respuestas: respuestas,
+            timestamp: new Date().toISOString()
+        };
+        localStorage.setItem(CLAVE_PROGRESO, JSON.stringify(progreso));
+    }
+
+    function recuperarProgreso() {
+        const progresoGuardado = localStorage.getItem(CLAVE_PROGRESO);
+        const yaCompletado = localStorage.getItem(CLAVE_COMPLETADO);
+        
+        // Si ya completó el test, no mostrar modal
+        if (yaCompletado === 'true') {
+            return null;
+        }
+        
+        if (progresoGuardado) {
+            try {
+                return JSON.parse(progresoGuardado);
+            } catch (e) {
+                return null;
+            }
+        }
+        return null;
+    }
+
+    function limpiarProgreso() {
+        localStorage.removeItem(CLAVE_PROGRESO);
+        localStorage.setItem(CLAVE_COMPLETADO, 'true');
+    }
+
+    function continuarProgreso() {
+        const progreso = recuperarProgreso();
+        if (progreso) {
+            preguntaActual = progreso.preguntaActual;
+            for (let i = 0; i < progreso.respuestas.length; i++) {
+                respuestas[i] = progreso.respuestas[i];
+            }
+        }
+        document.getElementById('modalProgreso').classList.remove('activo');
+        cargarPregunta();
+    }
+
+    function reiniciarTest() {
+        localStorage.removeItem(CLAVE_PROGRESO);
+        preguntaActual = 0;
+        for (let i = 0; i < respuestas.length; i++) {
+            respuestas[i] = null;
+        }
+        document.getElementById('modalProgreso').classList.remove('activo');
+        cargarPregunta();
+    }
+
     function cargarPregunta() {
         const pregunta = preguntas[preguntaActual];
         
-        // Actualizar progreso
         document.getElementById('progresoTexto').textContent = `${preguntaActual + 1} / ${preguntas.length}`;
         document.getElementById('barraProgreso').style.width = `${((preguntaActual + 1) / preguntas.length) * 100}%`;
         document.getElementById('preguntaNumero').textContent = `Pregunta ${preguntaActual + 1} de ${preguntas.length}`;
         document.getElementById('preguntaTexto').textContent = pregunta.texto;
         
-        // Renderizar opciones
         const opcionesContainer = document.getElementById('opcionesContainer');
         opcionesContainer.innerHTML = '';
         
-        opciones.forEach((opcion, index) => {
+        opciones.forEach((opcion) => {
             const div = document.createElement('div');
             div.className = 'opcion';
             if (respuestas[preguntaActual] === opcion.valor) {
@@ -366,15 +415,17 @@
             opcionesContainer.appendChild(div);
         });
         
-        // Actualizar botones de navegación
         document.getElementById('btnAnterior').disabled = preguntaActual === 0;
         document.getElementById('btnSiguiente').disabled = respuestas[preguntaActual] === null;
         document.getElementById('btnSiguiente').textContent = preguntaActual === preguntas.length - 1 ? 'Ver Resultados ✓' : 'Siguiente →';
+        
+        // Guardar progreso automáticamente
+        guardarProgreso();
     }
 
     function seleccionarOpcion(valor) {
         respuestas[preguntaActual] = valor;
-        cargarPregunta(); // Re-renderizar para mostrar selección
+        cargarPregunta();
     }
 
     function preguntaAnterior() {
@@ -431,9 +482,11 @@
         document.querySelector('.barra-progreso-container').style.display = 'none';
         document.getElementById('resultado').style.display = 'block';
         
+        // Marcar como completado y limpiar progreso
+        limpiarProgreso();
+        
         window.scrollTo({ top: 0, behavior: 'smooth' });
 
-        // Guardar resultado en Google Sheets
         const datosResultado = {
             accion: 'guardarResultado',
             dni: dni,
@@ -461,8 +514,27 @@
         window.open(url, '_blank');
     }
 
-    // Inicializar
-    cargarPregunta();
+    function volverAlInicio() {
+        // Limpiar progreso al volver al inicio
+        localStorage.removeItem(CLAVE_PROGRESO);
+        localStorage.removeItem(CLAVE_COMPLETADO);
+        window.location.href = 'https://academy.emagesgroup.com/registro_test_ov.html';
+    }
+
+    // === INICIALIZACIÓN ===
+    // Verificar si hay progreso guardado al cargar la página
+    const progresoExistente = recuperarProgreso();
+    
+    if (progresoExistente) {
+        // Mostrar modal preguntando si desea continuar
+        const preguntasRespondidas = progresoExistente.respuestas.filter(r => r !== null).length;
+        document.getElementById('modalMensaje').textContent = 
+            `Detectamos que respondiste ${preguntasRespondidas} de ${preguntas.length} preguntas la última vez. ¿Deseas continuar donde lo dejaste (pregunta ${progresoExistente.preguntaActual + 1}) o reiniciar desde el inicio?`;
+        document.getElementById('modalProgreso').classList.add('activo');
+    } else {
+        // No hay progreso, empezar desde cero
+        cargarPregunta();
+    }
 </script>
 
 </body>
