@@ -24,96 +24,124 @@
         .exito { color: #27ae60; text-align: center; margin-top: 10px; font-weight: bold; }
         .cargando { color: #2980b9; text-align: center; margin-top: 10px; }
         
-        /* PÁGINAS A4 - Tamaño fijo para PDF */
+        /* PÁGINAS A4 EXACTAS - 794x1123px = 210x297mm a 96dpi */
         .pagina-a4 {
             width: 794px;
             height: 1123px;
             background: white;
-            padding: 40px;
+            padding: 40px 50px;
             margin: 20px auto;
             box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-            position: relative;
-            overflow: hidden;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            position: relative;
         }
         
-        /* Header común */
+        /* Header */
         .header-pdf {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
             border-bottom: 3px solid #e74c3c;
             padding-bottom: 15px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
+            flex-shrink: 0;
         }
-        .header-logo { font-size: 2rem; font-weight: bold; color: #e74c3c; }
-        .header-titulo { font-size: 1.4rem; color: #2c3e50; font-weight: bold; }
-        .header-subtitulo { color: #7f8c8d; font-size: 0.95rem; margin-top: 5px; }
+        .header-logo { font-size: 1.8rem; font-weight: bold; color: #e74c3c; }
+        .header-titulo { font-size: 1.3rem; color: #2c3e50; font-weight: bold; }
+        .header-subtitulo { color: #7f8c8d; font-size: 0.9rem; margin-top: 4px; }
         
         /* Datos del estudiante */
         .datos-box {
             background: #f8f9fa;
-            padding: 20px;
+            padding: 18px 20px;
             border-radius: 10px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
+            flex-shrink: 0;
         }
-        .datos-box h2 { color: #2c3e50; font-size: 1.3rem; margin-bottom: 12px; }
+        .datos-box h2 { color: #2c3e50; font-size: 1.2rem; margin-bottom: 10px; }
         .datos-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
+            gap: 8px 20px;
         }
-        .datos-box p { margin: 0; font-size: 1rem; }
+        .datos-box p { margin: 0; font-size: 0.95rem; }
         .datos-box p strong { color: #2c3e50; }
         
         /* Perfil destacado */
         .perfil-banner {
             background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
             color: white;
-            padding: 25px;
+            padding: 22px;
             border-radius: 12px;
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
+            flex-shrink: 0;
         }
-        .perfil-banner h3 { font-size: 1.1rem; font-weight: normal; opacity: 0.95; margin-bottom: 8px; }
-        .perfil-banner .perfil-nombre { font-size: 2.5rem; font-weight: bold; margin: 0; }
+        .perfil-banner h3 { font-size: 1rem; font-weight: normal; opacity: 0.95; margin-bottom: 6px; }
+        .perfil-banner .perfil-nombre { font-size: 2.2rem; font-weight: bold; margin: 0; }
         
         /* Gráfico */
         .grafico-box {
             background: #f8f9fa;
-            padding: 20px;
+            padding: 18px;
             border-radius: 10px;
             border: 1px solid #e0e0e0;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
         }
-        .grafico-box h3 { color: #2c3e50; text-align: center; font-size: 1.3rem; margin-bottom: 15px; }
-        .chart-container { position: relative; height: 380px; width: 100%; max-width: 500px; margin: 0 auto; }
+        .grafico-box h3 { color: #2c3e50; text-align: center; font-size: 1.2rem; margin-bottom: 10px; flex-shrink: 0; }
+        .chart-container { 
+            position: relative; 
+            flex: 1; 
+            width: 100%; 
+            max-width: 500px; 
+            margin: 0 auto;
+            min-height: 0;
+        }
         
-        /* Puntuaciones */
-        .puntajes-titulo { color: #2c3e50; font-size: 1.5rem; margin-bottom: 20px; }
+        /* Footer - siempre al fondo gracias a flexbox */
+        .footer-pdf {
+            text-align: center;
+            padding-top: 12px;
+            border-top: 2px solid #e0e0e0;
+            color: #7f8c8d;
+            font-size: 0.8rem;
+            margin-top: auto;
+            flex-shrink: 0;
+        }
+        .footer-pdf p { margin: 3px 0; }
+        
+        /* PÁGINA 2 */
+        .puntajes-titulo { color: #2c3e50; font-size: 1.4rem; margin-bottom: 18px; flex-shrink: 0; }
         .puntajes-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
+            gap: 12px;
+            flex-shrink: 0;
         }
         .puntaje-card {
             background: white;
             border: 2px solid #e0e0e0;
             border-radius: 10px;
-            padding: 18px;
+            padding: 14px;
             display: flex;
             align-items: flex-start;
-            gap: 15px;
+            gap: 12px;
         }
         .circulo-progreso {
-            width: 60px;
-            height: 60px;
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
             background: conic-gradient(#27ae60 0deg, #27ae60 var(--progreso), #e0e0e0 var(--progreso));
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             color: #27ae60;
             flex-shrink: 0;
             position: relative;
@@ -121,49 +149,33 @@
         .circulo-progreso::before {
             content: '';
             position: absolute;
-            width: 48px;
-            height: 48px;
+            width: 44px;
+            height: 44px;
             background: white;
             border-radius: 50%;
         }
         .circulo-progreso span { position: relative; z-index: 1; }
-        .puntaje-info { flex: 1; }
-        .puntaje-info h4 { margin: 0 0 5px 0; color: #2c3e50; font-size: 1.1rem; }
-        .puntaje-info .desc { margin: 0; font-size: 0.85rem; color: #7f8c8d; line-height: 1.3; }
-        .puntaje-barra { height: 6px; background: #e0e0e0; border-radius: 3px; margin-top: 8px; overflow: hidden; }
+        .puntaje-info { flex: 1; min-width: 0; }
+        .puntaje-info h4 { margin: 0 0 4px 0; color: #2c3e50; font-size: 1rem; }
+        .puntaje-info .desc { margin: 0; font-size: 0.8rem; color: #7f8c8d; line-height: 1.25; }
+        .puntaje-barra { height: 5px; background: #e0e0e0; border-radius: 3px; margin-top: 6px; overflow: hidden; }
         .puntaje-barra-fill { height: 100%; background: linear-gradient(90deg, #27ae60, #2ecc71); border-radius: 3px; }
-        .puntaje-info .puntos { font-size: 0.8rem; color: #95a5a6; margin-top: 5px; }
+        .puntaje-info .puntos { font-size: 0.75rem; color: #95a5a6; margin-top: 4px; }
         
         /* Carreras */
         .carreras-box {
-            margin-top: 25px;
-            padding: 20px;
+            margin-top: 18px;
+            padding: 18px;
             background: #fff9e6;
             border-left: 5px solid #f39c12;
             border-radius: 8px;
+            flex: 1;
         }
-        .carreras-box h3 { color: #e67e22; font-size: 1.3rem; margin-bottom: 15px; }
-        .carreras-box h4 { color: #2c3e50; font-size: 1.05rem; margin: 12px 0 8px 0; }
-        .carreras-box ul { margin: 5px 0 10px 0; padding-left: 25px; }
-        .carreras-box li { font-size: 0.95rem; margin: 5px 0; color: #2c3e50; }
-        .carreras-box .nota { font-size: 0.85rem; color: #7f8c8d; font-style: italic; margin-top: 12px; }
-        
-        /* Footer */
-        .footer-pdf {
-            position: absolute;
-            bottom: 30px;
-            left: 40px;
-            right: 40px;
-            text-align: center;
-            padding-top: 15px;
-            border-top: 2px solid #e0e0e0;
-            color: #7f8c8d;
-            font-size: 0.85rem;
-        }
-        .footer-pdf p { margin: 4px 0; }
-        
-        /* Ocultar páginas en vista normal, mostrar solo al generar PDF */
-        .pagina-a4.oculta { display: none; }
+        .carreras-box h3 { color: #e67e22; font-size: 1.2rem; margin-bottom: 12px; }
+        .carreras-box h4 { color: #2c3e50; font-size: 1rem; margin: 10px 0 6px 0; }
+        .carreras-box ul { margin: 4px 0 10px 0; padding-left: 22px; }
+        .carreras-box li { font-size: 0.9rem; margin: 4px 0; color: #2c3e50; }
+        .carreras-box .nota { font-size: 0.8rem; color: #7f8c8d; font-style: italic; margin-top: 10px; }
         
         @media (max-width: 850px) {
             .pagina-a4 { width: 100%; height: auto; padding: 20px; }
@@ -183,9 +195,9 @@
     </div>
 
     <div class="resultado" id="resultadoBusqueda">
-        <button onclick="generarPDF()" class="btn-pdf">📄 Descargar PDF Profesional (2 páginas)</button>
+        <button onclick="generarPDF()" class="btn-pdf">📄 Descargar PDF Profesional (Alta Calidad)</button>
         
-        <!-- PÁGINA 1: Datos + Perfil + Gráfico -->
+        <!-- PÁGINA 1 -->
         <div class="pagina-a4" id="pagina1">
             <div class="header-pdf">
                 <div class="header-logo"> EMAGES Academy</div>
@@ -207,7 +219,7 @@
             </div>
 
             <div class="perfil-banner">
-                <h3> Perfil Predominante</h3>
+                <h3>🎯 Perfil Predominante</h3>
                 <p class="perfil-nombre" id="p1Perfil"></p>
             </div>
 
@@ -224,7 +236,7 @@
             </div>
         </div>
 
-        <!-- PÁGINA 2: Puntuaciones + Carreras -->
+        <!-- PÁGINA 2 -->
         <div class="pagina-a4" id="pagina2">
             <h2 class="puntajes-titulo">📊 Puntuaciones del Test Vocacional</h2>
             
@@ -238,7 +250,7 @@
             <div class="footer-pdf">
                 <p><strong>EMAGES GROUP S.A.C.</strong> - RUC: 20611427671</p>
                 <p>www.emagesgroup.com | academy.emagesgroup.com</p>
-                <p style="font-style: italic; font-size: 0.75rem; margin-top: 8px;">
+                <p style="font-style: italic; font-size: 0.75rem; margin-top: 6px;">
                     Informe de orientación vocacional basado en el modelo RIASEC de Holland.
                 </p>
             </div>
@@ -340,7 +352,6 @@
                 datosEstudiante = data.estudiante;
                 datosResultado = data.resultado;
                 
-                // Llenar Página 1
                 document.getElementById('p1Dni').textContent = datosEstudiante.dni;
                 document.getElementById('p1Nombres').textContent = datosEstudiante.nombres;
                 document.getElementById('p1Celular').textContent = datosEstudiante.celular;
@@ -382,11 +393,12 @@
                     data: [datos.puntajeR, datos.puntajeI, datos.puntajeA, datos.puntajeS, datos.puntajeE, datos.puntajeC],
                     backgroundColor: 'rgba(231, 76, 60, 0.2)',
                     borderColor: 'rgba(231, 76, 60, 1)',
-                    borderWidth: 2,
+                    borderWidth: 2.5,
                     pointBackgroundColor: 'rgba(231, 76, 60, 1)',
                     pointBorderColor: '#fff',
-                    pointRadius: 5,
-                    pointHoverRadius: 7
+                    pointBorderWidth: 2,
+                    pointRadius: 6,
+                    pointHoverRadius: 8
                 }]
             },
             options: {
@@ -397,10 +409,10 @@
                         beginAtZero: true,
                         min: 0,
                         max: 36,
-                        ticks: { stepSize: 6, backdropColor: 'transparent', font: { size: 10 } },
-                        grid: { color: 'rgba(0, 0, 0, 0.1)' },
-                        angleLines: { color: 'rgba(0, 0, 0, 0.1)' },
-                        pointLabels: { font: { size: 12, weight: 'bold' }, color: '#2c3e50' }
+                        ticks: { stepSize: 6, backdropColor: 'transparent', font: { size: 11, weight: 'bold' } },
+                        grid: { color: 'rgba(0, 0, 0, 0.15)', lineWidth: 1 },
+                        angleLines: { color: 'rgba(0, 0, 0, 0.15)', lineWidth: 1 },
+                        pointLabels: { font: { size: 13, weight: 'bold' }, color: '#2c3e50', padding: 10 }
                     }
                 },
                 plugins: { legend: { display: false } }
@@ -454,7 +466,7 @@
             return;
         }
         
-        let html = `<h4>️ Facultad Principal: ${carrerasData.principal.facultad}</h4><ul>`;
+        let html = `<h4>🏛️ Facultad Principal: ${carrerasData.principal.facultad}</h4><ul>`;
         carrerasData.principal.carreras.forEach(carrera => {
             const icono = carrera.demanda === 'Alta' ? '🔥' : '⭐';
             html += `<li>${icono} <strong>${carrera.nombre}</strong> (Demanda: ${carrera.demanda})</li>`;
@@ -477,45 +489,46 @@
         
         const btn = document.querySelector('.btn-pdf');
         const textoOriginal = btn.textContent;
-        btn.textContent = '⏳ Generando PDF...';
+        btn.textContent = '⏳ Generando PDF en alta calidad...';
         btn.disabled = true;
         
         try {
             const pagina1 = document.getElementById('pagina1');
             const pagina2 = document.getElementById('pagina2');
             
-            // Capturar Página 1
+            // Capturar Página 1 con ALTA ESCALA
             const canvas1 = await html2canvas(pagina1, {
-                scale: 2,
+                scale: 3,
                 useCORS: true,
                 logging: false,
                 backgroundColor: '#ffffff',
-                windowWidth: 794
+                windowWidth: 794,
+                windowHeight: 1123
             });
             
-            const img1 = canvas1.toDataURL('image/png');
-            pdf.addImage(img1, 'PNG', 0, 0, 210, 297);
+            // Página 1: imagen exacta A4
+            pdf.addImage(canvas1.toDataURL('image/png'), 'PNG', 0, 0, 210, 297);
             
-            // Agregar Página 2
-            pdf.addPage();
-            
+            // Capturar Página 2 con ALTA ESCALA
             const canvas2 = await html2canvas(pagina2, {
-                scale: 2,
+                scale: 3,
                 useCORS: true,
                 logging: false,
                 backgroundColor: '#ffffff',
-                windowWidth: 794
+                windowWidth: 794,
+                windowHeight: 1123
             });
             
-            const img2 = canvas2.toDataURL('image/png');
-            pdf.addImage(img2, 'PNG', 0, 0, 210, 297);
+            // Página 2
+            pdf.addPage();
+            pdf.addImage(canvas2.toDataURL('image/png'), 'PNG', 0, 0, 210, 297);
             
             // Guardar
             const dni = datosEstudiante.dni;
             const nombres = datosEstudiante.nombres.replace(/\s+/g, '_');
             pdf.save(`${dni}_${nombres}_EMAGES.pdf`);
             
-            btn.textContent = '✅ PDF Descargado (2 páginas)';
+            btn.textContent = '✅ PDF Descargado (Alta Calidad)';
             setTimeout(() => {
                 btn.textContent = textoOriginal;
                 btn.disabled = false;
