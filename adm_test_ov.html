@@ -9,7 +9,6 @@
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; padding: 20px; }
         .container { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); max-width: 800px; margin: 0 auto; }
         h1 { color: #e74c3c; text-align: center; margin-bottom: 2rem; }
-        .login { max-width: 400px; margin: 100px auto; }
         input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 6px; font-size: 1rem; box-sizing: border-box; }
         button { width: 100%; padding: 14px; background-color: #e74c3c; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 1rem; font-weight: bold; }
         button:hover { background-color: #c0392b; }
@@ -25,22 +24,14 @@
         .puntajes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; }
         .puntaje-item { background: white; padding: 10px; border-radius: 6px; text-align: center; }
         .puntaje-item strong { display: block; font-size: 1.2rem; color: #e74c3c; }
-        .error { color: #e74c3c; text-align: center; margin-top: 10px; }
-        .exito { color: #27ae60; text-align: center; margin-top: 10px; }
+        .error { color: #e74c3c; text-align: center; margin-top: 10px; font-weight: bold; }
+        .exito { color: #27ae60; text-align: center; margin-top: 10px; font-weight: bold; }
+        .cargando { color: #2980b9; text-align: center; margin-top: 10px; }
     </style>
 </head>
 <body>
 
-<!-- LOGIN -->
-<div class="container login" id="loginSection">
-    <h1>🔐 Acceso Administrativo</h1>
-    <input type="password" id="password" placeholder="Contraseña">
-    <button onclick="verificarPassword()">Ingresar</button>
-    <p id="loginError" class="error"></p>
-</div>
-
-<!-- PANEL ADMIN -->
-<div class="container" id="adminSection" style="display: none;">
+<div class="container">
     <h1>📊 Panel Administrativo EMAGES</h1>
     
     <div style="margin-bottom: 20px;">
@@ -81,20 +72,9 @@
 
 <script>
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw6xpApuz9Es7NGuDlVefKemVYEPVo3MZcrS71DAGa3YQmLLIkmEY6KSLtBJlmJ_3Yr/exec';
-    const PASSWORD_ADMIN = 'emages2026';
     
     let datosEstudiante = null;
     let datosResultado = null;
-
-    function verificarPassword() {
-        const pass = document.getElementById('password').value;
-        if (pass === PASSWORD_ADMIN) {
-            document.getElementById('loginSection').style.display = 'none';
-            document.getElementById('adminSection').style.display = 'block';
-        } else {
-            document.getElementById('loginError').textContent = 'Contraseña incorrecta';
-        }
-    }
 
     function buscarEstudiante() {
         const dni = document.getElementById('dniBusqueda').value;
@@ -102,12 +82,12 @@
         
         if (!dni || dni.length !== 8) {
             mensajeDiv.className = 'error';
-            mensajeDiv.textContent = 'Ingresa un DNI válido de 8 dígitos';
+            mensajeDiv.textContent = '️ Ingresa un DNI válido de 8 dígitos';
             return;
         }
 
-        mensajeDiv.className = '';
-        mensajeDiv.textContent = 'Buscando...';
+        mensajeDiv.className = 'cargando';
+        mensajeDiv.textContent = '🔍 Buscando...';
         
         const datos = { accion: 'buscarEstudiante', dni: dni };
         
@@ -115,13 +95,17 @@
             method: 'POST',
             body: JSON.stringify(datos)
         })
-        .then(response => response.json())
+        .then(response => {
+            console.log('Respuesta recibida:', response);
+            return response.json();
+        })
         .then(data => {
+            console.log('Datos:', data);
+            
             if (data.exito) {
                 datosEstudiante = data.estudiante;
                 datosResultado = data.resultado;
                 
-                // Mostrar datos
                 document.getElementById('resDni').textContent = datosEstudiante.dni;
                 document.getElementById('resNombres').textContent = datosEstudiante.nombres;
                 document.getElementById('resCelular').textContent = datosEstudiante.celular;
@@ -137,35 +121,46 @@
                     document.getElementById('resE').textContent = datosResultado.puntajeE;
                     document.getElementById('resC').textContent = datosResultado.puntajeC;
                 } else {
-                    document.getElementById('resPerfil').textContent = 'Sin resultados';
+                    document.getElementById('resPerfil').textContent = 'Sin resultados de test';
                     document.getElementById('resFecha').textContent = '-';
+                    document.getElementById('resR').textContent = '0';
+                    document.getElementById('resI').textContent = '0';
+                    document.getElementById('resA').textContent = '0';
+                    document.getElementById('resS').textContent = '0';
+                    document.getElementById('resE').textContent = '0';
+                    document.getElementById('resC').textContent = '0';
                 }
                 
                 document.getElementById('resultadoBusqueda').style.display = 'block';
                 mensajeDiv.className = 'exito';
-                mensajeDiv.textContent = 'Estudiante encontrado';
+                mensajeDiv.textContent = '✅ Estudiante encontrado';
             } else {
                 mensajeDiv.className = 'error';
-                mensajeDiv.textContent = data.mensaje;
+                mensajeDiv.textContent = '❌ ' + data.mensaje;
                 document.getElementById('resultadoBusqueda').style.display = 'none';
             }
         })
         .catch(error => {
+            console.error('Error completo:', error);
             mensajeDiv.className = 'error';
-            mensajeDiv.textContent = 'Error de conexión';
+            mensajeDiv.textContent = '❌ Error de conexión. Revisa la consola (F12) para más detalles.';
+            document.getElementById('resultadoBusqueda').style.display = 'none';
         });
     }
 
     function generarPDF() {
+        if (!datosEstudiante || !datosResultado) {
+            alert('No hay datos para generar el PDF');
+            return;
+        }
+
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
         
-        // Configurar nombre del archivo
         const dni = datosEstudiante.dni;
         const nombres = datosEstudiante.nombres.replace(/\s+/g, '_');
         const nombreArchivo = `${dni}_${nombres}.pdf`;
         
-        // Encabezado
         doc.setFillColor(231, 76, 60);
         doc.rect(0, 0, 210, 40, 'F');
         doc.setTextColor(255, 255, 255);
@@ -174,7 +169,6 @@
         doc.setFontSize(14);
         doc.text('Informe de Evaluación Vocacional', 105, 30, { align: 'center' });
         
-        // Datos del estudiante
         doc.setTextColor(0, 0, 0);
         doc.setFontSize(16);
         doc.text('Datos del Estudiante', 20, 60);
@@ -185,7 +179,6 @@
         doc.text(`Celular: ${datosEstudiante.celular}`, 20, 95);
         doc.text(`Correo: ${datosEstudiante.correo}`, 20, 105);
         
-        // Resultado
         doc.setFontSize(16);
         doc.text('Resultado del Test Vocacional', 20, 130);
         
@@ -197,7 +190,6 @@
         doc.setFontSize(12);
         doc.text(`Fecha de evaluación: ${new Date(datosResultado.fecha).toLocaleString('es-PE')}`, 20, 155);
         
-        // Puntajes
         doc.setFontSize(14);
         doc.text('Puntajes por Área:', 20, 175);
         
@@ -217,13 +209,11 @@
             yPos += 10;
         });
         
-        // Pie de página
         doc.setFontSize(10);
         doc.setTextColor(128, 128, 128);
         doc.text('EMAGES GROUP S.A.C. - RUC: 20611427671', 105, 280, { align: 'center' });
         doc.text('www.emagesgroup.com', 105, 285, { align: 'center' });
         
-        // Descargar PDF
         doc.save(nombreArchivo);
     }
 </script>
