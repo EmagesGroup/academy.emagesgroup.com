@@ -1,1 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - EMAGES Academy</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .container { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
+        h2 { text-align: center; color: #2c3e50; margin-bottom: 1.5rem; }
+        .logo { text-align: center; font-weight: bold; font-size: 1.5rem; color: #e74c3c; margin-bottom: 1rem; }
+        input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-size: 1rem; }
+        .checkbox-container { display: flex; align-items: flex-start; gap: 10px; margin: 15px 0; font-size: 0.85rem; color: #555; }
+        .checkbox-container input { width: auto; margin-top: 3px; }
+        button { width: 100%; padding: 14px; background-color: #e74c3c; color: white; border: none; border-radius: 6px; font-size: 1rem; font-weight: bold; cursor: pointer; transition: background 0.3s; }
+        button:hover { background-color: #c0392b; }
+        button:disabled { background-color: #95a5a6; cursor: not-allowed; }
+        .mensaje { text-align: center; margin-top: 15px; font-size: 0.9rem; }
+        .exito { color: #27ae60; }
+        .error { color: #e74c3c; }
+    </style>
+</head>
+<body>
 
+<div class="container">
+    <div class="logo">🎓 EMAGES Academy</div>
+    <h2>Acceso de Estudiantes</h2>
+    <form id="formularioRegistro">
+        <input type="text" id="dni" placeholder="DNI (8 dígitos)" maxlength="8" required pattern="\d{8}">
+        <input type="text" id="nombres" placeholder="Nombres y Apellidos completos" required>
+        <input type="tel" id="celular" placeholder="Celular (9 dígitos)" maxlength="9" required pattern="\d{9}">
+        <input type="email" id="correo" placeholder="Correo electrónico" required>
+        
+        <div class="checkbox-container">
+            <input type="checkbox" id="privacidad" required>
+            <label for="privacidad">Acepto la Política de Privacidad y autorizo a EMAGES GROUP (RUC 20611427671) a tratar mis datos para fines de orientación académica, conforme a la Ley N° 29733.</label>
+        </div>
+
+        <button type="submit" id="btnEnviar">Registrarme y Continuar</button>
+    </form>
+    <div id="mensaje" class="mensaje"></div>
+</div>
+
+<script>
+    // Tu URL de Google Apps Script ya está configurada aquí
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw6xpApuz9Es7NGuDlVefKemVYEPVo3MZcrS71DAGa3YQmLLIkmEY6KSLtBJlmJ_3Yr/exec';
+
+    document.getElementById('formularioRegistro').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const btn = document.getElementById('btnEnviar');
+        const mensajeDiv = document.getElementById('mensaje');
+        
+        btn.disabled = true;
+        btn.textContent = 'Procesando...';
+        mensajeDiv.textContent = '';
+
+        const datos = {
+            accion: 'registrar',
+            dni: document.getElementById('dni').value,
+            nombres: document.getElementById('nombres').value,
+            celular: document.getElementById('celular').value,
+            correo: document.getElementById('correo').value
+        };
+
+        fetch(SCRIPT_URL, {
+            method: 'POST',
+            body: JSON.stringify(datos)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.exito) {
+                mensajeDiv.className = 'mensaje exito';
+                mensajeDiv.textContent = data.mensaje;
+                
+                // Guardamos los datos en el navegador para usarlos en el test
+                localStorage.setItem('emages_dni', datos.dni);
+                localStorage.setItem('emages_nombre', datos.nombres);
+                
+                setTimeout(() => {
+                    // Por ahora, como aún no creamos el test, te mostrará una alerta. 
+                    // En el siguiente paso lo cambiaremos por: window.location.href = 'test-vocacional.html';
+                    alert('¡Registro exitoso! En el siguiente paso construiremos la pantalla del Test Vocacional.');
+                    btn.disabled = false;
+                    btn.textContent = 'Registrarme y Continuar';
+                }, 1500);
+            } else {
+                mensajeDiv.className = 'mensaje error';
+                mensajeDiv.textContent = data.mensaje;
+                btn.disabled = false;
+                btn.textContent = 'Registrarme y Continuar';
+            }
+        })
+        .catch(error => {
+            mensajeDiv.className = 'mensaje error';
+            mensajeDiv.textContent = 'Error de conexión. Intenta nuevamente.';
+            btn.disabled = false;
+            btn.textContent = 'Registrarme y Continuar';
+        });
+    });
+</script>
+
+</body>
+</html>
