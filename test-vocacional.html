@@ -5,95 +5,209 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test Vocacional - EMAGES Academy</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; }
-        .container { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); width: 100%; max-width: 600px; margin: 0 auto; }
-        .logo { text-align: center; font-weight: bold; font-size: 1.5rem; color: #e74c3c; margin-bottom: 0.5rem; }
-        h2 { text-align: center; color: #2c3e50; margin-top: 0; }
-        .welcome { text-align: center; color: #555; margin-bottom: 2rem; font-size: 1.1rem; }
-        .pregunta { margin-bottom: 1.5rem; padding: 15px; background: #f9f9f9; border-radius: 8px; border-left: 4px solid #e74c3c; }
-        .pregunta p { margin: 0 0 10px 0; font-weight: bold; color: #333; }
-        .opciones label { display: block; margin: 8px 0; cursor: pointer; }
-        .opciones input { margin-right: 10px; }
-        button { width: 100%; padding: 14px; background-color: #e74c3c; color: white; border: none; border-radius: 6px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: background 0.3s; margin-top: 1rem; }
-        button:hover { background-color: #c0392b; }
+        * { box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background-color: #fafafa; 
+            margin: 0; 
+            padding: 0;
+            min-height: 100vh;
+        }
+        .header {
+            background: white;
+            padding: 15px 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo { font-weight: bold; font-size: 1.2rem; color: #e74c3c; }
+        .progreso-texto { font-size: 0.9rem; color: #7f8c8d; font-weight: bold; }
+        .barra-progreso-container { width: 100%; height: 6px; background: #e0e0e0; }
+        .barra-progreso {
+            height: 100%;
+            background: linear-gradient(90deg, #e74c3c, #c0392b);
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+        .container { max-width: 700px; margin: 0 auto; padding: 30px 20px; }
+        .welcome { text-align: center; margin-bottom: 30px; }
+        .welcome h2 { color: #2c3e50; margin-bottom: 10px; }
+        .welcome p { color: #7f8c8d; }
+        .pregunta-card {
+            background: white;
+            border-radius: 16px;
+            padding: 40px 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .pregunta-numero {
+            color: #e74c3c;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .pregunta-texto {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            line-height: 1.4;
+            margin-bottom: 40px;
+            text-align: center;
+            font-weight: 500;
+        }
+        .opciones { display: flex; flex-direction: column; gap: 12px; }
+        .opcion {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 18px 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 1.05rem;
+        }
+        .opcion:hover { border-color: #e74c3c; background: #fdf2f0; transform: translateX(5px); }
+        .opcion.seleccionada { border-color: #e74c3c; background: #fdf2f0; font-weight: bold; }
+        .opcion-color { width: 12px; height: 12px; border-radius: 50%; margin-right: 12px; }
+        .opcion-texto { flex: 1; }
+        .opcion-flecha { color: #95a5a6; font-size: 1.2rem; }
+        .navegacion { display: flex; gap: 15px; margin-top: 20px; }
+        .btn-nav {
+            flex: 1;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .btn-anterior { background: white; color: #7f8c8d; border: 2px solid #e0e0e0; }
+        .btn-anterior:hover:not(:disabled) { border-color: #3498db; color: #3498db; }
+        .btn-anterior:disabled { opacity: 0.4; cursor: not-allowed; }
+        .btn-siguiente { background: #e74c3c; color: white; }
+        .btn-siguiente:hover:not(:disabled) { background: #c0392b; }
+        .btn-siguiente:disabled { background: #95a5a6; cursor: not-allowed; }
         
         #resultado { display: none; text-align: center; animation: fadeIn 0.5s; }
         .perfil-titulo { font-size: 2rem; color: #e74c3c; margin: 20px 0; font-weight: bold; }
-        .mensaje-whatsapp { background: #dcf8c6; padding: 20px; border-radius: 10px; margin: 30px 0; }
-        .btn-whatsapp { background-color: #25D366; color: white; font-size: 1.2rem; padding: 15px; border: none; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; margin-top: 15px; }
+        .mensaje-whatsapp { background: #dcf8c6; padding: 25px; border-radius: 12px; margin: 30px 0; }
+        .btn-whatsapp {
+            background-color: #25D366;
+            color: white;
+            font-size: 1.1rem;
+            padding: 16px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            margin-top: 15px;
+        }
         .btn-whatsapp:hover { background-color: #128C7E; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        /* Modal de recuperación de progreso */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .modal-overlay.activo { display: flex; }
+        .modal {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        .modal h3 { color: #e74c3c; margin-top: 0; font-size: 1.4rem; }
+        .modal p { color: #555; line-height: 1.5; margin-bottom: 25px; }
+        .modal-botones { display: flex; flex-direction: column; gap: 12px; }
+        .btn-modal {
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .btn-continuar { background: #27ae60; color: white; }
+        .btn-continuar:hover { background: #229954; }
+        .btn-reiniciar { background: #e74c3c; color: white; }
+        .btn-reiniciar:hover { background: #c0392b; }
+        
+        @media (max-width: 600px) {
+            .pregunta-texto { font-size: 1.2rem; }
+            .pregunta-card { padding: 30px 20px; min-height: 350px; }
+            .opcion { padding: 15px; font-size: 0.95rem; }
+        }
     </style>
 </head>
 <body>
 
+<!-- Modal de recuperación de progreso -->
+<div class="modal-overlay" id="modalProgreso">
+    <div class="modal">
+        <h3>📝 Tienes un test en progreso</h3>
+        <p id="modalMensaje">Detectamos que no completaste el test la última vez. ¿Deseas continuar donde lo dejaste?</p>
+        <div class="modal-botones">
+            <button class="btn-modal btn-continuar" onclick="continuarProgreso()">✅ Continuar donde lo dejé</button>
+            <button class="btn-modal btn-reiniciar" onclick="reiniciarTest()">🔄 Reiniciar desde el inicio</button>
+        </div>
+    </div>
+</div>
+
+<!-- Header con progreso -->
+<div class="header" id="headerTest">
+    <div class="logo"> EMAGES Academy</div>
+    <div class="progreso-texto" id="progresoTexto">1 / 50</div>
+</div>
+<div class="barra-progreso-container">
+    <div class="barra-progreso" id="barraProgreso"></div>
+</div>
+
 <div class="container">
-    <div class="logo">🎓 EMAGES Academy</div>
-    
+    <!-- Sección del Test -->
     <div id="seccion-test">
-        <h2>Evaluación Vocacional</h2>
-        <p class="welcome">Hola, <span id="nombre-estudiante" style="font-weight:bold; color:#e74c3c;">Estudiante</span>. Responde con sinceridad para descubrir tu potencial.</p>
+        <div class="welcome">
+            <h2>Evaluación Vocacional</h2>
+            <p>Hola, <span id="nombre-estudiante" style="font-weight:bold; color:#e74c3c;">Estudiante</span>. Responde con sinceridad para descubrir tu potencial.</p>
+        </div>
         
-        <form id="formulario-test">
-            <div class="pregunta">
-                <p>1. Me gusta reparar cosas, trabajar con herramientas, la naturaleza o actividades al aire libre.</p>
-                <div class="opciones">
-                    <label><input type="radio" name="p1" value="2" required> Me gusta mucho</label>
-                    <label><input type="radio" name="p1" value="1"> Me da igual</label>
-                    <label><input type="radio" name="p1" value="0"> No me gusta</label>
-                </div>
-            </div>
+        <div class="pregunta-card">
+            <div class="pregunta-numero" id="preguntaNumero">Pregunta 1 de 50</div>
+            <div class="pregunta-texto" id="preguntaTexto"></div>
+            <div class="opciones" id="opcionesContainer"></div>
+        </div>
 
-            <div class="pregunta">
-                <p>2. Disfruto resolviendo problemas lógicos, investigando, haciendo experimentos o analizando datos.</p>
-                <div class="opciones">
-                    <label><input type="radio" name="p2" value="2" required> Me gusta mucho</label>
-                    <label><input type="radio" name="p2" value="1"> Me da igual</label>
-                    <label><input type="radio" name="p2" value="0"> No me gusta</label>
-                </div>
-            </div>
-
-            <div class="pregunta">
-                <p>3. Me atrae el arte, la música, el diseño, la escritura creativa o expresar mis ideas de forma original.</p>
-                <div class="opciones">
-                    <label><input type="radio" name="p3" value="2" required> Me gusta mucho</label>
-                    <label><input type="radio" name="p3" value="1"> Me da igual</label>
-                    <label><input type="radio" name="p3" value="0"> No me gusta</label>
-                </div>
-            </div>
-
-            <div class="pregunta">
-                <p>4. Me gusta ayudar a las personas, enseñar, escuchar o trabajar en equipo para resolver problemas humanos.</p>
-                <div class="opciones">
-                    <label><input type="radio" name="p4" value="2" required> Me gusta mucho</label>
-                    <label><input type="radio" name="p4" value="1"> Me da igual</label>
-                    <label><input type="radio" name="p4" value="0"> No me gusta</label>
-                </div>
-            </div>
-
-            <div class="pregunta">
-                <p>5. Me motiva liderar proyectos, vender ideas, persuadir a otros o iniciar mi propio negocio.</p>
-                <div class="opciones">
-                    <label><input type="radio" name="p5" value="2" required> Me gusta mucho</label>
-                    <label><input type="radio" name="p5" value="1"> Me da igual</label>
-                    <label><input type="radio" name="p5" value="0"> No me gusta</label>
-                </div>
-            </div>
-
-            <div class="pregunta">
-                <p>6. Prefiero el orden, organizar información, seguir procedimientos claros y trabajar con detalles y números.</p>
-                <div class="opciones">
-                    <label><input type="radio" name="p6" value="2" required> Me gusta mucho</label>
-                    <label><input type="radio" name="p6" value="1"> Me da igual</label>
-                    <label><input type="radio" name="p6" value="0"> No me gusta</label>
-                </div>
-            </div>
-
-            <button type="submit">Ver mi Perfil</button>
-        </form>
+        <div class="navegacion">
+            <button class="btn-nav btn-anterior" id="btnAnterior" onclick="preguntaAnterior()" disabled>← Anterior</button>
+            <button class="btn-nav btn-siguiente" id="btnSiguiente" onclick="preguntaSiguiente()" disabled>Siguiente →</button>
+        </div>
     </div>
 
-    <!-- RESULTADOS - SOLO MUESTRA EL PERFIL -->
+    <!-- Sección de Resultados -->
     <div id="resultado">
         <h2>🎯 ¡Felicitaciones!</h2>
         <p style="font-size: 1.1rem; color: #555;">Has completado tu Evaluación Vocacional EMAGES</p>
@@ -119,7 +233,7 @@
             </button>
         </div>
 
-        <button onclick="window.location.href='registro_test_ov.html'" style="background-color: #34495e; margin-top: 20px;">Volver al Inicio</button>
+        <button onclick="volverAlInicio()" style="background-color: #34495e; color: white; width: 100%; padding: 16px; border: none; border-radius: 10px; font-size: 1rem; font-weight: bold; margin-top: 20px; cursor: pointer;">Volver al Inicio</button>
     </div>
 </div>
 
@@ -132,33 +246,214 @@
     const correo = localStorage.getItem('emages_correo');
 
     if (!nombre || !dni) {
-        window.location.href = 'registro_test_ov.html';
+        window.location.href = 'https://academy.emagesgroup.com/registro_test_ov.html';
     } else {
         document.getElementById('nombre-estudiante').textContent = nombre;
     }
 
-    const perfiles = {
-        'R': { nombre: 'Realista' },
-        'I': { nombre: 'Investigador' },
-        'A': { nombre: 'Artístico' },
-        'S': { nombre: 'Social' },
-        'E': { nombre: 'Emprendedor' },
-        'C': { nombre: 'Convencional' }
-    };
+    // Clave única para guardar el progreso de ESTE estudiante
+    const CLAVE_PROGRESO = `emages_progreso_${dni}`;
+    const CLAVE_COMPLETADO = `emages_completado_${dni}`;
 
-    document.getElementById('formulario-test').addEventListener('submit', function(e) {
-        e.preventDefault();
+    // BANCO DE 50 PREGUNTAS RIASEC
+    const preguntas = [
+        // REALISTA (R) - 8 preguntas
+        { id: 1, perfil: 'R', texto: 'Me gusta reparar cosas, trabajar con herramientas o maquinaria.' },
+        { id: 2, perfil: 'R', texto: 'Disfruto las actividades al aire libre como camping, senderismo o deportes.' },
+        { id: 3, perfil: 'R', texto: 'Prefiero trabajos prácticos donde pueda ver resultados concretos.' },
+        { id: 4, perfil: 'R', texto: 'Me siento cómodo trabajando con mis manos construyendo o arreglando objetos.' },
+        { id: 5, perfil: 'R', texto: 'Me interesa la tecnología, los motores o los sistemas mecánicos.' },
+        { id: 6, perfil: 'R', texto: 'Prefiero actividades físicas antes que pasar mucho tiempo leyendo o escribiendo.' },
+        { id: 7, perfil: 'R', texto: 'Me atraen carreras como ingeniería, arquitectura o agronomía.' },
+        { id: 8, perfil: 'R', texto: 'Disfruto resolver problemas prácticos del mundo real.' },
         
-        document.getElementById('seccion-test').style.display = 'none';
+        // INVESTIGADOR (I) - 9 preguntas
+        { id: 9, perfil: 'I', texto: 'Disfruto resolviendo problemas lógicos, matemáticos o científicos.' },
+        { id: 10, perfil: 'I', texto: 'Me gusta investigar, hacer experimentos y analizar datos.' },
+        { id: 11, perfil: 'I', texto: 'Siento curiosidad por entender cómo funcionan las cosas.' },
+        { id: 12, perfil: 'I', texto: 'Prefiero tareas que requieran pensamiento analítico y crítico.' },
+        { id: 13, perfil: 'I', texto: 'Me atraen las carreras de ciencias, medicina o tecnología.' },
+        { id: 14, perfil: 'I', texto: 'Disfruto leer artículos científicos o documentales educativos.' },
+        { id: 15, perfil: 'I', texto: 'Me gusta trabajar de forma independiente en proyectos complejos.' },
+        { id: 16, perfil: 'I', texto: 'Suelo hacerme muchas preguntas sobre el mundo y buscar respuestas.' },
+        { id: 17, perfil: 'I', texto: 'Me interesa la programación, la robótica o la inteligencia artificial.' },
         
+        // ARTÍSTICO (A) - 8 preguntas
+        { id: 18, perfil: 'A', texto: 'Me atrae el arte, la música, el diseño o la escritura creativa.' },
+        { id: 19, perfil: 'A', texto: 'Disfruto expresando mis ideas de forma original y creativa.' },
+        { id: 20, perfil: 'A', texto: 'Me gusta imaginar nuevas formas de hacer las cosas.' },
+        { id: 21, perfil: 'A', texto: 'Prefiero trabajos donde pueda usar mi imaginación y creatividad.' },
+        { id: 22, perfil: 'A', texto: 'Me interesan carreras como diseño, comunicación audiovisual o arquitectura.' },
+        { id: 23, perfil: 'A', texto: 'Suelo tener ideas innovadoras que otros no consideran.' },
+        { id: 24, perfil: 'A', texto: 'Disfruto visitando museos, galerías de arte o conciertos.' },
+        { id: 25, perfil: 'A', texto: 'Me gusta trabajar en proyectos donde pueda dejar mi marca personal.' },
+        
+        // SOCIAL (S) - 9 preguntas
+        { id: 26, perfil: 'S', texto: 'Me gusta ayudar a las personas, enseñar o cuidar de otros.' },
+        { id: 27, perfil: 'S', texto: 'Disfruto trabajar en equipo y colaborar con otras personas.' },
+        { id: 28, perfil: 'S', texto: 'Soy empático y me interesa entender los problemas de los demás.' },
+        { id: 29, perfil: 'S', texto: 'Me atraen carreras como psicología, educación, enfermería o trabajo social.' },
+        { id: 30, perfil: 'S', texto: 'Prefiero trabajos donde pueda hacer una diferencia en la vida de otros.' },
+        { id: 31, perfil: 'S', texto: 'Me siento bien escuchando y aconsejando a mis amigos.' },
+        { id: 32, perfil: 'S', texto: 'Disfruto organizando actividades grupales o comunitarias.' },
+        { id: 33, perfil: 'S', texto: 'Me interesa el bienestar social y la resolución de conflictos.' },
+        { id: 34, perfil: 'S', texto: 'Me gusta compartir conocimientos y ver cómo otros aprenden.' },
+        
+        // EMPRENDEDOR (E) - 8 preguntas
+        { id: 35, perfil: 'E', texto: 'Me motiva liderar proyectos y tomar decisiones importantes.' },
+        { id: 36, perfil: 'E', texto: 'Disfruto vendiendo ideas, productos o persuadiendo a otros.' },
+        { id: 37, perfil: 'E', texto: 'Me atrae la idea de tener mi propio negocio o empresa.' },
+        { id: 38, perfil: 'E', texto: 'Soy competitivo y me gustan los retos que impliquen alcanzar metas.' },
+        { id: 39, perfil: 'E', texto: 'Me interesan carreras como administración, marketing, derecho o negocios.' },
+        { id: 40, perfil: 'E', texto: 'Me siento cómodo tomando la iniciativa en grupos de trabajo.' },
+        { id: 41, perfil: 'E', texto: 'Disfruto planificando estrategias para lograr objetivos.' },
+        { id: 42, perfil: 'E', texto: 'Me gusta asumir riesgos calculados para obtener grandes recompensas.' },
+        
+        // CONVENCIONAL (C) - 8 preguntas
+        { id: 43, perfil: 'C', texto: 'Prefiero el orden, la organización y seguir procedimientos claros.' },
+        { id: 44, perfil: 'C', texto: 'Me gusta trabajar con datos, números y información detallada.' },
+        { id: 45, perfil: 'C', texto: 'Disfruto tareas que requieren precisión y atención al detalle.' },
+        { id: 46, perfil: 'C', texto: 'Me atraen carreras como contabilidad, finanzas o ingeniería industrial.' },
+        { id: 47, perfil: 'C', texto: 'Prefiero trabajos con reglas y estructuras bien definidas.' },
+        { id: 48, perfil: 'C', texto: 'Soy organizado y me gusta tener todo planificado con anticipación.' },
+        { id: 49, perfil: 'C', texto: 'Me siento cómodo manejando archivos, registros o bases de datos.' },
+        { id: 50, perfil: 'C', texto: 'Disfruto verificando que las cosas se hagan correctamente y según las normas.' }
+    ];
+
+    const opciones = [
+        { texto: 'Muy de acuerdo', valor: 4, color: '#27ae60' },
+        { texto: 'De acuerdo', valor: 3, color: '#82c97a' },
+        { texto: 'Neutral', valor: 2, color: '#bdc3c7' },
+        { texto: 'En desacuerdo', valor: 1, color: '#e8a0a0' },
+        { texto: 'Muy en desacuerdo', valor: 0, color: '#e74c3c' }
+    ];
+
+    let preguntaActual = 0;
+    const respuestas = new Array(preguntas.length).fill(null);
+
+    // === FUNCIONES DE GUARDADO DE PROGRESO ===
+    function guardarProgreso() {
+        const progreso = {
+            preguntaActual: preguntaActual,
+            respuestas: respuestas,
+            timestamp: new Date().toISOString()
+        };
+        localStorage.setItem(CLAVE_PROGRESO, JSON.stringify(progreso));
+    }
+
+    function recuperarProgreso() {
+        const progresoGuardado = localStorage.getItem(CLAVE_PROGRESO);
+        const yaCompletado = localStorage.getItem(CLAVE_COMPLETADO);
+        
+        // Si ya completó el test, no mostrar modal
+        if (yaCompletado === 'true') {
+            return null;
+        }
+        
+        if (progresoGuardado) {
+            try {
+                return JSON.parse(progresoGuardado);
+            } catch (e) {
+                return null;
+            }
+        }
+        return null;
+    }
+
+    function limpiarProgreso() {
+        localStorage.removeItem(CLAVE_PROGRESO);
+        localStorage.setItem(CLAVE_COMPLETADO, 'true');
+    }
+
+    function continuarProgreso() {
+        const progreso = recuperarProgreso();
+        if (progreso) {
+            preguntaActual = progreso.preguntaActual;
+            for (let i = 0; i < progreso.respuestas.length; i++) {
+                respuestas[i] = progreso.respuestas[i];
+            }
+        }
+        document.getElementById('modalProgreso').classList.remove('activo');
+        cargarPregunta();
+    }
+
+    function reiniciarTest() {
+        localStorage.removeItem(CLAVE_PROGRESO);
+        preguntaActual = 0;
+        for (let i = 0; i < respuestas.length; i++) {
+            respuestas[i] = null;
+        }
+        document.getElementById('modalProgreso').classList.remove('activo');
+        cargarPregunta();
+    }
+
+    function cargarPregunta() {
+        const pregunta = preguntas[preguntaActual];
+        
+        document.getElementById('progresoTexto').textContent = `${preguntaActual + 1} / ${preguntas.length}`;
+        document.getElementById('barraProgreso').style.width = `${((preguntaActual + 1) / preguntas.length) * 100}%`;
+        document.getElementById('preguntaNumero').textContent = `Pregunta ${preguntaActual + 1} de ${preguntas.length}`;
+        document.getElementById('preguntaTexto').textContent = pregunta.texto;
+        
+        const opcionesContainer = document.getElementById('opcionesContainer');
+        opcionesContainer.innerHTML = '';
+        
+        opciones.forEach((opcion) => {
+            const div = document.createElement('div');
+            div.className = 'opcion';
+            if (respuestas[preguntaActual] === opcion.valor) {
+                div.classList.add('seleccionada');
+            }
+            div.innerHTML = `
+                <div style="display: flex; align-items: center;">
+                    <div class="opcion-color" style="background-color: ${opcion.color};"></div>
+                    <span class="opcion-texto">${opcion.texto}</span>
+                </div>
+                <span class="opcion-flecha">→</span>
+            `;
+            div.onclick = () => seleccionarOpcion(opcion.valor);
+            opcionesContainer.appendChild(div);
+        });
+        
+        document.getElementById('btnAnterior').disabled = preguntaActual === 0;
+        document.getElementById('btnSiguiente').disabled = respuestas[preguntaActual] === null;
+        document.getElementById('btnSiguiente').textContent = preguntaActual === preguntas.length - 1 ? 'Ver Resultados ✓' : 'Siguiente →';
+        
+        // Guardar progreso automáticamente
+        guardarProgreso();
+    }
+
+    function seleccionarOpcion(valor) {
+        respuestas[preguntaActual] = valor;
+        cargarPregunta();
+    }
+
+    function preguntaAnterior() {
+        if (preguntaActual > 0) {
+            preguntaActual--;
+            cargarPregunta();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    }
+
+    function preguntaSiguiente() {
+        if (respuestas[preguntaActual] === null) return;
+        
+        if (preguntaActual < preguntas.length - 1) {
+            preguntaActual++;
+            cargarPregunta();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+            calcularYMostrarResultados();
+        }
+    }
+
+    function calcularYMostrarResultados() {
         const puntajes = { R: 0, I: 0, A: 0, S: 0, E: 0, C: 0 };
         
-        puntajes.R += parseInt(document.querySelector('input[name="p1"]:checked').value);
-        puntajes.I += parseInt(document.querySelector('input[name="p2"]:checked').value);
-        puntajes.A += parseInt(document.querySelector('input[name="p3"]:checked').value);
-        puntajes.S += parseInt(document.querySelector('input[name="p4"]:checked').value);
-        puntajes.E += parseInt(document.querySelector('input[name="p5"]:checked').value);
-        puntajes.C += parseInt(document.querySelector('input[name="p6"]:checked').value);
+        preguntas.forEach((pregunta, index) => {
+            puntajes[pregunta.perfil] += respuestas[index];
+        });
 
         let maxPuntaje = -1;
         let perfilGanador = '';
@@ -170,11 +465,28 @@
             }
         }
 
+        const perfiles = {
+            'R': { nombre: 'Realista' },
+            'I': { nombre: 'Investigador' },
+            'A': { nombre: 'Artístico' },
+            'S': { nombre: 'Social' },
+            'E': { nombre: 'Emprendedor' },
+            'C': { nombre: 'Convencional' }
+        };
+
         const resultado = perfiles[perfilGanador];
         document.getElementById('perfil-nombre').textContent = `Perfil ${resultado.nombre}`;
+        
+        document.getElementById('seccion-test').style.display = 'none';
+        document.getElementById('headerTest').style.display = 'none';
+        document.querySelector('.barra-progreso-container').style.display = 'none';
         document.getElementById('resultado').style.display = 'block';
+        
+        // Marcar como completado y limpiar progreso
+        limpiarProgreso();
+        
+        window.scrollTo({ top: 0, behavior: 'smooth' });
 
-        // Guardar resultado en Google Sheets
         const datosResultado = {
             accion: 'guardarResultado',
             dni: dni,
@@ -191,15 +503,37 @@
             headers: { 'Content-Type': 'text/plain;charset=utf-8' },
             body: JSON.stringify(datosResultado)
         }).catch(err => console.error(err));
-    });
+    }
 
     function enviarWhatsApp() {
         const perfilTexto = document.getElementById('perfil-nombre').textContent;
         const numeroEmages = '51916382180'; 
-        const mensaje = `Hola EMAGES Academy, soy ${nombre}. Acabo de realizar mi Test Vocacional y obtuve el perfil: ${perfilTexto}. Solicito mi informe completo con carreras recomendadas y plan de acción.`;
+        const mensaje = `Hola EMAGES Academy, soy ${nombre}. Acabo de realizar mi Test Vocacional (50 preguntas) y obtuve el perfil: ${perfilTexto}. Solicito mi informe completo con carreras recomendadas y plan de acción.`;
         
         const url = `https://wa.me/${numeroEmages}?text=${encodeURIComponent(mensaje)}`;
         window.open(url, '_blank');
+    }
+
+    function volverAlInicio() {
+        // Limpiar progreso al volver al inicio
+        localStorage.removeItem(CLAVE_PROGRESO);
+        localStorage.removeItem(CLAVE_COMPLETADO);
+        window.location.href = 'https://academy.emagesgroup.com/registro_test_ov.html';
+    }
+
+    // === INICIALIZACIÓN ===
+    // Verificar si hay progreso guardado al cargar la página
+    const progresoExistente = recuperarProgreso();
+    
+    if (progresoExistente) {
+        // Mostrar modal preguntando si desea continuar
+        const preguntasRespondidas = progresoExistente.respuestas.filter(r => r !== null).length;
+        document.getElementById('modalMensaje').textContent = 
+            `Detectamos que respondiste ${preguntasRespondidas} de ${preguntas.length} preguntas la última vez. ¿Deseas continuar donde lo dejaste (pregunta ${progresoExistente.preguntaActual + 1}) o reiniciar desde el inicio?`;
+        document.getElementById('modalProgreso').classList.add('activo');
+    } else {
+        // No hay progreso, empezar desde cero
+        cargarPregunta();
     }
 </script>
 
