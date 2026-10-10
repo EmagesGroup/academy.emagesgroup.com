@@ -195,7 +195,7 @@
     </div>
 
     <div class="resultado" id="resultadoBusqueda">
-        <button onclick="generarPDF()" class="btn-pdf">📄 Descargar PDF Profesional (Alta Calidad)</button>
+        <button onclick="generarPDF()" class="btn-pdf">📄 Descargar PDF Profesional </button>
         
         <!-- PÁGINA 1 -->
         <div class="pagina-a4" id="pagina1">
@@ -489,7 +489,7 @@
         
         const btn = document.querySelector('.btn-pdf');
         const textoOriginal = btn.textContent;
-        btn.textContent = '⏳ Generando PDF en alta calidad...';
+        btn.textContent = '⏳ Generando PDF...';
         btn.disabled = true;
         
         try {
@@ -498,7 +498,7 @@
             
             // Capturar Página 1 con ALTA ESCALA
             const canvas1 = await html2canvas(pagina1, {
-                scale: 3,
+                scale: 2,
                 useCORS: true,
                 logging: false,
                 backgroundColor: '#ffffff',
@@ -511,7 +511,7 @@
             
             // Capturar Página 2 con ALTA ESCALA
             const canvas2 = await html2canvas(pagina2, {
-                scale: 3,
+                scale: 2,
                 useCORS: true,
                 logging: false,
                 backgroundColor: '#ffffff',
@@ -528,7 +528,7 @@
             const nombres = datosEstudiante.nombres.replace(/\s+/g, '_');
             pdf.save(`${dni}_${nombres}_EMAGES.pdf`);
             
-            btn.textContent = '✅ PDF Descargado (Alta Calidad)';
+            btn.textContent = '✅ PDF Descargado ';
             setTimeout(() => {
                 btn.textContent = textoOriginal;
                 btn.disabled = false;
