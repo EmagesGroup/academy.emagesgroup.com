@@ -6,20 +6,23 @@
     <title>Acceso - EMAGES Academy</title>
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; }
-        .container { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
+        .container { background: white; padding: 2.5rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); width: 100%; max-width: 450px; }
+        .logo { text-align: center; font-weight: bold; font-size: 1.8rem; color: #e74c3c; margin-bottom: 1rem; }
         h2 { text-align: center; color: #2c3e50; margin-bottom: 0.5rem; }
-        .subtitulo { text-align: center; color: #7f8c8d; font-size: 0.9rem; margin-bottom: 1.5rem; }
-        .logo { text-align: center; font-weight: bold; font-size: 1.5rem; color: #e74c3c; margin-bottom: 1rem; }
+        .subtitle { text-align: center; color: #7f8c8d; margin-bottom: 1.5rem; font-size: 0.95rem; }
+        .info-box { background: #e8f4f8; padding: 12px; border-radius: 8px; font-size: 0.9rem; color: #2980b9; margin-bottom: 20px; text-align: center; }
         input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-size: 1rem; }
-        .checkbox-container { display: flex; align-items: flex-start; gap: 10px; margin: 15px 0; font-size: 0.8rem; color: #555; }
+        input[type="date"] { font-size: 0.95rem; }
+        .checkbox-container { display: flex; align-items: flex-start; gap: 10px; margin: 15px 0; font-size: 0.9rem; color: #555; }
         .checkbox-container input { width: auto; margin-top: 3px; }
-        button { width: 100%; padding: 14px; background-color: #e74c3c; color: white; border: none; border-radius: 6px; font-size: 1rem; font-weight: bold; cursor: pointer; transition: background 0.3s; }
+        .checkbox-container a { color: #e74c3c; text-decoration: underline; font-weight: bold; }
+        button { width: 100%; padding: 14px; background-color: #e74c3c; color: white; border: none; border-radius: 6px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: background 0.3s; margin-top: 10px; }
         button:hover { background-color: #c0392b; }
         button:disabled { background-color: #95a5a6; cursor: not-allowed; }
-        .mensaje { text-align: center; margin-top: 15px; font-size: 0.9rem; font-weight: bold; }
+        .mensaje { text-align: center; margin-top: 15px; font-size: 0.9rem; }
         .exito { color: #27ae60; }
-        .error { color: #e74c3c; }
-        .info-box { background: #e8f4f8; padding: 10px; border-radius: 6px; font-size: 0.85rem; color: #2980b9; margin-bottom: 15px; text-align: center; }
+        .error { color: #e74c3c; font-weight: bold; }
+        .edad-error { background: #fdf2f0; border: 1px solid #e74c3c; color: #e74c3c; padding: 10px; border-radius: 6px; margin: 10px 0; display: none; }
     </style>
 </head>
 <body>
@@ -27,7 +30,7 @@
 <div class="container">
     <div class="logo">🎓 EMAGES Academy</div>
     <h2>Acceso al Test Vocacional</h2>
-    <p class="subtitulo">Ingresa tus datos para comenzar o continuar tu evaluación.</p>
+    <p class="subtitle">Ingresa tus datos para comenzar o continuar tu evaluación.</p>
     
     <div class="info-box">
         💡 <strong>¿Se cerró tu página?</strong> No te preocupes. Vuelve a ingresar tu DNI y nombres para continuar. (Máx. 3 intentos).
@@ -39,11 +42,17 @@
         <input type="tel" id="celular" placeholder="Celular (9 dígitos)" maxlength="9" required pattern="\d{9}">
         <input type="email" id="correo" placeholder="Correo electrónico" required>
         
+        <!-- NUEVO CAMPO: Fecha de Nacimiento -->
+        <input type="date" id="fechaNacimiento" required>
+        <div id="edadError" class="edad-error">
+            ️ Debes tener al menos 14 años para realizar el test. Si eres menor, consulta con tus padres.
+        </div>
+
         <div class="checkbox-container">
-        <input type="checkbox" id="privacidad" required>
-        <label for="privacidad">
-            Acepto las <a href="privacidad.html" target="_blank" style="color: #e74c3c; text-decoration: underline; font-weight: bold;">Políticas de Privacidad y Condiciones</a> de EMAGES GROUP.
-        </label>
+            <input type="checkbox" id="privacidad" required>
+            <label for="privacidad">
+                Acepto las <a href="privacidad.html" target="_blank">Políticas de Privacidad y Condiciones</a> de EMAGES GROUP.
+            </label>
         </div>
 
         <button type="submit" id="btnEnviar">Ingresar al Test</button>
@@ -53,6 +62,38 @@
 
 <script>
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw6xpApuz9Es7NGuDlVefKemVYEPVo3MZcrS71DAGa3YQmLLIkmEY6KSLtBJlmJ_3Yr/exec';
+    
+    // Configurar fecha máxima (hoy) y mínima (100 años atrás)
+    const hoy = new Date();
+    const fechaMaxima = hoy.toISOString().split('T')[0];
+    
+    const fechaMinima = new Date();
+    fechaMinima.setFullYear(hoy.getFullYear() - 100);
+    const fechaMinimaStr = fechaMinima.toISOString().split('T')[0];
+    
+    document.getElementById('fechaNacimiento').setAttribute('max', fechaMaxima);
+    document.getElementById('fechaNacimiento').setAttribute('min', fechaMinimaStr);
+
+    // Validar edad cuando el usuario ingresa su fecha
+    document.getElementById('fechaNacimiento').addEventListener('change', function() {
+        const fechaNac = new Date(this.value);
+        const hoy = new Date();
+        let edad = hoy.getFullYear() - fechaNac.getFullYear();
+        const mesDiff = hoy.getMonth() - fechaNac.getMonth();
+        
+        if (mesDiff < 0 || (mesDiff === 0 && hoy.getDate() < fechaNac.getDate())) {
+            edad--;
+        }
+        
+        const errorDiv = document.getElementById('edadError');
+        if (edad < 14) {
+            errorDiv.style.display = 'block';
+            document.getElementById('btnEnviar').disabled = true;
+        } else {
+            errorDiv.style.display = 'none';
+            document.getElementById('btnEnviar').disabled = false;
+        }
+    });
 
     document.getElementById('formularioRegistro').addEventListener('submit', function(e) {
         e.preventDefault();
@@ -60,8 +101,24 @@
         const btn = document.getElementById('btnEnviar');
         const mensajeDiv = document.getElementById('mensaje');
         
+        // Validación final de edad
+        const fechaNac = new Date(document.getElementById('fechaNacimiento').value);
+        const hoy = new Date();
+        let edad = hoy.getFullYear() - fechaNac.getFullYear();
+        const mesDiff = hoy.getMonth() - fechaNac.getMonth();
+        
+        if (mesDiff < 0 || (mesDiff === 0 && hoy.getDate() < fechaNac.getDate())) {
+            edad--;
+        }
+        
+        if (edad < 14) {
+            mensajeDiv.className = 'mensaje error';
+            mensajeDiv.textContent = '⚠️ Debes tener al menos 14 años para realizar el test.';
+            return;
+        }
+        
         btn.disabled = true;
-        btn.textContent = 'Verificando...';
+        btn.textContent = 'Procesando...';
         mensajeDiv.textContent = '';
 
         const datos = {
@@ -69,7 +126,8 @@
             dni: document.getElementById('dni').value,
             nombres: document.getElementById('nombres').value,
             celular: document.getElementById('celular').value,
-            correo: document.getElementById('correo').value
+            correo: document.getElementById('correo').value,
+            fechaNacimiento: document.getElementById('fechaNacimiento').value
         };
 
         fetch(SCRIPT_URL, {
@@ -84,6 +142,7 @@
                 localStorage.setItem('emages_nombre', datos.nombres);
                 localStorage.setItem('emages_celular', datos.celular);
                 localStorage.setItem('emages_correo', datos.correo);
+                localStorage.setItem('emages_fechaNacimiento', datos.fechaNacimiento);
                 
                 mensajeDiv.className = 'mensaje exito';
                 mensajeDiv.textContent = data.mensaje;
