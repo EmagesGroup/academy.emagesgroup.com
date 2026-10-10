@@ -8,8 +8,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        * { box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; padding: 20px; margin: 0; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; padding: 20px; }
         .container { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); max-width: 900px; margin: 0 auto; }
         h1 { color: #e74c3c; text-align: center; margin-bottom: 2rem; }
         input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 6px; font-size: 1rem; box-sizing: border-box; }
@@ -24,83 +24,96 @@
         .exito { color: #27ae60; text-align: center; margin-top: 10px; font-weight: bold; }
         .cargando { color: #2980b9; text-align: center; margin-top: 10px; }
         
-        /* DISEÑO COMPACTO PARA PDF - Máximo 2 páginas A4 */
-        #reportePDF {
+        /* PÁGINAS A4 - Tamaño fijo para PDF */
+        .pagina-a4 {
+            width: 794px;
+            height: 1123px;
             background: white;
-            padding: 25px;
-            max-width: 750px;
-            margin: 0 auto;
+            padding: 40px;
+            margin: 20px auto;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        .reporte-header {
+        
+        /* Header común */
+        .header-pdf {
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
             border-bottom: 3px solid #e74c3c;
             padding-bottom: 15px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
-        .reporte-logo { font-size: 1.6rem; font-weight: bold; color: #e74c3c; }
-        .reporte-titulo { font-size: 1.1rem; color: #2c3e50; margin: 0; }
-        .reporte-subtitulo { margin: 3px 0 0 0; color: #7f8c8d; font-size: 0.85rem; }
+        .header-logo { font-size: 2rem; font-weight: bold; color: #e74c3c; }
+        .header-titulo { font-size: 1.4rem; color: #2c3e50; font-weight: bold; }
+        .header-subtitulo { color: #7f8c8d; font-size: 0.95rem; margin-top: 5px; }
         
-        .datos-estudiante {
+        /* Datos del estudiante */
+        .datos-box {
             background: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
         }
-        .datos-estudiante h2 { color: #2c3e50; margin: 0 0 10px 0; font-size: 1.1rem; }
+        .datos-box h2 { color: #2c3e50; font-size: 1.3rem; margin-bottom: 12px; }
         .datos-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
         }
-        .datos-estudiante p { margin: 0; font-size: 0.9rem; }
+        .datos-box p { margin: 0; font-size: 1rem; }
+        .datos-box p strong { color: #2c3e50; }
         
-        .perfil-destacado {
+        /* Perfil destacado */
+        .perfil-banner {
             background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
             color: white;
-            padding: 15px;
-            border-radius: 8px;
+            padding: 25px;
+            border-radius: 12px;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
-        .perfil-destacado h3 { margin: 0 0 5px 0; font-size: 1rem; font-weight: normal; opacity: 0.9; }
-        .perfil-destacado .perfil-nombre { font-size: 1.8rem; font-weight: bold; margin: 0; }
+        .perfil-banner h3 { font-size: 1.1rem; font-weight: normal; opacity: 0.95; margin-bottom: 8px; }
+        .perfil-banner .perfil-nombre { font-size: 2.5rem; font-weight: bold; margin: 0; }
         
-        .grafico-container {
-            margin: 20px 0;
-            padding: 15px;
+        /* Gráfico */
+        .grafico-box {
             background: #f8f9fa;
-            border-radius: 8px;
+            padding: 20px;
+            border-radius: 10px;
             border: 1px solid #e0e0e0;
         }
-        .grafico-container h3 { color: #2c3e50; text-align: center; margin: 0 0 15px 0; font-size: 1.1rem; }
-        .chart-container { position: relative; height: 280px; width: 100%; max-width: 400px; margin: 0 auto; }
+        .grafico-box h3 { color: #2c3e50; text-align: center; font-size: 1.3rem; margin-bottom: 15px; }
+        .chart-container { position: relative; height: 380px; width: 100%; max-width: 500px; margin: 0 auto; }
         
-        .puntajes-seccion { margin: 20px 0; }
-        .puntajes-seccion h3 { color: #2c3e50; font-size: 1.1rem; margin-bottom: 12px; }
-        .puntajes-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        /* Puntuaciones */
+        .puntajes-titulo { color: #2c3e50; font-size: 1.5rem; margin-bottom: 20px; }
+        .puntajes-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
         .puntaje-card {
             background: white;
             border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 12px;
+            border-radius: 10px;
+            padding: 18px;
             display: flex;
-            align-items: center;
-            gap: 12px;
+            align-items: flex-start;
+            gap: 15px;
         }
         .circulo-progreso {
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             background: conic-gradient(#27ae60 0deg, #27ae60 var(--progreso), #e0e0e0 var(--progreso));
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 1rem;
+            font-size: 1.3rem;
             color: #27ae60;
             flex-shrink: 0;
             position: relative;
@@ -108,45 +121,52 @@
         .circulo-progreso::before {
             content: '';
             position: absolute;
-            width: 40px;
-            height: 40px;
+            width: 48px;
+            height: 48px;
             background: white;
             border-radius: 50%;
         }
         .circulo-progreso span { position: relative; z-index: 1; }
         .puntaje-info { flex: 1; }
-        .puntaje-info h4 { margin: 0 0 3px 0; color: #2c3e50; font-size: 0.95rem; }
-        .puntaje-info p { margin: 0; font-size: 0.75rem; color: #7f8c8d; line-height: 1.2; }
-        .puntaje-barra { height: 5px; background: #e0e0e0; border-radius: 3px; margin-top: 6px; overflow: hidden; }
+        .puntaje-info h4 { margin: 0 0 5px 0; color: #2c3e50; font-size: 1.1rem; }
+        .puntaje-info .desc { margin: 0; font-size: 0.85rem; color: #7f8c8d; line-height: 1.3; }
+        .puntaje-barra { height: 6px; background: #e0e0e0; border-radius: 3px; margin-top: 8px; overflow: hidden; }
         .puntaje-barra-fill { height: 100%; background: linear-gradient(90deg, #27ae60, #2ecc71); border-radius: 3px; }
+        .puntaje-info .puntos { font-size: 0.8rem; color: #95a5a6; margin-top: 5px; }
         
-        .carreras-seccion {
-            margin: 20px 0;
-            padding: 15px;
+        /* Carreras */
+        .carreras-box {
+            margin-top: 25px;
+            padding: 20px;
             background: #fff9e6;
-            border-left: 4px solid #f39c12;
-            border-radius: 6px;
+            border-left: 5px solid #f39c12;
+            border-radius: 8px;
         }
-        .carreras-seccion h3 { color: #e67e22; font-size: 1.1rem; margin: 0 0 10px 0; }
-        .carreras-seccion h4 { color: #2c3e50; font-size: 0.95rem; margin: 10px 0 5px 0; }
-        .carreras-seccion ul { margin: 5px 0; padding-left: 25px; }
-        .carreras-seccion li { font-size: 0.9rem; margin: 4px 0; color: #2c3e50; }
-        .carreras-seccion .nota { font-size: 0.8rem; color: #7f8c8d; font-style: italic; margin-top: 10px; }
+        .carreras-box h3 { color: #e67e22; font-size: 1.3rem; margin-bottom: 15px; }
+        .carreras-box h4 { color: #2c3e50; font-size: 1.05rem; margin: 12px 0 8px 0; }
+        .carreras-box ul { margin: 5px 0 10px 0; padding-left: 25px; }
+        .carreras-box li { font-size: 0.95rem; margin: 5px 0; color: #2c3e50; }
+        .carreras-box .nota { font-size: 0.85rem; color: #7f8c8d; font-style: italic; margin-top: 12px; }
         
-        .footer-reporte {
+        /* Footer */
+        .footer-pdf {
+            position: absolute;
+            bottom: 30px;
+            left: 40px;
+            right: 40px;
             text-align: center;
-            margin-top: 20px;
             padding-top: 15px;
             border-top: 2px solid #e0e0e0;
             color: #7f8c8d;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
         }
-        .footer-reporte p { margin: 3px 0; }
+        .footer-pdf p { margin: 4px 0; }
         
-        @media (max-width: 600px) {
-            .puntajes-grid { grid-template-columns: 1fr; }
-            .datos-grid { grid-template-columns: 1fr; }
-            .reporte-header { flex-direction: column; text-align: center; gap: 10px; }
+        /* Ocultar páginas en vista normal, mostrar solo al generar PDF */
+        .pagina-a4.oculta { display: none; }
+        
+        @media (max-width: 850px) {
+            .pagina-a4 { width: 100%; height: auto; padding: 20px; }
         }
     </style>
 </head>
@@ -163,51 +183,59 @@
     </div>
 
     <div class="resultado" id="resultadoBusqueda">
-        <button onclick="generarPDF()" class="btn-pdf">📄 Descargar PDF Profesional</button>
+        <button onclick="generarPDF()" class="btn-pdf">📄 Descargar PDF Profesional (2 páginas)</button>
         
-        <div id="reportePDF">
-            <div class="reporte-header">
-                <div class="reporte-logo"> EMAGES Academy</div>
+        <!-- PÁGINA 1: Datos + Perfil + Gráfico -->
+        <div class="pagina-a4" id="pagina1">
+            <div class="header-pdf">
+                <div class="header-logo"> EMAGES Academy</div>
                 <div>
-                    <h2 class="reporte-titulo">Informe de Evaluación Vocacional</h2>
-                    <p class="reporte-subtitulo">Test RIASEC - 50 preguntas</p>
+                    <div class="header-titulo">Informe de Evaluación Vocacional</div>
+                    <div class="header-subtitulo">Test RIASEC - 50 preguntas</div>
                 </div>
             </div>
 
-            <div class="datos-estudiante">
+            <div class="datos-box">
                 <h2>👤 Datos del Estudiante</h2>
                 <div class="datos-grid">
-                    <p><strong>DNI:</strong> <span id="pdfDni"></span></p>
-                    <p><strong>Celular:</strong> <span id="pdfCelular"></span></p>
-                    <p><strong>Nombres:</strong> <span id="pdfNombres"></span></p>
-                    <p><strong>Correo:</strong> <span id="pdfCorreo"></span></p>
-                    <p style="grid-column: 1 / -1;"><strong>Fecha:</strong> <span id="pdfFecha"></span></p>
+                    <p><strong>DNI:</strong> <span id="p1Dni"></span></p>
+                    <p><strong>Celular:</strong> <span id="p1Celular"></span></p>
+                    <p><strong>Nombres:</strong> <span id="p1Nombres"></span></p>
+                    <p><strong>Correo:</strong> <span id="p1Correo"></span></p>
+                    <p style="grid-column: 1 / -1;"><strong>Fecha de Evaluación:</strong> <span id="p1Fecha"></span></p>
                 </div>
             </div>
 
-            <div class="perfil-destacado">
-                <h3>🎯 Perfil Predominante</h3>
-                <p class="perfil-nombre" id="pdfPerfil"></p>
+            <div class="perfil-banner">
+                <h3> Perfil Predominante</h3>
+                <p class="perfil-nombre" id="p1Perfil"></p>
             </div>
 
-            <div class="grafico-container">
+            <div class="grafico-box">
                 <h3>🕸️ Mapa de Competencias Vocacionales</h3>
                 <div class="chart-container">
                     <canvas id="chartRadar"></canvas>
                 </div>
             </div>
 
-            <div class="puntajes-seccion">
-                <h3> Puntuaciones del Test Vocacional</h3>
-                <div class="puntajes-grid" id="puntajesGrid"></div>
+            <div class="footer-pdf">
+                <p><strong>EMAGES GROUP S.A.C.</strong> - RUC: 20611427671</p>
+                <p>www.emagesgroup.com | academy.emagesgroup.com</p>
             </div>
+        </div>
 
-            <div class="carreras-seccion">
+        <!-- PÁGINA 2: Puntuaciones + Carreras -->
+        <div class="pagina-a4" id="pagina2">
+            <h2 class="puntajes-titulo">📊 Puntuaciones del Test Vocacional</h2>
+            
+            <div class="puntajes-grid" id="puntajesGrid"></div>
+
+            <div class="carreras-box">
                 <h3>💼 Carreras Más Demandadas en Perú</h3>
                 <div id="carrerasContenido"></div>
             </div>
 
-            <div class="footer-reporte">
+            <div class="footer-pdf">
                 <p><strong>EMAGES GROUP S.A.C.</strong> - RUC: 20611427671</p>
                 <p>www.emagesgroup.com | academy.emagesgroup.com</p>
                 <p style="font-style: italic; font-size: 0.75rem; margin-top: 8px;">
@@ -241,69 +269,51 @@
 
     const carrerasPorPerfil = {
         'Realista': {
-            principal: {
-                facultad: 'Ingeniería y Tecnología',
-                carreras: [
-                    { nombre: 'Ingeniería de Sistemas', demanda: 'Alta' },
-                    { nombre: 'Ingeniería Industrial', demanda: 'Alta' },
-                    { nombre: 'Ingeniería Civil', demanda: 'Media' }
-                ]
-            },
+            principal: { facultad: 'Ingeniería y Tecnología', carreras: [
+                { nombre: 'Ingeniería de Sistemas', demanda: 'Alta' },
+                { nombre: 'Ingeniería Industrial', demanda: 'Alta' },
+                { nombre: 'Ingeniería Civil', demanda: 'Media' }
+            ]},
             otras: ['Arquitectura', 'Ingeniería Mecánica', 'Agronomía']
         },
         'Investigador': {
-            principal: {
-                facultad: 'Ciencias de la Salud',
-                carreras: [
-                    { nombre: 'Medicina Humana', demanda: 'Alta' },
-                    { nombre: 'Enfermería', demanda: 'Alta' },
-                    { nombre: 'Farmacia y Bioquímica', demanda: 'Media' }
-                ]
-            },
+            principal: { facultad: 'Ciencias de la Salud', carreras: [
+                { nombre: 'Medicina Humana', demanda: 'Alta' },
+                { nombre: 'Enfermería', demanda: 'Alta' },
+                { nombre: 'Farmacia y Bioquímica', demanda: 'Media' }
+            ]},
             otras: ['Biología', 'Ingeniería Ambiental', 'Nutrición']
         },
         'Artístico': {
-            principal: {
-                facultad: 'Comunicación y Artes',
-                carreras: [
-                    { nombre: 'Comunicación Audiovisual', demanda: 'Alta' },
-                    { nombre: 'Diseño Gráfico', demanda: 'Alta' },
-                    { nombre: 'Publicidad', demanda: 'Media' }
-                ]
-            },
+            principal: { facultad: 'Comunicación y Artes', carreras: [
+                { nombre: 'Comunicación Audiovisual', demanda: 'Alta' },
+                { nombre: 'Diseño Gráfico', demanda: 'Alta' },
+                { nombre: 'Publicidad', demanda: 'Media' }
+            ]},
             otras: ['Arquitectura', 'Diseño de Interiores', 'Música']
         },
         'Social': {
-            principal: {
-                facultad: 'Ciencias Sociales y Humanas',
-                carreras: [
-                    { nombre: 'Psicología', demanda: 'Alta' },
-                    { nombre: 'Educación', demanda: 'Alta' },
-                    { nombre: 'Trabajo Social', demanda: 'Media' }
-                ]
-            },
+            principal: { facultad: 'Ciencias Sociales y Humanas', carreras: [
+                { nombre: 'Psicología', demanda: 'Alta' },
+                { nombre: 'Educación', demanda: 'Alta' },
+                { nombre: 'Trabajo Social', demanda: 'Media' }
+            ]},
             otras: ['Sociología', 'Antropología', 'Ciencias Políticas']
         },
         'Emprendedor': {
-            principal: {
-                facultad: 'Ciencias Empresariales',
-                carreras: [
-                    { nombre: 'Administración de Empresas', demanda: 'Alta' },
-                    { nombre: 'Marketing', demanda: 'Alta' },
-                    { nombre: 'Negocios Internacionales', demanda: 'Alta' }
-                ]
-            },
+            principal: { facultad: 'Ciencias Empresariales', carreras: [
+                { nombre: 'Administración de Empresas', demanda: 'Alta' },
+                { nombre: 'Marketing', demanda: 'Alta' },
+                { nombre: 'Negocios Internacionales', demanda: 'Alta' }
+            ]},
             otras: ['Contabilidad', 'Turismo y Hotelería', 'Economía']
         },
         'Convencional': {
-            principal: {
-                facultad: 'Ciencias Contables y Financieras',
-                carreras: [
-                    { nombre: 'Contabilidad', demanda: 'Alta' },
-                    { nombre: 'Finanzas', demanda: 'Alta' },
-                    { nombre: 'Administración', demanda: 'Media' }
-                ]
-            },
+            principal: { facultad: 'Ciencias Contables y Financieras', carreras: [
+                { nombre: 'Contabilidad', demanda: 'Alta' },
+                { nombre: 'Finanzas', demanda: 'Alta' },
+                { nombre: 'Administración', demanda: 'Media' }
+            ]},
             otras: ['Economía', 'Estadística', 'Gestión Pública']
         }
     };
@@ -323,22 +333,20 @@
         
         const datos = { accion: 'buscarEstudiante', dni: dni };
         
-        fetch(SCRIPT_URL, {
-            method: 'POST',
-            body: JSON.stringify(datos)
-        })
+        fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(datos) })
         .then(response => response.json())
         .then(data => {
             if (data.exito) {
                 datosEstudiante = data.estudiante;
                 datosResultado = data.resultado;
                 
-                document.getElementById('pdfDni').textContent = datosEstudiante.dni;
-                document.getElementById('pdfNombres').textContent = datosEstudiante.nombres;
-                document.getElementById('pdfCelular').textContent = datosEstudiante.celular;
-                document.getElementById('pdfCorreo').textContent = datosEstudiante.correo;
-                document.getElementById('pdfFecha').textContent = new Date(datosResultado.fecha).toLocaleString('es-PE');
-                document.getElementById('pdfPerfil').textContent = datosResultado.perfil;
+                // Llenar Página 1
+                document.getElementById('p1Dni').textContent = datosEstudiante.dni;
+                document.getElementById('p1Nombres').textContent = datosEstudiante.nombres;
+                document.getElementById('p1Celular').textContent = datosEstudiante.celular;
+                document.getElementById('p1Correo').textContent = datosEstudiante.correo;
+                document.getElementById('p1Fecha').textContent = new Date(datosResultado.fecha).toLocaleString('es-PE');
+                document.getElementById('p1Perfil').textContent = datosResultado.perfil;
                 
                 crearGraficoRadar(datosResultado);
                 crearPuntajesCards(datosResultado);
@@ -363,9 +371,7 @@
     function crearGraficoRadar(datos) {
         const ctx = document.getElementById('chartRadar').getContext('2d');
         
-        if (chartInstance) {
-            chartInstance.destroy();
-        }
+        if (chartInstance) chartInstance.destroy();
         
         chartInstance = new Chart(ctx, {
             type: 'radar',
@@ -379,8 +385,6 @@
                     borderWidth: 2,
                     pointBackgroundColor: 'rgba(231, 76, 60, 1)',
                     pointBorderColor: '#fff',
-                    pointHoverBackgroundColor: '#fff',
-                    pointHoverBorderColor: 'rgba(231, 76, 60, 1)',
                     pointRadius: 5,
                     pointHoverRadius: 7
                 }]
@@ -393,34 +397,13 @@
                         beginAtZero: true,
                         min: 0,
                         max: 36,
-                        ticks: {
-                            stepSize: 6,
-                            backdropColor: 'transparent',
-                            font: { size: 10 }
-                        },
+                        ticks: { stepSize: 6, backdropColor: 'transparent', font: { size: 10 } },
                         grid: { color: 'rgba(0, 0, 0, 0.1)' },
                         angleLines: { color: 'rgba(0, 0, 0, 0.1)' },
-                        pointLabels: { font: { size: 11, weight: 'bold' }, color: '#2c3e50' }
+                        pointLabels: { font: { size: 12, weight: 'bold' }, color: '#2c3e50' }
                     }
                 },
-                plugins: {
-                    legend: { display: false },
-                    tooltip: {
-                        backgroundColor: 'rgba(0,0,0,0.8)',
-                        titleFont: { size: 13 },
-                        bodyFont: { size: 12 },
-                        padding: 10,
-                        callbacks: {
-                            label: function(context) {
-                                const perfil = context.label;
-                                const puntaje = context.parsed.r;
-                                const maximo = maximosPorPerfil[perfil];
-                                const porcentaje = Math.round((puntaje / maximo) * 100);
-                                return `${perfil}: ${puntaje}/${maximo} (${porcentaje}%)`;
-                            }
-                        }
-                    }
-                }
+                plugins: { legend: { display: false } }
             }
         });
     }
@@ -450,11 +433,11 @@
                 </div>
                 <div class="puntaje-info">
                     <h4>${p.nombre}</h4>
-                    <p>${p.desc}</p>
+                    <p class="desc">${p.desc}</p>
                     <div class="puntaje-barra">
                         <div class="puntaje-barra-fill" style="width: ${porcentaje}%;"></div>
                     </div>
-                    <p style="font-size: 0.7rem; margin-top: 4px; color: #95a5a6;">${p.puntaje}/${p.max} puntos (${Math.round(porcentaje)}%)</p>
+                    <p class="puntos">${p.puntaje}/${p.max} puntos (${Math.round(porcentaje)}%)</p>
                 </div>
             `;
             grid.appendChild(card);
@@ -471,14 +454,14 @@
             return;
         }
         
-        let html = `<h4>🏛️ Facultad Principal: ${carrerasData.principal.facultad}</h4><ul>`;
+        let html = `<h4>️ Facultad Principal: ${carrerasData.principal.facultad}</h4><ul>`;
         carrerasData.principal.carreras.forEach(carrera => {
             const icono = carrera.demanda === 'Alta' ? '🔥' : '⭐';
             html += `<li>${icono} <strong>${carrera.nombre}</strong> (Demanda: ${carrera.demanda})</li>`;
         });
         html += `</ul>`;
         
-        html += `<h4>🔍 Otras opciones compatibles:</h4><ul>`;
+        html += `<h4> Otras opciones compatibles:</h4><ul>`;
         carrerasData.otras.forEach(carrera => {
             html += `<li>• ${carrera}</li>`;
         });
@@ -490,7 +473,7 @@
 
     async function generarPDF() {
         const { jsPDF } = window.jspdf;
-        const reporte = document.getElementById('reportePDF');
+        const pdf = new jsPDF('p', 'mm', 'a4');
         
         const btn = document.querySelector('.btn-pdf');
         const textoOriginal = btn.textContent;
@@ -498,49 +481,41 @@
         btn.disabled = true;
         
         try {
-            // Capturar el HTML completo como imagen de alta calidad
-            const canvas = await html2canvas(reporte, {
+            const pagina1 = document.getElementById('pagina1');
+            const pagina2 = document.getElementById('pagina2');
+            
+            // Capturar Página 1
+            const canvas1 = await html2canvas(pagina1, {
                 scale: 2,
                 useCORS: true,
                 logging: false,
                 backgroundColor: '#ffffff',
-                windowWidth: 750
+                windowWidth: 794
             });
             
-            const imgData = canvas.toDataURL('image/png');
-            const pdf = new jsPDF('p', 'mm', 'a4');
+            const img1 = canvas1.toDataURL('image/png');
+            pdf.addImage(img1, 'PNG', 0, 0, 210, 297);
             
-            const pdfWidth = 210; // A4 width in mm
-            const pdfHeight = 297; // A4 height in mm
-            const margin = 10;
-            const contentWidth = pdfWidth - 2 * margin;
+            // Agregar Página 2
+            pdf.addPage();
             
-            const imgWidth = canvas.width;
-            const imgHeight = canvas.height;
-            const ratio = contentWidth / imgWidth;
-            const scaledHeight = imgHeight * ratio;
+            const canvas2 = await html2canvas(pagina2, {
+                scale: 2,
+                useCORS: true,
+                logging: false,
+                backgroundColor: '#ffffff',
+                windowWidth: 794
+            });
             
-            let heightLeft = scaledHeight;
-            let position = 0;
-            let firstPage = true;
+            const img2 = canvas2.toDataURL('image/png');
+            pdf.addImage(img2, 'PNG', 0, 0, 210, 297);
             
-            // Primera página
-            pdf.addImage(imgData, 'PNG', margin, margin, contentWidth, scaledHeight);
-            heightLeft -= (pdfHeight - 2 * margin);
-            
-            // Páginas adicionales si el contenido es muy largo
-            while (heightLeft > 0) {
-                position = heightLeft - scaledHeight;
-                pdf.addPage();
-                pdf.addImage(imgData, 'PNG', margin, margin + position, contentWidth, scaledHeight);
-                heightLeft -= (pdfHeight - 2 * margin);
-            }
-            
+            // Guardar
             const dni = datosEstudiante.dni;
             const nombres = datosEstudiante.nombres.replace(/\s+/g, '_');
             pdf.save(`${dni}_${nombres}_EMAGES.pdf`);
             
-            btn.textContent = '✅ PDF Descargado';
+            btn.textContent = '✅ PDF Descargado (2 páginas)';
             setTimeout(() => {
                 btn.textContent = textoOriginal;
                 btn.disabled = false;
