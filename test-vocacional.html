@@ -17,12 +17,11 @@
         button { width: 100%; padding: 14px; background-color: #e74c3c; color: white; border: none; border-radius: 6px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: background 0.3s; margin-top: 1rem; }
         button:hover { background-color: #c0392b; }
         
-        /* Estilos para el resultado */
         #resultado { display: none; text-align: center; animation: fadeIn 0.5s; }
-        .perfil-titulo { font-size: 1.8rem; color: #e74c3c; margin-bottom: 10px; }
-        .carreras { background: #e8f8f5; padding: 15px; border-radius: 8px; margin: 20px 0; text-align: left; }
-        .carreras h3 { margin-top: 0; color: #16a085; }
-        .recomendacion { background: #fef9e7; padding: 15px; border-radius: 8px; text-align: left; border-left: 4px solid #f1c40f; }
+        .perfil-titulo { font-size: 2rem; color: #e74c3c; margin: 20px 0; font-weight: bold; }
+        .mensaje-whatsapp { background: #dcf8c6; padding: 20px; border-radius: 10px; margin: 30px 0; }
+        .btn-whatsapp { background-color: #25D366; color: white; font-size: 1.2rem; padding: 15px; border: none; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; margin-top: 15px; }
+        .btn-whatsapp:hover { background-color: #128C7E; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
@@ -31,13 +30,11 @@
 <div class="container">
     <div class="logo">🎓 EMAGES Academy</div>
     
-    <!-- Sección del Test -->
     <div id="seccion-test">
         <h2>Evaluación Vocacional</h2>
         <p class="welcome">Hola, <span id="nombre-estudiante" style="font-weight:bold; color:#e74c3c;">Estudiante</span>. Responde con sinceridad para descubrir tu potencial.</p>
         
         <form id="formulario-test">
-            <!-- Pregunta 1: Realista (R) -->
             <div class="pregunta">
                 <p>1. Me gusta reparar cosas, trabajar con herramientas, la naturaleza o actividades al aire libre.</p>
                 <div class="opciones">
@@ -47,7 +44,6 @@
                 </div>
             </div>
 
-            <!-- Pregunta 2: Investigador (I) -->
             <div class="pregunta">
                 <p>2. Disfruto resolviendo problemas lógicos, investigando, haciendo experimentos o analizando datos.</p>
                 <div class="opciones">
@@ -57,7 +53,6 @@
                 </div>
             </div>
 
-            <!-- Pregunta 3: Artístico (A) -->
             <div class="pregunta">
                 <p>3. Me atrae el arte, la música, el diseño, la escritura creativa o expresar mis ideas de forma original.</p>
                 <div class="opciones">
@@ -67,7 +62,6 @@
                 </div>
             </div>
 
-            <!-- Pregunta 4: Social (S) -->
             <div class="pregunta">
                 <p>4. Me gusta ayudar a las personas, enseñar, escuchar o trabajar en equipo para resolver problemas humanos.</p>
                 <div class="opciones">
@@ -77,7 +71,6 @@
                 </div>
             </div>
 
-            <!-- Pregunta 5: Emprendedor (E) -->
             <div class="pregunta">
                 <p>5. Me motiva liderar proyectos, vender ideas, persuadir a otros o iniciar mi propio negocio.</p>
                 <div class="opciones">
@@ -87,7 +80,6 @@
                 </div>
             </div>
 
-            <!-- Pregunta 6: Convencional (C) -->
             <div class="pregunta">
                 <p>6. Prefiero el orden, organizar información, seguir procedimientos claros y trabajar con detalles y números.</p>
                 <div class="opciones">
@@ -97,32 +89,33 @@
                 </div>
             </div>
 
-            <button type="submit">Ver mis Resultados</button>
+            <button type="submit">Ver mi Perfil</button>
         </form>
     </div>
 
-    <!-- Sección de Resultados (Oculta al inicio) - ACTUALIZADA CON WHATSAPP -->
+    <!-- RESULTADOS - SOLO MUESTRA EL PERFIL -->
     <div id="resultado">
-        <h2>🎯 Tu Perfil Vocacional EMAGES</h2>
-        <div class="perfil-titulo" id="perfil-nombre"></div>
-        <p id="perfil-descripcion"></p>
+        <h2>🎯 ¡Felicitaciones!</h2>
+        <p style="font-size: 1.1rem; color: #555;">Has completado tu Evaluación Vocacional EMAGES</p>
         
-        <div class="carreras">
-            <h3>💼 Carreras sugeridas para ti:</h3>
-            <ul id="lista-carreras"></ul>
+        <div class="perfil-titulo" id="perfil-nombre"></div>
+        
+        <div style="background: #e8f8f5; padding: 20px; border-radius: 10px; margin: 20px 0;">
+            <p style="font-size: 1.1rem; margin: 0;">✅ Tu resultado ha sido guardado en nuestro sistema</p>
         </div>
 
-        <div class="recomendacion">
-            <h3>💡 Recomendación EMAGES Academy:</h3>
-            <p id="texto-recomendacion"></p>
-        </div>
-
-        <!-- NUEVO BOTÓN DE WHATSAPP -->
-        <div style="margin-top: 30px; padding: 20px; background: #dcf8c6; border-radius: 10px; text-align: center;">
-            <h3 style="margin-top: 0; color: #075e54;">📲 ¿Quieres una asesoría personalizada?</h3>
-            <p style="margin-bottom: 15px;">Escríbenos por WhatsApp con tu perfil y te ayudamos a elegir la mejor carrera.</p>
-            <button onclick="enviarWhatsApp()" style="background-color: #25D366; color: white; font-size: 1.1rem; padding: 15px; border: none; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold;">
-                💬 Solicitar mis resultados por WhatsApp
+        <div class="mensaje-whatsapp">
+            <h3 style="margin-top: 0; color: #075e54;"> Recibe tu Informe Completo GRATIS</h3>
+            <p style="text-align: left; line-height: 1.6;">
+                Te enviaremos por WhatsApp:<br>
+                ✓ <strong>Análisis detallado</strong> de tu perfil<br>
+                ✓ <strong>Carreras recomendadas</strong> específicas para ti<br>
+                ✓ <strong>Fortalezas y áreas de mejora</strong><br>
+                ✓ <strong>Plan de acción</strong> personalizado<br>
+                ✓ Información sobre nuestros <strong>simulacros de admisión</strong>
+            </p>
+            <button onclick="enviarWhatsApp()" class="btn-whatsapp">
+                💬 Solicitar mi informe completo por WhatsApp
             </button>
         </div>
 
@@ -131,9 +124,12 @@
 </div>
 
 <script>
-    // 1. Verificar si el estudiante está registrado
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw6xpApuz9Es7NGuDlVefKemVYEPVo3MZcrS71DAGa3YQmLLIkmEY6KSLtBJlmJ_3Yr/exec';
+    
     const nombre = localStorage.getItem('emages_nombre');
     const dni = localStorage.getItem('emages_dni');
+    const celular = localStorage.getItem('emages_celular');
+    const correo = localStorage.getItem('emages_correo');
 
     if (!nombre || !dni) {
         window.location.href = 'registro_test_ov.html';
@@ -141,23 +137,20 @@
         document.getElementById('nombre-estudiante').textContent = nombre;
     }
 
-    // 2. Base de datos de perfiles RIASEC
     const perfiles = {
-        'R': { nombre: 'Realista', desc: 'Eres práctico, te gusta trabajar con las manos, herramientas o al aire libre.', carreras: ['Ingeniería Civil', 'Ingeniería Mecánica', 'Arquitectura', 'Agronomía'], recomendacion: 'Te recomendamos explorar nuestros talleres prácticos y simulacros de admisión para ingenierías.' },
-        'I': { nombre: 'Investigador', desc: 'Eres analítico, curioso y disfrutas resolviendo problemas complejos.', carreras: ['Medicina', 'Ingeniería de Sistemas', 'Biología', 'Física'], recomendacion: 'Tu mente analítica es tu mayor fortaleza. Refuerza tu razonamiento lógico-matemático con nuestros módulos especializados.' },
-        'A': { nombre: 'Artístico', desc: 'Eres creativo, original y te expresas mejor a través del arte o el diseño.', carreras: ['Diseño Gráfico', 'Arquitectura', 'Comunicación Audiovisual', 'Música'], recomendacion: 'Potencia tu portafolio creativo. EMAGES Academy tiene rutas de formación artística y tecnológica para ti.' },
-        'S': { nombre: 'Social', desc: 'Eres empático, te gusta ayudar, enseñar y trabajar en equipo con personas.', carreras: ['Psicología', 'Educación', 'Enfermería', 'Trabajo Social'], recomendacion: 'Tu vocación de servicio es valiosa. Te sugerimos reforzar comprensión lectora y habilidades blandas.' },
-        'E': { nombre: 'Emprendedor', desc: 'Eres líder, te motiva organizar, persuadir y alcanzar metas económicas o de negocio.', carreras: ['Administración de Empresas', 'Marketing', 'Negocios Internacionales', 'Derecho'], recomendacion: 'Tienes perfil de líder. Te recomendamos nuestros cursos de gestión y simulacros de admisión para ciencias empresariales.' },
-        'C': { nombre: 'Convencional', desc: 'Eres organizado, detallista y te sientes cómodo trabajando con datos y estructuras.', carreras: ['Contabilidad', 'Finanzas', 'Ingeniería Industrial', 'Secretariado Ejecutivo'], recomendacion: 'Tu precisión es clave. Te sugerimos practicar con exámenes de razonamiento numérico y gestión de procesos.' }
+        'R': { nombre: 'Realista' },
+        'I': { nombre: 'Investigador' },
+        'A': { nombre: 'Artístico' },
+        'S': { nombre: 'Social' },
+        'E': { nombre: 'Emprendedor' },
+        'C': { nombre: 'Convencional' }
     };
 
-    // 3. Procesar el formulario
     document.getElementById('formulario-test').addEventListener('submit', function(e) {
         e.preventDefault();
         
         document.getElementById('seccion-test').style.display = 'none';
         
-        // Calcular puntajes
         const puntajes = { R: 0, I: 0, A: 0, S: 0, E: 0, C: 0 };
         
         puntajes.R += parseInt(document.querySelector('input[name="p1"]:checked').value);
@@ -167,7 +160,6 @@
         puntajes.E += parseInt(document.querySelector('input[name="p5"]:checked').value);
         puntajes.C += parseInt(document.querySelector('input[name="p6"]:checked').value);
 
-        // Encontrar el puntaje más alto
         let maxPuntaje = -1;
         let perfilGanador = '';
         
@@ -178,36 +170,35 @@
             }
         }
 
-        // Mostrar resultados
         const resultado = perfiles[perfilGanador];
         document.getElementById('perfil-nombre').textContent = `Perfil ${resultado.nombre}`;
-        document.getElementById('perfil-descripcion').textContent = resultado.desc;
-        
-        const listaCarreras = document.getElementById('lista-carreras');
-        listaCarreras.innerHTML = '';
-        resultado.carreras.forEach(carrera => {
-            const li = document.createElement('li');
-            li.textContent = `✓ ${carrera}`;
-            listaCarreras.appendChild(li);
-        });
-        
-        document.getElementById('texto-recomendacion').textContent = resultado.recomendacion;
         document.getElementById('resultado').style.display = 'block';
+
+        // Guardar resultado en Google Sheets
+        const datosResultado = {
+            accion: 'guardarResultado',
+            dni: dni,
+            nombres: nombre,
+            celular: celular || '',
+            correo: correo || '',
+            perfil: `Perfil ${resultado.nombre}`,
+            puntajes: puntajes
+        };
+
+        fetch(SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify(datosResultado)
+        }).catch(err => console.error(err));
     });
 
-    // 4. FUNCIÓN NUEVA: Enviar WhatsApp
     function enviarWhatsApp() {
-        const nombreEstudiante = localStorage.getItem('emages_nombre');
         const perfilTexto = document.getElementById('perfil-nombre').textContent;
-        
-        // TU NÚMERO DE EMAGES AQUÍ (con 51 de Perú y sin el +)
         const numeroEmages = '51916382180'; 
-        
-        const mensaje = `Hola EMAGES Academy, soy ${nombreEstudiante}. Acabo de realizar mi Test Vocacional y obtuve el perfil: ${perfilTexto}. Solicito mis resultados detallados y asesoría sobre las carreras sugeridas.`;
+        const mensaje = `Hola EMAGES Academy, soy ${nombre}. Acabo de realizar mi Test Vocacional y obtuve el perfil: ${perfilTexto}. Solicito mi informe completo con carreras recomendadas y plan de acción.`;
         
         const url = `https://wa.me/${numeroEmages}?text=${encodeURIComponent(mensaje)}`;
-        
-        // Abrir WhatsApp en nueva pestaña
         window.open(url, '_blank');
     }
 </script>
