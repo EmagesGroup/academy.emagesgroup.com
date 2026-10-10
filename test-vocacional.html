@@ -101,7 +101,7 @@
         </form>
     </div>
 
-    <!-- Sección de Resultados (Oculta al inicio) -->
+    <!-- Sección de Resultados (Oculta al inicio) - ACTUALIZADA CON WHATSAPP -->
     <div id="resultado">
         <h2>🎯 Tu Perfil Vocacional EMAGES</h2>
         <div class="perfil-titulo" id="perfil-nombre"></div>
@@ -117,10 +117,15 @@
             <p id="texto-recomendacion"></p>
         </div>
 
-        <p style="margin-top: 20px; font-size: 0.9rem; color: #666;">
-            📩 Hemos enviado un resumen de estos resultados a tu correo registrado.
-        </p>
-        
+        <!-- NUEVO BOTÓN DE WHATSAPP -->
+        <div style="margin-top: 30px; padding: 20px; background: #dcf8c6; border-radius: 10px; text-align: center;">
+            <h3 style="margin-top: 0; color: #075e54;">📲 ¿Quieres una asesoría personalizada?</h3>
+            <p style="margin-bottom: 15px;">Escríbenos por WhatsApp con tu perfil y te ayudamos a elegir la mejor carrera.</p>
+            <button onclick="enviarWhatsApp()" style="background-color: #25D366; color: white; font-size: 1.1rem; padding: 15px; border: none; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold;">
+                💬 Solicitar mis resultados por WhatsApp
+            </button>
+        </div>
+
         <button onclick="window.location.href='registro_test_ov.html'" style="background-color: #34495e; margin-top: 20px;">Volver al Inicio</button>
     </div>
 </div>
@@ -131,7 +136,6 @@
     const dni = localStorage.getItem('emages_dni');
 
     if (!nombre || !dni) {
-        // Si no hay datos, lo mandamos de vuelta al registro
         window.location.href = 'registro_test_ov.html';
     } else {
         document.getElementById('nombre-estudiante').textContent = nombre;
@@ -151,13 +155,11 @@
     document.getElementById('formulario-test').addEventListener('submit', function(e) {
         e.preventDefault();
         
-        // Ocultar test, mostrar cargando (simulado)
         document.getElementById('seccion-test').style.display = 'none';
         
         // Calcular puntajes
         const puntajes = { R: 0, I: 0, A: 0, S: 0, E: 0, C: 0 };
         
-        // Mapeo de preguntas a categorías (p1=R, p2=I, p3=A, p4=S, p5=E, p6=C)
         puntajes.R += parseInt(document.querySelector('input[name="p1"]:checked').value);
         puntajes.I += parseInt(document.querySelector('input[name="p2"]:checked').value);
         puntajes.A += parseInt(document.querySelector('input[name="p3"]:checked').value);
@@ -190,13 +192,24 @@
         });
         
         document.getElementById('texto-recomendacion').textContent = resultado.recomendacion;
-        
-        // Mostrar la sección de resultados
         document.getElementById('resultado').style.display = 'block';
-
-        // AQUÍ EN EL FUTURO: Llamaremos a Apps Script para guardar este resultado en la hoja "Resultados"
-        // y para disparar el correo automático.
     });
+
+    // 4. FUNCIÓN NUEVA: Enviar WhatsApp
+    function enviarWhatsApp() {
+        const nombreEstudiante = localStorage.getItem('emages_nombre');
+        const perfilTexto = document.getElementById('perfil-nombre').textContent;
+        
+        // TU NÚMERO DE EMAGES AQUÍ (con 51 de Perú y sin el +)
+        const numeroEmages = '51916382180'; 
+        
+        const mensaje = `Hola EMAGES Academy, soy ${nombreEstudiante}. Acabo de realizar mi Test Vocacional y obtuve el perfil: ${perfilTexto}. Solicito mis resultados detallados y asesoría sobre las carreras sugeridas.`;
+        
+        const url = `https://wa.me/${numeroEmages}?text=${encodeURIComponent(mensaje)}`;
+        
+        // Abrir WhatsApp en nueva pestaña
+        window.open(url, '_blank');
+    }
 </script>
 
 </body>
