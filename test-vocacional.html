@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Vocacional - EMAGES Academy</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; }
+        .container { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); width: 100%; max-width: 600px; margin: 0 auto; }
+        .logo { text-align: center; font-weight: bold; font-size: 1.5rem; color: #e74c3c; margin-bottom: 0.5rem; }
+        h2 { text-align: center; color: #2c3e50; margin-top: 0; }
+        .welcome { text-align: center; color: #555; margin-bottom: 2rem; font-size: 1.1rem; }
+        .pregunta { margin-bottom: 1.5rem; padding: 15px; background: #f9f9f9; border-radius: 8px; border-left: 4px solid #e74c3c; }
+        .pregunta p { margin: 0 0 10px 0; font-weight: bold; color: #333; }
+        .opciones label { display: block; margin: 8px 0; cursor: pointer; }
+        .opciones input { margin-right: 10px; }
+        button { width: 100%; padding: 14px; background-color: #e74c3c; color: white; border: none; border-radius: 6px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: background 0.3s; margin-top: 1rem; }
+        button:hover { background-color: #c0392b; }
+        
+        /* Estilos para el resultado */
+        #resultado { display: none; text-align: center; animation: fadeIn 0.5s; }
+        .perfil-titulo { font-size: 1.8rem; color: #e74c3c; margin-bottom: 10px; }
+        .carreras { background: #e8f8f5; padding: 15px; border-radius: 8px; margin: 20px 0; text-align: left; }
+        .carreras h3 { margin-top: 0; color: #16a085; }
+        .recomendacion { background: #fef9e7; padding: 15px; border-radius: 8px; text-align: left; border-left: 4px solid #f1c40f; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="logo">🎓 EMAGES Academy</div>
+    
+    <!-- Sección del Test -->
+    <div id="seccion-test">
+        <h2>Evaluación Vocacional</h2>
+        <p class="welcome">Hola, <span id="nombre-estudiante" style="font-weight:bold; color:#e74c3c;">Estudiante</span>. Responde con sinceridad para descubrir tu potencial.</p>
+        
+        <form id="formulario-test">
+            <!-- Pregunta 1: Realista (R) -->
+            <div class="pregunta">
+                <p>1. Me gusta reparar cosas, trabajar con herramientas, la naturaleza o actividades al aire libre.</p>
+                <div class="opciones">
+                    <label><input type="radio" name="p1" value="2" required> Me gusta mucho</label>
+                    <label><input type="radio" name="p1" value="1"> Me da igual</label>
+                    <label><input type="radio" name="p1" value="0"> No me gusta</label>
+                </div>
+            </div>
+
+            <!-- Pregunta 2: Investigador (I) -->
+            <div class="pregunta">
+                <p>2. Disfruto resolviendo problemas lógicos, investigando, haciendo experimentos o analizando datos.</p>
+                <div class="opciones">
+                    <label><input type="radio" name="p2" value="2" required> Me gusta mucho</label>
+                    <label><input type="radio" name="p2" value="1"> Me da igual</label>
+                    <label><input type="radio" name="p2" value="0"> No me gusta</label>
+                </div>
+            </div>
+
+            <!-- Pregunta 3: Artístico (A) -->
+            <div class="pregunta">
+                <p>3. Me atrae el arte, la música, el diseño, la escritura creativa o expresar mis ideas de forma original.</p>
+                <div class="opciones">
+                    <label><input type="radio" name="p3" value="2" required> Me gusta mucho</label>
+                    <label><input type="radio" name="p3" value="1"> Me da igual</label>
+                    <label><input type="radio" name="p3" value="0"> No me gusta</label>
+                </div>
+            </div>
+
+            <!-- Pregunta 4: Social (S) -->
+            <div class="pregunta">
+                <p>4. Me gusta ayudar a las personas, enseñar, escuchar o trabajar en equipo para resolver problemas humanos.</p>
+                <div class="opciones">
+                    <label><input type="radio" name="p4" value="2" required> Me gusta mucho</label>
+                    <label><input type="radio" name="p4" value="1"> Me da igual</label>
+                    <label><input type="radio" name="p4" value="0"> No me gusta</label>
+                </div>
+            </div>
+
+            <!-- Pregunta 5: Emprendedor (E) -->
+            <div class="pregunta">
+                <p>5. Me motiva liderar proyectos, vender ideas, persuadir a otros o iniciar mi propio negocio.</p>
+                <div class="opciones">
+                    <label><input type="radio" name="p5" value="2" required> Me gusta mucho</label>
+                    <label><input type="radio" name="p5" value="1"> Me da igual</label>
+                    <label><input type="radio" name="p5" value="0"> No me gusta</label>
+                </div>
+            </div>
+
+            <!-- Pregunta 6: Convencional (C) -->
+            <div class="pregunta">
+                <p>6. Prefiero el orden, organizar información, seguir procedimientos claros y trabajar con detalles y números.</p>
+                <div class="opciones">
+                    <label><input type="radio" name="p6" value="2" required> Me gusta mucho</label>
+                    <label><input type="radio" name="p6" value="1"> Me da igual</label>
+                    <label><input type="radio" name="p6" value="0"> No me gusta</label>
+                </div>
+            </div>
+
+            <button type="submit">Ver mis Resultados</button>
+        </form>
+    </div>
+
+    <!-- Sección de Resultados (Oculta al inicio) -->
+    <div id="resultado">
+        <h2>🎯 Tu Perfil Vocacional EMAGES</h2>
+        <div class="perfil-titulo" id="perfil-nombre"></div>
+        <p id="perfil-descripcion"></p>
+        
+        <div class="carreras">
+            <h3>💼 Carreras sugeridas para ti:</h3>
+            <ul id="lista-carreras"></ul>
+        </div>
+
+        <div class="recomendacion">
+            <h3>💡 Recomendación EMAGES Academy:</h3>
+            <p id="texto-recomendacion"></p>
+        </div>
+
+        <p style="margin-top: 20px; font-size: 0.9rem; color: #666;">
+            📩 Hemos enviado un resumen de estos resultados a tu correo registrado.
+        </p>
+        
+        <button onclick="window.location.href='registro_test_ov.html'" style="background-color: #34495e; margin-top: 20px;">Volver al Inicio</button>
+    </div>
+</div>
+
+<script>
+    // 1. Verificar si el estudiante está registrado
+    const nombre = localStorage.getItem('emages_nombre');
+    const dni = localStorage.getItem('emages_dni');
+
+    if (!nombre || !dni) {
+        // Si no hay datos, lo mandamos de vuelta al registro
+        window.location.href = 'registro_test_ov.html';
+    } else {
+        document.getElementById('nombre-estudiante').textContent = nombre;
+    }
+
+    // 2. Base de datos de perfiles RIASEC
+    const perfiles = {
+        'R': { nombre: 'Realista', desc: 'Eres práctico, te gusta trabajar con las manos, herramientas o al aire libre.', carreras: ['Ingeniería Civil', 'Ingeniería Mecánica', 'Arquitectura', 'Agronomía'], recomendacion: 'Te recomendamos explorar nuestros talleres prácticos y simulacros de admisión para ingenierías.' },
+        'I': { nombre: 'Investigador', desc: 'Eres analítico, curioso y disfrutas resolviendo problemas complejos.', carreras: ['Medicina', 'Ingeniería de Sistemas', 'Biología', 'Física'], recomendacion: 'Tu mente analítica es tu mayor fortaleza. Refuerza tu razonamiento lógico-matemático con nuestros módulos especializados.' },
+        'A': { nombre: 'Artístico', desc: 'Eres creativo, original y te expresas mejor a través del arte o el diseño.', carreras: ['Diseño Gráfico', 'Arquitectura', 'Comunicación Audiovisual', 'Música'], recomendacion: 'Potencia tu portafolio creativo. EMAGES Academy tiene rutas de formación artística y tecnológica para ti.' },
+        'S': { nombre: 'Social', desc: 'Eres empático, te gusta ayudar, enseñar y trabajar en equipo con personas.', carreras: ['Psicología', 'Educación', 'Enfermería', 'Trabajo Social'], recomendacion: 'Tu vocación de servicio es valiosa. Te sugerimos reforzar comprensión lectora y habilidades blandas.' },
+        'E': { nombre: 'Emprendedor', desc: 'Eres líder, te motiva organizar, persuadir y alcanzar metas económicas o de negocio.', carreras: ['Administración de Empresas', 'Marketing', 'Negocios Internacionales', 'Derecho'], recomendacion: 'Tienes perfil de líder. Te recomendamos nuestros cursos de gestión y simulacros de admisión para ciencias empresariales.' },
+        'C': { nombre: 'Convencional', desc: 'Eres organizado, detallista y te sientes cómodo trabajando con datos y estructuras.', carreras: ['Contabilidad', 'Finanzas', 'Ingeniería Industrial', 'Secretariado Ejecutivo'], recomendacion: 'Tu precisión es clave. Te sugerimos practicar con exámenes de razonamiento numérico y gestión de procesos.' }
+    };
+
+    // 3. Procesar el formulario
+    document.getElementById('formulario-test').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Ocultar test, mostrar cargando (simulado)
+        document.getElementById('seccion-test').style.display = 'none';
+        
+        // Calcular puntajes
+        const puntajes = { R: 0, I: 0, A: 0, S: 0, E: 0, C: 0 };
+        
+        // Mapeo de preguntas a categorías (p1=R, p2=I, p3=A, p4=S, p5=E, p6=C)
+        puntajes.R += parseInt(document.querySelector('input[name="p1"]:checked').value);
+        puntajes.I += parseInt(document.querySelector('input[name="p2"]:checked').value);
+        puntajes.A += parseInt(document.querySelector('input[name="p3"]:checked').value);
+        puntajes.S += parseInt(document.querySelector('input[name="p4"]:checked').value);
+        puntajes.E += parseInt(document.querySelector('input[name="p5"]:checked').value);
+        puntajes.C += parseInt(document.querySelector('input[name="p6"]:checked').value);
+
+        // Encontrar el puntaje más alto
+        let maxPuntaje = -1;
+        let perfilGanador = '';
+        
+        for (const [categoria, puntaje] of Object.entries(puntajes)) {
+            if (puntaje > maxPuntaje) {
+                maxPuntaje = puntaje;
+                perfilGanador = categoria;
+            }
+        }
+
+        // Mostrar resultados
+        const resultado = perfiles[perfilGanador];
+        document.getElementById('perfil-nombre').textContent = `Perfil ${resultado.nombre}`;
+        document.getElementById('perfil-descripcion').textContent = resultado.desc;
+        
+        const listaCarreras = document.getElementById('lista-carreras');
+        listaCarreras.innerHTML = '';
+        resultado.carreras.forEach(carrera => {
+            const li = document.createElement('li');
+            li.textContent = `✓ ${carrera}`;
+            listaCarreras.appendChild(li);
+        });
+        
+        document.getElementById('texto-recomendacion').textContent = resultado.recomendacion;
+        
+        // Mostrar la sección de resultados
+        document.getElementById('resultado').style.display = 'block';
+
+        // AQUÍ EN EL FUTURO: Llamaremos a Apps Script para guardar este resultado en la hoja "Resultados"
+        // y para disparar el correo automático.
+    });
+</script>
+
+</body>
+</html>
