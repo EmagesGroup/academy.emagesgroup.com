@@ -78,12 +78,9 @@
                 localStorage.setItem('emages_nombre', datos.nombres);
                 
                 setTimeout(() => {
-                    // Por ahora, como aún no creamos el test, te mostrará una alerta. 
-                    // En el siguiente paso lo cambiaremos por: window.location.href = 'test-vocacional.html';
-                    alert('¡Registro exitoso! En el siguiente paso construiremos la pantalla del Test Vocacional.');
-                    btn.disabled = false;
-                    btn.textContent = 'Registrarme y Continuar';
-                }, 1500);
+                // Redirigir automáticamente al test vocacional
+                window.location.href = 'test-vocacional.html';
+                }, 1000);
             } else {
                 mensajeDiv.className = 'mensaje error';
                 mensajeDiv.textContent = data.mensaje;
