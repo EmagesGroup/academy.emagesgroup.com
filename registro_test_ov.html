@@ -3,28 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro - EMAGES Academy</title>
+    <title>Acceso - EMAGES Academy</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; }
         .container { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
-        h2 { text-align: center; color: #2c3e50; margin-bottom: 1.5rem; }
+        h2 { text-align: center; color: #2c3e50; margin-bottom: 0.5rem; }
+        .subtitulo { text-align: center; color: #7f8c8d; font-size: 0.9rem; margin-bottom: 1.5rem; }
         .logo { text-align: center; font-weight: bold; font-size: 1.5rem; color: #e74c3c; margin-bottom: 1rem; }
         input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-size: 1rem; }
-        .checkbox-container { display: flex; align-items: flex-start; gap: 10px; margin: 15px 0; font-size: 0.85rem; color: #555; }
+        .checkbox-container { display: flex; align-items: flex-start; gap: 10px; margin: 15px 0; font-size: 0.8rem; color: #555; }
         .checkbox-container input { width: auto; margin-top: 3px; }
         button { width: 100%; padding: 14px; background-color: #e74c3c; color: white; border: none; border-radius: 6px; font-size: 1rem; font-weight: bold; cursor: pointer; transition: background 0.3s; }
         button:hover { background-color: #c0392b; }
         button:disabled { background-color: #95a5a6; cursor: not-allowed; }
-        .mensaje { text-align: center; margin-top: 15px; font-size: 0.9rem; }
+        .mensaje { text-align: center; margin-top: 15px; font-size: 0.9rem; font-weight: bold; }
         .exito { color: #27ae60; }
         .error { color: #e74c3c; }
+        .info-box { background: #e8f4f8; padding: 10px; border-radius: 6px; font-size: 0.85rem; color: #2980b9; margin-bottom: 15px; text-align: center; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="logo">🎓 EMAGES Academy</div>
-    <h2>Acceso de Estudiantes</h2>
+    <h2>Acceso al Test Vocacional</h2>
+    <p class="subtitulo">Ingresa tus datos para comenzar o continuar tu evaluación.</p>
+    
+    <div class="info-box">
+        💡 <strong>¿Se cerró tu página?</strong> No te preocupes. Vuelve a ingresar tu DNI y nombres para continuar. (Máx. 3 intentos).
+    </div>
+
     <form id="formularioRegistro">
         <input type="text" id="dni" placeholder="DNI (8 dígitos)" maxlength="8" required pattern="\d{8}">
         <input type="text" id="nombres" placeholder="Nombres y Apellidos completos" required>
@@ -33,16 +41,15 @@
         
         <div class="checkbox-container">
             <input type="checkbox" id="privacidad" required>
-            <label for="privacidad">Acepto la Política de Privacidad y autorizo a EMAGES GROUP (RUC 20611427671) a tratar mis datos para fines de orientación académica, conforme a la Ley N° 29733.</label>
+            <label for="privacidad">Acepto la Política de Privacidad y autorizo a EMAGES GROUP (RUC 20611427671) a tratar mis datos para fines de orientación académica.</label>
         </div>
 
-        <button type="submit" id="btnEnviar">Registrarme y Continuar</button>
+        <button type="submit" id="btnEnviar">Ingresar al Test</button>
     </form>
     <div id="mensaje" class="mensaje"></div>
 </div>
 
 <script>
-    // Tu URL de Google Apps Script ya está configurada aquí
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw6xpApuz9Es7NGuDlVefKemVYEPVo3MZcrS71DAGa3YQmLLIkmEY6KSLtBJlmJ_3Yr/exec';
 
     document.getElementById('formularioRegistro').addEventListener('submit', function(e) {
@@ -52,7 +59,7 @@
         const mensajeDiv = document.getElementById('mensaje');
         
         btn.disabled = true;
-        btn.textContent = 'Procesando...';
+        btn.textContent = 'Verificando...';
         mensajeDiv.textContent = '';
 
         const datos = {
@@ -70,29 +77,30 @@
         .then(response => response.json())
         .then(data => {
             if (data.exito) {
+                // Guardamos los datos en el navegador
+                localStorage.setItem('emages_dni', datos.dni);
+                localStorage.setItem('emages_nombre', datos.nombres);
+                localStorage.setItem('emages_celular', datos.celular);
+                localStorage.setItem('emages_correo', datos.correo);
+                
                 mensajeDiv.className = 'mensaje exito';
                 mensajeDiv.textContent = data.mensaje;
                 
-                // Guardamos los datos en el navegador para usarlos en el test
-                localStorage.setItem('emages_dni', datos.dni);
-                localStorage.setItem('emages_nombre', datos.nombres);
-                
                 setTimeout(() => {
-                // Redirigir automáticamente al test vocacional
-                window.location.href = 'https://academy.emagesgroup.com/test-vocacional.html';
+                    window.location.href = 'https://academy.emagesgroup.com/test-vocacional.html';
                 }, 1500);
             } else {
                 mensajeDiv.className = 'mensaje error';
                 mensajeDiv.textContent = data.mensaje;
                 btn.disabled = false;
-                btn.textContent = 'Registrarme y Continuar';
+                btn.textContent = 'Ingresar al Test';
             }
         })
         .catch(error => {
             mensajeDiv.className = 'mensaje error';
-            mensajeDiv.textContent = 'Error de conexión. Intenta nuevamente.';
+            mensajeDiv.textContent = 'Error de conexión. Verifica tu internet e intenta nuevamente.';
             btn.disabled = false;
-            btn.textContent = 'Registrarme y Continuar';
+            btn.textContent = 'Ingresar al Test';
         });
     });
 </script>
