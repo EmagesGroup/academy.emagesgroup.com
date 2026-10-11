@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualizar Datos - EMAGES Academy</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; }
+        .container { background: white; padding: 2.5rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); width: 100%; max-width: 450px; }
+        .logo { text-align: center; font-weight: bold; font-size: 1.8rem; color: #e74c3c; margin-bottom: 1rem; }
+        h2 { text-align: center; color: #2c3e50; margin-bottom: 0.5rem; }
+        .subtitle { text-align: center; color: #7f8c8d; margin-bottom: 1.5rem; font-size: 0.95rem; }
+        .info-box { background: #fff9e6; border-left: 4px solid #f39c12; padding: 12px; border-radius: 6px; font-size: 0.9rem; color: #856404; margin-bottom: 20px; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-size: 1rem; }
+        button { width: 100%; padding: 14px; background-color: #e74c3c; color: white; border: none; border-radius: 6px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: background 0.3s; margin-top: 10px; }
+        button:hover { background-color: #c0392b; }
+        button:disabled { background-color: #95a5a6; cursor: not-allowed; }
+        .mensaje { text-align: center; margin-top: 15px; font-size: 0.9rem; min-height: 20px; }
+        .error { color: #e74c3c; font-weight: bold; }
+        .exito { color: #27ae60; font-weight: bold; }
+        .link-volver { text-align: center; margin-top: 20px; font-size: 0.9rem; color: #7f8c8d; }
+        .link-volver a { color: #e74c3c; text-decoration: none; font-weight: bold; }
+        .link-volver a:hover { text-decoration: underline; }
+        .seguridad-note { background: #e8f4f8; padding: 10px; border-radius: 6px; font-size: 0.85rem; color: #2980b9; margin-top: 15px; text-align: center; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="logo">🎓 EMAGES Academy</div>
+    <h2>Actualizar Mis Datos</h2>
+    <p class="subtitle">¿Cambió tu celular o correo? Actualízalos aquí para mantener tu cuenta activa.</p>
+
+    <div class="info-box">
+         <strong>¿Por qué actualizar?</strong> Mantener tus datos actualizados te permite recibir notificaciones de nuevos cursos, vacantes y reactivar tu cuenta si estuvo inactiva.
+    </div>
+
+    <form id="formularioActualizar">
+        <input type="text" id="dni" placeholder="DNI (8 dígitos)" maxlength="8" required pattern="\d{8}">
+        <input type="email" id="correo" placeholder="Correo electrónico registrado" required>
+        <input type="tel" id="nuevoCelular" placeholder="Nuevo celular (9 dígitos)" maxlength="9" required pattern="\d{9}">
+        <input type="email" id="nuevoCorreo" placeholder="Nuevo correo electrónico (opcional)">
+        
+        <button type="submit" id="btnActualizar">Actualizar Mis Datos</button>
+    </form>
+    
+    <div id="mensaje" class="mensaje"></div>
+
+    <div class="seguridad-note">
+        🔒 Por seguridad, solicitamos tu correo registrado para validar tu identidad antes de actualizar el celular.
+    </div>
+
+    <div class="link-volver">
+        ¿Ya actualizaste tus datos? <br>
+        <a href="login_campus.html">Volver a Iniciar Sesión</a>
+    </div>
+</div>
+
+<script>
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw6xpApuz9Es7NGuDlVefKemVYEPVo3MZcrS71DAGa3YQmLLIkmEY6KSLtBJlmJ_3Yr/exec';
+
+    document.getElementById('formularioActualizar').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const btn = document.getElementById('btnActualizar');
+        const mensajeDiv = document.getElementById('mensaje');
+        const dni = document.getElementById('dni').value;
+        const correo = document.getElementById('correo').value;
+        const nuevoCelular = document.getElementById('nuevoCelular').value;
+        const nuevoCorreo = document.getElementById('nuevoCorreo').value;
+
+        if (dni.length !== 8 || nuevoCelular.length !== 9) {
+            mensajeDiv.className = 'mensaje error';
+            mensajeDiv.textContent = '⚠️ Verifica que el DNI tenga 8 dígitos y el celular 9.';
+            return;
+        }
+
+        btn.disabled = true;
+        btn.textContent = 'Actualizando...';
+        mensajeDiv.textContent = '';
+
+        const datos = {
+            accion: 'actualizarDatos',
+            dni: dni,
+            correo: correo,
+            nuevoCelular: nuevoCelular,
+            nuevoCorreo: nuevoCorreo
+        };
+
+        fetch(SCRIPT_URL, {
+            method: 'POST',
+            body: JSON.stringify(datos)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.exito) {
+                mensajeDiv.className = 'mensaje exito';
+                mensajeDiv.textContent = '✅ ' + data.mensaje;
+                btn.textContent = 'Datos Actualizados';
+                setTimeout(() => {
+                    window.location.href = 'login_campus.html';
+                }, 2000);
+            } else {
+                mensajeDiv.className = 'mensaje error';
+                mensajeDiv.textContent = '❌ ' + data.mensaje;
+                btn.disabled = false;
+                btn.textContent = 'Actualizar Mis Datos';
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            mensajeDiv.className = 'mensaje error';
+            mensajeDiv.textContent = ' Error de conexión. Intenta nuevamente.';
+            btn.disabled = false;
+            btn.textContent = 'Actualizar Mis Datos';
+        });
+    });
+</script>
+
+</body>
+</html>
