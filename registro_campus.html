@@ -147,11 +147,11 @@
         .then(data => {
             if (data.exito) {
                 // Guardamos los datos en el navegador
-                localStorage.setItem('emages_dni', datos.dni);
-                localStorage.setItem('emages_nombre', datos.nombres);
-                localStorage.setItem('emages_celular', datos.celular);
-                localStorage.setItem('emages_correo', datos.correo);
-                localStorage.setItem('emages_fechaNacimiento', datos.fechaNacimiento);
+                sessionStorage.setItem('emages_dni', datos.dni);
+                sessionStorage.setItem('emages_nombre', datos.nombres);
+                sessionStorage.setItem('emages_celular', datos.celular);
+                sessionStorage.setItem('emages_correo', datos.correo);
+                sessionStorage.setItem('emages_fechaNacimiento', datos.fechaNacimiento);
                 
                 mensajeDiv.className = 'mensaje exito';
                 mensajeDiv.textContent = data.mensaje;
