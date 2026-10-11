@@ -83,8 +83,8 @@
                 mensajeDiv.className = 'mensaje exito';
                 mensajeDiv.textContent = '✅ Acceso validado. Redirigiendo...';
                 
-                localStorage.setItem('emages_dni', dni);
-                localStorage.setItem('emages_nombre', data.datos.nombres);
+                sessionStorage.setItem('emages_dni', dni);
+                sessionStorage.setItem('emages_nombre', data
                 
                 setTimeout(() => {
                     window.location.href = 'panel_campus.html';
