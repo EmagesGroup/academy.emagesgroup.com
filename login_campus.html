@@ -38,9 +38,10 @@
     
     <div id="mensaje" class="mensaje"></div>
 
+    <!-- CORRECCIÓN 1: El enlace ahora apunta correctamente a registro_campus.html -->
     <div class="link-registro">
         ¿Aún no tienes cuenta? <br>
-        <a href="registro_test_ov.html">Regístrate aquí en 30 segundos</a>
+        <a href="registro_campus.html">Regístrate aquí en 30 segundos</a>
     </div>
 </div>
 
@@ -55,7 +56,6 @@
         const dni = document.getElementById('dni').value;
         const celular = document.getElementById('celular').value;
 
-        // Validación básica frontend
         if (dni.length !== 8 || celular.length !== 9) {
             mensajeDiv.className = 'mensaje error';
             mensajeDiv.textContent = '⚠️ Verifica que el DNI tenga 8 dígitos y el celular 9.';
@@ -82,13 +82,12 @@
                 mensajeDiv.className = 'mensaje exito';
                 mensajeDiv.textContent = '✅ Acceso validado. Redirigiendo...';
                 
-                // Guardamos la sesión
                 localStorage.setItem('emages_dni', dni);
                 localStorage.setItem('emages_nombre', data.datos.nombres);
                 
-                // Redirección al panel
+                // CORRECCIÓN 2: Ahora sí redirige al PANEL, no al registro
                 setTimeout(() => {
-                    window.location.href = 'registro_campus.html';
+                    window.location.href = 'panel_campus.html';
                 }, 1000);
             } else {
                 mensajeDiv.className = 'mensaje error';
@@ -99,7 +98,6 @@
         })
         .catch(error => {
             console.error('Error:', error);
-            // Mensaje específico cuando el DNI no existe
             mensajeDiv.className = 'mensaje error';
             mensajeDiv.textContent = '❌ Este DNI no está registrado. Por favor, crea una cuenta primero.';
             btn.disabled = false;
