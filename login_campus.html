@@ -18,8 +18,9 @@
         .error { color: #e74c3c; font-weight: bold; }
         .exito { color: #27ae60; }
         .link-registro { text-align: center; margin-top: 20px; font-size: 0.9rem; color: #7f8c8d; }
-        .link-registro a { color: #e74c3c; text-decoration: none; font-weight: bold; }
+        .link-registro a { color: #e74c3c; text-decoration: none; font-weight: bold; margin: 0 5px; }
         .link-registro a:hover { text-decoration: underline; }
+        .link-separador { color: #bdc3c7; margin: 0 5px; }
     </style>
 </head>
 <body>
@@ -39,8 +40,9 @@
     <div id="mensaje" class="mensaje"></div>
 
     <div class="link-registro">
-        ¿Aún no tienes cuenta? <br>
-        <a href="registro_campus.html">Regístrate aquí en 30 segundos</a>
+        <a href="registro_campus.html"> Registrarme</a>
+        <span class="link-separador">|</span>
+        <a href="actualizar_datos_campus.html">🔄 Actualizar mis datos</a>
     </div>
 </div>
 
@@ -57,7 +59,7 @@
 
         if (dni.length !== 8 || celular.length !== 9) {
             mensajeDiv.className = 'mensaje error';
-            mensajeDiv.textContent = '️ Verifica que el DNI tenga 8 dígitos y el celular 9.';
+            mensajeDiv.textContent = '⚠️ Verifica que el DNI tenga 8 dígitos y el celular 9.';
             return;
         }
 
@@ -92,7 +94,7 @@
                 
                 if (data.mensaje && data.mensaje.includes('celular no coincide')) {
                     mensajeDiv.innerHTML = '❌ El celular no coincide con el registrado.<br><br>' +
-                        '<a href="actualizar_datos_campus.html" style="color: #e74c3c; font-weight: bold; text-decoration: underline;">📱 ¿Cambió tu celular? Actualiza tus datos aquí</a>';
+                        '<a href="actualizar_datos_campus.html" style="color: #e74c3c; font-weight: bold; text-decoration: underline;">📱 Actualizar mis datos</a>';
                 } else {
                     mensajeDiv.textContent = '❌ ' + data.mensaje;
                 }
