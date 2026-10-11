@@ -14,7 +14,7 @@
         button { width: 100%; padding: 14px; background-color: #e74c3c; color: white; border: none; border-radius: 6px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: background 0.3s; margin-top: 10px; }
         button:hover { background-color: #c0392b; }
         button:disabled { background-color: #95a5a6; cursor: not-allowed; }
-        .mensaje { text-align: center; margin-top: 15px; font-size: 0.9rem; min-height: 20px; }
+        .mensaje { text-align: center; margin-top: 15px; font-size: 0.9rem; min-height: 20px; white-space: pre-line; }
         .error { color: #e74c3c; font-weight: bold; }
         .exito { color: #27ae60; }
         .link-registro { text-align: center; margin-top: 20px; font-size: 0.9rem; color: #7f8c8d; }
@@ -33,20 +33,20 @@
     <form id="formularioLogin">
         <input type="text" id="dni" placeholder="DNI (8 dígitos)" maxlength="8" required pattern="\d{8}">
         <input type="tel" id="celular" placeholder="Celular (9 dígitos)" maxlength="9" required pattern="\d{9}">
-        
         <button type="submit" id="btnIngresar">Ingresar al Panel</button>
     </form>
     
     <div id="mensaje" class="mensaje"></div>
 
     <div class="link-registro">
-        <a href="registro_campus.html"> Registrarme</a>
+        <a href="registro_campus.html">🆕 Registrarme</a>
         <span class="link-separador">|</span>
-        <a href="actualizar_datos_campus.html">🔄 Actualizar mis datos</a>
+        <a href="actualizar_datos_campus.html">🔄 Actualizar datos</a>
     </div>
 </div>
 
 <script>
+    // ⚠️ VERIFICA QUE ESTA URL SEA LA CORRECTA DE TU SCRIPT
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw6xpApuz9Es7NGuDlVefKemVYEPVo3MZcrS71DAGa3YQmLLIkmEY6KSLtBJlmJ_3Yr/exec';
 
     document.getElementById('formularioLogin').addEventListener('submit', function(e) {
@@ -54,8 +54,8 @@
         
         const btn = document.getElementById('btnIngresar');
         const mensajeDiv = document.getElementById('mensaje');
-        const dni = document.getElementById('dni').value;
-        const celular = document.getElementById('celular').value;
+        const dni = document.getElementById('dni').value.trim();
+        const celular = document.getElementById('celular').value.trim();
 
         if (dni.length !== 8 || celular.length !== 9) {
             mensajeDiv.className = 'mensaje error';
@@ -73,40 +73,45 @@
             celular: celular
         };
 
+        console.log("Enviando datos al script:", datos); // Para depuración
+
         fetch(SCRIPT_URL, {
             method: 'POST',
             body: JSON.stringify(datos)
         })
-        .then(response => response.json())
+        .then(response => {
+            console.log("Respuesta del servidor:", response);
+            return response.json();
+        })
         .then(data => {
+            console.log("Datos recibidos:", data);
             if (data.exito) {
                 mensajeDiv.className = 'mensaje exito';
                 mensajeDiv.textContent = '✅ Acceso validado. Redirigiendo...';
                 
+                // Usamos sessionStorage para mayor seguridad
                 sessionStorage.setItem('emages_dni', dni);
-                sessionStorage.setItem('emages_nombre', data
+                sessionStorage.setItem('emages_nombre', data.datos.nombres);
                 
                 setTimeout(() => {
                     window.location.href = 'panel_campus.html';
                 }, 1000);
             } else {
                 mensajeDiv.className = 'mensaje error';
-                
                 if (data.mensaje && data.mensaje.includes('celular no coincide')) {
                     mensajeDiv.innerHTML = '❌ El celular no coincide con el registrado.<br><br>' +
                         '<a href="actualizar_datos_campus.html" style="color: #e74c3c; font-weight: bold; text-decoration: underline;">📱 Actualizar mis datos</a>';
                 } else {
                     mensajeDiv.textContent = '❌ ' + data.mensaje;
                 }
-                
                 btn.disabled = false;
                 btn.textContent = 'Ingresar al Panel';
             }
         })
         .catch(error => {
-            console.error('Error:', error);
+            console.error('Error de red:', error);
             mensajeDiv.className = 'mensaje error';
-            mensajeDiv.textContent = '❌ Error de conexión. Intenta nuevamente.';
+            mensajeDiv.textContent = '❌ Error de conexión. Revisa tu internet o la URL del script.';
             btn.disabled = false;
             btn.textContent = 'Ingresar al Panel';
         });
