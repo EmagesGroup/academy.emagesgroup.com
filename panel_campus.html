@@ -100,14 +100,28 @@
 <script>
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw6xpApuz9Es7NGuDlVefKemVYEPVo3MZcrS71DAGa3YQmLLIkmEY6KSLtBJlmJ_3Yr/exec';
     let usuarioActual = null;
+    let tiempoInactividad;
 
-    // 1. Verificar sesión
-    const dniSession = localStorage.getItem('emages_dni');
+    // 1. Verificar sesión (Usando sessionStorage para que se borre al cerrar la pestaña)
+    const dniSession = sessionStorage.getItem('emages_dni');
     if (!dniSession) {
         window.location.href = 'login_campus.html';
     }
 
-    // 2. Cargar datos del usuario desde Google Sheets
+    // 2. Función de Auto-Cierre por Inactividad (30 minutos)
+    function reiniciarTemporizadorInactividad() {
+        clearTimeout(tiempoInactividad);
+        // 30 minutos = 30 * 60 * 1000 milisegundos. Puedes cambiarlo a 15 si prefieres más seguridad.
+        tiempoInactividad = setTimeout(cerrarSesion, 30 * 60 * 1000); 
+    }
+
+    // Reiniciar el temporizador cada vez que el usuario mueve el mouse o presiona una tecla
+    window.onload = reiniciarTemporizadorInactividad;
+    window.onmousemove = reiniciarTemporizadorInactividad;
+    window.onkeypress = reiniciarTemporizadorInactividad;
+    window.ontouchstart = reiniciarTemporizadorInactividad; // Para celulares
+
+    // 3. Cargar datos del usuario desde Google Sheets
     fetch(SCRIPT_URL, {
         method: 'POST',
         body: JSON.stringify({ accion: 'obtenerPerfilPanel', dni: dniSession })
@@ -122,7 +136,6 @@
             document.getElementById('userName').textContent = usuarioActual.nombres;
             document.getElementById('userPerfil').textContent = `Perfil: ${usuarioActual.perfil}`;
             
-            // Mostrar switch de hijos solo si es PROFESIONAL
             if (usuarioActual.perfil === 'PROFESIONAL') {
                 document.getElementById('switchHijos').classList.add('active');
             }
@@ -138,14 +151,12 @@
         document.getElementById('cargando').textContent = '❌ Error de conexión. Recarga la página.';
     });
 
-    // 3. Lógica de Renderizado Dinámico de Tarjetas
+    // 4. Lógica de Renderizado Dinámico de Tarjetas
     function renderizarTarjetas() {
         const grid = document.getElementById('cardsGrid');
         const perfil = usuarioActual.perfil;
         let html = '';
 
-        // --- TARJETA 1: SIMULACROS DE ADMISIÓN ---
-        // Se muestra si es ESTUDIANTE, TRANSICION, o PROFESIONAL con switch de hijos activo
         const mostrarSimulacros = (perfil === 'ESTUDIANTE' || perfil === 'TRANSICION' || perfil === 'PROFESIONAL_CON_HIJOS');
         
         if (mostrarSimulacros) {
@@ -158,7 +169,6 @@
             </div>`;
         }
 
-        // --- TARJETA 2: EVALUACIONES DE COMPETENCIAS ---
         if (perfil === 'ESTUDIANTE') {
             html += `
             <div class="card locked">
@@ -179,7 +189,6 @@
             </div>`;
         }
 
-        // --- TARJETA 3: CURSOS PROFESIONALES ---
         if (perfil === 'ESTUDIANTE') {
             html += `
             <div class="card locked">
@@ -200,7 +209,6 @@
             </div>`;
         }
 
-        // --- TARJETA 4: CERTIFICADOS ---
         html += `
         <div class="card">
             <div class="card-icon">🏆</div>
@@ -212,7 +220,6 @@
         grid.innerHTML = html;
     }
 
-    // 4. Lógica Dinámica del CV (Sin años fijos, calcula días reales)
     function renderizarEstadoCV() {
         if (!usuarioActual.fechaUltimoCV || usuarioActual.fechaUltimoCV === '') {
             return `
@@ -230,12 +237,12 @@
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
         if (diffDays <= 90) {
-            return `<div class="cv-status">✅ <strong>¡Tu CV está actualizado!</strong> Última vez hace ${diffDays} días. Estás listo para nuevas oportunidades.</div>`;
+            return `<div class="cv-status">✅ <strong>¡Tu CV está actualizado!</strong> Última vez hace ${diffDays} días.</div>`;
         } else if (diffDays <= 180) {
             return `
             <div class="cv-status warning">
                 💡 <strong>¿Has adquirido nuevas habilidades?</strong><br>
-                Tu última actualización fue hace ${diffDays} días. Considera refrescar tu CV para reflejar tu crecimiento.
+                Tu última actualización fue hace ${diffDays} días.
                 <br><br>
                 <a href="#">📥 Ver Plantillas Actualizadas</a>
             </div>`;
@@ -243,28 +250,26 @@
             return `
             <div class="cv-status critical">
                 ⚠️ <strong>Tu CV podría estar obsoleto.</strong><br>
-                Han pasado ${diffDays} días. El mercado cambia rápido. Actualiza tu CV con nuestras plantillas vigentes para recibir 3x más respuestas.
+                Han pasado ${diffDays} días. Actualiza tu CV con nuestras plantillas vigentes.
                 <br><br>
                 <a href="#">📥 Descargar Plantillas Vigentes</a> | <a href="#">📤 Subir Nueva Versión</a>
             </div>`;
         }
     }
 
-    // 5. Toggle de Hijos (Para profesionales)
     function toggleSimulacrosHijos() {
         const checkbox = document.getElementById('toggleHijos');
         if (checkbox.checked) {
-            usuarioActual.perfil = 'PROFESIONAL_CON_HIJOS'; // Fuerza la renderización de simulacros
+            usuarioActual.perfil = 'PROFESIONAL_CON_HIJOS';
         } else {
-            usuarioActual.perfil = 'PROFESIONAL'; // Vuelve al estado normal
+            usuarioActual.perfil = 'PROFESIONAL';
         }
-        renderizarTarjetas(); // Re-renderiza las tarjetas para mostrar/ocultar la de simulacros
+        renderizarTarjetas();
     }
 
-    // 6. Cerrar Sesión
+    // 5. Cerrar Sesión (Limpia TODO el sessionStorage)
     function cerrarSesion() {
-        localStorage.removeItem('emages_dni');
-        localStorage.removeItem('emages_nombre');
+        sessionStorage.clear(); // Borra todos los datos de la sesión actual
         window.location.href = 'login_campus.html';
     }
 </script>
