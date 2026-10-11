@@ -3,72 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión - EMAGES Academy</title>
+    <title>Registro - EMAGES Academy</title>
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; }
-        .container { background: white; padding: 2.5rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
+        .container { background: white; padding: 2.5rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); width: 100%; max-width: 450px; }
         .logo { text-align: center; font-weight: bold; font-size: 1.8rem; color: #e74c3c; margin-bottom: 1rem; }
         h2 { text-align: center; color: #2c3e50; margin-bottom: 0.5rem; }
         .subtitle { text-align: center; color: #7f8c8d; margin-bottom: 1.5rem; font-size: 0.95rem; }
-        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-size: 1rem; }
+        .info-box { background: #e8f4f8; padding: 12px; border-radius: 8px; font-size: 0.9rem; color: #2980b9; margin-bottom: 20px; text-align: center; }
+        .info-box a { color: #2980b9; font-weight: bold; text-decoration: underline; }
+        input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-size: 1rem; }
+        input[type="date"] { font-size: 0.95rem; }
+        .checkbox-container { display: flex; align-items: flex-start; gap: 10px; margin: 15px 0; font-size: 0.9rem; color: #555; }
+        .checkbox-container input { width: auto; margin-top: 3px; }
+        .checkbox-container a { color: #e74c3c; text-decoration: underline; font-weight: bold; }
         button { width: 100%; padding: 14px; background-color: #e74c3c; color: white; border: none; border-radius: 6px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: background 0.3s; margin-top: 10px; }
         button:hover { background-color: #c0392b; }
         button:disabled { background-color: #95a5a6; cursor: not-allowed; }
-        .mensaje { text-align: center; margin-top: 15px; font-size: 0.9rem; min-height: 20px; }
-        .error { color: #e74c3c; font-weight: bold; }
+        .mensaje { text-align: center; margin-top: 15px; font-size: 0.9rem; }
         .exito { color: #27ae60; }
-        .link-registro { text-align: center; margin-top: 20px; font-size: 0.9rem; color: #7f8c8d; }
-        .link-registro a { color: #e74c3c; text-decoration: none; font-weight: bold; }
-        .link-registro a:hover { text-decoration: underline; }
+        .error { color: #e74c3c; font-weight: bold; }
+        .edad-error { background: #fdf2f0; border: 1px solid #e74c3c; color: #e74c3c; padding: 10px; border-radius: 6px; margin: 10px 0; display: none; }
+        .link-login { text-align: center; margin-top: 20px; font-size: 0.9rem; color: #7f8c8d; }
+        .link-login a { color: #e74c3c; text-decoration: none; font-weight: bold; }
+        .link-login a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="logo">🎓 EMAGES Academy</div>
-    <h2>Iniciar Sesión</h2>
-    <p class="subtitle">Accede a tu panel de progreso y recursos</p>
-
-    <form id="formularioLogin">
-        <input type="text" id="dni" placeholder="DNI (8 dígitos)" maxlength="8" required pattern="\d{8}">
-        <input type="tel" id="celular" placeholder="Celular (9 dígitos)" maxlength="9" required pattern="\d{9}">
-        
-        <button type="submit" id="btnIngresar">Ingresar al Panel</button>
-    </form>
+    <h2>Únete a EMAGES Academy</h2>
+    <p class="subtitle">Crea tu cuenta gratuita y accede a simulacros de admisión, evaluaciones de competencias, cursos profesionales y más.</p>
     
-    <div id="mensaje" class="mensaje"></div>
+    <div class="info-box">
+        💡 <strong>¿Ya tienes cuenta?</strong> No necesitas registrarte de nuevo. 
+        Ve a <a href="login_campus.html">Iniciar Sesión</a> con tu DNI y celular.
+    </div>
 
-    <div class="link-registro">
-        ¿Aún no tienes cuenta? <br>
-        <a href="registro_campus.html">Regístrate aquí en 30 segundos</a>
+    <form id="formularioRegistro">
+        <input type="text" id="dni" placeholder="DNI (8 dígitos)" maxlength="8" required pattern="\d{8}">
+        <input type="text" id="nombres" placeholder="Nombres y Apellidos completos" required>
+        <input type="tel" id="celular" placeholder="Celular (9 dígitos)" maxlength="9" required pattern="\d{9}">
+        <input type="email" id="correo" placeholder="Correo electrónico" required>
+        
+        <!-- Campo de Fecha de Nacimiento -->
+        <input type="date" id="fechaNacimiento" required>
+        <div id="edadError" class="edad-error">
+            ⚠️ Debes tener al menos 14 años para registrarte. Si eres menor, consulta con tus padres.
+        </div>
+
+        <div class="checkbox-container">
+            <input type="checkbox" id="privacidad" required>
+            <label for="privacidad">
+                Acepto las <a href="privacidad.html" target="_blank">Políticas de Privacidad y Condiciones</a> de EMAGES GROUP.
+            </label>
+        </div>
+
+        <button type="submit" id="btnEnviar">Crear mi cuenta gratuita</button>
+    </form>
+    <div id="mensaje" class="mensaje"></div>
+    
+    <div class="link-login">
+        ¿Ya tienes cuenta? <a href="login_campus.html">Inicia sesión aquí</a>
     </div>
 </div>
 
 <script>
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw6xpApuz9Es7NGuDlVefKemVYEPVo3MZcrS71DAGa3YQmLLIkmEY6KSLtBJlmJ_3Yr/exec';
+    
+    // Configurar fecha máxima (hoy) y mínima (100 años atrás)
+    const hoy = new Date();
+    const fechaMaxima = hoy.toISOString().split('T')[0];
+    
+    const fechaMinima = new Date();
+    fechaMinima.setFullYear(hoy.getFullYear() - 100);
+    const fechaMinimaStr = fechaMinima.toISOString().split('T')[0];
+    
+    document.getElementById('fechaNacimiento').setAttribute('max', fechaMaxima);
+    document.getElementById('fechaNacimiento').setAttribute('min', fechaMinimaStr);
 
-    document.getElementById('formularioLogin').addEventListener('submit', function(e) {
+    // Validar edad cuando el usuario ingresa su fecha
+    document.getElementById('fechaNacimiento').addEventListener('change', function() {
+        const fechaNac = new Date(this.value);
+        const hoy = new Date();
+        let edad = hoy.getFullYear() - fechaNac.getFullYear();
+        const mesDiff = hoy.getMonth() - fechaNac.getMonth();
+        
+        if (mesDiff < 0 || (mesDiff === 0 && hoy.getDate() < fechaNac.getDate())) {
+            edad--;
+        }
+        
+        const errorDiv = document.getElementById('edadError');
+        if (edad < 14) {
+            errorDiv.style.display = 'block';
+            document.getElementById('btnEnviar').disabled = true;
+        } else {
+            errorDiv.style.display = 'none';
+            document.getElementById('btnEnviar').disabled = false;
+        }
+    });
+
+    document.getElementById('formularioRegistro').addEventListener('submit', function(e) {
         e.preventDefault();
         
-        const btn = document.getElementById('btnIngresar');
+        const btn = document.getElementById('btnEnviar');
         const mensajeDiv = document.getElementById('mensaje');
-        const dni = document.getElementById('dni').value;
-        const celular = document.getElementById('celular').value;
-
-        if (dni.length !== 8 || celular.length !== 9) {
+        
+        // Validación final de edad
+        const fechaNac = new Date(document.getElementById('fechaNacimiento').value);
+        const hoy = new Date();
+        let edad = hoy.getFullYear() - fechaNac.getFullYear();
+        const mesDiff = hoy.getMonth() - fechaNac.getMonth();
+        
+        if (mesDiff < 0 || (mesDiff === 0 && hoy.getDate() < fechaNac.getDate())) {
+            edad--;
+        }
+        
+        if (edad < 14) {
             mensajeDiv.className = 'mensaje error';
-            mensajeDiv.textContent = '⚠️ Verifica que el DNI tenga 8 dígitos y el celular 9.';
+            mensajeDiv.textContent = '⚠️ Debes tener al menos 14 años para registrarte.';
             return;
         }
-
+        
         btn.disabled = true;
-        btn.textContent = 'Validando...';
+        btn.textContent = 'Creando cuenta...';
         mensajeDiv.textContent = '';
 
         const datos = {
-            accion: 'login',
-            dni: dni,
-            celular: celular
+            accion: 'registrar',
+            dni: document.getElementById('dni').value,
+            nombres: document.getElementById('nombres').value,
+            celular: document.getElementById('celular').value,
+            correo: document.getElementById('correo').value,
+            fechaNacimiento: document.getElementById('fechaNacimiento').value
         };
 
         fetch(SCRIPT_URL, {
@@ -78,36 +146,32 @@
         .then(response => response.json())
         .then(data => {
             if (data.exito) {
+                // Guardamos los datos en el navegador
+                localStorage.setItem('emages_dni', datos.dni);
+                localStorage.setItem('emages_nombre', datos.nombres);
+                localStorage.setItem('emages_celular', datos.celular);
+                localStorage.setItem('emages_correo', datos.correo);
+                localStorage.setItem('emages_fechaNacimiento', datos.fechaNacimiento);
+                
                 mensajeDiv.className = 'mensaje exito';
-                mensajeDiv.textContent = '✅ Acceso validado. Redirigiendo...';
+                mensajeDiv.textContent = data.mensaje;
                 
-                localStorage.setItem('emages_dni', dni);
-                localStorage.setItem('emages_nombre', data.datos.nombres);
-                
+                // Redirección al PANEL PRINCIPAL
                 setTimeout(() => {
                     window.location.href = 'panel_campus.html';
-                }, 1000);
+                }, 1500);
             } else {
                 mensajeDiv.className = 'mensaje error';
-                
-                // Si el error es por celular incorrecto, mostrar enlace de actualización
-                if (data.mensaje && data.mensaje.includes('celular no coincide')) {
-                    mensajeDiv.innerHTML = '❌ El celular no coincide con el registrado.<br><br>' +
-                        '<a href="actualizar_datos_campus.html" style="color: #e74c3c; font-weight: bold; text-decoration: underline;">📱 ¿Cambió tu celular? Actualiza tus datos aquí</a>';
-                } else {
-                    mensajeDiv.textContent = ' ' + data.mensaje;
-                }
-                
+                mensajeDiv.textContent = data.mensaje;
                 btn.disabled = false;
-                btn.textContent = 'Ingresar al Panel';
+                btn.textContent = 'Crear mi cuenta gratuita';
             }
         })
         .catch(error => {
-            console.error('Error:', error);
             mensajeDiv.className = 'mensaje error';
-            mensajeDiv.textContent = '❌ Error de conexión. Intenta nuevamente.';
+            mensajeDiv.textContent = 'Error de conexión. Verifica tu internet e intenta nuevamente.';
             btn.disabled = false;
-            btn.textContent = 'Ingresar al Panel';
+            btn.textContent = 'Crear mi cuenta gratuita';
         });
     });
 </script>
