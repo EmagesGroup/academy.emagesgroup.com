@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acceso - EMAGES Academy</title>
+    <title>Registro - EMAGES Academy</title>
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; }
         .container { background: white; padding: 2.5rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); width: 100%; max-width: 450px; }
@@ -23,17 +23,21 @@
         .exito { color: #27ae60; }
         .error { color: #e74c3c; font-weight: bold; }
         .edad-error { background: #fdf2f0; border: 1px solid #e74c3c; color: #e74c3c; padding: 10px; border-radius: 6px; margin: 10px 0; display: none; }
+        .link-login { text-align: center; margin-top: 20px; font-size: 0.9rem; color: #7f8c8d; }
+        .link-login a { color: #e74c3c; text-decoration: none; font-weight: bold; }
+        .link-login a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="logo">🎓 EMAGES Academy</div>
-    <h2>Acceso al Test Vocacional</h2>
-    <p class="subtitle">Ingresa tus datos para comenzar o continuar tu evaluación.</p>
+    <h2>Únete a EMAGES Academy</h2>
+    <p class="subtitle">Crea tu cuenta gratuita y accede a simulacros de admisión, evaluaciones de competencias, cursos profesionales y más.</p>
     
     <div class="info-box">
-        💡 <strong>¿Se cerró tu página?</strong> No te preocupes. Vuelve a ingresar tu DNI y nombres para continuar. (Máx. 3 intentos).
+        💡 <strong>¿Ya tienes cuenta?</strong> No necesitas registrarte de nuevo. 
+        Ve a <a href="login_test_ov.html" style="color: #2980b9; font-weight: bold;">Iniciar Sesión</a> con tu DNI y celular.
     </div>
 
     <form id="formularioRegistro">
@@ -42,10 +46,10 @@
         <input type="tel" id="celular" placeholder="Celular (9 dígitos)" maxlength="9" required pattern="\d{9}">
         <input type="email" id="correo" placeholder="Correo electrónico" required>
         
-        <!-- NUEVO CAMPO: Fecha de Nacimiento -->
+        <!-- Campo de Fecha de Nacimiento -->
         <input type="date" id="fechaNacimiento" required>
         <div id="edadError" class="edad-error">
-            ️ Debes tener al menos 14 años para realizar el test. Si eres menor, consulta con tus padres.
+            ⚠️ Debes tener al menos 14 años para registrarte. Si eres menor, consulta con tus padres.
         </div>
 
         <div class="checkbox-container">
@@ -55,9 +59,13 @@
             </label>
         </div>
 
-        <button type="submit" id="btnEnviar">Ingresar al Test</button>
+        <button type="submit" id="btnEnviar">Crear mi cuenta gratuita</button>
     </form>
     <div id="mensaje" class="mensaje"></div>
+    
+    <div class="link-login">
+        ¿Ya tienes cuenta? <a href="login_test_ov.html">Inicia sesión aquí</a>
+    </div>
 </div>
 
 <script>
@@ -113,12 +121,12 @@
         
         if (edad < 14) {
             mensajeDiv.className = 'mensaje error';
-            mensajeDiv.textContent = '⚠️ Debes tener al menos 14 años para realizar el test.';
+            mensajeDiv.textContent = '⚠️ Debes tener al menos 14 años para registrarte.';
             return;
         }
         
         btn.disabled = true;
-        btn.textContent = 'Procesando...';
+        btn.textContent = 'Creando cuenta...';
         mensajeDiv.textContent = '';
 
         const datos = {
@@ -147,21 +155,22 @@
                 mensajeDiv.className = 'mensaje exito';
                 mensajeDiv.textContent = data.mensaje;
                 
+                // Redirección al PANEL PRINCIPAL (no al test)
                 setTimeout(() => {
-                    window.location.href = 'https://academy.emagesgroup.com/test-vocacional.html';
+                    window.location.href = 'panel_test_ov.html';
                 }, 1500);
             } else {
                 mensajeDiv.className = 'mensaje error';
                 mensajeDiv.textContent = data.mensaje;
                 btn.disabled = false;
-                btn.textContent = 'Ingresar al Test';
+                btn.textContent = 'Crear mi cuenta gratuita';
             }
         })
         .catch(error => {
             mensajeDiv.className = 'mensaje error';
             mensajeDiv.textContent = 'Error de conexión. Verifica tu internet e intenta nuevamente.';
             btn.disabled = false;
-            btn.textContent = 'Ingresar al Test';
+            btn.textContent = 'Crear mi cuenta gratuita';
         });
     });
 </script>
