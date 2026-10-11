@@ -96,13 +96,21 @@
                 btn.textContent = 'Ingresar al Panel';
             }
         })
-        .catch(error => {
+            .catch(error => {
             console.error('Error:', error);
             mensajeDiv.className = 'mensaje error';
-            mensajeDiv.textContent = '❌ Este DNI no está registrado. Por favor, crea una cuenta primero.';
-            btn.disabled = false;
-            btn.textContent = 'Ingresar al Panel';
-        });
+    
+            // Si el error es por celular incorrecto, mostrar enlace de actualización
+            if (data && data.mensaje && data.mensaje.includes('celular no coincide')) {
+            mensajeDiv.innerHTML = '❌ El celular no coincide con el registrado.<br><br>' +
+            '<a href="actualizar-datos.html" style="color: #e74c3c; font-weight: bold; text-decoration: underline;">📱 ¿Cambió tu celular? Actualiza tus datos aquí</a>';
+    } else {
+        mensajeDiv.textContent = '❌ Este DNI no está registrado. Por favor, crea una cuenta primero.';
+    }
+    
+    btn.disabled = false;
+    btn.textContent = 'Ingresar al Panel';
+});
     });
 </script>
 
