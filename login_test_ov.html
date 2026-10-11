@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - EMAGES Academy</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; }
+        .container { background: white; padding: 2.5rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
+        .logo { text-align: center; font-weight: bold; font-size: 1.8rem; color: #e74c3c; margin-bottom: 1rem; }
+        h2 { text-align: center; color: #2c3e50; margin-bottom: 0.5rem; }
+        .subtitle { text-align: center; color: #7f8c8d; margin-bottom: 1.5rem; font-size: 0.95rem; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-size: 1rem; }
+        button { width: 100%; padding: 14px; background-color: #e74c3c; color: white; border: none; border-radius: 6px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: background 0.3s; margin-top: 10px; }
+        button:hover { background-color: #c0392b; }
+        button:disabled { background-color: #95a5a6; cursor: not-allowed; }
+        .mensaje { text-align: center; margin-top: 15px; font-size: 0.9rem; min-height: 20px; }
+        .error { color: #e74c3c; font-weight: bold; }
+        .exito { color: #27ae60; }
+        .link-registro { text-align: center; margin-top: 20px; font-size: 0.9rem; color: #7f8c8d; }
+        .link-registro a { color: #e74c3c; text-decoration: none; font-weight: bold; }
+        .link-registro a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="logo">🎓 EMAGES Academy</div>
+    <h2>Iniciar Sesión</h2>
+    <p class="subtitle">Accede a tu panel de progreso y recursos</p>
+
+    <form id="formularioLogin">
+        <input type="text" id="dni" placeholder="DNI (8 dígitos)" maxlength="8" required pattern="\d{8}">
+        <input type="tel" id="celular" placeholder="Celular (9 dígitos)" maxlength="9" required pattern="\d{9}">
+        
+        <button type="submit" id="btnIngresar">Ingresar al Panel</button>
+    </form>
+    
+    <div id="mensaje" class="mensaje"></div>
+
+    <div class="link-registro">
+        ¿Aún no tienes cuenta? <br>
+        <a href="registro_test_ov.html">Regístrate aquí en 30 segundos</a>
+    </div>
+</div>
+
+<script>
+    // Usa la misma URL de tu script actual
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw6xpApuz9Es7NGuDlVefKemVYEPVo3MZcrS71DAGa3YQmLLIkmEY6KSLtBJlmJ_3Yr/exec';
+
+    document.getElementById('formularioLogin').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const btn = document.getElementById('btnIngresar');
+        const mensajeDiv = document.getElementById('mensaje');
+        const dni = document.getElementById('dni').value;
+        const celular = document.getElementById('celular').value;
+
+        // Validación básica frontend
+        if (dni.length !== 8 || celular.length !== 9) {
+            mensajeDiv.className = 'mensaje error';
+            mensajeDiv.textContent = '⚠️ Verifica que el DNI tenga 8 dígitos y el celular 9.';
+            return;
+        }
+
+        btn.disabled = true;
+        btn.textContent = 'Validando...';
+        mensajeDiv.textContent = '';
+
+        const datos = {
+            accion: 'login',
+            dni: dni,
+            celular: celular
+        };
+
+        fetch(SCRIPT_URL, {
+            method: 'POST',
+            body: JSON.stringify(datos)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.exito) {
+                mensajeDiv.className = 'mensaje exito';
+                mensajeDiv.textContent = '✅ Acceso validado. Redirigiendo...';
+                
+                // Guardamos la sesión
+                localStorage.setItem('emages_dni', dni);
+                localStorage.setItem('emages_nombre', data.datos.nombres);
+                
+                // Redirección al panel
+                setTimeout(() => {
+                    window.location.href = 'panel_test_ov.html';
+                }, 1000);
+            } else {
+                mensajeDiv.className = 'mensaje error';
+                mensajeDiv.textContent = '❌ ' + data.mensaje;
+                btn.disabled = false;
+                btn.textContent = 'Ingresar al Panel';
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            mensajeDiv.className = 'mensaje error';
+            mensajeDiv.textContent = '❌ Error de conexión. Intenta nuevamente.';
+            btn.disabled = false;
+            btn.textContent = 'Ingresar al Panel';
+        });
+    });
+</script>
+
+</body>
+</html>
