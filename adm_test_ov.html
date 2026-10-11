@@ -13,30 +13,30 @@
         .container { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); max-width: 900px; margin: 0 auto; }
         h1 { color: #e74c3c; text-align: center; margin-bottom: 2rem; }
         input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 6px; font-size: 1rem; box-sizing: border-box; }
-        button { width: 100%; padding: 14px; background-color: #e74c3c; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 1rem; font-weight: bold; }
+        button { width: 100%; padding: 14px; background-color: #e74c3c; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 1rem; font-weight: bold; transition: background 0.3s; }
         button:hover { background-color: #c0392b; }
+        button:disabled { background-color: #95a5a6; cursor: not-allowed; }
         .btn-buscar { background-color: #3498db; margin-top: 10px; }
         .btn-buscar:hover { background-color: #2980b9; }
         .btn-pdf { background-color: #27ae60; margin-top: 20px; font-size: 1.1rem; }
         .btn-pdf:hover { background-color: #229954; }
         .btn-logout { background-color: #95a5a6; margin-top: 10px; font-size: 0.9rem; padding: 10px; }
         .btn-logout:hover { background-color: #7f8c8d; }
+        .btn-reactivar { background-color: #f39c12; margin-top: 10px; font-size: 0.9rem; padding: 10px; width: auto; display: inline-block; }
+        .btn-reactivar:hover { background-color: #d35400; }
+        
         .resultado { display: none; margin-top: 30px; }
         .error { color: #e74c3c; text-align: center; margin-top: 10px; font-weight: bold; }
         .exito { color: #27ae60; text-align: center; margin-top: 10px; font-weight: bold; }
         .cargando { color: #2980b9; text-align: center; margin-top: 10px; }
         
-        /* LOGIN STYLES */
         .login-container { max-width: 400px; margin: 100px auto; text-align: center; }
         .login-container h2 { margin-bottom: 20px; color: #2c3e50; }
         
-        /* PÁGINAS A4 EXACTAS */
-        .pagina-a4 {
-            width: 794px; height: 1123px; background: white; padding: 40px 50px;
-            margin: 20px auto; box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex; flex-direction: column; position: relative;
-        }
+        .info-intentos { text-align: center; margin: 15px 0; padding: 12px; background: #e8f4f8; border-radius: 8px; display: none; border: 1px solid #3498db; }
+        .info-intentos p { margin: 0; font-weight: bold; color: #2980b9; font-size: 1.1rem; }
+        
+        .pagina-a4 { width: 794px; height: 1123px; background: white; padding: 40px 50px; margin: 20px auto; box-shadow: 0 4px 20px rgba(0,0,0,0.15); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: flex; flex-direction: column; position: relative; }
         .header-pdf { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 3px solid #e74c3c; padding-bottom: 15px; margin-bottom: 20px; flex-shrink: 0; }
         .header-logo { font-size: 1.8rem; font-weight: bold; color: #e74c3c; }
         .header-titulo { font-size: 1.3rem; color: #2c3e50; font-weight: bold; }
@@ -75,6 +75,10 @@
         .carreras-box ul { margin: 4px 0 10px 0; padding-left: 22px; }
         .carreras-box li { font-size: 0.9rem; margin: 4px 0; color: #2c3e50; }
         .carreras-box .nota { font-size: 0.8rem; color: #7f8c8d; font-style: italic; margin-top: 10px; }
+
+        @media (max-width: 850px) {
+            .pagina-a4 { width: 100%; height: auto; padding: 20px; }
+        }
     </style>
 </head>
 <body>
@@ -98,6 +102,12 @@
         <button onclick="buscarEstudiante()" class="btn-buscar">🔍 Buscar</button>
         <button onclick="cerrarSesion()" class="btn-logout">🚪 Cerrar Sesión</button>
         <p id="mensajeBusqueda"></p>
+    </div>
+
+    <!-- Info de Intentos (NUEVO) -->
+    <div id="infoIntentos" class="info-intentos">
+        <p>Intentos de test realizados: <span id="spanIntentos">0</span> / 3</p>
+        <button onclick="reactivarIntentos()" id="btnReactivar" class="btn-reactivar">🔄 Reactivar Intentos (Reset a 0)</button>
     </div>
 
     <div class="resultado" id="resultadoBusqueda">
@@ -159,13 +169,12 @@
 
 <script>
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw6xpApuz9Es7NGuDlVefKemVYEPVo3MZcrS71DAGa3YQmLLIkmEY6KSLtBJlmJ_3Yr/exec';
-    const PASSWORD_ADMIN = 'emages2026'; // ¡Puedes cambiar esta contraseña si quieres!
+    const PASSWORD_ADMIN = 'emages2026'; 
     
     let datosEstudiante = null;
     let datosResultado = null;
     let chartInstance = null;
 
-    // Verificar si ya inició sesión en esta pestaña
     if (sessionStorage.getItem('emages_admin_logged') === 'true') {
         document.getElementById('loginSection').style.display = 'none';
         document.getElementById('panelSection').style.display = 'block';
@@ -226,6 +235,8 @@
             mensajeDiv.className = 'error'; mensajeDiv.textContent = '⚠️ Ingresa un DNI válido de 8 dígitos'; return;
         }
         mensajeDiv.className = 'cargando'; mensajeDiv.textContent = '🔍 Buscando...';
+        document.getElementById('resultadoBusqueda').style.display = 'none';
+        document.getElementById('infoIntentos').style.display = 'none';
         
         fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({ accion: 'buscarEstudiante', dni: dni }) })
         .then(response => response.json())
@@ -234,27 +245,75 @@
                 datosEstudiante = data.estudiante;
                 datosResultado = data.resultado;
                 
+                // Mostrar intentos
+                const intentos = datosEstudiante.intentosTest || 0;
+                document.getElementById('spanIntentos').textContent = intentos;
+                document.getElementById('infoIntentos').style.display = 'block';
+                
                 document.getElementById('p1Dni').textContent = datosEstudiante.dni;
                 document.getElementById('p1Nombres').textContent = datosEstudiante.nombres;
                 document.getElementById('p1Celular').textContent = datosEstudiante.celular;
                 document.getElementById('p1Correo').textContent = datosEstudiante.correo;
-                document.getElementById('p1Fecha').textContent = new Date(datosResultado.fecha).toLocaleString('es-PE');
-                document.getElementById('p1Perfil').textContent = datosResultado.perfil;
                 
-                crearGraficoRadar(datosResultado);
-                crearPuntajesCards(datosResultado);
-                crearCarrerasSeccion(datosResultado);
+                if (datosResultado) {
+                    document.getElementById('p1Fecha').textContent = new Date(datosResultado.fecha).toLocaleString('es-PE');
+                    document.getElementById('p1Perfil').textContent = datosResultado.perfil;
+                    crearGraficoRadar(datosResultado);
+                    crearPuntajesCards(datosResultado);
+                    crearCarrerasSeccion(datosResultado);
+                } else {
+                    document.getElementById('p1Fecha').textContent = 'Aún no realiza el test';
+                    document.getElementById('p1Perfil').textContent = 'Pendiente';
+                    if (chartInstance) { chartInstance.destroy(); chartInstance = null; }
+                    document.getElementById('puntajesGrid').innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #7f8c8d; padding: 20px;">El estudiante aún no ha completado el test vocacional.</p>';
+                    document.getElementById('carrerasContenido').innerHTML = '';
+                }
                 
                 document.getElementById('resultadoBusqueda').style.display = 'block';
                 mensajeDiv.className = 'exito'; mensajeDiv.textContent = '✅ Estudiante encontrado';
             } else {
                 mensajeDiv.className = 'error'; mensajeDiv.textContent = '❌ ' + data.mensaje;
                 document.getElementById('resultadoBusqueda').style.display = 'none';
+                document.getElementById('infoIntentos').style.display = 'none';
             }
         })
         .catch(error => {
             console.error('Error:', error);
             mensajeDiv.className = 'error'; mensajeDiv.textContent = '❌ Error de conexión';
+        });
+    }
+
+    function reactivarIntentos() {
+        if (!datosEstudiante) return;
+        if (!confirm(`¿Estás seguro de reiniciar los intentos a 0 para el DNI ${datosEstudiante.dni}?`)) return;
+
+        const btn = document.getElementById('btnReactivar');
+        const textoOriginal = btn.textContent;
+        btn.textContent = '⏳ Procesando...';
+        btn.disabled = true;
+
+        fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({ accion: 'reactivarIntentos', dni: datosEstudiante.dni }) })
+        .then(response => response.json())
+        .then(data => {
+            if (data.exito) {
+                alert('✅ ' + data.mensaje);
+                document.getElementById('spanIntentos').textContent = '0';
+                btn.textContent = '✅ Reactivado';
+                setTimeout(() => {
+                    btn.textContent = textoOriginal;
+                    btn.disabled = false;
+                }, 2000);
+            } else {
+                alert('❌ ' + data.mensaje);
+                btn.textContent = textoOriginal;
+                btn.disabled = false;
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('❌ Error de conexión al reactivar.');
+            btn.textContent = textoOriginal;
+            btn.disabled = false;
         });
     }
 
