@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Panel - EMAGES Academy</title>
+    <style>
+        :root { --primary: #e74c3c; --primary-dark: #c0392b; --success: #27ae60; --warning: #f39c12; --bg: #f4f7f6; --text: #2c3e50; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--bg); color: var(--text); padding: 20px; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        
+        /* Header */
+        .header { display: flex; justify-content: space-between; align-items: center; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 25px; }
+        .header h1 { font-size: 1.5rem; color: var(--primary); }
+        .header .user-info { text-align: right; }
+        .header .user-info p { font-size: 0.9rem; color: #7f8c8d; }
+        .btn-logout { background: #95a5a6; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 0.9rem; margin-top: 5px; }
+        .btn-logout:hover { background: #7f8c8d; }
+
+        /* Grid de Tarjetas */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        
+        .card { background: white; border-radius: 12px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; flex-direction: column; transition: transform 0.2s; position: relative; }
+        .card:hover { transform: translateY(-3px); }
+        .card-icon { font-size: 2.5rem; margin-bottom: 15px; }
+        .card h3 { font-size: 1.2rem; margin-bottom: 10px; color: var(--text); }
+        .card p { font-size: 0.9rem; color: #7f8c8d; line-height: 1.5; flex-grow: 1; margin-bottom: 15px; }
+        
+        .btn-card { display: block; width: 100%; padding: 12px; text-align: center; border-radius: 8px; text-decoration: none; font-weight: bold; transition: background 0.3s; border: none; cursor: pointer; font-size: 0.95rem; }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--primary-dark); }
+        .btn-whatsapp { background: #25D366; color: white; }
+        .btn-whatsapp:hover { background: #128C7E; }
+        
+        /* Estados Bloqueados */
+        .card.locked { opacity: 0.85; background: #fdf2f0; border: 1px dashed #e74c3c; }
+        .card.locked .btn-card { background: #bdc3c7; color: #7f8c8d; cursor: not-allowed; pointer-events: none; }
+        .lock-badge { position: absolute; top: 15px; right: 15px; background: #e74c3c; color: white; font-size: 0.75rem; padding: 4px 8px; border-radius: 4px; font-weight: bold; }
+
+        /* Sección CV Dinámica */
+        .cv-status { background: #e8f4f8; border-left: 4px solid #3498db; padding: 15px; border-radius: 8px; margin-top: 15px; font-size: 0.85rem; }
+        .cv-status.warning { background: #fff9e6; border-left-color: var(--warning); }
+        .cv-status.critical { background: #fdf2f0; border-left-color: var(--primary); }
+
+        /* Switch de Hijos */
+        .switch-container { background: white; padding: 20px; border-radius: 12px; margin-bottom: 25px; display: none; align-items: center; gap: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .switch-container.active { display: flex; }
+        .switch { position: relative; display: inline-block; width: 50px; height: 26px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 34px; }
+        .slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
+        input:checked + .slider { background-color: var(--primary); }
+        input:checked + .slider:before { transform: translateX(24px); }
+
+        .cargando { text-align: center; padding: 50px; font-size: 1.2rem; color: var(--primary); }
+        .oculto { display: none !important; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div id="cargando" class="cargando">⏳ Cargando tu perfil...</div>
+
+    <div id="panelContent" class="oculto">
+        <div class="header">
+            <div>
+                <h1>🎓 EMAGES Academy</h1>
+                <p>Tu ecosistema de desarrollo profesional</p>
+            </div>
+            <div class="user-info">
+                <p id="userName">Cargando...</p>
+                <p id="userPerfil" style="font-weight: bold; color: var(--primary);"></p>
+                <button class="btn-logout" onclick="cerrarSesion()">🚪 Cerrar Sesión</button>
+            </div>
+        </div>
+
+        <!-- Switch para Padres (Solo visible si es PROFESIONAL) -->
+        <div id="switchHijos" class="switch-container">
+            <label class="switch">
+                <input type="checkbox" id="toggleHijos" onchange="toggleSimulacrosHijos()">
+                <span class="slider"></span>
+            </label>
+            <div>
+                <strong>¿Tienes hijos en edad de admisión?</strong>
+                <p style="font-size: 0.85rem; color: #7f8c8d; margin: 0;">Activa esta opción para gestionar sus simulacros y ver su progreso.</p>
+            </div>
+        </div>
+
+        <div class="grid" id="cardsGrid">
+            <!-- Las tarjetas se inyectan aquí con JavaScript -->
+        </div>
+    </div>
+</div>
+
+<script>
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw6xpApuz9Es7NGuDlVefKemVYEPVo3MZcrS71DAGa3YQmLLIkmEY6KSLtBJlmJ_3Yr/exec';
+    let usuarioActual = null;
+
+    // 1. Verificar sesión
+    const dniSession = localStorage.getItem('emages_dni');
+    if (!dniSession) {
+        window.location.href = 'registro_test_ov.html';
+    }
+
+    // 2. Cargar datos del usuario
+    fetch(SCRIPT_URL, {
+        method: 'POST',
+        body: JSON.stringify({ accion: 'obtenerPerfilPanel', dni: dniSession })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.exito) {
+            usuarioActual = data.usuario;
+            document.getElementById('cargando').classList.add('oculto');
+            document.getElementById('panelContent').classList.remove('oculto');
+            
+            document.getElementById('userName').textContent = usuarioActual.nombres;
+            document.getElementById('userPerfil').textContent = `Perfil: ${usuarioActual.perfil}`;
+            
+            renderizarTarjetas();
+        } else {
+            alert('Error al cargar el perfil. Por favor, inicia sesión nuevamente.');
+            cerrarSesion();
+        }
+    })
+    .catch(err => {
+        console.error(err);
+        document.getElementById('cargando').textContent = '❌ Error de conexión. Recarga la página.';
+    });
+
+    // 3. Lógica de Renderizado Dinámico
+    function renderizarTarjetas() {
+        const grid = document.getElementById('cardsGrid');
+        const perfil = usuarioActual.perfil;
+        let html = '';
+
+        // --- TARJETA 1: SIMULACROS DE ADMISIÓN ---
+        // Se muestra si es ESTUDIANTE, TRANSICION, o PROFESIONAL con switch de hijos activo
+        const mostrarSimulacros = (perfil === 'ESTUDIANTE' || perfil === 'TRANSICION' || perfil === 'PROFESIONAL_CON_HIJOS');
+        
+        if (mostrarSimulacros) {
+            html += `
+            <div class="card">
+                <div class="card-icon">📝</div>
+                <h3>Simulacros de Admisión</h3>
+                <p>Practica con exámenes reales tipo UNI, San Marcos, Callao y Privadas. Niveles Junior, Senior y Master.</p>
+                <a href="test-vocacional.html" class="btn-card btn-primary">Iniciar Simulacro</a>
+            </div>`;
+        }
+
+        // --- TARJETA 2: EVALUACIONES DE COMPETENCIAS ---
+        if (perfil === 'ESTUDIANTE') {
+            html += `
+            <div class="card locked">
+                <span class="lock-badge">🔒 BLOQUEADO</span>
+                <div class="card-icon">💼</div>
+                <h3>Evaluaciones de Competencias</h3>
+                <p>Desbloquea esta sección al cumplir 18 años y subir tu CV. Nuestros aliados empresariales te considerarán en sus convocatorias.</p>
+                <button class="btn-card" disabled>Requiere 18+ años y CV</button>
+            </div>`;
+        } else {
+            html += `
+            <div class="card">
+                <div class="card-icon">💼</div>
+                <h3>Evaluaciones de Competencias</h3>
+                <p>Evalúa tus habilidades blandas y razonamiento corporativo. Obtén un reporte para adjuntar a tu CV y destacar en procesos de selección.</p>
+                <a href="#" class="btn-card btn-primary" onclick="alert('Módulo en desarrollo. ¡Próximamente!')">Realizar Evaluación</a>
+                
+                ${renderizarEstadoCV()}
+            </div>`;
+        }
+
+        // --- TARJETA 3: CURSOS PROFESIONALES ---
+        if (perfil === 'ESTUDIANTE') {
+            html += `
+            <div class="card locked">
+                <span class="lock-badge">🔒 BLOQUEADO</span>
+                <div class="card-icon">🛠️</div>
+                <h3>Cursos Profesionales</h3>
+                <p>Invierte en tu futuro laboral. Cursos prácticos (Cajero Bancario, Planillas, RRHH) diseñados para cuando empieces a trabajar.</p>
+                <button class="btn-card" disabled>Próximamente</button>
+            </div>`;
+        } else {
+            const msgWA = `Hola EMAGES Academy, soy ${usuarioActual.nombres} (DNI: ${usuarioActual.dni}). Quiero información sobre precios y promociones de Cursos Profesionales.`;
+            html += `
+            <div class="card">
+                <div class="card-icon">🛠️</div>
+                <h3>Cursos Profesionales</h3>
+                <p>Capacitación certificada en Cajero Bancario, Asistente de Planillas y Reclutamiento. Invierte en tu ascenso laboral.</p>
+                <a href="https://wa.me/51930175586?text=${encodeURIComponent(msgWA)}" target="_blank" class="btn-card btn-whatsapp">💬 Consultar Promociones por WhatsApp</a>
+            </div>`;
+        }
+
+        // --- TARJETA 4: CERTIFICADOS ---
+        html += `
+        <div class="card">
+            <div class="card-icon">🏆</div>
+            <h3>Mis Certificados</h3>
+            <p>Descarga y verifica tus certificados de cursos completados. Comparte tu logro con empleadores.</p>
+            <a href="https://verificar.academy.emagesgroup.com" target="_blank" class="btn-card btn-primary">Verificar Certificados</a>
+        </div>`;
+
+        grid.innerHTML = html;
+    }
+
+    // 4. Lógica Dinámica del CV (Sin años fijos)
+    function renderizarEstadoCV() {
+        if (!usuarioActual.fechaUltimoCV) {
+            return `
+            <div class="cv-status critical">
+                ⚠️ <strong>Aún no has subido tu CV.</strong><br>
+                Hazlo ahora para desbloquear oportunidades con nuestros aliados empresariales.
+                <br><br>
+                <a href="#" style="color: var(--primary); font-weight: bold;">📥 Descargar Plantillas Oficiales</a> | 
+                <a href="#" style="color: var(--primary); font-weight: bold;">📤 Subir mi CV</a>
+            </div>`;
+        }
+
+        const hoy = new Date();
+        const fechaCV = new Date(usuarioActual.fechaUltimoCV);
+        const diffTime = Math.abs(hoy - fechaCV);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+        if (diffDays <= 90) {
+            return `<div class="cv-status">✅ <strong>¡Tu CV está actualizado!</strong> Última vez hace ${diffDays} días. Estás listo para nuevas oportunidades.</div>`;
+        } else if (diffDays <= 180) {
+            return `
+            <div class="cv-status warning">
+                💡 <strong>¿Has adquirido nuevas habilidades?</strong><br>
+                Tu última actualización fue hace ${diffDays} días. Considera refrescar tu CV para reflejar tu crecimiento.
+                <br><br>
+                <a href="#" style="color: var(--warning); font-weight: bold;">📥 Ver Plantillas Actualizadas</a>
+            </div>`;
+        } else {
+            return `
+            <div class="cv-status critical">
+                ⚠️ <strong>Tu CV podría estar obsoleto.</strong><br>
+                Han pasado ${diffDays} días. El mercado cambia rápido. Actualiza tu CV con nuestras plantillas vigentes para recibir 3x más respuestas.
+                <br><br>
+                <a href="#" style="color: var(--primary); font-weight: bold;">📥 Descargar Plantillas Vigentes</a> | 
+                <a href="#" style="color: var(--primary); font-weight: bold;">📤 Subir Nueva Versión</a>
+            </div>`;
+        }
+    }
+
+    // 5. Toggle de Hijos (Para profesionales)
+    function toggleSimulacrosHijos() {
+        const checkbox = document.getElementById('toggleHijos');
+        if (checkbox.checked) {
+            usuarioActual.perfil = 'PROFESIONAL_CON_HIJOS'; // Fuerza la renderización de simulacros
+            alert('Has activado el modo "Padre/Tutor". Ahora puedes ver y gestionar los simulacros de tus hijos vinculados.');
+        } else {
+            usuarioActual.perfil = 'PROFESIONAL';
+        }
+        renderizarTarjetas(); // Re-renderiza para mostrar/ocultar la tarjeta
+    }
+
+    function cerrarSesion() {
+        localStorage.removeItem('emages_dni');
+        localStorage.removeItem('emages_nombre');
+        window.location.href = 'registro_test_ov.html';
+    }
+</script>
+
+</body>
+</html>
