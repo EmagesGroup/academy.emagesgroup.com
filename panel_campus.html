@@ -11,11 +11,11 @@
         .container { max-width: 1000px; margin: 0 auto; }
         
         /* Header */
-        .header { display: flex; justify-content: space-between; align-items: center; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 25px; }
+        .header { display: flex; justify-content: space-between; align-items: center; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 25px; flex-wrap: wrap; gap: 15px; }
         .header h1 { font-size: 1.5rem; color: var(--primary); }
         .header .user-info { text-align: right; }
-        .header .user-info p { font-size: 0.9rem; color: #7f8c8d; }
-        .btn-logout { background: #95a5a6; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 0.9rem; margin-top: 5px; }
+        .header .user-info p { font-size: 0.9rem; color: #7f8c8d; margin: 0; }
+        .btn-logout { background: #95a5a6; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 0.9rem; margin-top: 8px; transition: background 0.3s; }
         .btn-logout:hover { background: #7f8c8d; }
 
         /* Grid de Tarjetas */
@@ -42,16 +42,20 @@
         .cv-status { background: #e8f4f8; border-left: 4px solid #3498db; padding: 15px; border-radius: 8px; margin-top: 15px; font-size: 0.85rem; }
         .cv-status.warning { background: #fff9e6; border-left-color: var(--warning); }
         .cv-status.critical { background: #fdf2f0; border-left-color: var(--primary); }
+        .cv-status a { color: var(--primary); font-weight: bold; text-decoration: none; }
+        .cv-status.warning a { color: #d35400; }
 
         /* Switch de Hijos */
         .switch-container { background: white; padding: 20px; border-radius: 12px; margin-bottom: 25px; display: none; align-items: center; gap: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .switch-container.active { display: flex; }
-        .switch { position: relative; display: inline-block; width: 50px; height: 26px; }
+        .switch { position: relative; display: inline-block; width: 50px; height: 26px; flex-shrink: 0; }
         .switch input { opacity: 0; width: 0; height: 0; }
         .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 34px; }
         .slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
         input:checked + .slider { background-color: var(--primary); }
         input:checked + .slider:before { transform: translateX(24px); }
+        .switch-text strong { display: block; color: var(--text); }
+        .switch-text p { font-size: 0.85rem; color: #7f8c8d; margin: 0; }
 
         .cargando { text-align: center; padding: 50px; font-size: 1.2rem; color: var(--primary); }
         .oculto { display: none !important; }
@@ -69,8 +73,8 @@
                 <p>Tu ecosistema de desarrollo profesional</p>
             </div>
             <div class="user-info">
-                <p id="userName">Cargando...</p>
-                <p id="userPerfil" style="font-weight: bold; color: var(--primary);"></p>
+                <p id="userName" style="font-size: 1.1rem; font-weight: bold; color: var(--text);">Cargando...</p>
+                <p id="userPerfil" style="font-weight: bold; color: var(--primary); text-transform: uppercase;"></p>
                 <button class="btn-logout" onclick="cerrarSesion()">🚪 Cerrar Sesión</button>
             </div>
         </div>
@@ -81,9 +85,9 @@
                 <input type="checkbox" id="toggleHijos" onchange="toggleSimulacrosHijos()">
                 <span class="slider"></span>
             </label>
-            <div>
+            <div class="switch-text">
                 <strong>¿Tienes hijos en edad de admisión?</strong>
-                <p style="font-size: 0.85rem; color: #7f8c8d; margin: 0;">Activa esta opción para gestionar sus simulacros y ver su progreso.</p>
+                <p>Activa esta opción para gestionar sus simulacros y ver su progreso.</p>
             </div>
         </div>
 
@@ -100,10 +104,10 @@
     // 1. Verificar sesión
     const dniSession = localStorage.getItem('emages_dni');
     if (!dniSession) {
-        window.location.href = 'registro_test_ov.html';
+        window.location.href = 'login_campus.html';
     }
 
-    // 2. Cargar datos del usuario
+    // 2. Cargar datos del usuario desde Google Sheets
     fetch(SCRIPT_URL, {
         method: 'POST',
         body: JSON.stringify({ accion: 'obtenerPerfilPanel', dni: dniSession })
@@ -118,6 +122,11 @@
             document.getElementById('userName').textContent = usuarioActual.nombres;
             document.getElementById('userPerfil').textContent = `Perfil: ${usuarioActual.perfil}`;
             
+            // Mostrar switch de hijos solo si es PROFESIONAL
+            if (usuarioActual.perfil === 'PROFESIONAL') {
+                document.getElementById('switchHijos').classList.add('active');
+            }
+            
             renderizarTarjetas();
         } else {
             alert('Error al cargar el perfil. Por favor, inicia sesión nuevamente.');
@@ -129,7 +138,7 @@
         document.getElementById('cargando').textContent = '❌ Error de conexión. Recarga la página.';
     });
 
-    // 3. Lógica de Renderizado Dinámico
+    // 3. Lógica de Renderizado Dinámico de Tarjetas
     function renderizarTarjetas() {
         const grid = document.getElementById('cardsGrid');
         const perfil = usuarioActual.perfil;
@@ -165,8 +174,7 @@
                 <div class="card-icon">💼</div>
                 <h3>Evaluaciones de Competencias</h3>
                 <p>Evalúa tus habilidades blandas y razonamiento corporativo. Obtén un reporte para adjuntar a tu CV y destacar en procesos de selección.</p>
-                <a href="#" class="btn-card btn-primary" onclick="alert('Módulo en desarrollo. ¡Próximamente!')">Realizar Evaluación</a>
-                
+                <a href="#" class="btn-card btn-primary" onclick="alert('Módulo de evaluaciones en desarrollo. ¡Próximamente!')">Realizar Evaluación</a>
                 ${renderizarEstadoCV()}
             </div>`;
         }
@@ -188,7 +196,7 @@
                 <div class="card-icon">🛠️</div>
                 <h3>Cursos Profesionales</h3>
                 <p>Capacitación certificada en Cajero Bancario, Asistente de Planillas y Reclutamiento. Invierte en tu ascenso laboral.</p>
-                <a href="https://wa.me/51930175586?text=${encodeURIComponent(msgWA)}" target="_blank" class="btn-card btn-whatsapp">💬 Consultar Promociones por WhatsApp</a>
+                <a href="https://wa.me/51930175586?text=${encodeURIComponent(msgWA)}" target="_blank" class="btn-card btn-whatsapp">💬 Consultar Promociones</a>
             </div>`;
         }
 
@@ -204,16 +212,15 @@
         grid.innerHTML = html;
     }
 
-    // 4. Lógica Dinámica del CV (Sin años fijos)
+    // 4. Lógica Dinámica del CV (Sin años fijos, calcula días reales)
     function renderizarEstadoCV() {
-        if (!usuarioActual.fechaUltimoCV) {
+        if (!usuarioActual.fechaUltimoCV || usuarioActual.fechaUltimoCV === '') {
             return `
             <div class="cv-status critical">
                 ⚠️ <strong>Aún no has subido tu CV.</strong><br>
                 Hazlo ahora para desbloquear oportunidades con nuestros aliados empresariales.
                 <br><br>
-                <a href="#" style="color: var(--primary); font-weight: bold;">📥 Descargar Plantillas Oficiales</a> | 
-                <a href="#" style="color: var(--primary); font-weight: bold;">📤 Subir mi CV</a>
+                <a href="#">📥 Descargar Plantillas Oficiales</a> | <a href="#">📤 Subir mi CV</a>
             </div>`;
         }
 
@@ -230,7 +237,7 @@
                 💡 <strong>¿Has adquirido nuevas habilidades?</strong><br>
                 Tu última actualización fue hace ${diffDays} días. Considera refrescar tu CV para reflejar tu crecimiento.
                 <br><br>
-                <a href="#" style="color: var(--warning); font-weight: bold;">📥 Ver Plantillas Actualizadas</a>
+                <a href="#">📥 Ver Plantillas Actualizadas</a>
             </div>`;
         } else {
             return `
@@ -238,8 +245,7 @@
                 ⚠️ <strong>Tu CV podría estar obsoleto.</strong><br>
                 Han pasado ${diffDays} días. El mercado cambia rápido. Actualiza tu CV con nuestras plantillas vigentes para recibir 3x más respuestas.
                 <br><br>
-                <a href="#" style="color: var(--primary); font-weight: bold;">📥 Descargar Plantillas Vigentes</a> | 
-                <a href="#" style="color: var(--primary); font-weight: bold;">📤 Subir Nueva Versión</a>
+                <a href="#">📥 Descargar Plantillas Vigentes</a> | <a href="#">📤 Subir Nueva Versión</a>
             </div>`;
         }
     }
@@ -249,17 +255,17 @@
         const checkbox = document.getElementById('toggleHijos');
         if (checkbox.checked) {
             usuarioActual.perfil = 'PROFESIONAL_CON_HIJOS'; // Fuerza la renderización de simulacros
-            alert('Has activado el modo "Padre/Tutor". Ahora puedes ver y gestionar los simulacros de tus hijos vinculados.');
         } else {
-            usuarioActual.perfil = 'PROFESIONAL';
+            usuarioActual.perfil = 'PROFESIONAL'; // Vuelve al estado normal
         }
-        renderizarTarjetas(); // Re-renderiza para mostrar/ocultar la tarjeta
+        renderizarTarjetas(); // Re-renderiza las tarjetas para mostrar/ocultar la de simulacros
     }
 
+    // 6. Cerrar Sesión
     function cerrarSesion() {
         localStorage.removeItem('emages_dni');
         localStorage.removeItem('emages_nombre');
-        window.location.href = 'registro_test_ov.html';
+        window.location.href = 'login_campus.html';
     }
 </script>
 
