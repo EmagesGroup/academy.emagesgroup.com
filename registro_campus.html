@@ -11,6 +11,7 @@
         h2 { text-align: center; color: #2c3e50; margin-bottom: 0.5rem; }
         .subtitle { text-align: center; color: #7f8c8d; margin-bottom: 1.5rem; font-size: 0.95rem; }
         .info-box { background: #e8f4f8; padding: 12px; border-radius: 8px; font-size: 0.9rem; color: #2980b9; margin-bottom: 20px; text-align: center; }
+        .info-box a { color: #2980b9; font-weight: bold; text-decoration: underline; }
         input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-size: 1rem; }
         input[type="date"] { font-size: 0.95rem; }
         .checkbox-container { display: flex; align-items: flex-start; gap: 10px; margin: 15px 0; font-size: 0.9rem; color: #555; }
@@ -37,7 +38,7 @@
     
     <div class="info-box">
         💡 <strong>¿Ya tienes cuenta?</strong> No necesitas registrarte de nuevo. 
-        Ve a <a href="login_test_ov.html" style="color: #2980b9; font-weight: bold;">Iniciar Sesión</a> con tu DNI y celular.
+        Ve a <a href="login_campus.html">Iniciar Sesión</a> con tu DNI y celular.
     </div>
 
     <form id="formularioRegistro">
@@ -155,9 +156,9 @@
                 mensajeDiv.className = 'mensaje exito';
                 mensajeDiv.textContent = data.mensaje;
                 
-                // Redirección al PANEL PRINCIPAL (no al test)
+                // Redirección al PANEL PRINCIPAL
                 setTimeout(() => {
-                    window.location.href = 'panel_test_ov.html';
+                    window.location.href = 'panel_campus.html';
                 }, 1500);
             } else {
                 mensajeDiv.className = 'mensaje error';
