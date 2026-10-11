@@ -45,7 +45,6 @@
 </div>
 
 <script>
-    // Usa la misma URL de tu script actual
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw6xpApuz9Es7NGuDlVefKemVYEPVo3MZcrS71DAGa3YQmLLIkmEY6KSLtBJlmJ_3Yr/exec';
 
     document.getElementById('formularioLogin').addEventListener('submit', function(e) {
@@ -100,8 +99,9 @@
         })
         .catch(error => {
             console.error('Error:', error);
+            // Mensaje específico cuando el DNI no existe
             mensajeDiv.className = 'mensaje error';
-            mensajeDiv.textContent = '❌ Error de conexión. Intenta nuevamente.';
+            mensajeDiv.textContent = '❌ Este DNI no está registrado. Por favor, crea una cuenta primero.';
             btn.disabled = false;
             btn.textContent = 'Ingresar al Panel';
         });
