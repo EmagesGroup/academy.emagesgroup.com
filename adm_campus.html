@@ -4,120 +4,217 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel Admin - EMAGES Academy</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
+        :root {
+            --primary: #ff6b4a;
+            --primary-dark: #ff8c42;
+            --dark: #1a1a2e;
+            --dark-secondary: #16213e;
+            --light: #f8f9fa;
+            --white: #ffffff;
+            --text-gray: #7f8c8d;
+            --success: #27ae60;
+            --gradient: linear-gradient(135deg, #ff6b4a 0%, #ff8c42 100%);
+        }
+
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; padding: 20px; }
-        .container { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); max-width: 900px; margin: 0 auto; }
-        h1 { color: #e74c3c; text-align: center; margin-bottom: 2rem; }
-        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 6px; font-size: 1rem; box-sizing: border-box; }
-        button { width: 100%; padding: 14px; background-color: #e74c3c; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 1rem; font-weight: bold; transition: background 0.3s; }
-        button:hover { background-color: #c0392b; }
-        button:disabled { background-color: #95a5a6; cursor: not-allowed; }
-        .btn-buscar { background-color: #3498db; margin-top: 10px; }
-        .btn-buscar:hover { background-color: #2980b9; }
-        .btn-pdf { background-color: #27ae60; margin-top: 20px; font-size: 1.1rem; }
-        .btn-pdf:hover { background-color: #229954; }
-        .btn-logout { background-color: #95a5a6; margin-top: 10px; font-size: 0.9rem; padding: 10px; }
-        .btn-logout:hover { background-color: #7f8c8d; }
-        .btn-reactivar { background-color: #f39c12; margin-top: 10px; font-size: 0.9rem; padding: 10px; width: auto; display: inline-block; }
-        .btn-reactivar:hover { background-color: #d35400; }
         
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background-color: var(--dark);
+            background-image: linear-gradient(135deg, rgba(26, 26, 46, 0.97) 0%, rgba(22, 33, 62, 0.97) 100%), url('assets/hero.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            padding: 20px; 
+            color: var(--dark);
+        }
+
+        /* LOGIN ADMIN */
+        .login-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(26, 26, 46, 0.98);
+            display: flex; justify-content: center; align-items: center; z-index: 1000;
+        }
+        .login-box {
+            background: var(--white); padding: 40px; border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5); text-align: center; width: 100%; max-width: 400px;
+        }
+        .login-box .logo { height: 50px; margin-bottom: 20px; }
+        .login-box h2 { color: var(--dark); margin-bottom: 10px; font-size: 1.5rem; }
+        .login-box input {
+            width: 100%; padding: 14px; margin: 15px 0; border: 2px solid #e9ecef;
+            border-radius: 10px; font-size: 1rem; text-align: center; font-family: 'Poppins', sans-serif;
+        }
+        .login-box input:focus { outline: none; border-color: var(--primary); }
+
+        /* PANEL PRINCIPAL */
+        .container { 
+            background: var(--white); padding: 40px; border-radius: 20px; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3); max-width: 1000px; margin: 0 auto; 
+            display: none; animation: fadeInUp 0.5s ease;
+        }
+        
+        .admin-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 30px; padding-bottom: 20px; border-bottom: 2px solid var(--light);
+        }
+        .admin-header .logo { display: flex; align-items: center; gap: 12px; }
+        .admin-header .logo img { height: 45px; width: auto; }
+        .admin-header .marca { font-size: 1.4rem; font-weight: 800; color: var(--dark); }
+        .admin-header .submarca { font-size: 0.7rem; color: var(--primary); letter-spacing: 2px; text-transform: uppercase; font-weight: 600; }
+
+        .search-box {
+            display: flex; gap: 15px; margin-bottom: 25px; flex-wrap: wrap;
+        }
+        .search-box input {
+            flex: 1; padding: 14px; border: 2px solid #e9ecef; border-radius: 10px;
+            font-size: 1rem; font-family: 'Poppins', sans-serif; min-width: 200px;
+        }
+        .search-box input:focus { outline: none; border-color: var(--primary); }
+
+        /* BOTONES */
+        .btn {
+            padding: 14px 28px; border: none; border-radius: 10px; font-weight: 700;
+            font-size: 1rem; cursor: pointer; font-family: 'Poppins', sans-serif; transition: all 0.3s;
+        }
+        .btn-primary { background: var(--gradient); color: white; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255, 107, 74, 0.4); }
+        .btn-secondary { background: var(--dark); color: white; }
+        .btn-secondary:hover { background: var(--dark-secondary); transform: translateY(-2px); }
+        .btn-success { background: var(--success); color: white; }
+        .btn-success:hover { background: #219150; transform: translateY(-2px); }
+        .btn-warning { background: #f39c12; color: white; }
+        .btn-warning:hover { background: #d35400; transform: translateY(-2px); }
+        .btn:disabled { background: #bdc3c7; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        /* INFO INTENTOS */
+        .info-intentos { 
+            text-align: center; margin: 20px 0; padding: 15px; 
+            background: #e8f4f8; border-radius: 12px; display: none; border-left: 4px solid #3498db; 
+        }
+        .info-intentos p { margin: 0 0 15px 0; font-weight: 700; color: #2980b9; font-size: 1.1rem; }
+
+        /* RESULTADOS */
         .resultado { display: none; margin-top: 30px; }
-        .error { color: #e74c3c; text-align: center; margin-top: 10px; font-weight: bold; }
-        .exito { color: #27ae60; text-align: center; margin-top: 10px; font-weight: bold; }
-        .cargando { color: #2980b9; text-align: center; margin-top: 10px; }
+        .msg { padding: 15px; border-radius: 10px; margin-top: 15px; text-align: center; font-weight: 600; }
+        .msg.error { background: #fdf2f0; color: #e74c3c; border: 1px solid #f5b7b1; }
+        .msg.success { background: #e8f8f5; color: #27ae60; border: 1px solid #a9dfbf; }
+        .msg.loading { background: #e8f4f8; color: #2980b9; border: 1px solid #aed6f1; }
+
+        /* ESTILOS ESPECÍFICOS PARA EL PDF (No se ven en la web normal, solo al generar) */
+        .pagina-a4 { 
+            width: 794px; height: 1123px; background: white; padding: 40px 50px; 
+            margin: 30px auto; box-shadow: 0 4px 20px rgba(0,0,0,0.15); 
+            font-family: 'Poppins', sans-serif; display: flex; flex-direction: column; position: relative; 
+        }
+        .header-pdf { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 3px solid var(--primary); padding-bottom: 15px; margin-bottom: 20px; flex-shrink: 0; }
+        .header-logo { font-size: 1.5rem; font-weight: 800; color: var(--dark); display: flex; align-items: center; gap: 10px; }
+        .header-logo img { height: 40px; }
+        .header-titulo { font-size: 1.3rem; color: var(--dark); font-weight: 700; }
+        .header-subtitulo { color: var(--text-gray); font-size: 0.9rem; margin-top: 4px; }
         
-        .login-container { max-width: 400px; margin: 100px auto; text-align: center; }
-        .login-container h2 { margin-bottom: 20px; color: #2c3e50; }
-        
-        .info-intentos { text-align: center; margin: 15px 0; padding: 12px; background: #e8f4f8; border-radius: 8px; display: none; border: 1px solid #3498db; }
-        .info-intentos p { margin: 0; font-weight: bold; color: #2980b9; font-size: 1.1rem; }
-        
-        .pagina-a4 { width: 794px; height: 1123px; background: white; padding: 40px 50px; margin: 20px auto; box-shadow: 0 4px 20px rgba(0,0,0,0.15); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: flex; flex-direction: column; position: relative; }
-        .header-pdf { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 3px solid #e74c3c; padding-bottom: 15px; margin-bottom: 20px; flex-shrink: 0; }
-        .header-logo { font-size: 1.8rem; font-weight: bold; color: #e74c3c; }
-        .header-titulo { font-size: 1.3rem; color: #2c3e50; font-weight: bold; }
-        .header-subtitulo { color: #7f8c8d; font-size: 0.9rem; margin-top: 4px; }
-        .datos-box { background: #f8f9fa; padding: 18px 20px; border-radius: 10px; margin-bottom: 20px; flex-shrink: 0; }
-        .datos-box h2 { color: #2c3e50; font-size: 1.2rem; margin-bottom: 10px; }
-        .datos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 20px; }
+        .datos-box { background: var(--light); padding: 20px; border-radius: 12px; margin-bottom: 20px; flex-shrink: 0; }
+        .datos-box h2 { color: var(--dark); font-size: 1.1rem; margin-bottom: 15px; }
+        .datos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 20px; }
         .datos-box p { margin: 0; font-size: 0.95rem; }
-        .datos-box p strong { color: #2c3e50; }
-        .perfil-banner { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color: white; padding: 22px; border-radius: 12px; text-align: center; margin-bottom: 20px; flex-shrink: 0; }
-        .perfil-banner h3 { font-size: 1rem; font-weight: normal; opacity: 0.95; margin-bottom: 6px; }
-        .perfil-banner .perfil-nombre { font-size: 2.2rem; font-weight: bold; margin: 0; }
-        .grafico-box { background: #f8f9fa; padding: 18px; border-radius: 10px; border: 1px solid #e0e0e0; flex: 1; display: flex; flex-direction: column; min-height: 0; }
-        .grafico-box h3 { color: #2c3e50; text-align: center; font-size: 1.2rem; margin-bottom: 10px; flex-shrink: 0; }
-        .chart-container { position: relative; flex: 1; width: 100%; max-width: 500px; margin: 0 auto; min-height: 0; }
-        .footer-pdf { text-align: center; padding-top: 12px; border-top: 2px solid #e0e0e0; color: #7f8c8d; font-size: 0.8rem; margin-top: auto; flex-shrink: 0; }
-        .footer-pdf p { margin: 3px 0; }
+        .datos-box p strong { color: var(--dark); }
         
-        .puntajes-titulo { color: #2c3e50; font-size: 1.4rem; margin-bottom: 18px; flex-shrink: 0; }
-        .puntajes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; flex-shrink: 0; }
-        .puntaje-card { background: white; border: 2px solid #e0e0e0; border-radius: 10px; padding: 14px; display: flex; align-items: flex-start; gap: 12px; }
+        .perfil-banner { background: var(--gradient); color: white; padding: 25px; border-radius: 12px; text-align: center; margin-bottom: 20px; flex-shrink: 0; }
+        .perfil-banner h3 { font-size: 1rem; font-weight: 500; opacity: 0.95; margin-bottom: 8px; }
+        .perfil-banner .perfil-nombre { font-size: 2.2rem; font-weight: 800; margin: 0; }
+        
+        .grafico-box { background: var(--light); padding: 20px; border-radius: 12px; border: 1px solid #e0e0e0; flex: 1; display: flex; flex-direction: column; min-height: 0; }
+        .grafico-box h3 { color: var(--dark); text-align: center; font-size: 1.1rem; margin-bottom: 15px; flex-shrink: 0; }
+        .chart-container { position: relative; flex: 1; width: 100%; max-width: 500px; margin: 0 auto; min-height: 0; }
+        
+        .footer-pdf { text-align: center; padding-top: 15px; border-top: 2px solid #e0e0e0; color: var(--text-gray); font-size: 0.8rem; margin-top: auto; flex-shrink: 0; }
+        
+        .puntajes-titulo { color: var(--dark); font-size: 1.3rem; margin-bottom: 20px; flex-shrink: 0; }
+        .puntajes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; flex-shrink: 0; }
+        .puntaje-card { background: white; border: 2px solid #e0e0e0; border-radius: 12px; padding: 15px; display: flex; align-items: flex-start; gap: 15px; }
         .circulo-svg { width: 60px; height: 60px; flex-shrink: 0; }
         .circulo-svg .fondo { fill: none; stroke: #e0e0e0; stroke-width: 6; }
-        .circulo-svg .progreso { fill: none; stroke: #27ae60; stroke-width: 6; stroke-linecap: round; transform: rotate(-90deg); transform-origin: 50% 50%; }
-        .circulo-svg .numero { font-size: 18px; font-weight: bold; fill: #27ae60; text-anchor: middle; dominant-baseline: central; }
+        .circulo-svg .progreso { fill: none; stroke: var(--primary); stroke-width: 6; stroke-linecap: round; transform: rotate(-90deg); transform-origin: 50% 50%; }
+        .circulo-svg .numero { font-size: 18px; font-weight: bold; fill: var(--primary); text-anchor: middle; dominant-baseline: central; }
         .puntaje-info { flex: 1; min-width: 0; }
-        .puntaje-info h4 { margin: 0 0 4px 0; color: #2c3e50; font-size: 1rem; }
-        .puntaje-info .desc { margin: 0; font-size: 0.8rem; color: #7f8c8d; line-height: 1.25; }
-        .puntaje-barra { height: 5px; background: #e0e0e0; border-radius: 3px; margin-top: 6px; overflow: hidden; }
-        .puntaje-barra-fill { height: 100%; background: linear-gradient(90deg, #27ae60, #2ecc71); border-radius: 3px; }
-        .puntaje-info .puntos { font-size: 0.75rem; color: #95a5a6; margin-top: 4px; }
+        .puntaje-info h4 { margin: 0 0 5px 0; color: var(--dark); font-size: 1rem; }
+        .puntaje-info .desc { margin: 0; font-size: 0.8rem; color: var(--text-gray); line-height: 1.3; }
+        .puntaje-barra { height: 6px; background: #e0e0e0; border-radius: 3px; margin-top: 8px; overflow: hidden; }
+        .puntaje-barra-fill { height: 100%; background: var(--gradient); border-radius: 3px; }
+        .puntaje-info .puntos { font-size: 0.75rem; color: #95a5a6; margin-top: 5px; }
         
-        .carreras-box { margin-top: 18px; padding: 18px; background: #fff9e6; border-left: 5px solid #f39c12; border-radius: 8px; flex: 1; }
-        .carreras-box h3 { color: #e67e22; font-size: 1.2rem; margin-bottom: 12px; }
-        .carreras-box h4 { color: #2c3e50; font-size: 1rem; margin: 10px 0 6px 0; }
-        .carreras-box ul { margin: 4px 0 10px 0; padding-left: 22px; }
-        .carreras-box li { font-size: 0.9rem; margin: 4px 0; color: #2c3e50; }
-        .carreras-box .nota { font-size: 0.8rem; color: #7f8c8d; font-style: italic; margin-top: 10px; }
+        .carreras-box { margin-top: 20px; padding: 20px; background: #fff9e6; border-left: 5px solid #f39c12; border-radius: 12px; flex: 1; }
+        .carreras-box h3 { color: #e67e22; font-size: 1.1rem; margin-bottom: 12px; }
+        .carreras-box h4 { color: var(--dark); font-size: 1rem; margin: 12px 0 8px 0; }
+        .carreras-box ul { margin: 4px 0 12px 0; padding-left: 22px; }
+        .carreras-box li { font-size: 0.9rem; margin: 5px 0; color: var(--dark); }
+        .carreras-box .nota { font-size: 0.8rem; color: var(--text-gray); font-style: italic; margin-top: 12px; }
 
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         @media (max-width: 850px) {
             .pagina-a4 { width: 100%; height: auto; padding: 20px; }
+            .container { padding: 25px; }
+            .search-box { flex-direction: column; }
+            .puntajes-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
 <!-- SECCIÓN DE LOGIN -->
-<div class="container login-container" id="loginSection">
-    <h1>🔐 Acceso Administrativo</h1>
-    <h2>EMAGES Academy</h2>
-    <input type="password" id="passwordInput" placeholder="Ingresa la contraseña de administrador">
-    <button onclick="verificarPassword()">Ingresar al Panel</button>
-    <p id="loginError" class="error" style="margin-top: 15px;"></p>
+<div class="login-overlay" id="loginSection">
+    <div class="login-box">
+        <img src="assets/Pluma-sin-fondo.png" alt="EMAGES" class="logo">
+        <h2>Acceso Administrativo</h2>
+        <p style="color: var(--text-gray); font-size: 0.9rem; margin-bottom: 20px;">Panel de Gestión EMAGES Academy</p>
+        <input type="password" id="passwordInput" placeholder="Contraseña de administrador" onkeypress="if(event.key === 'Enter') verificarPassword()">
+        <button class="btn btn-primary" style="width: 100%;" onclick="verificarPassword()">Ingresar al Panel</button>
+        <p id="loginError" class="msg error" style="margin-top: 15px; display: none;">Contraseña incorrecta</p>
+    </div>
 </div>
 
-<!-- SECCIÓN DEL PANEL (Oculta por defecto) -->
-<div class="container" id="panelSection" style="display: none;">
-    <h1>📊 Panel Administrativo EMAGES</h1>
-    
-    <div style="margin-bottom: 20px;">
-        <label style="font-weight: bold;">Buscar estudiante por DNI:</label>
-        <input type="text" id="dniBusqueda" placeholder="Ingresa el DNI (8 dígitos)" maxlength="8">
-        <button onclick="buscarEstudiante()" class="btn-buscar">🔍 Buscar</button>
-        <button onclick="cerrarSesion()" class="btn-logout">🚪 Cerrar Sesión</button>
-        <p id="mensajeBusqueda"></p>
+<!-- SECCIÓN DEL PANEL -->
+<div class="container" id="panelSection">
+    <div class="admin-header">
+        <div class="logo">
+            <img src="assets/Pluma-sin-fondo.png" alt="EMAGES Academy">
+            <div>
+                <div class="marca">EMAGES Academy</div>
+                <div class="submarca">Panel de Administración</div>
+            </div>
+        </div>
+        <button class="btn btn-secondary" onclick="cerrarSesion()">🚪 Cerrar Sesión</button>
     </div>
+    
+    <div class="search-box">
+        <input type="text" id="dniBusqueda" placeholder="Buscar estudiante por DNI (8 dígitos)" maxlength="8" inputmode="numeric">
+        <button onclick="buscarEstudiante()" class="btn btn-primary">🔍 Buscar</button>
+    </div>
+    <div id="mensajeBusqueda"></div>
 
-    <!-- Info de Intentos (NUEVO) -->
+    <!-- Info de Intentos -->
     <div id="infoIntentos" class="info-intentos">
-        <p>Intentos de test realizados: <span id="spanIntentos">0</span> / 3</p>
-        <button onclick="reactivarIntentos()" id="btnReactivar" class="btn-reactivar">🔄 Reactivar Intentos (Reset a 0)</button>
+        <p>Intentos de test realizados: <span id="spanIntentos" style="font-size: 1.3rem;">0</span> / 3</p>
+        <button onclick="reactivarIntentos()" id="btnReactivar" class="btn btn-warning">🔄 Reactivar Intentos (Reset a 0)</button>
     </div>
 
     <div class="resultado" id="resultadoBusqueda">
-        <button onclick="generarPDF()" class="btn-pdf">📄 Descargar PDF Profesional</button>
+        <button onclick="generarPDF()" class="btn btn-success" style="width: 100%; margin-bottom: 30px; font-size: 1.1rem;">📄 Descargar Informe PDF Profesional</button>
         
-        <!-- PÁGINA 1 -->
+        <!-- PÁGINA 1 DEL PDF -->
         <div class="pagina-a4" id="pagina1">
             <div class="header-pdf">
-                <div class="header-logo">🎓 EMAGES Academy</div>
-                <div>
+                <div class="header-logo">
+                    <img src="assets/Pluma-sin-fondo.png" alt="EMAGES"> EMAGES Academy
+                </div>
+                <div style="text-align: right;">
                     <div class="header-titulo">Informe de Evaluación Vocacional</div>
                     <div class="header-subtitulo">Test RIASEC - 50 preguntas</div>
                 </div>
@@ -144,11 +241,11 @@
             </div>
             <div class="footer-pdf">
                 <p><strong>EMAGES GROUP S.A.C.</strong> - RUC: 20611427671</p>
-                <p>www.emagesgroup.com | academy.emagesgroup.com</p>
+                <p>academy.emagesgroup.com</p>
             </div>
         </div>
 
-        <!-- PÁGINA 2 -->
+        <!-- PÁGINA 2 DEL PDF -->
         <div class="pagina-a4" id="pagina2">
             <h2 class="puntajes-titulo">📊 Puntuaciones del Test Vocacional</h2>
             <div class="puntajes-grid" id="puntajesGrid"></div>
@@ -158,7 +255,6 @@
             </div>
             <div class="footer-pdf">
                 <p><strong>EMAGES GROUP S.A.C.</strong> - RUC: 20611427671</p>
-                <p>www.emagesgroup.com | academy.emagesgroup.com</p>
                 <p style="font-style: italic; font-size: 0.75rem; margin-top: 6px;">
                     Informe de orientación vocacional basado en el modelo RIASEC de Holland.
                 </p>
@@ -187,9 +283,10 @@
             document.getElementById('loginSection').style.display = 'none';
             document.getElementById('panelSection').style.display = 'block';
             document.getElementById('passwordInput').value = '';
-            document.getElementById('loginError').textContent = '';
+            document.getElementById('loginError').style.display = 'none';
         } else {
-            document.getElementById('loginError').textContent = '⚠️ Contraseña incorrecta. Intenta de nuevo.';
+            document.getElementById('loginError').style.display = 'block';
+            document.getElementById('passwordInput').value = '';
         }
     }
 
@@ -229,12 +326,12 @@
     }
 
     function buscarEstudiante() {
-        const dni = document.getElementById('dniBusqueda').value;
+        const dni = document.getElementById('dniBusqueda').value.trim();
         const mensajeDiv = document.getElementById('mensajeBusqueda');
         if (!dni || dni.length !== 8) {
-            mensajeDiv.className = 'error'; mensajeDiv.textContent = '⚠️ Ingresa un DNI válido de 8 dígitos'; return;
+            mensajeDiv.className = 'msg error'; mensajeDiv.textContent = '⚠️ Ingresa un DNI válido de 8 dígitos'; return;
         }
-        mensajeDiv.className = 'cargando'; mensajeDiv.textContent = '🔍 Buscando...';
+        mensajeDiv.className = 'msg loading'; mensajeDiv.textContent = '⏳ Buscando en la base de datos...';
         document.getElementById('resultadoBusqueda').style.display = 'none';
         document.getElementById('infoIntentos').style.display = 'none';
         
@@ -245,7 +342,6 @@
                 datosEstudiante = data.estudiante;
                 datosResultado = data.resultado;
                 
-                // Mostrar intentos
                 const intentos = datosEstudiante.intentosTest || 0;
                 document.getElementById('spanIntentos').textContent = intentos;
                 document.getElementById('infoIntentos').style.display = 'block';
@@ -265,21 +361,21 @@
                     document.getElementById('p1Fecha').textContent = 'Aún no realiza el test';
                     document.getElementById('p1Perfil').textContent = 'Pendiente';
                     if (chartInstance) { chartInstance.destroy(); chartInstance = null; }
-                    document.getElementById('puntajesGrid').innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #7f8c8d; padding: 20px;">El estudiante aún no ha completado el test vocacional.</p>';
+                    document.getElementById('puntajesGrid').innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-gray); padding: 20px;">El estudiante aún no ha completado el test vocacional.</p>';
                     document.getElementById('carrerasContenido').innerHTML = '';
                 }
                 
                 document.getElementById('resultadoBusqueda').style.display = 'block';
-                mensajeDiv.className = 'exito'; mensajeDiv.textContent = '✅ Estudiante encontrado';
+                mensajeDiv.className = 'msg success'; mensajeDiv.textContent = '✅ Estudiante encontrado exitosamente';
             } else {
-                mensajeDiv.className = 'error'; mensajeDiv.textContent = '❌ ' + data.mensaje;
+                mensajeDiv.className = 'msg error'; mensajeDiv.textContent = '❌ ' + data.mensaje;
                 document.getElementById('resultadoBusqueda').style.display = 'none';
                 document.getElementById('infoIntentos').style.display = 'none';
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            mensajeDiv.className = 'error'; mensajeDiv.textContent = '❌ Error de conexión';
+            mensajeDiv.className = 'msg error'; mensajeDiv.textContent = '❌ Error de conexión. Intenta nuevamente.';
         });
     }
 
@@ -327,10 +423,10 @@
                 datasets: [{
                     label: 'Puntaje Vocacional',
                     data: [datos.puntajeR, datos.puntajeI, datos.puntajeA, datos.puntajeS, datos.puntajeE, datos.puntajeC],
-                    backgroundColor: 'rgba(231, 76, 60, 0.2)',
-                    borderColor: 'rgba(231, 76, 60, 1)',
+                    backgroundColor: 'rgba(255, 107, 74, 0.2)',
+                    borderColor: 'rgba(255, 107, 74, 1)',
                     borderWidth: 2.5,
-                    pointBackgroundColor: 'rgba(231, 76, 60, 1)',
+                    pointBackgroundColor: 'rgba(255, 107, 74, 1)',
                     pointBorderColor: '#fff',
                     pointBorderWidth: 2,
                     pointRadius: 6,
@@ -343,9 +439,9 @@
                     r: {
                         beginAtZero: true, min: 0, max: 36,
                         ticks: { stepSize: 6, backdropColor: 'transparent', font: { size: 11, weight: 'bold' } },
-                        grid: { color: 'rgba(0, 0, 0, 0.15)', lineWidth: 1 },
-                        angleLines: { color: 'rgba(0, 0, 0, 0.15)', lineWidth: 1 },
-                        pointLabels: { font: { size: 13, weight: 'bold' }, color: '#2c3e50', padding: 10 }
+                        grid: { color: 'rgba(0, 0, 0, 0.1)', lineWidth: 1 },
+                        angleLines: { color: 'rgba(0, 0, 0, 0.1)', lineWidth: 1 },
+                        pointLabels: { font: { size: 13, weight: 'bold' }, color: '#1a1a2e', padding: 10 }
                     }
                 },
                 plugins: { legend: { display: false } }
@@ -399,7 +495,7 @@
     async function generarPDF() {
         const { jsPDF } = window.jspdf;
         const pdf = new jsPDF('p', 'mm', 'a4');
-        const btn = document.querySelector('.btn-pdf');
+        const btn = document.querySelector('.btn-success');
         const textoOriginal = btn.textContent;
         btn.textContent = '⏳ Generando PDF...';
         btn.disabled = true;
@@ -414,7 +510,7 @@
             
             const dni = datosEstudiante.dni;
             const nombres = datosEstudiante.nombres.replace(/\s+/g, '_');
-            pdf.save(`${dni}_${nombres}_EMAGES.pdf`);
+            pdf.save(`${dni}_${nombres}_Informe_Vocacional_EMAGES.pdf`);
             
             btn.textContent = '✅ PDF Descargado';
             setTimeout(() => { btn.textContent = textoOriginal; btn.disabled = false; }, 2000);
