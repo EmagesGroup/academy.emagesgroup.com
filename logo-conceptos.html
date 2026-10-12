@@ -3,15 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Logo Animado - EMAGES Academy</title>
+    <title>Logo Definitivo - EMAGES Academy</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: 'Poppins', sans-serif;
-            background: #0a0e27;
-            color: white;
-            min-height: 100vh;
+            background: #f8f9fa;
+            color: #1a1a2e;
             padding: 40px 20px;
         }
         .container { max-width: 1200px; margin: 0 auto; }
@@ -19,80 +18,65 @@
             text-align: center;
             font-size: 2.5rem;
             margin-bottom: 10px;
-            background: linear-gradient(135deg, #ff6b4a 0%, #ffd93d 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: #1a1a2e;
         }
         .subtitle {
             text-align: center;
-            color: #8892b0;
+            color: #7f8c8d;
             margin-bottom: 60px;
             font-size: 1.1rem;
         }
 
-        /* ===== LOGO ANIMADO 3D ===== */
-        .logo-demo {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 60px 0;
+        /* SECCIÓN DE LOGOS */
+        .logos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 80px;
         }
-        .flip-container {
-            perspective: 1000px;
-            width: 200px;
-            height: 200px;
-            cursor: pointer;
-        }
-        .flipper {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-            transform-style: preserve-3d;
-        }
-        .flip-container.flipped .flipper {
-            transform: rotateY(180deg);
-        }
-        .flip-front, .flip-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 20px 60px rgba(255, 107, 74, 0.3);
-        }
-        .flip-front {
-            background: linear-gradient(135deg, #ff6b4a 0%, #ff8c42 100%);
-        }
-        .flip-back {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            transform: rotateY(180deg);
-        }
-        .flip-front .letra-e {
-            font-size: 8rem;
-            font-weight: 900;
-            color: white;
-            font-style: italic;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
-        }
-        .flip-back svg {
-            width: 140px;
-            height: 140px;
-        }
-        .logo-label {
+        .logo-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
             text-align: center;
-            margin-top: 25px;
-            font-size: 1rem;
-            color: #8892b0;
         }
-        .logo-label strong {
-            color: #ff6b4a;
+        .logo-card h3 {
+            margin-top: 20px;
+            font-size: 1.3rem;
+            color: #1a1a2e;
+        }
+        .logo-card p {
+            color: #7f8c8d;
+            font-size: 0.95rem;
+            margin-top: 10px;
+        }
+        .logo-preview {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 200px;
         }
 
-        /* ===== HEADER DEMO ===== */
+        /* PLUMA EN DIFERENTES TAMAÑOS */
+        .pluma-sizes {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            margin: 40px 0;
+        }
+        .pluma-item {
+            text-align: center;
+        }
+        .pluma-item p {
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: #7f8c8d;
+        }
+
+        /* HEADER DEMO */
         .header-demo {
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             padding: 20px 40px;
@@ -108,7 +92,7 @@
             align-items: center;
             gap: 15px;
         }
-        .header-logo .icono-gallito {
+        .header-logo .logo-circular {
             width: 50px;
             height: 50px;
         }
@@ -147,67 +131,25 @@
             border-radius: 25px;
         }
 
-        /* ===== HERO DEMO ===== */
-        .hero-demo {
-            background: linear-gradient(135deg, rgba(26, 26, 46, 0.9) 0%, rgba(22, 33, 62, 0.9) 100%), 
-                        url('assets/hero.jpg');
-            background-size: cover;
-            background-position: center;
-            padding: 100px 40px;
-            border-radius: 20px;
-            text-align: center;
-            margin: 60px 0;
-            position: relative;
-            overflow: hidden;
-        }
-        .hero-demo::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(255, 107, 74, 0.15) 0%, transparent 70%);
-            border-radius: 50%;
-        }
-        .hero-demo h2 {
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 2;
-        }
-        .hero-demo h2 span {
-            color: #ff6b4a;
-        }
-        .hero-demo p {
-            font-size: 1.2rem;
-            color: #ccd6f6;
-            max-width: 600px;
-            margin: 0 auto 30px;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* ===== USO EN TEXTOS ===== */
+        /* TEXTOS CON PLUMA */
         .textos-demo {
             background: white;
-            color: #1a1a2e;
             padding: 50px 40px;
             border-radius: 20px;
             margin: 60px 0;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
         }
         .textos-demo h3 {
             font-size: 1.8rem;
             margin-bottom: 30px;
             color: #1a1a2e;
         }
-        .lista-beneficios {
+        .lista-pluma {
             list-style: none;
             display: grid;
             gap: 20px;
         }
-        .lista-beneficios li {
+        .lista-pluma li {
             display: flex;
             align-items: center;
             gap: 15px;
@@ -218,109 +160,231 @@
             border-radius: 12px;
             border-left: 4px solid #ff6b4a;
         }
-        .lista-beneficios li .icono-bullet {
-            width: 32px;
-            height: 32px;
+        .lista-pluma li .pluma-icon {
+            width: 28px;
+            height: 28px;
             flex-shrink: 0;
         }
 
-        /* ===== SECCIÓN DE INSTRUCCIONES ===== */
-        .instrucciones {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            padding: 40px;
-            border-radius: 20px;
+        /* BOTONES CON PLUMA */
+        .botones-demo {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
             margin: 60px 0;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 28px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #ff6b4a 0%, #ff8c42 100%);
+            color: white;
+            box-shadow: 0 5px 20px rgba(255, 107, 74, 0.4);
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 107, 74, 0.6);
+        }
+        .btn-secondary {
+            background: #1a1a2e;
+            color: white;
+        }
+        .btn-secondary:hover {
+            background: #16213e;
+            transform: translateY(-3px);
+        }
+        .btn-outline {
+            background: transparent;
+            color: #ff6b4a;
             border: 2px solid #ff6b4a;
         }
-        .instrucciones h3 {
-            color: #ff6b4a;
+        .btn-outline:hover {
+            background: #ff6b4a;
+            color: white;
+        }
+        .btn .pluma-btn {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* CERTIFICADO DEMO */
+        .certificado-demo {
+            background: white;
+            padding: 60px 40px;
+            border-radius: 20px;
+            margin: 60px 0;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            text-align: center;
+            position: relative;
+            border: 3px solid #ff6b4a;
+        }
+        .certificado-demo::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><circle cx="100" cy="100" r="95" fill="%23ff6b4a" opacity="0.05"/><path d="M 100 40 C 112 40, 117 46, 117 53 C 117 58, 113 61, 108 63 L 108 77 C 122 80, 132 90, 132 102 C 132 116, 120 123, 108 121 L 108 144 C 108 150, 104 155, 100 155 C 96 155, 92 150, 92 144 L 92 121 C 80 123, 68 116, 68 102 C 68 90, 78 80, 92 77 L 92 63 C 87 61, 83 58, 83 53 C 83 46, 88 40, 100 40 Z" fill="%23ff6b4a" opacity="0.05"/></svg>') center/contain no-repeat;
+            opacity: 0.3;
+        }
+        .certificado-demo h2 {
+            font-size: 2rem;
+            color: #1a1a2e;
             margin-bottom: 20px;
-            font-size: 1.5rem;
+            position: relative;
         }
-        .instrucciones ol {
-            color: #ccd6f6;
-            padding-left: 25px;
-            line-height: 2;
-            font-size: 1.05rem;
-        }
-        .instrucciones ol li strong {
-            color: #ffd93d;
+        .certificado-demo p {
+            font-size: 1.1rem;
+            color: #7f8c8d;
+            position: relative;
         }
 
         @media (max-width: 768px) {
             .header-demo { flex-direction: column; gap: 20px; }
             .header-nav { flex-wrap: wrap; justify-content: center; }
-            .hero-demo h2 { font-size: 2rem; }
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1> Logo Animado - EMAGES Academy</h1>
-    <p class="subtitle">Efecto flip 3D: E de EMAGES → Gallito de las Rocas</p>
+    <h1>🪶 Logo Definitivo - EMAGES Academy</h1>
+    <p class="subtitle">Pluma estilizada + Gallito circular</p>
 
-    <!-- LOGO ANIMADO -->
-    <div class="logo-demo">
-        <div>
-            <div class="flip-container" id="logoFlip" onclick="toggleFlip()">
-                <div class="flipper">
-                    <!-- FRENTE: Letra E -->
-                    <div class="flip-front">
-                        <div class="letra-e">E</div>
-                    </div>
-                    <!-- REVERSO: Gallito -->
-                    <div class="flip-back">
-                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Círculo de fondo con degradado -->
-                            <defs>
-                                <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" style="stop-color:#ff6b4a;stop-opacity:1" />
-                                    <stop offset="100%" style="stop-color:#ff8c42;stop-opacity:1" />
-                                </linearGradient>
-                            </defs>
-                            <circle cx="100" cy="100" r="95" fill="url(#grad1)" opacity="0.3"/>
-                            <circle cx="100" cy="100" r="80" fill="url(#grad1)" opacity="0.5"/>
-                            
-                            <!-- Silueta del Gallito de las Rocas (estilizada, blanca) -->
-                            <path d="M 100 35 
-                                     C 115 35, 120 42, 120 50
-                                     C 120 55, 115 58, 110 60
-                                     L 110 75
-                                     C 125 78, 135 88, 135 100
-                                     C 135 115, 122 122, 110 120
-                                     L 110 145
-                                     C 110 152, 105 158, 100 158
-                                     C 95 158, 90 152, 90 145
-                                     L 90 120
-                                     C 78 122, 65 115, 65 100
-                                     C 65 88, 75 78, 90 75
-                                     L 90 60
-                                     C 85 58, 80 55, 80 50
-                                     C 80 42, 85 35, 100 35 Z" 
-                                  fill="white"/>
-                            
-                            <!-- Cresta naranja (característica del Gallito) -->
-                            <path d="M 85 35 
-                                     C 80 28, 85 22, 95 20
-                                     C 100 19, 105 20, 110 22
-                                     C 115 24, 118 28, 115 35
-                                     Z" 
-                                  fill="#ffd93d"/>
-                        </svg>
-                    </div>
-                </div>
+    <!-- LOGOS PRINCIPALES -->
+    <div class="logos-grid">
+        <!-- PLUMA -->
+        <div class="logo-card">
+            <div class="logo-preview">
+                <svg width="150" height="150" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Pluma del Gallito de las Rocas -->
+                    <defs>
+                        <linearGradient id="plumaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#ff6b4a;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#ff8c42;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#1a1a2e;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <!-- Forma de la pluma -->
+                    <path d="M 100 20 
+                             C 120 20, 140 40, 150 70
+                             C 160 100, 150 140, 130 160
+                             C 120 170, 110 175, 100 175
+                             C 90 175, 80 170, 70 160
+                             C 50 140, 40 100, 50 70
+                             C 60 40, 80 20, 100 20 Z" 
+                          fill="url(#plumaGrad)"/>
+                    <!-- Línea central de la pluma (raquis) -->
+                    <line x1="100" y1="25" x2="100" y2="170" stroke="#1a1a2e" stroke-width="3" stroke-linecap="round"/>
+                    <!-- Detalles de las barbas -->
+                    <path d="M 100 50 Q 120 60, 130 80" stroke="#1a1a2e" stroke-width="2" fill="none" opacity="0.6"/>
+                    <path d="M 100 70 Q 125 80, 135 100" stroke="#1a1a2e" stroke-width="2" fill="none" opacity="0.6"/>
+                    <path d="M 100 90 Q 120 100, 130 120" stroke="#1a1a2e" stroke-width="2" fill="none" opacity="0.6"/>
+                    <path d="M 100 110 Q 115 120, 120 140" stroke="#1a1a2e" stroke-width="2" fill="none" opacity="0.6"/>
+                    <path d="M 100 50 Q 80 60, 70 80" stroke="#1a1a2e" stroke-width="2" fill="none" opacity="0.6"/>
+                    <path d="M 100 70 Q 75 80, 65 100" stroke="#1a1a2e" stroke-width="2" fill="none" opacity="0.6"/>
+                    <path d="M 100 90 Q 80 100, 70 120" stroke="#1a1a2e" stroke-width="2" fill="none" opacity="0.6"/>
+                    <path d="M 100 110 Q 85 120, 80 140" stroke="#1a1a2e" stroke-width="2" fill="none" opacity="0.6"/>
+                </svg>
             </div>
-            <p class="logo-label">👆 <strong>Haz clic</strong> para girar el logo</p>
+            <h3>Pluma Estilizada</h3>
+            <p>Para textos, bullets y detalles. Naranja + Negro.</p>
+        </div>
+
+        <!-- GALLITO CIRCULAR -->
+        <div class="logo-card">
+            <div class="logo-preview">
+                <svg width="150" height="150" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="gallitoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#ff6b4a;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#ff8c42;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <!-- Círculo de fondo -->
+                    <circle cx="100" cy="100" r="95" fill="url(#gallitoGrad)"/>
+                    <!-- Silueta del Gallito de las Rocas (blanca) -->
+                    <path d="M 100 35 
+                             C 115 35, 120 42, 120 50
+                             C 120 55, 115 58, 110 60
+                             L 110 75
+                             C 125 78, 135 88, 135 100
+                             C 135 115, 122 122, 110 120
+                             L 110 145
+                             C 110 152, 105 158, 100 158
+                             C 95 158, 90 152, 90 145
+                             L 90 120
+                             C 78 122, 65 115, 65 100
+                             C 65 88, 75 78, 90 75
+                             L 90 60
+                             C 85 58, 80 55, 80 50
+                             C 80 42, 85 35, 100 35 Z" 
+                          fill="white"/>
+                    <!-- Cresta naranja (característica del Gallito) -->
+                    <path d="M 85 35 
+                             C 80 28, 85 22, 95 20
+                             C 100 19, 105 20, 110 22
+                             C 115 24, 118 28, 115 35
+                             Z" 
+                          fill="#ffd93d"/>
+                </svg>
+            </div>
+            <h3>Gallito Circular</h3>
+            <p>Logo principal para header, favicon y branding.</p>
+        </div>
+    </div>
+
+    <!-- PLUMA EN DIFERENTES TAMAÑOS -->
+    <h2 style="text-align: center; margin: 40px 0 20px; color: #7f8c8d;">📏 Pluma en Diferentes Tamaños</h2>
+    <div class="pluma-sizes">
+        <div class="pluma-item">
+            <svg width="16" height="16" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <path d="M 100 20 C 120 20, 140 40, 150 70 C 160 100, 150 140, 130 160 C 120 170, 110 175, 100 175 C 90 175, 80 170, 70 160 C 50 140, 40 100, 50 70 C 60 40, 80 20, 100 20 Z" fill="#ff6b4a"/>
+                <line x1="100" y1="25" x2="100" y2="170" stroke="#1a1a2e" stroke-width="4"/>
+            </svg>
+            <p>16x16px<br>(Favicon)</p>
+        </div>
+        <div class="pluma-item">
+            <svg width="32" height="32" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <path d="M 100 20 C 120 20, 140 40, 150 70 C 160 100, 150 140, 130 160 C 120 170, 110 175, 100 175 C 90 175, 80 170, 70 160 C 50 140, 40 100, 50 70 C 60 40, 80 20, 100 20 Z" fill="#ff6b4a"/>
+                <line x1="100" y1="25" x2="100" y2="170" stroke="#1a1a2e" stroke-width="4"/>
+            </svg>
+            <p>32x32px<br>(Íconos UI)</p>
+        </div>
+        <div class="pluma-item">
+            <svg width="64" height="64" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <path d="M 100 20 C 120 20, 140 40, 150 70 C 160 100, 150 140, 130 160 C 120 170, 110 175, 100 175 C 90 175, 80 170, 70 160 C 50 140, 40 100, 50 70 C 60 40, 80 20, 100 20 Z" fill="#ff6b4a"/>
+                <line x1="100" y1="25" x2="100" y2="170" stroke="#1a1a2e" stroke-width="3"/>
+            </svg>
+            <p>64x64px<br>(Tarjetas)</p>
+        </div>
+        <div class="pluma-item">
+            <svg width="128" height="128" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <path d="M 100 20 C 120 20, 140 40, 150 70 C 160 100, 150 140, 130 160 C 120 170, 110 175, 100 175 C 90 175, 80 170, 70 160 C 50 140, 40 100, 50 70 C 60 40, 80 20, 100 20 Z" fill="#ff6b4a"/>
+                <line x1="100" y1="25" x2="100" y2="170" stroke="#1a1a2e" stroke-width="3"/>
+            </svg>
+            <p>128x128px<br>(Decorativo)</p>
         </div>
     </div>
 
     <!-- HEADER DEMO -->
-    <h2 style="text-align: center; margin: 40px 0 20px; color: #8892b0;"> Aplicación en Header</h2>
+    <h2 style="text-align: center; margin: 40px 0 20px; color: #7f8c8d;"> Aplicación en Header</h2>
     <div class="header-demo">
         <div class="header-logo">
-            <!-- Ícono del Gallito (versión estática para header) -->
-            <svg class="icono-gallito" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <svg class="logo-circular" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                     <linearGradient id="gradHeader" x1="0%" y1="0%" x2="100%" y2="100%">
                         <stop offset="0%" style="stop-color:#ff6b4a;stop-opacity:1" />
@@ -344,95 +408,76 @@
         </div>
     </div>
 
-    <!-- HERO DEMO -->
-    <h2 style="text-align: center; margin: 40px 0 20px; color: #8892b0;">🎯 Aplicación en Hero</h2>
-    <div class="hero-demo">
-        <svg style="width: 80px; height: 80px; margin-bottom: 20px;" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-                <linearGradient id="gradHero" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" style="stop-color:#ff6b4a;stop-opacity:1" />
-                    <stop offset="100%" style="stop-color:#ff8c42;stop-opacity:1" />
-                </linearGradient>
-            </defs>
-            <circle cx="100" cy="100" r="95" fill="url(#gradHero)"/>
-            <path d="M 100 40 C 112 40, 117 46, 117 53 C 117 58, 113 61, 108 63 L 108 77 C 122 80, 132 90, 132 102 C 132 116, 120 123, 108 121 L 108 144 C 108 150, 104 155, 100 155 C 96 155, 92 150, 92 144 L 92 121 C 80 123, 68 116, 68 102 C 68 90, 78 80, 92 77 L 92 63 C 87 61, 83 58, 83 53 C 83 46, 88 40, 100 40 Z" fill="white"/>
-            <path d="M 87 40 C 82 33, 87 27, 96 25 C 101 24, 106 25, 111 27 C 115 29, 117 33, 113 40 Z" fill="#ffd93d"/>
-        </svg>
-        <h2>Tu Futuro Profesional<br><span>Empieza Aquí</span></h2>
-        <p>Formación que transforma tu futuro profesional con simulacros, evaluaciones y cursos certificados.</p>
-    </div>
-
-    <!-- USO EN TEXTOS -->
-    <h2 style="text-align: center; margin: 40px 0 20px; color: #8892b0;">📝 Uso del Ícono en Textos</h2>
+    <!-- TEXTOS CON PLUMA -->
+    <h2 style="text-align: center; margin: 40px 0 20px; color: #7f8c8d;">📝 Pluma en Textos (Bullets)</h2>
     <div class="textos-demo">
         <h3>¿Qué encontrarás en el Campus?</h3>
-        <ul class="lista-beneficios">
+        <ul class="lista-pluma">
             <li>
-                <svg class="icono-bullet" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="100" cy="100" r="95" fill="#ff6b4a"/>
-                    <path d="M 100 40 C 112 40, 117 46, 117 53 C 117 58, 113 61, 108 63 L 108 77 C 122 80, 132 90, 132 102 C 132 116, 120 123, 108 121 L 108 144 C 108 150, 104 155, 100 155 C 96 155, 92 150, 92 144 L 92 121 C 80 123, 68 116, 68 102 C 68 90, 78 80, 92 77 L 92 63 C 87 61, 83 58, 83 53 C 83 46, 88 40, 100 40 Z" fill="white"/>
-                    <path d="M 87 40 C 82 33, 87 27, 96 25 C 101 24, 106 25, 111 27 C 115 29, 117 33, 113 40 Z" fill="#ffd93d"/>
+                <svg class="pluma-icon" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M 100 20 C 120 20, 140 40, 150 70 C 160 100, 150 140, 130 160 C 120 170, 110 175, 100 175 C 90 175, 80 170, 70 160 C 50 140, 40 100, 50 70 C 60 40, 80 20, 100 20 Z" fill="#ff6b4a"/>
+                    <line x1="100" y1="25" x2="100" y2="170" stroke="#1a1a2e" stroke-width="4"/>
                 </svg>
                 <strong>Simulacros de Admisión</strong> - Practica con exámenes tipo UNI, San Marcos y más
             </li>
             <li>
-                <svg class="icono-bullet" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="100" cy="100" r="95" fill="#ff6b4a"/>
-                    <path d="M 100 40 C 112 40, 117 46, 117 53 C 117 58, 113 61, 108 63 L 108 77 C 122 80, 132 90, 132 102 C 132 116, 120 123, 108 121 L 108 144 C 108 150, 104 155, 100 155 C 96 155, 92 150, 92 144 L 92 121 C 80 123, 68 116, 68 102 C 68 90, 78 80, 92 77 L 92 63 C 87 61, 83 58, 83 53 C 83 46, 88 40, 100 40 Z" fill="white"/>
-                    <path d="M 87 40 C 82 33, 87 27, 96 25 C 101 24, 106 25, 111 27 C 115 29, 117 33, 113 40 Z" fill="#ffd93d"/>
+                <svg class="pluma-icon" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M 100 20 C 120 20, 140 40, 150 70 C 160 100, 150 140, 130 160 C 120 170, 110 175, 100 175 C 90 175, 80 170, 70 160 C 50 140, 40 100, 50 70 C 60 40, 80 20, 100 20 Z" fill="#ff6b4a"/>
+                    <line x1="100" y1="25" x2="100" y2="170" stroke="#1a1a2e" stroke-width="4"/>
                 </svg>
                 <strong>Evaluaciones de Competencias</strong> - Descubre tu perfil profesional RIASEC
             </li>
             <li>
-                <svg class="icono-bullet" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="100" cy="100" r="95" fill="#ff6b4a"/>
-                    <path d="M 100 40 C 112 40, 117 46, 117 53 C 117 58, 113 61, 108 63 L 108 77 C 122 80, 132 90, 132 102 C 132 116, 120 123, 108 121 L 108 144 C 108 150, 104 155, 100 155 C 96 155, 92 150, 92 144 L 92 121 C 80 123, 68 116, 68 102 C 68 90, 78 80, 92 77 L 92 63 C 87 61, 83 58, 83 53 C 83 46, 88 40, 100 40 Z" fill="white"/>
-                    <path d="M 87 40 C 82 33, 87 27, 96 25 C 101 24, 106 25, 111 27 C 115 29, 117 33, 113 40 Z" fill="#ffd93d"/>
+                <svg class="pluma-icon" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M 100 20 C 120 20, 140 40, 150 70 C 160 100, 150 140, 130 160 C 120 170, 110 175, 100 175 C 90 175, 80 170, 70 160 C 50 140, 40 100, 50 70 C 60 40, 80 20, 100 20 Z" fill="#ff6b4a"/>
+                    <line x1="100" y1="25" x2="100" y2="170" stroke="#1a1a2e" stroke-width="4"/>
                 </svg>
                 <strong>Cursos Certificados</strong> - Cajero Bancario, Planillas, RRHH y más
             </li>
             <li>
-                <svg class="icono-bullet" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="100" cy="100" r="95" fill="#ff6b4a"/>
-                    <path d="M 100 40 C 112 40, 117 46, 117 53 C 117 58, 113 61, 108 63 L 108 77 C 122 80, 132 90, 132 102 C 132 116, 120 123, 108 121 L 108 144 C 108 150, 104 155, 100 155 C 96 155, 92 150, 92 144 L 92 121 C 80 123, 68 116, 68 102 C 68 90, 78 80, 92 77 L 92 63 C 87 61, 83 58, 83 53 C 83 46, 88 40, 100 40 Z" fill="white"/>
-                    <path d="M 87 40 C 82 33, 87 27, 96 25 C 101 24, 106 25, 111 27 C 115 29, 117 33, 113 40 Z" fill="#ffd93d"/>
+                <svg class="pluma-icon" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M 100 20 C 120 20, 140 40, 150 70 C 160 100, 150 140, 130 160 C 120 170, 110 175, 100 175 C 90 175, 80 170, 70 160 C 50 140, 40 100, 50 70 C 60 40, 80 20, 100 20 Z" fill="#ff6b4a"/>
+                    <line x1="100" y1="25" x2="100" y2="170" stroke="#1a1a2e" stroke-width="4"/>
                 </svg>
                 <strong>Soporte Personalizado</strong> - Atención y seguimiento para tu progreso
             </li>
         </ul>
     </div>
 
-    <!-- INSTRUCCIONES -->
-    <div class="instrucciones">
-        <h3>🎯 Cómo funciona el logo animado:</h3>
-        <ol>
-            <li><strong>Estado inicial:</strong> Muestra la "E" de EMAGES en un círculo naranja (tu favicon actual)</li>
-            <li><strong>Al hacer clic/hover:</strong> El logo gira 180° en 3D (efecto flip)</li>
-            <li><strong>Estado final:</strong> Revela el Gallito de las Rocas en círculo azul oscuro</li>
-            <li><strong>Se queda así:</strong> Permanece mostrando el gallito hasta que se recargue la página</li>
-            <li><strong>En el header:</strong> Se usa la versión estática del gallito (sin animación) para no distraer</li>
-            <li><strong>En textos:</strong> El ícono circular del gallito reemplaza los bullets tradicionales</li>
-        </ol>
+    <!-- BOTONES CON PLUMA -->
+    <h2 style="text-align: center; margin: 40px 0 20px; color: #7f8c8d;"> Pluma en Botones</h2>
+    <div class="botones-demo">
+        <button class="btn btn-primary">
+            <svg class="pluma-btn" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <path d="M 100 20 C 120 20, 140 40, 150 70 C 160 100, 150 140, 130 160 C 120 170, 110 175, 100 175 C 90 175, 80 170, 70 160 C 50 140, 40 100, 50 70 C 60 40, 80 20, 100 20 Z" fill="white"/>
+                <line x1="100" y1="25" x2="100" y2="170" stroke="#1a1a2e" stroke-width="4"/>
+            </svg>
+            Registrarme Gratis
+        </button>
+        <button class="btn btn-secondary">
+            <svg class="pluma-btn" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <path d="M 100 20 C 120 20, 140 40, 150 70 C 160 100, 150 140, 130 160 C 120 170, 110 175, 100 175 C 90 175, 80 170, 70 160 C 50 140, 40 100, 50 70 C 60 40, 80 20, 100 20 Z" fill="#ff6b4a"/>
+                <line x1="100" y1="25" x2="100" y2="170" stroke="white" stroke-width="4"/>
+            </svg>
+            Iniciar Sesión
+        </button>
+        <button class="btn btn-outline">
+            <svg class="pluma-btn" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <path d="M 100 20 C 120 20, 140 40, 150 70 C 160 100, 150 140, 130 160 C 120 170, 110 175, 100 175 C 90 175, 80 170, 70 160 C 50 140, 40 100, 50 70 C 60 40, 80 20, 100 20 Z" fill="#ff6b4a"/>
+                <line x1="100" y1="25" x2="100" y2="170" stroke="#1a1a2e" stroke-width="4"/>
+            </svg>
+            Ver Cursos
+        </button>
+    </div>
+
+    <!-- CERTIFICADO DEMO -->
+    <h2 style="text-align: center; margin: 40px 0 20px; color: #7f8c8d;"> Marca de Agua en Certificados</h2>
+    <div class="certificado-demo">
+        <h2>CERTIFICADO DE COMPLETITUD</h2>
+        <p>Se otorga el presente certificado a:<br><strong style="font-size: 1.5rem; color: #1a1a2e;">[Nombre del Estudiante]</strong><br><br>Por haber completado exitosamente el curso de<br><strong style="color: #ff6b4a;">[Nombre del Curso]</strong></p>
     </div>
 
 </div>
-
-<script>
-    function toggleFlip() {
-        const logo = document.getElementById('logoFlip');
-        logo.classList.toggle('flipped');
-        
-        // Una vez girado, se queda así (como pediste)
-        if (logo.classList.contains('flipped')) {
-            logo.style.cursor = 'default';
-        }
-    }
-
-    // Auto-giro después de 2 segundos para mostrar el efecto automáticamente
-    setTimeout(() => {
-        document.getElementById('logoFlip').classList.add('flipped');
-    }, 2000);
-</script>
 
 </body>
 </html>
