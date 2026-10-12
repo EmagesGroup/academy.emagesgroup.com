@@ -34,7 +34,6 @@
             flex-direction: column;
         }
 
-        /* Botón Volver */
         .btn-volver {
             position: fixed;
             top: 20px;
@@ -55,7 +54,6 @@
         }
         .btn-volver:hover { color: white; background: rgba(0,0,0,0.5); transform: translateX(-3px); }
 
-        /* Contenedor Principal */
         .main-container {
             flex: 1;
             width: 100%;
@@ -72,7 +70,6 @@
             animation: fadeInUp 0.6s ease;
         }
 
-        /* Header de la tarjeta */
         .policy-header {
             display: flex;
             align-items: center;
@@ -89,7 +86,6 @@
         .policy-title { font-size: 2rem; font-weight: 800; color: var(--dark); margin-bottom: 10px; }
         .policy-date { font-size: 0.9rem; color: var(--text-gray); margin-bottom: 40px; }
 
-        /* Contenido Legal */
         .policy-content h2 {
             font-size: 1.3rem;
             font-weight: 700;
@@ -129,7 +125,31 @@
         }
         .policy-content a:hover { text-decoration: underline; }
 
-        /* Footer */
+        /* CAJA LEGAL DE REGISTRO */
+        .legal-box {
+            background: var(--light);
+            padding: 25px;
+            border-radius: 12px;
+            margin-top: 40px;
+            border-left: 5px solid var(--primary);
+        }
+        .legal-box h3 {
+            margin-top: 0;
+            color: var(--dark);
+            font-size: 1.1rem;
+        }
+        .legal-box p {
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        .legal-box .codigo {
+            font-size: 1.2rem;
+            color: var(--primary);
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
         footer {
             background: #0a0e27;
             color: #bdc3c7;
@@ -147,6 +167,7 @@
             .policy-card { padding: 30px 25px; }
             .policy-title { font-size: 1.6rem; }
             .policy-content h2 { font-size: 1.1rem; }
+            .legal-box .codigo { font-size: 1rem; }
         }
     </style>
 </head>
@@ -190,29 +211,39 @@
                 </ul>
 
                 <h2>3. Seguridad y Protección de Datos</h2>
-                <p>Implementamos medidas de seguridad técnicas y administrativas para proteger tu información contra accesos no autorizados, pérdida o alteración. Tus credenciales de acceso (DNI y celular) son validadas de forma segura a través de nuestros servidores encriptados.</p>
+                <p>Implementamos medidas de seguridad técnicas y administrativas para proteger tu información contra accesos no autorizados, pérdida o alteración. Tus credenciales de acceso son validadas de forma segura a través de nuestros servidores.</p>
 
                 <h2>4. Compartir Información con Terceros</h2>
-                <p><strong>EMAGES Academy</strong> no vende, alquila ni comparte tu información personal con terceros con fines comerciales. Solo podremos compartir datos anonymizados o agregados para fines estadísticos, o cuando sea requerido por ley.</p>
+                <p><strong>EMAGES Academy</strong> no vende, alquila ni comparte tu información personal con terceros con fines comerciales. Solo podremos compartir datos anonimizados para fines estadísticos, o cuando sea requerido por ley.</p>
                 <p>En el caso de nuestros aliados empresariales para la bolsa de trabajo, solo se compartirá tu perfil profesional y CV si tú das tu consentimiento expreso al subirlo a la plataforma.</p>
 
                 <h2>5. Derechos del Usuario (ARCO)</h2>
-                <p>De acuerdo con la Ley de Protección de Datos Personales (Ley N° 29733), tienes derecho a acceder, rectificar, cancelar u oponerte al tratamiento de tus datos personales. Para ejercer estos derechos, puedes contactarnos directamente a través de nuestro WhatsApp de soporte o al correo de la empresa.</p>
+                <p>De acuerdo con la Ley de Protección de Datos Personales (Ley N° 29733), tienes derecho a acceder, rectificar, cancelar u oponerte al tratamiento de tus datos personales. Para ejercer estos derechos, puedes contactarnos directamente a través de nuestro WhatsApp de soporte.</p>
 
-                <h2>6. Uso de Cookies</h2>
-                <p>Utilizamos tecnologías de almacenamiento local (como <em>sessionStorage</em>) para mantener tu sesión activa de forma segura mientras navegas en la plataforma. No utilizamos cookies de rastreo invasivas.</p>
+                <h2>6. Uso de Almacenamiento Local</h2>
+                <p>Utilizamos tecnologías de almacenamiento local seguro (como <em>sessionStorage</em>) para mantener tu sesión activa mientras navegas en la plataforma, garantizando que tus datos se eliminen al cerrar la pestaña por tu propia seguridad.</p>
 
-                <h2>7. Cambios en estas Políticas</h2>
-                <p>Nos reservamos el derecho de modificar estas políticas en cualquier momento. Los cambios serán notificados a través de nuestra plataforma y entrarán en vigencia desde su publicación.</p>
-
-                <h2>8. Contacto</h2>
+                <h2>7. Contacto</h2>
                 <p>Si tienes alguna duda o inquietud sobre estas políticas, puedes contactarnos directamente:</p>
                 <ul>
                     <li><strong>WhatsApp de Soporte:</strong> <a href="https://wa.me/51930175586" target="_blank">+51 930 175 586</a></li>
                     <li><strong>Web Principal:</strong> <a href="https://academy.emagesgroup.com" target="_blank">academy.emagesgroup.com</a></li>
                 </ul>
-            </div>
 
+                <!-- CAJA LEGAL DE REGISTRO -->
+                <div class="legal-box">
+                    <h3>📋 Registro y Cumplimiento Legal</h3>
+                    <p>
+                        <strong>EMAGES GROUP S.A.C.</strong> garantiza el estricto cumplimiento de la <strong>Ley N° 29733</strong> (Ley de Protección de Datos Personales) y su Reglamento.
+                    </p>
+                    <p style="margin-bottom: 0;">
+                        Nos encontramos debidamente inscritos en el Registro Nacional de Protección de Datos Personales de la Autoridad Nacional de Protección de Datos Personales bajo el:
+                        <br><br>
+                        <span class="codigo">CÓDIGO DE BANCO DE DATOS PERSONALES: PJ-2026-5272</span>
+                    </p>
+                </div>
+
+            </div>
         </div>
     </div>
 
