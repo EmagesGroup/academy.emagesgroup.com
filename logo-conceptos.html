@@ -3,138 +3,199 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pluma Branding - EMAGES Academy</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <title>Pluma Demo - EMAGES Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary: #ff6b4a;
+            --primary-dark: #ff8c42;
+            --dark: #1a1a2e;
+            --dark-secondary: #16213e;
+            --light: #f8f9fa;
+            --white: #ffffff;
+            --gradient: linear-gradient(135deg, #ff6b4a 0%, #ff8c42 100%);
+        }
+
         * { box-sizing: border-box; margin: 0; padding: 0; }
+        
         body {
             font-family: 'Poppins', sans-serif;
-            background: #f8f9fa;
-            color: #1a1a2e;
-            padding: 40px 20px;
-        }
-        .container { max-width: 1200px; margin: 0 auto; }
-        h1 {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            color: #1a1a2e;
-        }
-        .subtitle {
-            text-align: center;
-            color: #7f8c8d;
-            margin-bottom: 60px;
-            font-size: 1.1rem;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
         }
 
-        /* SECCIÓN DE PLUMAS */
-        .plumas-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 80px;
-        }
-        .pluma-card {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
-            text-align: center;
-        }
-        .pluma-card h3 {
-            margin-top: 20px;
-            font-size: 1.2rem;
-            color: #1a1a2e;
-        }
-        .pluma-card p {
-            color: #7f8c8d;
-            font-size: 0.9rem;
-            margin-top: 10px;
-        }
-        .pluma-preview {
+        /* ===== HEADER CON PLUMA ===== */
+        .navbar {
+            background: var(--white);
+            padding: 15px 5%;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            min-height: 150px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .navbar .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .navbar .logo img.pluma-header {
+            height: 45px;
+            width: auto;
+        }
+        .navbar .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+        .navbar .logo-text .marca {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--dark);
+            line-height: 1;
+        }
+        .navbar .logo-text .submarca {
+            font-size: 0.7rem;
+            color: var(--primary);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .navbar .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            margin-left: 25px;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+        .navbar .nav-links a:hover { color: var(--primary); }
+        .navbar .btn-nav {
+            background: var(--gradient);
+            color: white !important;
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .navbar .btn-nav:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 107, 74, 0.4);
         }
 
-        /* APLICACIONES */
-        .aplicaciones {
-            background: white;
-            padding: 50px 40px;
-            border-radius: 20px;
-            margin-bottom: 60px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
-        }
-        .aplicaciones h2 {
-            font-size: 2rem;
-            margin-bottom: 40px;
-            color: #1a1a2e;
+        /* ===== HERO ===== */
+        .hero {
+            position: relative;
+            padding: 100px 5% 130px;
             text-align: center;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(26, 26, 46, 0.92) 0%, rgba(22, 33, 62, 0.92) 100%), 
+                        url('assets/hero.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        .hero-content { 
+            position: relative; 
+            z-index: 2; 
+            max-width: 900px; 
+            margin: 0 auto; 
+            color: white;
+        }
+        .hero-pluma {
+            width: 100px;
+            height: auto;
+            margin-bottom: 25px;
+            animation: fadeInDown 1s ease;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        .hero h1 span { color: var(--primary); }
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 35px;
+            opacity: 0.95;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
         }
 
-        /* LISTA CON PLUMA */
+        /* ===== SECCIONES ===== */
+        .seccion {
+            padding: 80px 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .seccion-titulo {
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        .seccion-titulo img {
+            width: 50px;
+            height: auto;
+        }
+
+        /* ===== LISTA CON PLUMA ===== */
         .lista-pluma {
             list-style: none;
             display: grid;
-            gap: 20px;
-            margin-bottom: 50px;
+            gap: 18px;
+            max-width: 800px;
+            margin: 0 auto;
         }
         .lista-pluma li {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 18px;
             font-size: 1.1rem;
-            color: #2c3e50;
+            color: var(--dark);
             padding: 18px 22px;
-            background: #f8f9fa;
+            background: white;
             border-radius: 12px;
-            border-left: 4px solid #ff6b4a;
+            border-left: 4px solid var(--primary);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             transition: all 0.3s;
         }
         .lista-pluma li:hover {
             transform: translateX(5px);
-            box-shadow: 0 5px 20px rgba(255, 107, 74, 0.15);
+            box-shadow: 0 8px 25px rgba(255, 107, 74, 0.15);
         }
-        .lista-pluma li .pluma-icon {
-            width: 28px;
-            height: 28px;
+        .lista-pluma li img.pluma-bullet {
+            width: 32px;
+            height: auto;
             flex-shrink: 0;
         }
 
-        /* SEPARADOR CON PLUMA */
-        .separador {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            margin: 50px 0;
-            color: #7f8c8d;
-            font-size: 0.9rem;
-        }
-        .separador .linea {
-            flex: 1;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #ff6b4a, transparent);
-        }
-        .separador .pluma-sep {
-            width: 40px;
-            height: 40px;
-        }
-
-        /* BOTONES CON PLUMA */
+        /* ===== BOTONES ===== */
         .botones-demo {
             display: flex;
             gap: 20px;
             flex-wrap: wrap;
             justify-content: center;
-            margin-bottom: 50px;
+            margin: 40px 0;
         }
         .btn {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            padding: 14px 28px;
+            gap: 12px;
+            padding: 14px 30px;
             border-radius: 30px;
             font-weight: 700;
             font-size: 1rem;
@@ -142,9 +203,10 @@
             transition: all 0.3s;
             border: none;
             cursor: pointer;
+            font-family: 'Poppins', sans-serif;
         }
         .btn-primary {
-            background: linear-gradient(135deg, #ff6b4a 0%, #ff8c42 100%);
+            background: var(--gradient);
             color: white;
             box-shadow: 0 5px 20px rgba(255, 107, 74, 0.4);
         }
@@ -152,370 +214,332 @@
             transform: translateY(-3px);
             box-shadow: 0 10px 30px rgba(255, 107, 74, 0.6);
         }
-        .btn-secondary {
-            background: #1a1a2e;
+        .btn-dark {
+            background: var(--dark);
             color: white;
         }
-        .btn-secondary:hover {
-            background: #16213e;
+        .btn-dark:hover {
+            background: var(--dark-secondary);
             transform: translateY(-3px);
         }
-        .btn .pluma-btn {
-            width: 20px;
-            height: 20px;
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
         }
-
-        /* HEADER DEMO */
-        .header-demo {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            padding: 20px 40px;
-            border-radius: 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 50px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-        }
-        .header-logo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        .header-logo .logo-img {
-            width: 50px;
-            height: 50px;
-        }
-        .header-logo .texto-logo {
-            display: flex;
-            flex-direction: column;
-        }
-        .header-logo .texto-logo .marca {
-            font-size: 1.5rem;
-            font-weight: 800;
+        .btn-outline:hover {
+            background: var(--primary);
             color: white;
-            line-height: 1;
         }
-        .header-logo .texto-logo .submarca {
-            font-size: 0.7rem;
-            color: #ff6b4a;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-        .header-nav {
-            display: flex;
-            gap: 30px;
-        }
-        .header-nav a {
-            color: #ccd6f6;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: color 0.3s;
-        }
-        .header-nav a:hover { color: #ff6b4a; }
-        .header-nav .btn-login {
-            background: linear-gradient(135deg, #ff6b4a 0%, #ff8c42 100%);
-            color: white !important;
-            padding: 10px 25px;
-            border-radius: 25px;
+        .btn img.pluma-btn {
+            width: 22px;
+            height: auto;
         }
 
-        /* TÍTULOS CON PLUMA */
-        .titulo-pluma {
+        /* ===== SEPARADOR ===== */
+        .separador {
             display: flex;
             align-items: center;
-            gap: 15px;
-            margin-bottom: 30px;
+            justify-content: center;
+            gap: 20px;
+            margin: 60px 0;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
-        .titulo-pluma h3 {
-            font-size: 1.8rem;
-            color: #1a1a2e;
-            margin: 0;
+        .separador .linea {
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
         }
-        .titulo-pluma .pluma-title {
-            width: 40px;
-            height: 40px;
+        .separador img {
+            width: 50px;
+            height: auto;
         }
 
-        /* BADGE CON PLUMA */
-        .badge-pluma {
+        /* ===== BADGES ===== */
+        .badges-demo {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 40px 0;
+        }
+        .badge {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: linear-gradient(135deg, #ff6b4a 0%, #ff8c42 100%);
+            background: var(--gradient);
             color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
+            padding: 8px 18px;
+            border-radius: 25px;
             font-size: 0.9rem;
             font-weight: 600;
-            margin: 10px;
         }
-        .badge-pluma .pluma-badge {
+        .badge img {
             width: 18px;
-            height: 18px;
+            height: auto;
+        }
+        .badge-dark {
+            background: var(--dark);
+        }
+
+        /* ===== TARJETAS ===== */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .card {
+            background: white;
+            padding: 35px 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            text-align: center;
+            transition: all 0.3s;
+            border-top: 4px solid transparent;
+        }
+        .card:hover {
+            transform: translateY(-8px);
+            border-top-color: var(--primary);
+            box-shadow: 0 15px 40px rgba(255, 107, 74, 0.15);
+        }
+        .card img.pluma-card {
+            width: 60px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        .card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            color: var(--dark);
+        }
+        .card p {
+            color: #7f8c8d;
+            font-size: 0.95rem;
+        }
+
+        /* ===== CTA OSCURO ===== */
+        .cta-oscuro {
+            background: var(--dark);
+            color: white;
+            padding: 80px 5%;
+            text-align: center;
+            margin-top: 60px;
+        }
+        .cta-oscuro img {
+            width: 80px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        .cta-oscuro h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        .cta-oscuro p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: #0a0e27;
+            color: #bdc3c7;
+            padding: 40px 5% 25px;
+            text-align: center;
+        }
+        footer img {
+            width: 60px;
+            height: auto;
+            margin-bottom: 15px;
+        }
+        footer p { margin-bottom: 10px; font-size: 0.9rem; }
+        footer a { color: var(--primary); text-decoration: none; font-weight: 600; }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @media (max-width: 768px) {
-            .header-demo { flex-direction: column; gap: 20px; }
-            .header-nav { flex-wrap: wrap; justify-content: center; }
+            .navbar { flex-direction: column; gap: 15px; }
+            .navbar .nav-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+            .navbar .nav-links a { margin-left: 0; }
+            .hero h1 { font-size: 2rem; }
+            .seccion-titulo { font-size: 1.6rem; flex-direction: column; }
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1> Pluma Branding - EMAGES Academy</h1>
-    <p class="subtitle">Elemento sutil con los colores del Gallito de las Rocas</p>
-
-    <!-- VARIANTES DE PLUMA -->
-    <div class="plumas-grid">
-        <!-- PLUMA 1: Naranja Sólida -->
-        <div class="pluma-card">
-            <div class="pluma-preview">
-                <svg width="100" height="100" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <linearGradient id="pluma1" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#ff6b4a;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#ff8c42;stop-opacity:1" />
-                        </linearGradient>
-                    </defs>
-                    <path d="M 100 20 
-                             C 120 20, 140 40, 150 70
-                             C 160 100, 150 140, 130 160
-                             C 120 170, 110 175, 100 175
-                             C 90 175, 80 170, 70 160
-                             C 50 140, 40 100, 50 70
-                             C 60 40, 80 20, 100 20 Z" 
-                          fill="url(#pluma1)"/>
-                    <line x1="100" y1="25" x2="100" y2="170" stroke="#1a1a2e" stroke-width="3" stroke-linecap="round"/>
-                </svg>
-            </div>
-            <h3>Pluma Naranja</h3>
-            <p>Versión principal con degradado naranja</p>
-        </div>
-
-        <!-- PLUMA 2: Naranja + Negro -->
-        <div class="pluma-card">
-            <div class="pluma-preview">
-                <svg width="100" height="100" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <linearGradient id="pluma2" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#ff6b4a;stop-opacity:1" />
-                            <stop offset="50%" style="stop-color:#ff8c42;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#1a1a2e;stop-opacity:1" />
-                        </linearGradient>
-                    </defs>
-                    <path d="M 100 20 
-                             C 120 20, 140 40, 150 70
-                             C 160 100, 150 140, 130 160
-                             C 120 170, 110 175, 100 175
-                             C 90 175, 80 170, 70 160
-                             C 50 140, 40 100, 50 70
-                             C 60 40, 80 20, 100 20 Z" 
-                          fill="url(#pluma2)"/>
-                    <line x1="100" y1="25" x2="100" y2="170" stroke="#1a1a2e" stroke-width="3" stroke-linecap="round"/>
-                </svg>
-            </div>
-            <h3>Pluma Degradada</h3>
-            <p>Naranja a negro (colores del gallito)</p>
-        </div>
-
-        <!-- PLUMA 3: Minimalista -->
-        <div class="pluma-card">
-            <div class="pluma-preview">
-                <svg width="100" height="100" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M 100 30 
-                             C 115 30, 130 50, 135 80
-                             C 140 110, 130 140, 115 155
-                             C 110 160, 105 162, 100 162
-                             C 95 162, 90 160, 85 155
-                             C 70 140, 60 110, 65 80
-                             C 70 50, 85 30, 100 30 Z" 
-                          fill="#ff6b4a" opacity="0.9"/>
-                    <line x1="100" y1="35" x2="100" y2="158" stroke="#1a1a2e" stroke-width="4" stroke-linecap="round"/>
-                </svg>
-            </div>
-            <h3>Pluma Minimalista</h3>
-            <p>Versión simplificada y limpia</p>
-        </div>
-
-        <!-- PLUMA 4: Solo Silueta -->
-        <div class="pluma-card">
-            <div class="pluma-preview">
-                <svg width="100" height="100" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M 100 30 
-                             C 115 30, 130 50, 135 80
-                             C 140 110, 130 140, 115 155
-                             C 110 160, 105 162, 100 162
-                             C 95 162, 90 160, 85 155
-                             C 70 140, 60 110, 65 80
-                             C 70 50, 85 30, 100 30 Z" 
-                          fill="none" stroke="#ff6b4a" stroke-width="4"/>
-                    <line x1="100" y1="35" x2="100" y2="158" stroke="#1a1a2e" stroke-width="3" stroke-linecap="round"/>
-                </svg>
-            </div>
-            <h3>Pluma Outline</h3>
-            <p>Solo contorno, muy sutil</p>
-        </div>
-    </div>
-
-    <!-- APLICACIONES -->
-    <div class="aplicaciones">
-        <h2>📝 Aplicaciones de la Pluma</h2>
-
-        <!-- TÍTULO CON PLUMA -->
-        <div class="titulo-pluma">
-            <svg class="pluma-title" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <linearGradient id="plumaTitle" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" style="stop-color:#ff6b4a;stop-opacity:1" />
-                        <stop offset="100%" style="stop-color:#ff8c42;stop-opacity:1" />
-                    </linearGradient>
-                </defs>
-                <path d="M 100 20 C 120 20, 140 40, 150 70 C 160 100, 150 140, 130 160 C 120 170, 110 175, 100 175 C 90 175, 80 170, 70 160 C 50 140, 40 100, 50 70 C 60 40, 80 20, 100 20 Z" fill="url(#plumaTitle)"/>
-                <line x1="100" y1="25" x2="100" y2="170" stroke="#1a1a2e" stroke-width="3"/>
-            </svg>
-            <h3>Lista de Beneficios</h3>
-        </div>
-
-        <!-- LISTA CON PLUMA -->
-        <ul class="lista-pluma">
-            <li>
-                <svg class="pluma-icon" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <linearGradient id="plumaList1" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#ff6b4a;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#ff8c42;stop-opacity:1" />
-                        </linearGradient>
-                    </defs>
-                    <path d="M 100 20 C 120 20, 140 40, 150 70 C 160 100, 150 140, 130 160 C 120 170, 110 175, 100 175 C 90 175, 80 170, 70 160 C 50 140, 40 100, 50 70 C 60 40, 80 20, 100 20 Z" fill="url(#plumaList1)"/>
-                    <line x1="100" y1="25" x2="100" y2="170" stroke="#1a1a2e" stroke-width="4"/>
-                </svg>
-                <strong>Simulacros de Admisión</strong> - Practica con exámenes tipo UNI, San Marcos y más
-            </li>
-            <li>
-                <svg class="pluma-icon" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <linearGradient id="plumaList2" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#ff6b4a;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#ff8c42;stop-opacity:1" />
-                        </linearGradient>
-                    </defs>
-                    <path d="M 100 20 C 120 20, 140 40, 150 70 C 160 100, 150 140, 130 160 C 120 170, 110 175, 100 175 C 90 175, 80 170, 70 160 C 50 140, 40 100, 50 70 C 60 40, 80 20, 100 20 Z" fill="url(#plumaList2)"/>
-                    <line x1="100" y1="25" x2="100" y2="170" stroke="#1a1a2e" stroke-width="4"/>
-                </svg>
-                <strong>Evaluaciones de Competencias</strong> - Descubre tu perfil profesional RIASEC
-            </li>
-            <li>
-                <svg class="pluma-icon" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <linearGradient id="plumaList3" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#ff6b4a;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#ff8c42;stop-opacity:1" />
-                        </linearGradient>
-                    </defs>
-                    <path d="M 100 20 C 120 20, 140 40, 150 70 C 160 100, 150 140, 130 160 C 120 170, 110 175, 100 175 C 90 175, 80 170, 70 160 C 50 140, 40 100, 50 70 C 60 40, 80 20, 100 20 Z" fill="url(#plumaList3)"/>
-                    <line x1="100" y1="25" x2="100" y2="170" stroke="#1a1a2e" stroke-width="4"/>
-                </svg>
-                <strong>Cursos Certificados</strong> - Cajero Bancario, Planillas, RRHH y más
-            </li>
-            <li>
-                <svg class="pluma-icon" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <linearGradient id="plumaList4" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#ff6b4a;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#ff8c42;stop-opacity:1" />
-                        </linearGradient>
-                    </defs>
-                    <path d="M 100 20 C 120 20, 140 40, 150 70 C 160 100, 150 140, 130 160 C 120 170, 110 175, 100 175 C 90 175, 80 170, 70 160 C 50 140, 40 100, 50 70 C 60 40, 80 20, 100 20 Z" fill="url(#plumaList4)"/>
-                    <line x1="100" y1="25" x2="100" y2="170" stroke="#1a1a2e" stroke-width="4"/>
-                </svg>
-                <strong>Soporte Personalizado</strong> - Atención directa por WhatsApp
-            </li>
-        </ul>
-
-        <!-- SEPARADOR -->
-        <div class="separador">
-            <div class="linea"></div>
-            <svg class="pluma-sep" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <linearGradient id="plumaSep" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" style="stop-color:#ff6b4a;stop-opacity:1" />
-                        <stop offset="100%" style="stop-color:#ff8c42;stop-opacity:1" />
-                    </linearGradient>
-                </defs>
-                <path d="M 100 20 C 120 20, 140 40, 150 70 C 160 100, 150 140, 130 160 C 120 170, 110 175, 100 175 C 90 175, 80 170, 70 160 C 50 140, 40 100, 50 70 C 60 40, 80 20, 100 20 Z" fill="url(#plumaSep)"/>
-                <line x1="100" y1="25" x2="100" y2="170" stroke="#1a1a2e" stroke-width="3"/>
-            </svg>
-            <span>Elemento decorativo sutil</span>
-            <div class="linea"></div>
-        </div>
-
-        <!-- BOTONES -->
-        <h3 style="text-align: center; margin-bottom: 20px; color: #1a1a2e;">Botones con Pluma</h3>
-        <div class="botones-demo">
-            <button class="btn btn-primary">
-                <svg class="pluma-btn" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M 100 20 C 120 20, 140 40, 150 70 C 160 100, 150 140, 130 160 C 120 170, 110 175, 100 175 C 90 175, 80 170, 70 160 C 50 140, 40 100, 50 70 C 60 40, 80 20, 100 20 Z" fill="white"/>
-                    <line x1="100" y1="25" x2="100" y2="170" stroke="#1a1a2e" stroke-width="4"/>
-                </svg>
-                Registrarme Gratis
-            </button>
-            <button class="btn btn-secondary">
-                <svg class="pluma-btn" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M 100 20 C 120 20, 140 40, 150 70 C 160 100, 150 140, 130 160 C 120 170, 110 175, 100 175 C 90 175, 80 170, 70 160 C 50 140, 40 100, 50 70 C 60 40, 80 20, 100 20 Z" fill="#ff6b4a"/>
-                    <line x1="100" y1="25" x2="100" y2="170" stroke="white" stroke-width="4"/>
-                </svg>
-                Iniciar Sesión
-            </button>
-        </div>
-
-        <!-- BADGES -->
-        <h3 style="text-align: center; margin-bottom: 20px; color: #1a1a2e;">Badges con Pluma</h3>
-        <div style="text-align: center;">
-            <span class="badge-pluma">
-                <svg class="pluma-badge" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M 100 20 C 120 20, 140 40, 150 70 C 160 100, 150 140, 130 160 C 120 170, 110 175, 100 175 C 90 175, 80 170, 70 160 C 50 140, 40 100, 50 70 C 60 40, 80 20, 100 20 Z" fill="white"/>
-                    <line x1="100" y1="25" x2="100" y2="170" stroke="#1a1a2e" stroke-width="4"/>
-                </svg>
-                Nuevo
-            </span>
-            <span class="badge-pluma">
-                <svg class="pluma-badge" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M 100 20 C 120 20, 140 40, 150 70 C 160 100, 150 140, 130 160 C 120 170, 110 175, 100 175 C 90 175, 80 170, 70 160 C 50 140, 40 100, 50 70 C 60 40, 80 20, 100 20 Z" fill="white"/>
-                    <line x1="100" y1="25" x2="100" y2="170" stroke="#1a1a2e" stroke-width="4"/>
-                </svg>
-                Certificado
-            </span>
-            <span class="badge-pluma">
-                <svg class="pluma-badge" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M 100 20 C 120 20, 140 40, 150 70 C 160 100, 150 140, 130 160 C 120 170, 110 175, 100 175 C 90 175, 80 170, 70 160 C 50 140, 40 100, 50 70 C 60 40, 80 20, 100 20 Z" fill="white"/>
-                    <line x1="100" y1="25" x2="100" y2="170" stroke="#1a1a2e" stroke-width="4"/>
-                </svg>
-                Premium
-            </span>
-        </div>
-    </div>
-
-    <!-- HEADER DEMO -->
-    <h2 style="text-align: center; margin-bottom: 30px; color: #1a1a2e;">Header con Logo del Gallito</h2>
-    <div class="header-demo">
-        <div class="header-logo">
-            <img src="assets/gallito-logo.png" alt="EMAGES Academy" class="logo-img">
-            <div class="texto-logo">
+    <!-- HEADER -->
+    <nav class="navbar">
+        <a href="#" class="logo">
+            <img src="assets/Pluma-sin-fondo.png" alt="Pluma EMAGES" class="pluma-header">
+            <div class="logo-text">
                 <span class="marca">EMAGES Academy</span>
                 <span class="submarca">Centro de Formación</span>
             </div>
-        </div>
-        <div class="header-nav">
+        </a>
+        <div class="nav-links">
             <a href="#">Inicio</a>
             <a href="#">Carreras</a>
             <a href="#">Cursos</a>
-            <a href="#" class="btn-login">Iniciar Sesión</a>
+            <a href="#" class="btn-nav">Iniciar Sesión</a>
         </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <img src="assets/Pluma-sin-fondo.png" alt="Pluma EMAGES" class="hero-pluma">
+            <h1>Tu Futuro Profesional<br><span>Empieza Aquí</span></h1>
+            <p>Accede a simulacros de admisión, evaluaciones de competencias y cursos certificados en un solo ecosistema digital.</p>
+            <div class="hero-buttons">
+                <a href="registro_campus.html" class="btn btn-primary">
+                    <img src="assets/Pluma-sin-fondo.png" alt="" class="pluma-btn">
+                    Registrarme Gratis
+                </a>
+                <a href="login_campus.html" class="btn btn-outline" style="color: white; border-color: white;">
+                    Ya tengo cuenta
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- LISTA DE BENEFICIOS -->
+    <section class="seccion">
+        <h2 class="seccion-titulo">
+            <img src="assets/Pluma-sin-fondo.png" alt="">
+            ¿Qué encontrarás en el Campus?
+        </h2>
+        <ul class="lista-pluma">
+            <li>
+                <img src="assets/Pluma-sin-fondo.png" alt="" class="pluma-bullet">
+                <div><strong>Simulacros de Admisión</strong><br><small style="color: #7f8c8d;">Exámenes tipo UNI, San Marcos, Callao y Privadas</small></div>
+            </li>
+            <li>
+                <img src="assets/Pluma-sin-fondo.png" alt="" class="pluma-bullet">
+                <div><strong>Evaluaciones de Competencias</strong><br><small style="color: #7f8c8d;">Descubre tu perfil profesional RIASEC</small></div>
+            </li>
+            <li>
+                <img src="assets/Pluma-sin-fondo.png" alt="" class="pluma-bullet">
+                <div><strong>Cursos Certificados</strong><br><small style="color: #7f8c8d;">Cajero Bancario, Planillas, RRHH y más</small></div>
+            </li>
+            <li>
+                <img src="assets/Pluma-sin-fondo.png" alt="" class="pluma-bullet">
+                <div><strong>Soporte Personalizado</strong><br><small style="color: #7f8c8d;">Atención directa por WhatsApp</small></div>
+            </li>
+        </ul>
+    </section>
+
+    <!-- SEPARADOR -->
+    <div class="separador">
+        <div class="linea"></div>
+        <img src="assets/Pluma-sin-fondo.png" alt="">
+        <div class="linea"></div>
     </div>
 
-</div>
+    <!-- BOTONES -->
+    <section class="seccion" style="padding-top: 0;">
+        <h2 class="seccion-titulo">
+            <img src="assets/Pluma-sin-fondo.png" alt="">
+            Botones con la Pluma
+        </h2>
+        <div class="botones-demo">
+            <button class="btn btn-primary">
+                <img src="assets/Pluma-sin-fondo.png" alt="" class="pluma-btn">
+                Registrarme Gratis
+            </button>
+            <button class="btn btn-dark">
+                <img src="assets/Pluma-sin-fondo.png" alt="" class="pluma-btn">
+                Iniciar Sesión
+            </button>
+            <button class="btn btn-outline">
+                <img src="assets/Pluma-sin-fondo.png" alt="" class="pluma-btn">
+                Ver Cursos
+            </button>
+        </div>
+    </section>
+
+    <!-- BADGES -->
+    <section class="seccion" style="padding-top: 0;">
+        <h2 class="seccion-titulo">
+            <img src="assets/Pluma-sin-fondo.png" alt="">
+            Badges / Etiquetas
+        </h2>
+        <div class="badges-demo">
+            <span class="badge">
+                <img src="assets/Pluma-sin-fondo.png" alt="">
+                Nuevo
+            </span>
+            <span class="badge">
+                <img src="assets/Pluma-sin-fondo.png" alt="">
+                Certificado
+            </span>
+            <span class="badge">
+                <img src="assets/Pluma-sin-fondo.png" alt="">
+                Premium
+            </span>
+            <span class="badge badge-dark">
+                <img src="assets/Pluma-sin-fondo.png" alt="">
+                Exclusivo
+            </span>
+        </div>
+    </section>
+
+    <!-- TARJETAS -->
+    <section class="seccion" style="padding-top: 0;">
+        <h2 class="seccion-titulo">
+            <img src="assets/Pluma-sin-fondo.png" alt="">
+            Tarjetas de Cursos
+        </h2>
+        <div class="cards-grid">
+            <div class="card">
+                <img src="assets/Pluma-sin-fondo.png" alt="" class="pluma-card">
+                <h3>Cajero Bancario</h3>
+                <p>Curso 100% práctico con clases en vivo y certificación oficial.</p>
+            </div>
+            <div class="card">
+                <img src="assets/Pluma-sin-fondo.png" alt="" class="pluma-card">
+                <h3>Asistente de Planillas</h3>
+                <p>Domina el cálculo de planillas y obligaciones laborales.</p>
+            </div>
+            <div class="card">
+                <img src="assets/Pluma-sin-fondo.png" alt="" class="pluma-card">
+                <h3>Reclutamiento y Selección</h3>
+                <p>Aprende a gestionar procesos de RRHH de principio a fin.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA OSCURO -->
+    <section class="cta-oscuro">
+        <img src="assets/Pluma-sin-fondo.png" alt="">
+        <h2>¿Listo para comenzar?</h2>
+        <p>Únete a miles de estudiantes que ya están transformando su futuro profesional con EMAGES Academy.</p>
+        <a href="registro_campus.html" class="btn btn-primary" style="font-size: 1.1rem; padding: 16px 40px;">
+            <img src="assets/Pluma-sin-fondo.png" alt="" class="pluma-btn">
+            Crear mi cuenta gratis
+        </a>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <img src="assets/Pluma-sin-fondo.png" alt="">
+        <p><strong>EMAGES GROUP S.A.C.</strong> - RUC: 20611427671</p>
+        <p>Formación que transforma tu futuro profesional.</p>
+        <p style="margin-top: 20px;">
+            <a href="#">Web Principal</a> · 
+            <a href="#">Nosotros</a> · 
+            <a href="#">Privacidad</a> · 
+            <a href="#">WhatsApp</a>
+        </p>
+        <p style="margin-top: 20px; opacity: 0.6; font-size: 0.8rem;">© 2026 EMAGES Academy. Todos los derechos reservados.</p>
+    </footer>
 
 </body>
 </html>
