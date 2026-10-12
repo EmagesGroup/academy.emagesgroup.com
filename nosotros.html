@@ -1,277 +1,420 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nosotros | EMAGES Academy</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Escuela de Formación Artística de EMAGES Academy. Programas de canto, danza, actuación y modelaje con certificación oficial.">
+    <title>Escuela Artística | EMAGES Academy</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #ff6b4a;
+            --primary-dark: #ff8c42;
+            --dark: #1a1a2e;
+            --dark-secondary: #16213e;
+            --light: #f8f9fa;
+            --white: #ffffff;
+            --gradient: linear-gradient(135deg, #ff6b4a 0%, #ff8c42 100%);
+        }
 
-<link rel="icon" type="image/png" href="assets/favicon.png">
+        html { scroll-behavior: smooth; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--light);
+            color: #333;
+            line-height: 1.6;
+        }
 
-<style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Segoe UI',Arial,sans-serif;background:#ffffff;color:#333;}
-:root{
---primary:#F57C00;
---secondary:#FFB74D;
---light:#ffffff;
---gray:#F8F9FA;
---text:#333333;
-}
+        /* ===== BARRA SUPERIOR ===== */
+        .topbar {
+            background: var(--dark);
+            color: var(--white);
+            text-align: center;
+            padding: 8px 15px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        .topbar span { color: var(--primary); font-weight: 700; }
 
-/* TOPBAR */
-.topbar{
-background:var(--secondary);
-color:#fff;
-text-align:center;
-padding:8px;
-font-size:14px;
-}
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 5%;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            z-index: 1000;
+        }
+        .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .logo img { height: 40px; width: auto; }
+        .logo-text { display: flex; flex-direction: column; line-height: 1; }
+        .logo-text .marca { font-size: 1.2rem; font-weight: 800; color: var(--dark); }
+        .logo-text .submarca { font-size: 0.6rem; color: var(--primary); letter-spacing: 2px; text-transform: uppercase; font-weight: 600; }
 
-/* NAVBAR */
-.navbar{
-position:fixed;
-top:0;
-width:100%;
-height:75px;
-background:#fff;
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:0 60px;
-box-shadow:0 2px 10px rgba(0,0,0,0.05);
-z-index:1000;
-}
+        .nav-links { display: flex; align-items: center; gap: 25px; }
+        .nav-links a { text-decoration: none; color: var(--dark); font-weight: 600; font-size: 0.95rem; transition: .3s; }
+        .nav-links a:hover { color: var(--primary); }
 
-.logo img{height:50px;}
+        .btn-campus {
+            background: var(--gradient);
+            color: #fff !important;
+            padding: 10px 22px;
+            border-radius: 25px;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(255, 107, 74, 0.3);
+            transition: .3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-campus:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255, 107, 74, 0.5); }
 
-.nav-links a{
-text-decoration:none;
-color:var(--text);
-margin-left:30px;
-font-weight:500;
-transition:.3s;
-}
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 80vh;
+            background: linear-gradient(135deg, rgba(26, 26, 46, 0.85) 0%, rgba(22, 33, 62, 0.85) 100%), url('assets/artistico-hero.jpg') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+            padding: 100px 20px 60px;
+        }
+        .hero-content { max-width: 800px; animation: fadeInUp 0.8s ease; }
+        .hero h1 { font-size: 3.2rem; font-weight: 800; margin-bottom: 20px; line-height: 1.1; }
+        .hero h1 span { color: var(--primary); }
+        .hero p { font-size: 1.2rem; margin-bottom: 35px; opacity: 0.95; max-width: 650px; margin-left: auto; margin-right: auto; }
+        
+        .hero-buttons { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+        .btn {
+            padding: 14px 30px; border-radius: 30px; font-weight: 700; text-decoration: none;
+            transition: .3s; display: inline-flex; align-items: center; gap: 8px; font-size: 1rem;
+        }
+        .btn-primary { background: var(--gradient); color: #fff; box-shadow: 0 8px 25px rgba(255, 107, 74, 0.4); }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 35px rgba(255, 107, 74, 0.6); }
+        .btn-outline { background: transparent; color: #fff; border: 2px solid #fff; }
+        .btn-outline:hover { background: #fff; color: var(--dark); transform: translateY(-3px); }
 
-.nav-links a:hover{
-color:var(--primary);
-}
+        /* ===== VALOR (POR QUÉ ELEGIRNOS) ===== */
+        .valor { padding: 80px 5%; background: var(--white); }
+        .section-title { text-align: center; font-size: 2.2rem; font-weight: 800; color: var(--dark); margin-bottom: 50px; }
+        .section-title span { color: var(--primary); }
+        
+        .valor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .valor-item {
+            background: var(--light);
+            padding: 35px 25px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            transition: .3s;
+            text-align: center;
+            border-top: 4px solid transparent;
+        }
+        .valor-item:hover { transform: translateY(-5px); border-top-color: var(--primary); box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
+        .valor-icon { font-size: 2.5rem; margin-bottom: 15px; display: block; }
+        .valor-item h3 { font-size: 1.1rem; margin-bottom: 10px; color: var(--dark); font-weight: 700; }
+        .valor-item p { font-size: 0.9rem; color: #666; }
 
-/* HERO */
-.hero{
-margin-top:75px;
-padding:120px 20px;
-background:linear-gradient(135deg,#F57C00,#FFB74D);
-color:#fff;
-text-align:center;
-}
+        /* ===== PROGRAMAS ===== */
+        .programas { padding: 80px 5%; background: var(--light); }
+        .program-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .program-card {
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            transition: .3s;
+            display: flex;
+            flex-direction: column;
+        }
+        .program-card:hover { transform: translateY(-8px); box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
+        .program-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: #e9ecef; /* Fallback si no carga la imagen */
+        }
+        .program-info { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
+        .program-info h3 { font-size: 1.2rem; color: var(--dark); margin-bottom: 12px; font-weight: 700; }
+        .program-info p { font-size: 0.9rem; color: #666; margin-bottom: 20px; flex-grow: 1; }
+        .btn-program {
+            background: var(--light);
+            color: var(--primary);
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-align: center;
+            transition: .3s;
+            border: 2px solid var(--primary);
+        }
+        .btn-program:hover { background: var(--primary); color: #fff; }
 
-.hero h1{
-font-size:48px;
-margin-bottom:20px;
-}
+        /* ===== AUTORIDAD ===== */
+        .autoridad {
+            background: var(--dark);
+            color: #fff;
+            padding: 80px 5%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .autoridad::before {
+            content: ''; position: absolute; top: -50%; left: -20%;
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(255, 107, 74, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .autoridad p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            opacity: 0.95;
+        }
+        .autoridad strong { color: var(--primary); }
 
-.hero p{
-font-size:20px;
-max-width:800px;
-margin:auto;
-}
+        /* ===== CTA ===== */
+        .cta {
+            background: var(--white);
+            text-align: center;
+            padding: 80px 20px;
+        }
+        .cta h2 { font-size: 2.2rem; color: var(--dark); margin-bottom: 20px; }
+        .cta p { font-size: 1.1rem; color: #666; margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto; }
 
-/* CONTENT */
-.section{
-padding:100px 20px;
-max-width:1100px;
-margin:auto;
-}
+        /* ===== FOOTER ===== */
+        footer { background: #0a0e27; color: #bdc3c7; padding: 60px 5% 30px; }
+        .footer-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px; max-width: 1100px; margin: 0 auto 40px;
+        }
+        footer h4 { color: #fff; margin-bottom: 20px; font-size: 1.1rem; }
+        footer p { font-size: 0.9rem; margin-bottom: 15px; }
+        footer a { display: block; text-decoration: none; color: #bdc3c7; margin-bottom: 10px; font-size: 0.9rem; transition: .3s; }
+        footer a:hover { color: var(--primary); transform: translateX(5px); }
+        .footer-bottom { text-align: center; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.8rem; color: #7f8c8d; }
 
-.section h2{
-font-size:34px;
-margin-bottom:25px;
-color:var(--primary);
-}
+        /* ===== WHATSAPP FLOTANTE ===== */
+        .whatsapp {
+            position: fixed; bottom: 25px; right: 25px;
+            background: #25D366; width: 60px; height: 60px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            color: #fff; font-size: 30px; text-decoration: none;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            transition: .3s; z-index: 999;
+        }
+        .whatsapp:hover { transform: scale(1.1); }
 
-.section p{
-font-size:18px;
-margin-bottom:20px;
-line-height:1.6;
-}
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-/* GRID */
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:30px;
-margin-top:40px;
-}
-
-.card{
-background:#fff;
-padding:30px;
-border-radius:15px;
-box-shadow:0 5px 20px rgba(0,0,0,0.05);
-transition:.3s;
-}
-
-.card:hover{
-transform:translateY(-5px);
-}
-
-.card h3{
-margin-bottom:15px;
-color:var(--primary);
-}
-
-/* GROUP SECTION */
-.group-section{
-background:var(--gray);
-padding:100px 20px;
-}
-
-.group-section h2{
-text-align:center;
-margin-bottom:20px;
-color:var(--primary);
-}
-
-.group-logo{
-text-align:center;
-margin-bottom:40px;
-}
-
-.group-logo img{
-height:60px;
-opacity:0.9;
-}
-
-/* CTA */
-.cta{
-background:var(--primary);
-color:#fff;
-text-align:center;
-padding:80px 20px;
-}
-
-.cta h2{
-font-size:32px;
-margin-bottom:25px;
-}
-
-.cta a{
-background:#fff;
-color:var(--primary);
-padding:12px 30px;
-border-radius:30px;
-text-decoration:none;
-font-weight:600;
-}
-
-/* Footer */
-footer{
-background:#f1f1f1;
-padding:60px 20px;
-margin-top:80px;
-}
-
-.footer-bottom{
-text-align:center;
-font-size:14px;
-color:#777;
-}
-
-@media (max-width:768px){
-.hero h1{font-size:34px;}
-.hero p{font-size:18px;}
-.section{padding:60px 20px;}
-}
-</style>
+        /* ===== RESPONSIVE (CELULAR) ===== */
+        @media (max-width: 768px) {
+            .navbar { padding: 12px 5%; flex-wrap: wrap; gap: 10px; }
+            .nav-links { display: none; }
+            .hero { min-height: 70vh; padding-top: 80px; }
+            .hero h1 { font-size: 2.2rem; }
+            .hero p { font-size: 1rem; }
+            .hero-buttons { flex-direction: column; width: 100%; }
+            .hero-buttons .btn { width: 100%; justify-content: center; }
+            .section-title { font-size: 1.8rem; }
+            .program-img { height: 180px; }
+            .cta h2 { font-size: 1.8rem; }
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="topbar">
-Unidad educativa oficial de EMAGES Group
-</div>
+    <!-- BARRA SUPERIOR -->
+    <div class="topbar">
+        🎓 Matrículas 2026 abiertas · <span>Ingresa al Campus Virtual</span>
+    </div>
 
-<div class="navbar">
-<div class="logo">
-<img src="assets/logo.png" alt="EMAGES Academy Logo">
-</div>
-<div class="nav-links">
-<a href="index.html">Inicio</a>
-<a href="index.html#escuelas">Escuelas</a>
-<a href="nosotros.html">Nosotros</a>
-</div>
-</div>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <img src="assets/Pluma-sin-fondo.png" alt="EMAGES Academy">
+            <div class="logo-text">
+                <span class="marca">EMAGES Academy</span>
+                <span class="submarca">Escuela Artística</span>
+            </div>
+        </a>
+        <div class="nav-links">
+            <a href="index.html">Inicio</a>
+            <a href="index.html#escuelas">Escuelas</a>
+            <a href="nosotros.html">Nosotros</a>
+            <a href="https://academy.emagesgroup.com/campus.html" class="btn-campus">🎓 Ir al Campus</a>
+        </div>
+        <!-- Botón Campus visible siempre en móvil -->
+        <a href="https://academy.emagesgroup.com/campus.html" class="btn-campus" style="display: none;" id="mobileCampusBtn">Campus</a>
+    </nav>
 
-<section class="hero">
-<h1>Sobre EMAGES Academy</h1>
-<p>La unidad educativa de EMAGES Group orientada al desarrollo estratégico y profesional.</p>
-</section>
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Escuela de Formación <span>Artística</span></h1>
+            <p>Transforma tu pasión en una carrera profesional. Desarrolla tu talento en canto, danza, actuación y modelaje con formación de alto nivel.</p>
+            <div class="hero-buttons">
+                <a href="#programas" class="btn btn-primary">Ver Programas</a>
+                <a href="https://academy.emagesgroup.com/campus.html" class="btn btn-outline">🎓 Ingresar al Campus</a>
+            </div>
+        </div>
+    </section>
 
-<section class="section">
-<h2>Quiénes Somos</h2>
-<p>
-EMAGES Academy es el brazo formativo de EMAGES Group, creado para impulsar el desarrollo profesional de jóvenes, emprendedores y talentos en formación.
-</p>
-<p>
-Nuestra propuesta combina formación práctica, visión estratégica y coherencia institucional, alineada a un ecosistema empresarial en crecimiento.
-</p>
-</section>
+    <!-- VALOR -->
+    <section class="valor">
+        <h2 class="section-title">¿Por qué estudiar <span>arte</span> con nosotros?</h2>
+        <div class="valor-grid">
+            <div class="valor-item">
+                <span class="valor-icon"></span>
+                <h3>Formación Escénica Integral</h3>
+                <p>Desarrolla técnica, expresión corporal, proyección vocal y presencia profesional desde el primer día.</p>
+            </div>
+            <div class="valor-item">
+                <span class="valor-icon">🎬</span>
+                <h3>Enfoque Práctico</h3>
+                <p>Clases dinámicas con presentaciones en vivo, proyectos reales y oportunidades de escenario.</p>
+            </div>
+            <div class="valor-item">
+                <span class="valor-icon">👨‍</span>
+                <h3>Docentes del Medio Artístico</h3>
+                <p>Profesionales activos en el sector creativo, con experiencia en producciones y espectáculos.</p>
+            </div>
+            <div class="valor-item">
+                <span class="valor-icon"></span>
+                <h3>Certificación Oficial</h3>
+                <p>Respaldado por EMAGES GROUP S.A.C. (RUC 20611427671) para potenciar tu portafolio artístico.</p>
+            </div>
+        </div>
+    </section>
 
-<section class="section">
-<h2>Nuestra Misión</h2>
-<p>
-Desarrollar talento mediante formación especializada, aplicada y orientada al entorno profesional actual.
-</p>
+    <!-- PROGRAMAS -->
+    <section id="programas" class="programas">
+        <h2 class="section-title">Programas Más <span>Solicitados</span></h2>
+        <div class="program-grid">
+            
+            <div class="program-card">
+                <img src="assets/canto.jpg" alt="Canto y Voz" class="program-img" onerror="this.style.background='#ff6b4a'">
+                <div class="program-info">
+                    <h3>Canto y Voz</h3>
+                    <p>Aprende técnicas de interpretación vocal, respiración, afinación y expresión artística para escenarios profesionales.</p>
+                    <a href="canto-voz.html" class="btn-program">Ver Programa →</a>
+                </div>
+            </div>
 
-<h2>Nuestra Visión</h2>
-<p>
-Consolidarnos como una academia referente en formación estratégica, reconocida por su estructura institucional y su compromiso con la calidad educativa.
-</p>
-</section>
+            <div class="program-card">
+                <img src="assets/baile.jpg" alt="Baile y Danza" class="program-img" onerror="this.style.background='#ff6b4a'">
+                <div class="program-info">
+                    <h3>Baile y Danza</h3>
+                    <p>Desarrolla habilidades en distintas técnicas de danza contemporánea, urbana y movimiento escénico profesional.</p>
+                    <a href="baile-danza.html" class="btn-program">Ver Programa →</a>
+                </div>
+            </div>
 
-<section class="group-section">
-<div class="group-logo">
-<img src="assets/logo-group.png" alt="EMAGES Group Logo">
-</div>
+            <div class="program-card">
+                <img src="assets/actuacion.jpg" alt="Actuación y Teatro" class="program-img" onerror="this.style.background='#ff6b4a'">
+                <div class="program-info">
+                    <h3>Actuación y Teatro</h3>
+                    <p>Explora la actuación, improvisación, expresión corporal y técnicas de interpretación en escenarios profesionales.</p>
+                    <a href="actuacion-teatro.html" class="btn-program">Ver Programa →</a>
+                </div>
+            </div>
 
-<h2>Parte de EMAGES Group</h2>
-<p style="text-align:center; max-width:800px; margin:0 auto 40px;">
-EMAGES Academy forma parte de un ecosistema empresarial estructurado en divisiones estratégicas que integran consultoría, talento, tecnología y posicionamiento.
-</p>
+            <div class="program-card">
+                <img src="assets/modelaje.jpg" alt="Modelaje y Pasarela" class="program-img" onerror="this.style.background='#ff6b4a'">
+                <div class="program-info">
+                    <h3>Modelaje y Pasarela</h3>
+                    <p>Aprende técnicas de modelaje, presencia escénica, postura, caminar en pasarela y proyección profesional.</p>
+                    <a href="modelaje-pasarela.html" class="btn-program">Ver Programa →</a>
+                </div>
+            </div>
 
-<div class="grid">
-<div class="card">
-<h3>EMAGES Consulting</h3>
-<p>Planeamiento estratégico, tributario y financiero.</p>
-</div>
+        </div>
+    </section>
 
-<div class="card">
-<h3>EMAGES Talent</h3>
-<p>Gestión integral de recursos humanos.</p>
-</div>
+    <!-- AUTORIDAD -->
+    <section class="autoridad">
+        <p>
+            <strong>EMAGES Academy</strong> forma parte de <strong>EMAGES GROUP</strong>, organización dedicada al desarrollo empresarial, 
+            formación profesional y soluciones estratégicas integrales. Nuestra escuela artística está diseñada para formar talentos 
+            capaces de destacar en el competitivo mundo del entretenimiento y las artes escénicas.
+        </p>
+    </section>
 
-<div class="card">
-<h3>EMAGES Tech</h3>
-<p>Soluciones tecnológicas y desarrollo digital.</p>
-</div>
+    <!-- CTA -->
+    <section class="cta">
+        <h2>Asegura tu vacante hoy</h2>
+        <p>Da el siguiente paso en tu formación artística y únete a nuestra comunidad de talentos creativos.</p>
+        <a href="https://wa.me/51930175586?text=Hola,%20quiero%20información%20sobre%20los%20programas%20de%20la%20Escuela%20Artística" class="btn btn-primary" target="_blank">
+            💬 Inscribirme por WhatsApp
+        </a>
+    </section>
 
-<div class="card">
-<h3>EMAGES Marketing & Events</h3>
-<p>Estrategia de posicionamiento y eventos corporativos.</p>
-</div>
-</div>
-</section>
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <h4>EMAGES Academy</h4>
+                <p>Formación que transforma tu futuro profesional. Parte del ecosistema EMAGES GROUP.</p>
+            </div>
+            <div>
+                <h4>Escuelas</h4>
+                <a href="empresarial.html">Formación Empresarial</a>
+                <a href="tecnologia.html">Formación Tecnológica</a>
+                <a href="artistico.html">Talento Artístico</a>
+            </div>
+            <div>
+                <h4>Legal</h4>
+                <a href="privacidad.html">Política de Privacidad</a>
+                <a href="#">Libro de Reclamaciones</a>
+                <a href="#">Términos y Condiciones</a>
+            </div>
+            <div>
+                <h4>Síguenos</h4>
+                <a href="https://www.facebook.com/emages.academy" target="_blank">Facebook</a>
+                <a href="https://www.tiktok.com/@emages.academy" target="_blank">TikTok</a>
+                <a href="https://www.youtube.com/@EmagesAcademy" target="_blank">YouTube</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            EMAGES ACADEMY | División de EMAGES GROUP S.A.C. - RUC: 20611427671 © 2026. Todos los derechos reservados.
+        </div>
+    </footer>
 
-<section class="cta">
-<h2>Formación que conecta talento con visión estratégica</h2>
-<a href="https://wa.me/51904466622?text=Quiero%20información%20sobre%20las%20Escuelas">Solicitar información</a>
-</section>
+    <!-- WHATSAPP FLOTANTE -->
+    <a href="https://wa.me/51930175586?text=Hola,%20quiero%20información%20sobre%20los%20programas%20de%20la%20Escuela%20Artística" class="whatsapp" target="_blank" title="Chatea con nosotros">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+    </a>
 
-<footer>
-<div class="footer-bottom">
-EMAGES ACADEMY | División Académica de EMAGES GROUP © 2026 – Todos los derechos reservados
-</div>
-</footer>
-
+    <script>
+        // Mostrar botón de Campus en móvil si la pantalla es pequeña
+        if (window.innerWidth <= 768) {
+            document.getElementById('mobileCampusBtn').style.display = 'flex';
+        }
+    </script>
 </body>
 </html>
