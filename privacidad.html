@@ -3,24 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Políticas de Privacidad - EMAGES Academy</title>
+    <title>Política de Privacidad - EMAGES GROUP</title>
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #ff6b4a;
-            --primary-dark: #ff8c42;
             --dark: #1a1a2e;
             --dark-secondary: #16213e;
-            --light: #f8f9fa;
             --white: #ffffff;
             --text-main: #2c3e50;
             --text-gray: #7f8c8d;
-            --gradient: linear-gradient(135deg, #ff6b4a 0%, #ff8c42 100%);
         }
-
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        
         body {
             font-family: 'Poppins', sans-serif;
             background-color: var(--dark);
@@ -33,142 +28,49 @@
             display: flex;
             flex-direction: column;
         }
-
         .btn-volver {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            color: rgba(255,255,255,0.8);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s;
-            z-index: 100;
-            background: rgba(0,0,0,0.3);
-            padding: 8px 16px;
-            border-radius: 20px;
-            backdrop-filter: blur(5px);
+            position: fixed; top: 20px; left: 20px;
+            color: rgba(255,255,255,0.8); text-decoration: none;
+            font-size: 0.9rem; font-weight: 600;
+            display: flex; align-items: center; gap: 8px;
+            transition: all 0.3s; z-index: 100;
+            background: rgba(0,0,0,0.3); padding: 8px 16px;
+            border-radius: 20px; backdrop-filter: blur(5px);
         }
         .btn-volver:hover { color: white; background: rgba(0,0,0,0.5); transform: translateX(-3px); }
-
-        .main-container {
-            flex: 1;
-            width: 100%;
-            max-width: 900px;
-            margin: 80px auto 40px;
-            padding: 0 20px;
-        }
-
+        .main-container { flex: 1; width: 100%; max-width: 900px; margin: 80px auto 40px; padding: 0 20px; }
         .policy-card {
-            background: var(--white);
-            border-radius: 20px;
-            padding: 50px 60px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-            animation: fadeInUp 0.6s ease;
+            background: var(--white); border-radius: 20px; padding: 50px 60px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4); animation: fadeInUp 0.6s ease;
         }
-
-        .policy-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 30px;
-            padding-bottom: 25px;
-            border-bottom: 2px solid var(--light);
-        }
+        .policy-header { display: flex; align-items: center; gap: 15px; margin-bottom: 30px; padding-bottom: 25px; border-bottom: 2px solid #f8f9fa; }
         .policy-header img { height: 45px; width: auto; }
-        .policy-header .texto { display: flex; flex-direction: column; }
         .policy-header .marca { font-size: 1.4rem; font-weight: 800; color: var(--dark); line-height: 1; }
         .policy-header .submarca { font-size: 0.7rem; color: var(--primary); letter-spacing: 2px; text-transform: uppercase; font-weight: 600; margin-top: 5px; }
-
         .policy-title { font-size: 2rem; font-weight: 800; color: var(--dark); margin-bottom: 10px; }
-        .policy-date { font-size: 0.9rem; color: var(--text-gray); margin-bottom: 40px; }
+        .policy-content h2 { font-size: 1.2rem; font-weight: 700; color: var(--dark); margin-top: 35px; margin-bottom: 15px; padding-left: 15px; border-left: 4px solid var(--primary); }
+        .policy-content p { font-size: 1rem; line-height: 1.8; color: #555; margin-bottom: 15px; text-align: justify; }
+        .policy-content ul { margin-bottom: 15px; padding-left: 25px; }
+        .policy-content li { font-size: 1rem; line-height: 1.8; color: #555; margin-bottom: 8px; }
+        
+        /* CAJA RNPDP ESTILIZADA */
+        .rnpdp-box {
+            background: #e8f4f8; border-left: 5px solid var(--primary);
+            padding: 20px; border-radius: 8px; margin-bottom: 30px; text-align: center;
+        }
+        .rnpdp-box strong { color: var(--dark); font-size: 1.2rem; display: block; margin-top: 8px; }
+        
+        .contacto-box {
+            background: #fdf2f0; padding: 25px; border-radius: 12px; margin-top: 30px;
+            border: 1px solid #f5b7b1;
+        }
+        .contacto-box h2 { margin-top: 0 !important; border: none !important; color: #c0392b !important; font-size: 1.2rem !important; }
+        .contacto-box p { margin: 8px 0; text-align: left !important; font-weight: 500; }
 
-        .policy-content h2 {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--dark);
-            margin-top: 35px;
-            margin-bottom: 15px;
-            padding-left: 15px;
-            border-left: 4px solid var(--primary);
-        }
-        .policy-content h3 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--text-main);
-            margin-top: 20px;
-            margin-bottom: 10px;
-        }
-        .policy-content p {
-            font-size: 1rem;
-            line-height: 1.8;
-            color: #555;
-            margin-bottom: 15px;
-        }
-        .policy-content ul {
-            margin-bottom: 15px;
-            padding-left: 25px;
-        }
-        .policy-content li {
-            font-size: 1rem;
-            line-height: 1.8;
-            color: #555;
-            margin-bottom: 8px;
-        }
-        .policy-content a {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-        }
-        .policy-content a:hover { text-decoration: underline; }
-
-        /* CAJA LEGAL DE REGISTRO */
-        .legal-box {
-            background: var(--light);
-            padding: 25px;
-            border-radius: 12px;
-            margin-top: 40px;
-            border-left: 5px solid var(--primary);
-        }
-        .legal-box h3 {
-            margin-top: 0;
-            color: var(--dark);
-            font-size: 1.1rem;
-        }
-        .legal-box p {
-            margin-bottom: 10px;
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-        .legal-box .codigo {
-            font-size: 1.2rem;
-            color: var(--primary);
-            font-weight: 800;
-            letter-spacing: 1px;
-        }
-
-        footer {
-            background: #0a0e27;
-            color: #bdc3c7;
-            padding: 30px 20px;
-            text-align: center;
-            font-size: 0.85rem;
-        }
+        footer { background: #0a0e27; color: #bdc3c7; padding: 30px 20px; text-align: center; font-size: 0.85rem; }
         footer p { margin-bottom: 8px; }
-        footer a { color: var(--primary); text-decoration: none; font-weight: 600; }
-        footer a:hover { text-decoration: underline; }
-
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-
-        @media (max-width: 768px) {
-            .policy-card { padding: 30px 25px; }
-            .policy-title { font-size: 1.6rem; }
-            .policy-content h2 { font-size: 1.1rem; }
-            .legal-box .codigo { font-size: 1rem; }
-        }
+        @media (max-width: 768px) { .policy-card { padding: 30px 25px; } .policy-title { font-size: 1.6rem; } }
     </style>
 </head>
 <body>
@@ -177,79 +79,81 @@
 
     <div class="main-container">
         <div class="policy-card">
-            
             <div class="policy-header">
                 <img src="assets/Pluma-sin-fondo.png" alt="EMAGES Academy">
-                <div class="texto">
-                    <span class="marca">EMAGES Academy</span>
-                    <span class="submarca">Centro de Formación</span>
+                <div>
+                    <div class="marca">EMAGES Academy</div>
+                    <div class="submarca">Centro de Formación</div>
                 </div>
             </div>
 
-            <h1 class="policy-title">Políticas de Privacidad y Condiciones</h1>
-            <p class="policy-date">Última actualización: Octubre 2026</p>
+            <h1 class="policy-title">Política de Privacidad de Datos Personales</h1>
+            <p style="text-align: center; color: var(--text-gray); margin-bottom: 30px; font-weight: 500;">EMAGES GROUP – EMAGESGROUP E.I.R.L. – RUC 20611427671</p>
+
+            <div class="rnpdp-box">
+                📌 Registrados ante la Dirección General de Protección de Datos Personales del Ministerio de Justicia y Derechos Humanos del Perú.
+                <strong>Código RNPDP: PJ-2026-5272</strong>
+            </div>
 
             <div class="policy-content">
-                <p>Bienvenido a <strong>EMAGES Academy</strong>, una plataforma educativa respaldada por <strong>EMAGES GROUP S.A.C.</strong> (RUC: 20611427671). Tu privacidad es fundamental para nosotros. Este documento detalla cómo recopilamos, usamos y protegemos tu información personal al utilizar nuestros servicios.</p>
+                <h2>1. IDENTIFICACIÓN</h2>
+                <p><strong>EMAGES GROUP</strong>, gestionado por <strong>EMAGESGROUP E.I.R.L.</strong> – RUC 20611427671, con domicilio en C. Alfredo Maldonado 654, 15084 – Pueblo Libre – Lima – Perú, es responsable del tratamiento de los datos personales recabados a través de formularios, servicios, cursos, promociones y actividades realizadas por su ecosistema empresarial.</p>
 
-                <h2>1. Información que Recopilamos</h2>
-                <p>Para brindarte un servicio personalizado y seguro, solicitamos la siguiente información al momento de tu registro:</p>
+                <h2>2. FINALIDAD DEL TRATAMIENTO</h2>
+                <p>Los datos personales que recopilamos se utilizan para:</p>
                 <ul>
-                    <li><strong>Datos de identificación:</strong> DNI y Nombres completos.</li>
-                    <li><strong>Datos de contacto:</strong> Número de celular y correo electrónico.</li>
-                    <li><strong>Datos demográficos:</strong> Fecha de nacimiento (para determinar tu perfil de estudiante, transición o profesional).</li>
-                    <li><strong>Datos de uso:</strong> Resultados de evaluaciones, progreso en cursos y simulacros.</li>
+                    <li>Contactarlo con información sobre cursos, servicios, promociones, eventos y actividades del ecosistema EMAGES GROUP.</li>
+                    <li>Gestionar inscripciones y comunicaciones administrativas.</li>
+                    <li>Mejorar y personalizar nuestros servicios, tanto presenciales como virtuales (incluyendo test vocacionales y simulacros de admisión).</li>
                 </ul>
 
-                <h2>2. Uso de la Información</h2>
-                <p>Utilizamos tus datos exclusivamente para los siguientes fines:</p>
+                <h2>3. TIPO DE DATOS RECABADOS</h2>
+                <p>Podemos recopilar, de forma voluntaria, los siguientes datos:</p>
                 <ul>
-                    <li>Validar tu identidad y garantizar la seguridad de tu cuenta (usando DNI y celular como credenciales).</li>
-                    <li>Personalizar tu experiencia en el Campus Virtual según tu perfil de edad y objetivos.</li>
-                    <li>Enviarte notificaciones sobre nuevos cursos, promociones y actualizaciones de la plataforma.</li>
-                    <li>Generar informes vocacionales y certificados de los cursos aprobados.</li>
+                    <li>Nombres y apellidos</li>
+                    <li>Documento Nacional de Identidad (DNI)</li>
+                    <li>Correo electrónico y número de teléfono</li>
+                    <li>País y ciudad</li>
+                    <li>Cualquier otra información que usted decida proporcionar.</li>
                 </ul>
 
-                <h2>3. Seguridad y Protección de Datos</h2>
-                <p>Implementamos medidas de seguridad técnicas y administrativas para proteger tu información contra accesos no autorizados, pérdida o alteración. Tus credenciales de acceso son validadas de forma segura a través de nuestros servidores.</p>
+                <h2>4. BASE LEGAL</h2>
+                <p>El tratamiento de datos personales se realiza con su consentimiento expreso, en cumplimiento con la <strong>Ley N.° 29733 – Ley de Protección de Datos Personales (Perú)</strong> y su reglamento.</p>
 
-                <h2>4. Compartir Información con Terceros</h2>
-                <p><strong>EMAGES Academy</strong> no vende, alquila ni comparte tu información personal con terceros con fines comerciales. Solo podremos compartir datos anonimizados para fines estadísticos, o cuando sea requerido por ley.</p>
-                <p>En el caso de nuestros aliados empresariales para la bolsa de trabajo, solo se compartirá tu perfil profesional y CV si tú das tu consentimiento expreso al subirlo a la plataforma.</p>
+                <h2>5. USO Y PROTECCIÓN DE LOS DATOS</h2>
+                <p>EMAGES GROUP adopta medidas técnicas y organizativas razonables para proteger su información personal contra el acceso no autorizado, alteración, divulgación o destrucción, de acuerdo con la normativa aplicable.</p>
 
-                <h2>5. Derechos del Usuario (ARCO)</h2>
-                <p>De acuerdo con la Ley de Protección de Datos Personales (Ley N° 29733), tienes derecho a acceder, rectificar, cancelar u oponerte al tratamiento de tus datos personales. Para ejercer estos derechos, puedes contactarnos directamente a través de nuestro WhatsApp de soporte.</p>
-
-                <h2>6. Uso de Almacenamiento Local</h2>
-                <p>Utilizamos tecnologías de almacenamiento local seguro (como <em>sessionStorage</em>) para mantener tu sesión activa mientras navegas en la plataforma, garantizando que tus datos se eliminen al cerrar la pestaña por tu propia seguridad.</p>
-
-                <h2>7. Contacto</h2>
-                <p>Si tienes alguna duda o inquietud sobre estas políticas, puedes contactarnos directamente:</p>
+                <h2>6. COMPARTICIÓN DE DATOS</h2>
+                <p>No vendemos, alquilamos ni compartimos sus datos personales con terceros para fines comerciales sin su consentimiento explícito. Solo podemos compartirlos cuando:</p>
                 <ul>
-                    <li><strong>WhatsApp de Soporte:</strong> <a href="https://wa.me/51930175586" target="_blank">+51 930 175 586</a></li>
-                    <li><strong>Web Principal:</strong> <a href="https://academy.emagesgroup.com" target="_blank">academy.emagesgroup.com</a></li>
+                    <li>Usted lo autoriza expresamente.</li>
+                    <li>Sea necesario para cumplir con obligaciones legales o requerimientos de autoridad competente.</li>
+                    <li>Con proveedores de servicios que nos asisten y que se comprometen contractualmente a proteger su información.</li>
                 </ul>
 
-                <!-- CAJA LEGAL DE REGISTRO -->
-                <div class="legal-box">
-                    <h3>📋 Registro y Cumplimiento Legal</h3>
-                    <p>
-                        <strong>EMAGES GROUP S.A.C.</strong> garantiza el estricto cumplimiento de la <strong>Ley N° 29733</strong> (Ley de Protección de Datos Personales) y su Reglamento.
-                    </p>
-                    <p style="margin-bottom: 0;">
-                        Nos encontramos debidamente inscritos en el Registro Nacional de Protección de Datos Personales de la Autoridad Nacional de Protección de Datos Personales bajo el:
-                        <br><br>
-                        <span class="codigo">CÓDIGO DE BANCO DE DATOS PERSONALES: PJ-2026-5272</span>
-                    </p>
+                <h2>7. DERECHOS DEL TITULAR (DERECHOS ARCO)</h2>
+                <p>Usted tiene derecho a:</p>
+                <ul>
+                    <li><strong>Acceder</strong> a su información personal.</li>
+                    <li><strong>Solicitar la rectificación</strong> de datos inexactos.</li>
+                    <li><strong>Solicitar la cancelación</strong> o eliminación de sus datos.</li>
+                    <li><strong>Oponerse</strong> o retirar su consentimiento en cualquier momento.</li>
+                </ul>
+
+                <div class="contacto-box">
+                    <h2>8. CONTACTO Y EJERCICIO DE DERECHOS</h2>
+                    <p>Para consultas, solicitudes o inquietudes sobre esta Política de Privacidad o para ejercer sus derechos ARCO, contáctenos en:</p>
+                    <p>🏢 <strong>EMAGES GROUP</strong> | EMAGESGROUP E.I.R.L. – RUC 20611427671</p>
+                    <p>📍 <strong>Dirección:</strong> C. Alfredo Maldonado 654, 15084 – Pueblo Libre – Lima – Perú</p>
+                    <p>📧 <strong>Correo exclusivo de Protección de Datos:</strong> datospersonales@emagesgroup.com</p>
+                    <p>📱 <strong>Teléfono / Celular:</strong> +51 930 175 586</p>
                 </div>
-
             </div>
         </div>
     </div>
 
     <footer>
         <p><strong>EMAGES GROUP S.A.C.</strong> - RUC: 20611427671</p>
-        <p>Formación que transforma tu futuro profesional.</p>
         <p style="margin-top: 15px; opacity: 0.6; font-size: 0.75rem;">© 2026 EMAGES Academy. Todos los derechos reservados.</p>
     </footer>
 
