@@ -11,7 +11,8 @@
             --primary: #ff6b4a;
             --primary-dark: #ff8c42;
             --dark: #1a1a2e;
-            --dark-secondary: #16213e;
+            --dark-soft: #2c3e50;
+            --dark-soft-light: #34495e;
             --light: #f8f9fa;
             --white: #ffffff;
             --gradient: linear-gradient(135deg, #ff6b4a 0%, #ff8c42 100%);
@@ -238,9 +239,9 @@
         }
         .lista-limpia li strong { color: var(--dark); }
 
-        /* ===== CTA OSCURO ===== */
+        /* ===== CTA (TONOS SUAVES) ===== */
         .cta-oscuro {
-            background: var(--dark);
+            background: linear-gradient(135deg, var(--dark-soft) 0%, var(--dark-soft-light) 100%);
             color: white;
             padding: 90px 5%;
             text-align: center;
@@ -255,7 +256,7 @@
             right: -20%;
             width: 500px;
             height: 500px;
-            background: radial-gradient(circle, rgba(255, 107, 74, 0.1) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(255, 107, 74, 0.15) 0%, transparent 70%);
             border-radius: 50%;
         }
         .cta-oscuro h2 { 
@@ -266,7 +267,7 @@
         }
         .cta-oscuro p { 
             font-size: 1.1rem; 
-            opacity: 0.9; 
+            opacity: 0.95; 
             max-width: 600px; 
             margin: 0 auto 35px;
             position: relative;
@@ -277,10 +278,10 @@
             z-index: 2;
         }
 
-        /* ===== FOOTER (LIMPIO SIN PLUMA) ===== */
+        /* ===== FOOTER (TONOS SUAVES) ===== */
         footer {
-            background: #0a0e27;
-            color: #bdc3c7;
+            background: var(--dark-soft);
+            color: #ecf0f1;
             padding: 40px 5% 25px;
             text-align: center;
         }
@@ -381,14 +382,14 @@
         </ul>
     </section>
 
-    <!-- CTA OSCURO -->
+    <!-- CTA (TONOS SUAVES) -->
     <section class="cta-oscuro">
         <h2>¿No sabes qué carrera elegir?</h2>
         <p>Realiza nuestra Evaluación Vocacional gratuita en 10 minutos y recibe un informe personalizado con las carreras más demandadas en Perú.</p>
         <a href="registro_campus.html" class="btn btn-primary">Hacer mi Evaluación Vocacional</a>
     </section>
 
-    <!-- FOOTER (LIMPIO) -->
+    <!-- FOOTER (TONOS SUAVES) -->
     <footer>
         <div class="footer-brand">
             <span>EMAGES Academy</span>
