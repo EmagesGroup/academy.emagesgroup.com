@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Campus Virtual - EMAGES Academy</title>
+    <meta name="description" content="EMAGES Academy: Formación Empresarial, Tecnológica y Artística. Ingresa a nuestro Campus Virtual y transforma tu futuro profesional.">
+    <title>EMAGES Academy | Formación que transforma</title>
     <link rel="icon" type="image/png" href="assets/favicon.png">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
         :root {
             --primary: #ff6b4a;
@@ -17,392 +19,348 @@
             --gradient: linear-gradient(135deg, #ff6b4a 0%, #ff8c42 100%);
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: var(--light);
-            color: var(--dark);
+            background: var(--light);
+            color: #333;
             line-height: 1.6;
         }
 
-        /* ===== HEADER ===== */
+        /* ===== BARRA SUPERIOR ===== */
+        .topbar {
+            background: var(--dark);
+            color: var(--white);
+            text-align: center;
+            padding: 8px 15px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        .topbar span { color: var(--primary); font-weight: 700; }
+
+        /* ===== NAVBAR ===== */
         .navbar {
-            background: var(--white);
-            padding: 18px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
             position: sticky;
             top: 0;
-            z-index: 1000;
-        }
-        .navbar .logo {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
             display: flex;
             align-items: center;
-            gap: 12px;
-            text-decoration: none;
+            justify-content: space-between;
+            padding: 15px 5%;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            z-index: 1000;
         }
-        .navbar .logo img.pluma-header {
-            height: 42px;
-            width: auto;
-        }
-        .navbar .logo-text {
-            display: flex;
-            flex-direction: column;
-        }
-        .navbar .logo-text .marca {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--dark);
-            line-height: 1;
-            letter-spacing: -0.5px;
-        }
-        .navbar .logo-text .submarca {
-            font-size: 0.7rem;
-            color: var(--primary);
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            font-weight: 600;
-        }
-        .navbar .nav-links a {
-            text-decoration: none;
-            color: var(--dark);
-            font-weight: 600;
-            margin-left: 25px;
-            transition: color 0.3s;
-            font-size: 0.95rem;
-        }
-        .navbar .nav-links a:hover { color: var(--primary); }
-        .navbar .btn-nav {
+        .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .logo img { height: 40px; width: auto; }
+        .logo-text { display: flex; flex-direction: column; line-height: 1; }
+        .logo-text .marca { font-size: 1.2rem; font-weight: 800; color: var(--dark); }
+        .logo-text .submarca { font-size: 0.6rem; color: var(--primary); letter-spacing: 2px; text-transform: uppercase; font-weight: 600; }
+
+        .nav-links { display: flex; align-items: center; gap: 25px; }
+        .nav-links a { text-decoration: none; color: var(--dark); font-weight: 600; font-size: 0.95rem; transition: .3s; }
+        .nav-links a:hover { color: var(--primary); }
+
+        .btn-campus {
             background: var(--gradient);
-            color: white !important;
+            color: #fff !important;
             padding: 10px 22px;
             border-radius: 25px;
-            transition: transform 0.3s, box-shadow 0.3s;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(255, 107, 74, 0.3);
+            transition: .3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-        .navbar .btn-nav:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(255, 107, 74, 0.4);
-        }
+        .btn-campus:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255, 107, 74, 0.5); }
 
         /* ===== HERO ===== */
         .hero {
-            position: relative;
-            padding: 120px 5% 140px;
-            text-align: center;
-            overflow: hidden;
-            background: linear-gradient(135deg, rgba(26, 26, 46, 0.92) 0%, rgba(22, 33, 62, 0.92) 100%), 
-                        url('assets/hero.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-        }
-        .hero-content { 
-            position: relative; 
-            z-index: 2; 
-            max-width: 850px; 
-            margin: 0 auto; 
-            color: white;
-        }
-        .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: 20px;
-            line-height: 1.15;
-            letter-spacing: -1px;
-        }
-        .hero h1 span { color: var(--primary); }
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 40px;
-            opacity: 0.95;
-            max-width: 650px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .hero-buttons {
+            min-height: 85vh;
+            background: linear-gradient(135deg, rgba(26, 26, 46, 0.85) 0%, rgba(22, 33, 62, 0.85) 100%), url('assets/hero.jpg') center/cover no-repeat;
             display: flex;
-            gap: 18px;
+            align-items: center;
             justify-content: center;
-            flex-wrap: wrap;
-        }
-        .btn {
-            padding: 16px 35px;
-            border-radius: 30px;
-            font-weight: 700;
-            font-size: 1.05rem;
-            text-decoration: none;
-            transition: all 0.3s;
-            border: none;
-            cursor: pointer;
-            font-family: 'Poppins', sans-serif;
-            display: inline-block;
-        }
-        .btn-primary {
-            background: var(--gradient);
-            color: white;
-            box-shadow: 0 8px 25px rgba(255, 107, 74, 0.4);
-        }
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 35px rgba(255, 107, 74, 0.6);
-        }
-        .btn-outline {
-            background: transparent;
-            color: white;
-            border: 2px solid white;
-        }
-        .btn-outline:hover {
-            background: white;
-            color: var(--dark);
-            transform: translateY(-3px);
-        }
-
-        /* ===== BENEFICIOS ===== */
-        .beneficios {
-            padding: 100px 5%;
-            max-width: 1200px;
-            margin: -80px auto 0;
-            position: relative;
-            z-index: 10;
-        }
-        .section-title {
             text-align: center;
-            font-size: 2.3rem;
-            font-weight: 800;
-            color: var(--dark);
-            margin-bottom: 60px;
-            letter-spacing: -0.5px;
+            color: #fff;
+            padding: 100px 20px 60px;
         }
+        .hero-content { max-width: 800px; animation: fadeInUp 0.8s ease; }
+        .hero h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 20px; line-height: 1.1; }
+        .hero h1 span { color: var(--primary); }
+        .hero p { font-size: 1.2rem; margin-bottom: 35px; opacity: 0.9; max-width: 600px; margin-left: auto; margin-right: auto; }
+        
+        .hero-buttons { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+        .btn {
+            padding: 14px 30px; border-radius: 30px; font-weight: 700; text-decoration: none;
+            transition: .3s; display: inline-flex; align-items: center; gap: 8px; font-size: 1rem;
+        }
+        .btn-primary { background: var(--gradient); color: #fff; box-shadow: 0 8px 25px rgba(255, 107, 74, 0.4); }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 35px rgba(255, 107, 74, 0.6); }
+        .btn-outline { background: transparent; color: #fff; border: 2px solid #fff; }
+        .btn-outline:hover { background: #fff; color: var(--dark); transform: translateY(-3px); }
+
+        /* ===== ESCUELAS (Diseño Mobile-Friendly) ===== */
+        .escuelas { padding: 80px 5%; background: var(--white); }
+        .section-title { text-align: center; font-size: 2.2rem; font-weight: 800; color: var(--dark); margin-bottom: 50px; }
         .section-title span { color: var(--primary); }
         
-        .cards-grid {
+        .escuelas-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
-        }
-        .card {
-            background: white;
-            padding: 40px 30px;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-            text-align: center;
-            transition: all 0.3s;
-            border-top: 3px solid transparent;
-        }
-        .card:hover {
-            transform: translateY(-8px);
-            border-top-color: var(--primary);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-        }
-        .card-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
-        }
-        .card h3 { 
-            font-size: 1.3rem; 
-            margin-bottom: 12px; 
-            color: var(--dark);
-            font-weight: 700;
-        }
-        .card p { 
-            color: #7f8c8d; 
-            font-size: 0.95rem; 
-            line-height: 1.7; 
-        }
-
-        /* ===== LISTA LIMPIA ===== */
-        .lista-seccion {
-            padding: 80px 5%;
-            max-width: 900px;
+            max-width: 1200px;
             margin: 0 auto;
         }
-        .lista-limpia {
-            list-style: none;
-            display: grid;
-            gap: 15px;
-        }
-        .lista-limpia li {
+        .escuela-card {
+            position: relative;
+            height: 350px;
+            border-radius: 20px;
+            overflow: hidden;
             display: flex;
-            align-items: center;
-            gap: 15px;
-            font-size: 1.05rem;
-            color: var(--dark);
-            padding: 16px 20px;
-            background: white;
-            border-radius: 10px;
-            border-left: 3px solid var(--primary);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+            align-items: flex-end;
+            text-decoration: none;
+            color: #fff;
+            transition: .4s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
-        .lista-limpia li strong { color: var(--dark); }
+        .escuela-card::before {
+            content: ""; position: absolute; inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.1) 100%);
+            transition: .4s;
+        }
+        .escuela-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+        .escuela-card:hover::before { background: linear-gradient(to top, rgba(255, 107, 74, 0.9) 0%, rgba(0,0,0,0.2) 100%); }
+        
+        .escuela-info { position: relative; z-index: 2; padding: 30px; width: 100%; }
+        .escuela-info h3 { font-size: 1.5rem; margin-bottom: 10px; font-weight: 700; }
+        .escuela-info p { font-size: 0.95rem; opacity: 0.9; margin-bottom: 15px; }
+        .escuela-link { font-size: 0.9rem; font-weight: 700; display: flex; align-items: center; gap: 5px; }
 
-        /* ===== CTA OSCURO ===== */
-        .cta-oscuro {
+        /* ===== POR QUÉ ELEGIRNOS ===== */
+        .why { padding: 80px 5%; background: var(--light); }
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .why-item {
+            background: #fff; padding: 35px 25px; border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04); transition: .3s;
+            border-top: 4px solid transparent; text-align: center;
+        }
+        .why-item:hover { transform: translateY(-5px); border-top-color: var(--primary); box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
+        .why-icon { font-size: 2.5rem; margin-bottom: 15px; display: block; }
+        .why-item h3 { font-size: 1.1rem; margin-bottom: 10px; color: var(--dark); }
+        .why-item p { font-size: 0.9rem; color: #666; }
+
+        /* ===== CTA ===== */
+        .cta {
             background: var(--dark);
-            color: white;
-            padding: 90px 5%;
+            color: #fff;
             text-align: center;
-            margin-top: 60px;
+            padding: 80px 20px;
             position: relative;
             overflow: hidden;
         }
-        .cta-oscuro::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(255, 107, 74, 0.1) 0%, transparent 70%);
+        .cta::before {
+            content: ''; position: absolute; top: -50%; right: -20%;
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(255, 107, 74, 0.15) 0%, transparent 70%);
             border-radius: 50%;
         }
-        .cta-oscuro h2 { 
-            font-size: 2.5rem; 
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 2;
-        }
-        .cta-oscuro p { 
-            font-size: 1.1rem; 
-            opacity: 0.9; 
-            max-width: 600px; 
-            margin: 0 auto 35px;
-            position: relative;
-            z-index: 2;
-        }
-        .cta-oscuro .btn {
-            position: relative;
-            z-index: 2;
-        }
+        .cta h2 { font-size: 2.2rem; margin-bottom: 20px; position: relative; z-index: 2; }
+        .cta p { font-size: 1.1rem; opacity: 0.9; margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto; position: relative; z-index: 2; }
+        .cta .btn { position: relative; z-index: 2; }
 
         /* ===== FOOTER ===== */
-        footer {
-            background: #0a0e27;
-            color: #bdc3c7;
-            padding: 40px 5% 25px;
-            text-align: center;
+        footer { background: #0a0e27; color: #bdc3c7; padding: 60px 5% 30px; }
+        .footer-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px; max-width: 1100px; margin: 0 auto 40px;
         }
-        footer .footer-brand {
-            margin-bottom: 20px;
-        }
-        footer .footer-brand span {
-            font-weight: 700;
-            color: white;
-            font-size: 1.3rem;
-        }
-        footer p { margin-bottom: 10px; font-size: 0.9rem; }
-        footer a { color: var(--primary); text-decoration: none; font-weight: 600; }
-        footer a:hover { text-decoration: underline; }
-        .footer-links { 
-            margin-top: 20px; 
-            display: flex; 
-            justify-content: center; 
-            gap: 25px; 
-            flex-wrap: wrap; 
-        }
+        footer h4 { color: #fff; margin-bottom: 20px; font-size: 1.1rem; }
+        footer p { font-size: 0.9rem; margin-bottom: 15px; }
+        footer a { display: block; text-decoration: none; color: #bdc3c7; margin-bottom: 10px; font-size: 0.9rem; transition: .3s; }
+        footer a:hover { color: var(--primary); transform: translateX(5px); }
+        .footer-bottom { text-align: center; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.8rem; color: #7f8c8d; }
 
+        /* ===== WHATSAPP FLOTANTE ===== */
+        .whatsapp {
+            position: fixed; bottom: 25px; right: 25px;
+            background: #25D366; width: 60px; height: 60px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            color: #fff; font-size: 30px; text-decoration: none;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            transition: .3s; z-index: 999;
+        }
+        .whatsapp:hover { transform: scale(1.1); }
+
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ===== RESPONSIVE (CELULAR) ===== */
         @media (max-width: 768px) {
-            .navbar { flex-direction: column; gap: 15px; padding: 15px; }
-            .navbar .nav-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
-            .navbar .nav-links a { margin-left: 0; }
-            .hero { padding: 80px 5% 100px; }
+            .navbar { padding: 12px 5%; flex-wrap: wrap; gap: 10px; }
+            .nav-links { display: none; /* Ocultamos links en móvil para priorizar el botón Campus */ }
+            .hero { min-height: 70vh; padding-top: 80px; }
             .hero h1 { font-size: 2.2rem; }
             .hero p { font-size: 1rem; }
-            .beneficios { margin-top: -40px; padding: 60px 5%; }
+            .hero-buttons { flex-direction: column; width: 100%; }
+            .hero-buttons .btn { width: 100%; justify-content: center; }
+            .escuela-card { height: 280px; }
             .section-title { font-size: 1.8rem; }
-            .cta-oscuro h2 { font-size: 1.8rem; }
+            .cta h2 { font-size: 1.8rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- HEADER (con pluma) -->
+    <!-- BARRA SUPERIOR -->
+    <div class="topbar">
+        🎓 Matrículas 2026 abiertas · <span>Ingresa al Campus Virtual</span>
+    </div>
+
+    <!-- NAVBAR -->
     <nav class="navbar">
-        <a href="https://academy.emagesgroup.com/" class="logo">
-            <img src="assets/Pluma-sin-fondo.png" alt="EMAGES Academy" class="pluma-header">
+        <a href="index.html" class="logo">
+            <img src="assets/Pluma-sin-fondo.png" alt="EMAGES Academy">
             <div class="logo-text">
                 <span class="marca">EMAGES Academy</span>
                 <span class="submarca">Centro de Formación</span>
             </div>
         </a>
         <div class="nav-links">
-            <a href="https://academy.emagesgroup.com/">Inicio</a>
-            <a href="https://academy.emagesgroup.com/empresarial.html">Empresarial</a>
-            <a href="https://academy.emagesgroup.com/tecnologia.html">Tecnología</a>
-            <a href="https://academy.emagesgroup.com/artistico.html">Artístico</a>
-            <a href="login_campus.html" class="btn-nav">Iniciar Sesión</a>
+            <a href="#escuelas">Escuelas</a>
+            <a href="nosotros.html">Nosotros</a>
+            <a href="https://academy.emagesgroup.com/campus.html" class="btn-campus">🎓 Ir al Campus</a>
         </div>
+        <!-- Botón Campus visible siempre en móvil -->
+        <a href="https://academy.emagesgroup.com/campus.html" class="btn-campus" style="display: none;" id="mobileCampusBtn">Campus</a>
     </nav>
 
     <!-- HERO -->
     <section class="hero">
         <div class="hero-content">
             <h1>Tu Futuro Profesional<br><span>Empieza Aquí</span></h1>
-            <p>Accede a simulacros de admisión, evaluaciones de competencias y cursos certificados en un solo ecosistema digital.</p>
+            <p>Formación empresarial, tecnológica y artística con respaldo oficial. Accede a nuestro ecosistema digital y transforma tu carrera.</p>
             <div class="hero-buttons">
-                <a href="registro_campus.html" class="btn btn-primary">Registrarme Gratis</a>
-                <a href="login_campus.html" class="btn btn-outline">Ya tengo cuenta</a>
+                <a href="https://academy.emagesgroup.com/campus.html" class="btn btn-primary">🎓 Ingresar al Campus Virtual</a>
+                <a href="#escuelas" class="btn btn-outline">Explorar Escuelas</a>
             </div>
         </div>
     </section>
 
-    <!-- BENEFICIOS -->
-    <section class="beneficios">
-        <h2 class="section-title">¿Qué encontrarás en el <span>Campus</span>?</h2>
-        <div class="cards-grid">
-            <div class="card">
-                <div class="card-icon">📝</div>
-                <h3>Simulacros de Admisión</h3>
-                <p>Practica con exámenes reales tipo UNI, San Marcos, Callao y Privadas. Niveles Junior, Senior y Master.</p>
+    <!-- ESCUELAS -->
+    <section id="escuelas" class="escuelas">
+        <h2 class="section-title">Nuestras <span>Escuelas</span></h2>
+        <div class="escuelas-grid">
+            <a href="empresarial.html" class="escuela-card" style="background: url('assets/empresarial.jpg') center/cover;">
+                <div class="escuela-info">
+                    <h3>Formación Empresarial</h3>
+                    <p>Gestión, finanzas, marketing y liderazgo estratégico.</p>
+                    <span class="escuela-link">Ver programas →</span>
+                </div>
+            </a>
+            <a href="tecnologia.html" class="escuela-card" style="background: url('assets/tecnologia.jpg') center/cover;">
+                <div class="escuela-info">
+                    <h3>Formación Tecnológica</h3>
+                    <p>Herramientas digitales, sistemas y desarrollo web.</p>
+                    <span class="escuela-link">Ver programas →</span>
+                </div>
+            </a>
+            <a href="artistico.html" class="escuela-card" style="background: url('assets/artistico.jpg') center/cover;">
+                <div class="escuela-info">
+                    <h3>Talento Artístico</h3>
+                    <p>Convierte tu pasión en una profesión creativa.</p>
+                    <span class="escuela-link">Ver programas →</span>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- POR QUÉ ELEGIRNOS -->
+    <section class="why">
+        <h2 class="section-title">¿Por qué <span>EMAGES</span>?</h2>
+        <div class="why-grid">
+            <div class="why-item">
+                <span class="why-icon">💼</span>
+                <h3>Formación Práctica</h3>
+                <p>Metodología 100% aplicada al mundo real y demandas del mercado.</p>
             </div>
-            <div class="card">
-                <div class="card-icon">💼</div>
-                <h3>Evaluaciones de Competencias</h3>
-                <p>Descubre tu perfil profesional RIASEC y recibe un reporte listo para adjuntar a tu CV.</p>
+            <div class="why-item">
+                <span class="why-icon">👨‍🏫</span>
+                <h3>Docentes Expertos</h3>
+                <p>Profesionales activos y líderes en sus respectivos sectores.</p>
             </div>
-            <div class="card">
-                <div class="card-icon">🛠️</div>
-                <h3>Cursos Certificados</h3>
-                <p>Capacitación práctica en Cajero Bancario, Planillas, RRHH y más, con respaldo de EMAGES GROUP.</p>
+            <div class="why-item">
+                <span class="why-icon">💻</span>
+                <h3>Campus Virtual</h3>
+                <p>Plataforma propia con simulacros, evaluaciones y seguimiento.</p>
+            </div>
+            <div class="why-item">
+                <span class="why-icon">📜</span>
+                <h3>Certificación Oficial</h3>
+                <p>Respaldado por EMAGES GROUP S.A.C. (RUC 20611427671).</p>
             </div>
         </div>
     </section>
 
-    <!-- LISTA LIMPIA -->
-    <section class="lista-seccion">
-        <h2 class="section-title" style="font-size: 1.8rem;">Beneficios exclusivos</h2>
-        <ul class="lista-limpia">
-            <li><strong>Acceso 24/7</strong> — Estudia a tu ritmo desde cualquier dispositivo</li>
-            <li><strong>Certificados oficiales</strong> — Respaldados por EMAGES GROUP S.A.C.</li>
-            <li><strong>Soporte personalizado</strong> — Atención directa por WhatsApp</li>
-            <li><strong>Comunidad activa</strong> — Conecta con otros estudiantes y expertos</li>
-        </ul>
-    </section>
-
-    <!-- CTA OSCURO -->
-    <section class="cta-oscuro">
-        <h2>¿No sabes qué carrera elegir?</h2>
-        <p>Realiza nuestra Evaluación Vocacional gratuita en 10 minutos y recibe un informe personalizado con las carreras más demandadas en Perú.</p>
-        <a href="registro_campus.html" class="btn btn-primary">Hacer mi Evaluación Vocacional</a>
+    <!-- CTA -->
+    <section class="cta">
+        <h2>Da el siguiente paso hoy</h2>
+        <p>Únete a cientos de estudiantes que ya están transformando su futuro profesional con nosotros.</p>
+        <a href="https://academy.emagesgroup.com/campus.html" class="btn btn-primary" style="font-size: 1.1rem; padding: 16px 35px;">
+            🚀 Registrarme en el Campus Gratis
+        </a>
     </section>
 
     <!-- FOOTER -->
     <footer>
-        <div class="footer-brand">
-            <span>EMAGES Academy</span>
+        <div class="footer-grid">
+            <div>
+                <h4>EMAGES Academy</h4>
+                <p>Formación que transforma tu futuro profesional. Parte del ecosistema EMAGES GROUP.</p>
+            </div>
+            <div>
+                <h4>Escuelas</h4>
+                <a href="empresarial.html">Formación Empresarial</a>
+                <a href="tecnologia.html">Formación Tecnológica</a>
+                <a href="artistico.html">Talento Artístico</a>
+            </div>
+            <div>
+                <h4>Legal</h4>
+                <a href="privacidad.html">Política de Privacidad</a>
+                <a href="#">Libro de Reclamaciones</a>
+                <a href="#">Términos y Condiciones</a>
+            </div>
+            <div>
+                <h4>Síguenos</h4>
+                <a href="https://www.facebook.com/emages.academy" target="_blank">Facebook</a>
+                <a href="https://www.tiktok.com/@emages.academy" target="_blank">TikTok</a>
+                <a href="https://www.youtube.com/@EmagesAcademy" target="_blank">YouTube</a>
+            </div>
         </div>
-        <p><strong>EMAGES GROUP S.A.C.</strong> - RUC: 20611427671</p>
-        <p>Formación que transforma tu futuro profesional.</p>
-        <div class="footer-links">
-            <a href="https://academy.emagesgroup.com/">Web Principal</a>
-            <a href="https://academy.emagesgroup.com/nosotros.html">Nosotros</a>
-            <a href="privacidad.html">Políticas de Privacidad</a>
-            <a href="https://wa.me/51930175586" target="_blank">Soporte WhatsApp</a>
+        <div class="footer-bottom">
+            EMAGES ACADEMY | División de EMAGES GROUP S.A.C. - RUC: 20611427671 © 2026. Todos los derechos reservados.
         </div>
-        <p style="margin-top: 25px; opacity: 0.6; font-size: 0.8rem;">© 2026 EMAGES Academy. Todos los derechos reservados.</p>
     </footer>
 
+    <!-- WHATSAPP -->
+    <a href="https://wa.me/51930175586?text=Hola,%20quiero%20información%20sobre%20las%20escuelas%20de%20EMAGES%20Academy" class="whatsapp" target="_blank" title="Chatea con nosotros">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+    </a>
+
+    <script>
+        // Mostrar botón de Campus en móvil si la pantalla es pequeña
+        if (window.innerWidth <= 768) {
+            document.getElementById('mobileCampusBtn').style.display = 'flex';
+        }
+    </script>
 </body>
 </html>
