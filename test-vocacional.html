@@ -4,194 +4,145 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Evaluación Vocacional - EMAGES Academy</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        :root { 
-            --primary: #e74c3c; 
-            --primary-dark: #c0392b; 
-            --secondary: #3498db; 
-            --success: #27ae60; 
-            --warning: #f39c12; 
-            --bg: #f4f7f6; 
-            --text: #2c3e50;
-            --gradient: linear-gradient(135deg, #e74c3c 0%, #f39c12 100%);
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background-color: var(--bg); 
-            color: var(--text); 
-            min-height: 100vh;
+        :root {
+            --primary: #ff6b4a;
+            --primary-dark: #ff8c42;
+            --dark: #1a1a2e;
+            --dark-secondary: #16213e;
+            --light: #f8f9fa;
+            --white: #ffffff;
+            --text-gray: #7f8c8d;
+            --success: #27ae60;
+            --gradient: linear-gradient(135deg, #ff6b4a 0%, #ff8c42 100%);
         }
 
-        /* BARRA SUPERIOR DINÁMICA */
-        .top-bar {
-            background: var(--gradient);
-            color: white;
-            padding: 15px 25px;
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark);
+            background-image: linear-gradient(135deg, rgba(26, 26, 46, 0.97) 0%, rgba(22, 33, 62, 0.97) 100%), url('assets/hero.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* HEADER DEL TEST */
+        .test-header {
+            background: var(--white);
+            padding: 15px 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            animation: slideDown 0.5s ease;
+            margin-bottom: 30px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
         }
-        @keyframes slideDown {
-            from { transform: translateY(-100%); }
-            to { transform: translateY(0); }
-        }
-        .top-bar .logo {
-            font-size: 1.3rem;
-            font-weight: bold;
+        .test-header .logo {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 12px;
         }
-        .top-bar .logo span {
-            background: rgba(255,255,255,0.2);
-            padding: 4px 10px;
+        .test-header .logo img { height: 40px; width: auto; }
+        .test-header .logo-text .marca { font-size: 1.2rem; font-weight: 800; color: var(--dark); line-height: 1; }
+        .test-header .logo-text .submarca { font-size: 0.65rem; color: var(--primary); letter-spacing: 2px; text-transform: uppercase; font-weight: 600; }
+        
+        .progress-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .progress-text {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        .progress-text span { color: var(--primary); }
+        .btn-volver {
+            background: var(--dark);
+            color: white;
+            border: none;
+            padding: 8px 16px;
             border-radius: 20px;
             font-size: 0.85rem;
-        }
-        .top-bar .nav-actions {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
-        .btn-volver {
-            background: rgba(255,255,255,0.25);
-            color: white;
-            border: 2px solid rgba(255,255,255,0.5);
-            padding: 8px 16px;
-            border-radius: 25px;
-            font-weight: bold;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.9rem;
+            font-family: 'Poppins', sans-serif;
         }
-        .btn-volver:hover {
-            background: white;
-            color: var(--primary);
-            transform: translateX(-3px);
-        }
-        .contador-preguntas {
-            background: rgba(255,255,255,0.25);
-            padding: 8px 16px;
-            border-radius: 25px;
-            font-weight: bold;
-            font-size: 0.95rem;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .contador-preguntas .numero {
-            background: white;
-            color: var(--primary);
-            padding: 2px 10px;
-            border-radius: 15px;
-            font-weight: bold;
-        }
+        .btn-volver:hover { background: var(--dark-secondary); transform: translateY(-2px); }
 
-        /* BARRA DE PROGRESO ANIMADA */
-        .progress-container {
-            width: 100%;
+        /* BARRA DE PROGRESO */
+        .progress-bar-container {
+            max-width: 900px;
+            margin: 0 auto 30px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
             height: 8px;
-            background: #e0e0e0;
-            position: relative;
+            overflow: hidden;
         }
         .progress-bar {
             height: 100%;
             background: var(--gradient);
             transition: width 0.5s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        .progress-bar::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            animation: shimmer 2s infinite;
-        }
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
+            border-radius: 10px;
         }
 
-        /* CONTENIDO PRINCIPAL */
-        .main-content {
-            max-width: 700px;
-            margin: 40px auto;
-            padding: 0 20px;
+        /* CONTENEDOR PRINCIPAL */
+        .test-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            animation: fadeInUp 0.6s ease;
         }
-        .test-header {
-            text-align: center;
+
+        .question-header {
             margin-bottom: 30px;
-        }
-        .test-header h1 {
-            font-size: 2rem;
-            color: var(--text);
-            margin-bottom: 10px;
-        }
-        .test-header p {
-            color: #7f8c8d;
-            font-size: 1.05rem;
-        }
-        .test-header p strong {
-            color: var(--primary);
-        }
-
-        /* TARJETA DE PREGUNTA */
-        .question-card {
-            background: white;
-            border-radius: 16px;
-            padding: 35px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-            animation: fadeIn 0.4s ease;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
         }
         .question-number {
+            font-size: 0.85rem;
             color: var(--primary);
-            font-weight: bold;
-            font-size: 0.9rem;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 15px;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
         }
         .question-text {
-            font-size: 1.4rem;
-            color: var(--text);
-            line-height: 1.4;
-            margin-bottom: 30px;
-            font-weight: 600;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--dark);
+            line-height: 1.3;
         }
 
         /* OPCIONES DE RESPUESTA */
         .options {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 15px;
+            margin-bottom: 40px;
         }
         .option {
             display: flex;
             align-items: center;
-            padding: 16px 20px;
-            border: 2px solid #e0e0e0;
+            padding: 18px 22px;
+            border: 2px solid #e9ecef;
             border-radius: 12px;
             cursor: pointer;
             transition: all 0.3s;
             font-size: 1rem;
+            font-weight: 500;
+            color: var(--dark);
         }
         .option:hover {
             border-color: var(--primary);
@@ -200,54 +151,50 @@
         }
         .option.selected {
             border-color: var(--primary);
-            background: #fdf2f0;
-            font-weight: bold;
-        }
-        .option-dot {
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            margin-right: 12px;
-            flex-shrink: 0;
-        }
-        .option-arrow {
-            margin-left: auto;
-            color: #bdc3c7;
-            font-size: 1.2rem;
-        }
-
-        /* COLORES DE OPCIONES */
-        .opt-1 .option-dot { background: #27ae60; }
-        .opt-2 .option-dot { background: #2ecc71; }
-        .opt-3 .option-dot { background: #95a5a6; }
-        .opt-4 .option-dot { background: #e74c3c; }
-        .opt-5 .option-dot { background: #c0392b; }
-
-        /* BOTÓN SIGUIENTE */
-        .btn-siguiente {
-            width: 100%;
-            padding: 16px;
             background: var(--gradient);
             color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: bold;
+            font-weight: 600;
+        }
+        .option-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 15px;
+            flex-shrink: 0;
+            border: 2px solid currentColor;
+        }
+        .option.selected .option-dot {
+            background: white;
+        }
+
+        /* BOTONES DE NAVEGACIÓN */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        .btn {
+            padding: 14px 30px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
             cursor: pointer;
-            margin-top: 25px;
             transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+            border: none;
         }
-        .btn-siguiente:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+        .btn-secondary {
+            background: var(--light);
+            color: var(--dark);
         }
-        .btn-siguiente:disabled {
-            background: #bdc3c7;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
+        .btn-secondary:hover { background: #e9ecef; }
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+            box-shadow: 0 8px 25px rgba(255, 107, 74, 0.3);
         }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 35px rgba(255, 107, 74, 0.5); }
+        .btn:disabled { background: #bdc3c7; cursor: not-allowed; transform: none; box-shadow: none; }
 
         /* PANTALLA DE RESULTADOS */
         .resultados {
@@ -256,131 +203,133 @@
             padding: 40px 20px;
         }
         .resultados h2 {
-            font-size: 2rem;
-            color: var(--text);
-            margin-bottom: 15px;
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 20px;
         }
         .perfil-resultado {
-            font-size: 2.5rem;
+            font-size: 3rem;
             color: var(--primary);
-            font-weight: bold;
-            margin: 20px 0;
+            font-weight: 800;
+            margin: 30px 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
         .info-box {
             background: #e8f8f5;
             border-left: 4px solid var(--success);
-            padding: 15px;
-            border-radius: 8px;
-            margin: 20px 0;
-            display: inline-block;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 30px 0;
+            text-align: left;
         }
+        .info-box h3 { color: var(--success); margin-bottom: 15px; }
+        .info-box p { margin-bottom: 10px; color: var(--dark); }
         .btn-whatsapp {
             display: inline-block;
             background: #25D366;
             color: white;
-            padding: 16px 30px;
-            border-radius: 12px;
+            padding: 16px 35px;
+            border-radius: 30px;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 700;
             font-size: 1.1rem;
             margin: 20px 0;
             transition: all 0.3s;
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.3);
         }
-        .btn-whatsapp:hover {
-            background: #128C7E;
-            transform: translateY(-2px);
-        }
-        .btn-volver-inicio {
+        .btn-whatsapp:hover { transform: translateY(-3px); box-shadow: 0 12px 35px rgba(37, 211, 102, 0.5); }
+        .btn-panel {
             display: inline-block;
-            background: var(--text);
+            background: var(--dark);
             color: white;
-            padding: 14px 28px;
-            border-radius: 12px;
+            padding: 14px 30px;
+            border-radius: 30px;
             text-decoration: none;
-            font-weight: bold;
-            margin-top: 15px;
+            font-weight: 700;
+            margin-top: 20px;
             transition: all 0.3s;
         }
-        .btn-volver-inicio:hover {
-            background: #1a252f;
+        .btn-panel:hover { background: var(--dark-secondary); transform: translateY(-2px); }
+
+        .cargando {
+            text-align: center;
+            padding: 80px 20px;
+            font-size: 1.2rem;
+            color: white;
         }
 
-        @media (max-width: 600px) {
-            .top-bar { padding: 12px 15px; flex-wrap: wrap; gap: 10px; }
-            .top-bar .logo { font-size: 1.1rem; }
-            .question-card { padding: 25px 20px; }
-            .question-text { font-size: 1.2rem; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        
+        @media (max-width: 768px) {
+            .test-container { padding: 30px 25px; }
+            .question-text { font-size: 1.4rem; }
+            .test-header { flex-direction: column; gap: 15px; text-align: center; }
+            .perfil-resultado { font-size: 2rem; }
         }
     </style>
 </head>
 <body>
 
-<!-- BARRA SUPERIOR DINÁMICA -->
-<div class="top-bar">
-    <div class="logo">
-        🎓 EMAGES Academy
-        <span>Evaluación Vocacional</span>
-    </div>
-    <div class="nav-actions">
-        <div class="contador-preguntas">
-            📝 <span class="numero" id="contadorPreguntas">1 / 50</span>
-        </div>
-        <a href="panel_campus.html" class="btn-volver">
-            ← Volver al Panel
-        </a>
-    </div>
-</div>
-
-<!-- BARRA DE PROGRESO -->
-<div class="progress-container">
-    <div class="progress-bar" id="progressBar" style="width: 2%;"></div>
-</div>
-
-<!-- CONTENIDO DEL TEST -->
-<div class="main-content" id="testContent">
+    <!-- HEADER DEL TEST -->
     <div class="test-header">
-        <h1>Evaluación Vocacional</h1>
-        <p>Hola, <strong id="nombreUsuario">Estudiante</strong>. Responde con sinceridad para descubrir tu potencial.</p>
+        <div class="logo">
+            <img src="assets/Pluma-sin-fondo.png" alt="EMAGES Academy">
+            <div class="logo-text">
+                <span class="marca">EMAGES Academy</span>
+                <span class="submarca">Evaluación Vocacional</span>
+            </div>
+        </div>
+        <div class="progress-info">
+            <div class="progress-text">Pregunta <span id="currentQuestion">1</span> de <span id="totalQuestions">50</span></div>
+            <button class="btn-volver" onclick="volverAlPanel()">← Volver al Panel</button>
+        </div>
     </div>
 
-    <div class="question-card">
-        <div class="question-number" id="questionNumber">PREGUNTA 1 DE 50</div>
-        <div class="question-text" id="questionText">Cargando pregunta...</div>
-        
+    <!-- BARRA DE PROGRESO -->
+    <div class="progress-bar-container">
+        <div class="progress-bar" id="progressBar" style="width: 2%;"></div>
+    </div>
+
+    <!-- CONTENEDOR DEL TEST -->
+    <div class="test-container" id="testContainer">
+        <div class="question-header">
+            <div class="question-number" id="questionNumber">PREGUNTA 1 DE 50</div>
+            <div class="question-text" id="questionText">Cargando pregunta...</div>
+        </div>
+
         <div class="options" id="optionsContainer">
             <!-- Opciones se generan dinámicamente -->
         </div>
 
-        <button class="btn-siguiente" id="btnSiguiente" disabled onclick="siguientePregunta()">
-            Siguiente Pregunta →
-        </button>
-    </div>
-</div>
-
-<!-- PANTALLA DE RESULTADOS -->
-<div class="main-content resultados" id="resultados">
-    <h2>🎯 ¡Felicitaciones!</h2>
-    <p>Has completado tu Evaluación Vocacional EMAGES</p>
-    <div class="perfil-resultado" id="perfilResultado">Perfil Artístico</div>
-    
-    <div class="info-box">
-        ✅ Tu resultado ha sido guardado en nuestro sistema
+        <div class="nav-buttons">
+            <button class="btn btn-secondary" id="btnAnterior" onclick="anteriorPregunta()" disabled>← Anterior</button>
+            <button class="btn btn-primary" id="btnSiguiente" onclick="siguientePregunta()" disabled>Siguiente →</button>
+        </div>
     </div>
 
-    <div style="background: #e8f8f5; padding: 25px; border-radius: 12px; margin: 25px 0; text-align: left;">
-        <h3 style="color: #27ae60; margin-bottom: 15px; text-align: center;">Recibe tu Informe Completo GRATIS</h3>
-        <p>Te enviaremos por WhatsApp:</p>
-        <p>✓ <strong>Análisis detallado</strong> de tu perfil</p>
-        <p>✓ <strong>Carreras recomendadas</strong> específicas para ti</p>
-        <p>✓ <strong>Fortalezas y áreas de mejora</strong></p>
-        <p>✓ <strong>Plan de acción</strong> personalizado</p>
-        <p>✓ Información sobre nuestros <strong>simulacros de admisión</strong></p>
+    <!-- PANTALLA DE RESULTADOS -->
+    <div class="test-container resultados" id="resultados">
+        <h2>🎯 ¡Felicitaciones!</h2>
+        <p style="font-size: 1.1rem; color: var(--text-gray); margin-bottom: 20px;">Has completado tu Evaluación Vocacional EMAGES</p>
         
-        <a href="#" class="btn-whatsapp" id="btnWhatsApp">💬 Solicitar mi informe completo por WhatsApp</a>
-    </div>
+        <div class="perfil-resultado" id="perfilResultado">Perfil Artístico</div>
+        
+        <div class="info-box">
+            <h3>✅ Tu resultado ha sido guardado</h3>
+            <p>Recibirás por WhatsApp:</p>
+            <p>✓ Análisis detallado de tu perfil</p>
+            <p>✓ Carreras recomendadas específicas para ti</p>
+            <p>✓ Fortalezas y áreas de mejora</p>
+            <p>✓ Plan de acción personalizado</p>
+            <p>✓ Información sobre nuestros simulacros de admisión</p>
+        </div>
 
-    <a href="panel_campus.html" class="btn-volver-inicio">← Volver al Panel Principal</a>
-</div>
+        <a href="#" class="btn-whatsapp" id="btnWhatsApp"> Solicitar mi informe completo por WhatsApp</a>
+        
+        <br>
+        <a href="panel_campus.html" class="btn-panel">← Volver al Panel Principal</a>
+    </div>
 
 <script>
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw6xpApuz9Es7NGuDlVefKemVYEPVo3MZcrS71DAGa3YQmLLIkmEY6KSLtBJlmJ_3Yr/exec';
@@ -388,9 +337,12 @@
     // Datos del usuario desde sessionStorage
     const dni = sessionStorage.getItem('emages_dni');
     const nombres = sessionStorage.getItem('emages_nombre') || 'Estudiante';
-    document.getElementById('nombreUsuario').textContent = nombres;
+    
+    if (!dni) {
+        window.location.href = 'login_campus.html';
+    }
 
-    // Base de preguntas RIASEC (50 preguntas - 8-9 por dimensión)
+    // Base de preguntas RIASEC (50 preguntas)
     const preguntas = [
         // REALISTA (8 preguntas)
         { texto: "Me gusta reparar cosas, trabajar con herramientas o maquinaria.", tipo: "R" },
@@ -456,17 +408,17 @@
     ];
 
     let preguntaActual = 0;
-    let respuestas = [];
+    let respuestas = new Array(preguntas.length).fill(null);
     let respuestaSeleccionada = null;
 
-    // Escalado de respuestas: Muy de acuerdo=3, De acuerdo=2, Neutral=1, En desacuerdo=0, Muy en desacuerdo=-1
-    const valoresRespuesta = [3, 2, 1, 0, -1];
+    const valoresRespuesta = [3, 2, 1, 0, -1]; // Muy de acuerdo a Muy en desacuerdo
 
     function cargarPregunta() {
         const pregunta = preguntas[preguntaActual];
         document.getElementById('questionNumber').textContent = `PREGUNTA ${preguntaActual + 1} DE ${preguntas.length}`;
         document.getElementById('questionText').textContent = pregunta.texto;
-        document.getElementById('contadorPreguntas').textContent = `${preguntaActual + 1} / ${preguntas.length}`;
+        document.getElementById('currentQuestion').textContent = preguntaActual + 1;
+        document.getElementById('totalQuestions').textContent = preguntas.length;
         
         // Actualizar barra de progreso
         const progreso = ((preguntaActual + 1) / preguntas.length) * 100;
@@ -479,45 +431,41 @@
         
         opciones.forEach((opcion, index) => {
             const div = document.createElement('div');
-            div.className = `option opt-${index + 1}`;
+            div.className = 'option';
+            if (respuestas[preguntaActual] === index) {
+                div.classList.add('selected');
+            }
             div.innerHTML = `
                 <div class="option-dot"></div>
                 <span>${opcion}</span>
-                <span class="option-arrow">→</span>
             `;
             div.onclick = () => seleccionarRespuesta(index, div);
             contenedor.appendChild(div);
         });
 
-        respuestaSeleccionada = null;
-        document.getElementById('btnSiguiente').disabled = true;
+        respuestaSeleccionada = respuestas[preguntaActual];
+        document.getElementById('btnSiguiente').disabled = respuestaSeleccionada === null;
+        document.getElementById('btnAnterior').disabled = preguntaActual === 0;
         
         // Cambiar texto del botón en la última pregunta
         if (preguntaActual === preguntas.length - 1) {
             document.getElementById('btnSiguiente').textContent = 'Ver Resultados 🎯';
         } else {
-            document.getElementById('btnSiguiente').textContent = 'Siguiente Pregunta →';
+            document.getElementById('btnSiguiente').textContent = 'Siguiente →';
         }
     }
 
     function seleccionarRespuesta(index, elemento) {
-        // Quitar selección anterior
         document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
-        // Marcar nueva selección
         elemento.classList.add('selected');
         respuestaSeleccionada = index;
+        respuestas[preguntaActual] = index;
         document.getElementById('btnSiguiente').disabled = false;
     }
 
     function siguientePregunta() {
         if (respuestaSeleccionada === null) return;
         
-        // Guardar respuesta
-        respuestas.push({
-            tipo: preguntas[preguntaActual].tipo,
-            valor: valoresRespuesta[respuestaSeleccionada]
-        });
-
         preguntaActual++;
         
         if (preguntaActual < preguntas.length) {
@@ -527,13 +475,21 @@
         }
     }
 
+    function anteriorPregunta() {
+        if (preguntaActual > 0) {
+            preguntaActual--;
+            cargarPregunta();
+        }
+    }
+
     function calcularPerfil() {
         const puntajes = { R: 0, I: 0, A: 0, S: 0, E: 0, C: 0 };
-        respuestas.forEach(r => {
-            puntajes[r.tipo] += r.valor;
+        respuestas.forEach((respuesta, index) => {
+            if (respuesta !== null) {
+                puntajes[preguntas[index].tipo] += valoresRespuesta[respuesta];
+            }
         });
         
-        // Ajustar a escala positiva (sumar offset para que no haya negativos)
         const nombresPerfiles = {
             'R': 'Realista', 'I': 'Investigador', 'A': 'Artístico',
             'S': 'Social', 'E': 'Emprendedor', 'C': 'Convencional'
@@ -550,7 +506,7 @@
         
         return {
             perfil: nombresPerfiles[maxTipo],
-            puntajeR: puntajes['R'] + 8,  // Offset para positivos
+            puntajeR: puntajes['R'] + 8,
             puntajeI: puntajes['I'] + 9,
             puntajeA: puntajes['A'] + 8,
             puntajeS: puntajes['S'] + 9,
@@ -562,14 +518,10 @@
     function mostrarResultados() {
         const resultado = calcularPerfil();
         
-        // Ocultar test, mostrar resultados
-        document.getElementById('testContent').style.display = 'none';
+        document.getElementById('testContainer').style.display = 'none';
         document.getElementById('resultados').style.display = 'block';
         document.getElementById('perfilResultado').textContent = `Perfil ${resultado.perfil}`;
-        
-        // Barra de progreso al 100%
         document.getElementById('progressBar').style.width = '100%';
-        document.getElementById('contadorPreguntas').textContent = '50 / 50';
 
         // Configurar botón de WhatsApp
         const mensajeWA = `Hola EMAGES Academy, soy ${nombres} (DNI: ${dni}). Acabo de completar mi Evaluación Vocacional y obtuve el perfil: ${resultado.perfil}. Quiero recibir mi informe completo.`;
@@ -606,6 +558,10 @@
         .catch(error => {
             console.error('Error al guardar:', error);
         });
+    }
+
+    function volverAlPanel() {
+        window.location.href = 'panel_campus.html';
     }
 
     // Iniciar el test
