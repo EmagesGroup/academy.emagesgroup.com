@@ -26,7 +26,7 @@
             line-height: 1.6;
         }
 
-        /* ===== HEADER LIMPIO ===== */
+        /* ===== HEADER ===== */
         .navbar {
             background: var(--white);
             padding: 18px 5%;
@@ -113,9 +113,7 @@
             line-height: 1.15;
             letter-spacing: -1px;
         }
-        .hero h1 span { 
-            color: var(--primary);
-        }
+        .hero h1 span { color: var(--primary); }
         .hero p {
             font-size: 1.2rem;
             margin-bottom: 40px;
@@ -162,10 +160,6 @@
             background: white;
             color: var(--dark);
             transform: translateY(-3px);
-        }
-        .btn img.pluma-btn {
-            width: 20px;
-            height: auto;
         }
 
         /* ===== BENEFICIOS ===== */
@@ -221,18 +215,18 @@
             line-height: 1.7; 
         }
 
-        /* ===== LISTA SUTIL CON PLUMA ===== */
+        /* ===== LISTA LIMPIA (SIN PLUMA) ===== */
         .lista-seccion {
             padding: 80px 5%;
             max-width: 900px;
             margin: 0 auto;
         }
-        .lista-pluma {
+        .lista-limpia {
             list-style: none;
             display: grid;
             gap: 15px;
         }
-        .lista-pluma li {
+        .lista-limpia li {
             display: flex;
             align-items: center;
             gap: 15px;
@@ -244,12 +238,7 @@
             border-left: 3px solid var(--primary);
             box-shadow: 0 2px 10px rgba(0,0,0,0.04);
         }
-        .lista-pluma li img {
-            width: 24px;
-            height: auto;
-            flex-shrink: 0;
-        }
-        .lista-pluma li strong { color: var(--dark); }
+        .lista-limpia li strong { color: var(--dark); }
 
         /* ===== CTA OSCURO ===== */
         .cta-oscuro {
@@ -339,7 +328,7 @@
 </head>
 <body>
 
-    <!-- HEADER -->
+    <!-- HEADER (con pluma) -->
     <nav class="navbar">
         <a href="https://academy.emagesgroup.com/" class="logo">
             <img src="assets/Pluma-sin-fondo.png" alt="EMAGES Academy" class="pluma-header">
@@ -357,29 +346,24 @@
         </div>
     </nav>
 
-    <!-- HERO -->
+    <!-- HERO (sin pluma) -->
     <section class="hero">
         <div class="hero-content">
             <h1>Tu Futuro Profesional<br><span>Empieza Aquí</span></h1>
             <p>Accede a simulacros de admisión, evaluaciones de competencias y cursos certificados en un solo ecosistema digital.</p>
             <div class="hero-buttons">
-                <a href="registro_campus.html" class="btn btn-primary">
-                    <img src="assets/Pluma-sin-fondo.png" alt="" class="pluma-btn">
-                    Registrarme Gratis
-                </a>
-                <a href="login_campus.html" class="btn btn-outline">
-                    Ya tengo cuenta
-                </a>
+                <a href="registro_campus.html" class="btn btn-primary">Registrarme Gratis</a>
+                <a href="login_campus.html" class="btn btn-outline">Ya tengo cuenta</a>
             </div>
         </div>
     </section>
 
-    <!-- BENEFICIOS -->
+    <!-- BENEFICIOS (sin pluma) -->
     <section class="beneficios">
         <h2 class="section-title">¿Qué encontrarás en el <span>Campus</span>?</h2>
         <div class="cards-grid">
             <div class="card">
-                <div class="card-icon">📝</div>
+                <div class="card-icon"></div>
                 <h3>Simulacros de Admisión</h3>
                 <p>Practica con exámenes reales tipo UNI, San Marcos, Callao y Privadas. Niveles Junior, Senior y Master.</p>
             </div>
@@ -396,40 +380,25 @@
         </div>
     </section>
 
-    <!-- LISTA SUTIL CON PLUMA -->
+    <!-- LISTA LIMPIA (sin pluma) -->
     <section class="lista-seccion">
         <h2 class="section-title" style="font-size: 1.8rem;">Beneficios exclusivos</h2>
-        <ul class="lista-pluma">
-            <li>
-                <img src="assets/Pluma-sin-fondo.png" alt="">
-                <div><strong>Acceso 24/7</strong> — Estudia a tu ritmo desde cualquier dispositivo</div>
-            </li>
-            <li>
-                <img src="assets/Pluma-sin-fondo.png" alt="">
-                <div><strong>Certificados oficiales</strong> — Respaldados por EMAGES GROUP S.A.C.</div>
-            </li>
-            <li>
-                <img src="assets/Pluma-sin-fondo.png" alt="">
-                <div><strong>Soporte personalizado</strong> — Atención directa por WhatsApp</div>
-            </li>
-            <li>
-                <img src="assets/Pluma-sin-fondo.png" alt="">
-                <div><strong>Comunidad activa</strong> — Conecta con otros estudiantes y expertos</div>
-            </li>
+        <ul class="lista-limpia">
+            <li><strong>Acceso 24/7</strong> — Estudia a tu ritmo desde cualquier dispositivo</li>
+            <li><strong>Certificados oficiales</strong> — Respaldados por EMAGES GROUP S.A.C.</li>
+            <li><strong>Soporte personalizado</strong> — Atención directa por WhatsApp</li>
+            <li><strong>Comunidad activa</strong> — Conecta con otros estudiantes y expertos</li>
         </ul>
     </section>
 
-    <!-- CTA OSCURO -->
+    <!-- CTA OSCURO (sin pluma) -->
     <section class="cta-oscuro">
         <h2>¿No sabes qué carrera elegir?</h2>
         <p>Realiza nuestra Evaluación Vocacional gratuita en 10 minutos y recibe un informe personalizado con las carreras más demandadas en Perú.</p>
-        <a href="registro_campus.html" class="btn btn-primary">
-            <img src="assets/Pluma-sin-fondo.png" alt="" class="pluma-btn">
-            Hacer mi Evaluación Vocacional
-        </a>
+        <a href="registro_campus.html" class="btn btn-primary">Hacer mi Evaluación Vocacional</a>
     </section>
 
-    <!-- FOOTER -->
+    <!-- FOOTER (con pluma) -->
     <footer>
         <div class="footer-brand">
             <img src="assets/Pluma-sin-fondo.png" alt="">
