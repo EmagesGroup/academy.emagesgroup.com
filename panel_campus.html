@@ -4,61 +4,178 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Panel - EMAGES Academy</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #e74c3c; --primary-dark: #c0392b; --success: #27ae60; --warning: #f39c12; --bg: #f4f7f6; --text: #2c3e50; }
+        :root {
+            --primary: #ff6b4a;
+            --primary-dark: #ff8c42;
+            --dark: #1a1a2e;
+            --dark-secondary: #16213e;
+            --light: #f8f9fa;
+            --white: #ffffff;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --text-gray: #7f8c8d;
+            --gradient: linear-gradient(135deg, #ff6b4a 0%, #ff8c42 100%);
+        }
+
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--bg); color: var(--text); padding: 20px; }
-        .container { max-width: 1000px; margin: 0 auto; }
         
-        /* Header */
-        .header { display: flex; justify-content: space-between; align-items: center; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 25px; flex-wrap: wrap; gap: 15px; }
-        .header h1 { font-size: 1.5rem; color: var(--primary); }
-        .header .user-info { text-align: right; }
-        .header .user-info p { font-size: 0.9rem; color: #7f8c8d; margin: 0; }
-        .btn-logout { background: #95a5a6; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 0.9rem; margin-top: 8px; transition: background 0.3s; }
-        .btn-logout:hover { background: #7f8c8d; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark);
+            background-image: linear-gradient(135deg, rgba(26, 26, 46, 0.97) 0%, rgba(22, 33, 62, 0.97) 100%), url('assets/hero.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--dark);
+            min-height: 100vh;
+            padding: 20px;
+        }
 
-        /* Grid de Tarjetas */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        
-        .card { background: white; border-radius: 12px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; flex-direction: column; transition: transform 0.2s; position: relative; }
-        .card:hover { transform: translateY(-3px); }
-        .card-icon { font-size: 2.5rem; margin-bottom: 15px; }
-        .card h3 { font-size: 1.2rem; margin-bottom: 10px; color: var(--text); }
-        .card p { font-size: 0.9rem; color: #7f8c8d; line-height: 1.5; flex-grow: 1; margin-bottom: 15px; }
-        
-        .btn-card { display: block; width: 100%; padding: 12px; text-align: center; border-radius: 8px; text-decoration: none; font-weight: bold; transition: background 0.3s; border: none; cursor: pointer; font-size: 0.95rem; }
-        .btn-primary { background: var(--primary); color: white; }
-        .btn-primary:hover { background: var(--primary-dark); }
-        .btn-whatsapp { background: #25D366; color: white; }
-        .btn-whatsapp:hover { background: #128C7E; }
-        
-        /* Estados Bloqueados */
-        .card.locked { opacity: 0.85; background: #fdf2f0; border: 1px dashed #e74c3c; }
-        .card.locked .btn-card { background: #bdc3c7; color: #7f8c8d; cursor: not-allowed; pointer-events: none; }
-        .lock-badge { position: absolute; top: 15px; right: 15px; background: #e74c3c; color: white; font-size: 0.75rem; padding: 4px 8px; border-radius: 4px; font-weight: bold; }
+        .container { max-width: 1100px; margin: 0 auto; }
 
-        /* Sección CV Dinámica */
-        .cv-status { background: #e8f4f8; border-left: 4px solid #3498db; padding: 15px; border-radius: 8px; margin-top: 15px; font-size: 0.85rem; }
-        .cv-status.warning { background: #fff9e6; border-left-color: var(--warning); }
-        .cv-status.critical { background: #fdf2f0; border-left-color: var(--primary); }
-        .cv-status a { color: var(--primary); font-weight: bold; text-decoration: none; }
-        .cv-status.warning a { color: #d35400; }
+        /* HEADER DEL PANEL */
+        .panel-header {
+            background: var(--white);
+            padding: 20px 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .panel-header .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .panel-header .logo img { height: 42px; width: auto; }
+        .panel-header .logo-text .marca { font-size: 1.3rem; font-weight: 800; color: var(--dark); line-height: 1; }
+        .panel-header .logo-text .submarca { font-size: 0.65rem; color: var(--primary); letter-spacing: 2px; text-transform: uppercase; font-weight: 600; }
 
-        /* Switch de Hijos */
-        .switch-container { background: white; padding: 20px; border-radius: 12px; margin-bottom: 25px; display: none; align-items: center; gap: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        .switch-container.active { display: flex; }
+        .user-info { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+        .user-info .datos { text-align: right; }
+        .user-info .nombre { font-size: 1rem; font-weight: 700; color: var(--dark); }
+        .user-info .perfil { font-size: 0.8rem; color: var(--primary); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+        
+        .btn-logout {
+            background: var(--dark);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s;
+        }
+        .btn-logout:hover { background: var(--dark-secondary); transform: translateY(-2px); }
+
+        /* SWITCH DE HIJOS */
+        .switch-hijos {
+            background: var(--white);
+            padding: 20px 25px;
+            border-radius: 16px;
+            margin-bottom: 25px;
+            display: none;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+        .switch-hijos.active { display: flex; }
         .switch { position: relative; display: inline-block; width: 50px; height: 26px; flex-shrink: 0; }
         .switch input { opacity: 0; width: 0; height: 0; }
         .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 34px; }
         .slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
         input:checked + .slider { background-color: var(--primary); }
         input:checked + .slider:before { transform: translateX(24px); }
-        .switch-text strong { display: block; color: var(--text); }
-        .switch-text p { font-size: 0.85rem; color: #7f8c8d; margin: 0; }
+        .switch-text strong { display: block; color: var(--dark); font-size: 0.95rem; }
+        .switch-text p { font-size: 0.8rem; color: var(--text-gray); margin: 0; }
 
-        .cargando { text-align: center; padding: 50px; font-size: 1.2rem; color: var(--primary); }
+        /* GRID DE TARJETAS */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        
+        .card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 30px 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s;
+            position: relative;
+            border-top: 4px solid transparent;
+        }
+        .card:hover { transform: translateY(-5px); border-top-color: var(--primary); box-shadow: 0 10px 30px rgba(0,0,0,0.25); }
+        .card-icon { font-size: 2.5rem; margin-bottom: 15px; }
+        .card h3 { font-size: 1.2rem; margin-bottom: 10px; color: var(--dark); font-weight: 700; }
+        .card p { font-size: 0.9rem; color: var(--text-gray); line-height: 1.6; flex-grow: 1; margin-bottom: 20px; }
+        
+        .btn-card {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            text-align: center;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-family: 'Poppins', sans-serif;
+        }
+        .btn-primary { background: var(--gradient); color: white; box-shadow: 0 4px 15px rgba(255, 107, 74, 0.3); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255, 107, 74, 0.5); }
+        .btn-whatsapp { background: #25D366; color: white; }
+        .btn-whatsapp:hover { background: #128C7E; transform: translateY(-2px); }
+        
+        .card.locked { opacity: 0.85; background: #fdf2f0; border-top: 4px solid var(--primary); }
+        .card.locked .btn-card { background: #bdc3c7; color: #7f8c8d; cursor: not-allowed; pointer-events: none; box-shadow: none; }
+        .lock-badge {
+            position: absolute; top: 15px; right: 15px;
+            background: var(--primary); color: white;
+            font-size: 0.7rem; padding: 4px 10px;
+            border-radius: 20px; font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        /* ESTADO DEL CV */
+        .cv-status {
+            background: #e8f4f8;
+            border-left: 4px solid #3498db;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-size: 0.85rem;
+            color: var(--dark);
+        }
+        .cv-status.warning { background: #fff9e6; border-left-color: var(--warning); }
+        .cv-status.critical { background: #fdf2f0; border-left-color: var(--primary); }
+        .cv-status a { color: var(--primary); font-weight: 700; text-decoration: none; }
+        .cv-status a:hover { text-decoration: underline; }
+
+        .cargando {
+            text-align: center;
+            padding: 80px 20px;
+            font-size: 1.2rem;
+            color: white;
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+        }
         .oculto { display: none !important; }
+
+        @media (max-width: 600px) {
+            .panel-header { flex-direction: column; text-align: center; }
+            .user-info { justify-content: center; }
+            .user-info .datos { text-align: center; }
+        }
     </style>
 </head>
 <body>
@@ -67,20 +184,26 @@
     <div id="cargando" class="cargando">⏳ Cargando tu perfil...</div>
 
     <div id="panelContent" class="oculto">
-        <div class="header">
-            <div>
-                <h1>🎓 EMAGES Academy</h1>
-                <p>Tu ecosistema de desarrollo profesional</p>
+        <!-- HEADER -->
+        <div class="panel-header">
+            <div class="logo">
+                <img src="assets/Pluma-sin-fondo.png" alt="EMAGES Academy">
+                <div class="logo-text">
+                    <span class="marca">EMAGES Academy</span>
+                    <span class="submarca">Mi Panel</span>
+                </div>
             </div>
             <div class="user-info">
-                <p id="userName" style="font-size: 1.1rem; font-weight: bold; color: var(--text);">Cargando...</p>
-                <p id="userPerfil" style="font-weight: bold; color: var(--primary); text-transform: uppercase;"></p>
+                <div class="datos">
+                    <div class="nombre" id="userName">Cargando...</div>
+                    <div class="perfil" id="userPerfil"></div>
+                </div>
                 <button class="btn-logout" onclick="cerrarSesion()">🚪 Cerrar Sesión</button>
             </div>
         </div>
 
-        <!-- Switch para Padres (Solo visible si es PROFESIONAL) -->
-        <div id="switchHijos" class="switch-container">
+        <!-- SWITCH DE HIJOS (solo para PROFESIONAL) -->
+        <div id="switchHijos" class="switch-hijos">
             <label class="switch">
                 <input type="checkbox" id="toggleHijos" onchange="toggleSimulacrosHijos()">
                 <span class="slider"></span>
@@ -91,9 +214,8 @@
             </div>
         </div>
 
-        <div class="grid" id="cardsGrid">
-            <!-- Las tarjetas se inyectan aquí con JavaScript -->
-        </div>
+        <!-- GRID DE TARJETAS -->
+        <div class="grid" id="cardsGrid"></div>
     </div>
 </div>
 
@@ -102,30 +224,22 @@
     let usuarioActual = null;
     let tiempoInactividad;
 
-    // 1. Verificar sesión (Usando sessionStorage para que se borre al cerrar la pestaña)
+    // 1. Verificar sesión (sessionStorage = se borra al cerrar pestaña)
     const dniSession = sessionStorage.getItem('emages_dni');
-    if (!dniSession) {
-        window.location.href = 'login_campus.html';
-    }
+    if (!dniSession) { window.location.href = 'login_campus.html'; }
 
-    // 2. Función de Auto-Cierre por Inactividad (30 minutos)
-    function reiniciarTemporizadorInactividad() {
+    // 2. Auto-cierre por inactividad (30 minutos)
+    function reiniciarTemporizador() {
         clearTimeout(tiempoInactividad);
-        // 30 minutos = 30 * 60 * 1000 milisegundos. Puedes cambiarlo a 15 si prefieres más seguridad.
-        tiempoInactividad = setTimeout(cerrarSesion, 30 * 60 * 1000); 
+        tiempoInactividad = setTimeout(cerrarSesion, 30 * 60 * 1000);
     }
+    window.onload = reiniciarTemporizador;
+    window.onmousemove = reiniciarTemporizador;
+    window.onkeypress = reiniciarTemporizador;
+    window.ontouchstart = reiniciarTemporizador;
 
-    // Reiniciar el temporizador cada vez que el usuario mueve el mouse o presiona una tecla
-    window.onload = reiniciarTemporizadorInactividad;
-    window.onmousemove = reiniciarTemporizadorInactividad;
-    window.onkeypress = reiniciarTemporizadorInactividad;
-    window.ontouchstart = reiniciarTemporizadorInactividad; // Para celulares
-
-    // 3. Cargar datos del usuario desde Google Sheets
-    fetch(SCRIPT_URL, {
-        method: 'POST',
-        body: JSON.stringify({ accion: 'obtenerPerfilPanel', dni: dniSession })
-    })
+    // 3. Cargar datos del usuario
+    fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({ accion: 'obtenerPerfilPanel', dni: dniSession }) })
     .then(res => res.json())
     .then(data => {
         if (data.exito) {
@@ -151,14 +265,14 @@
         document.getElementById('cargando').textContent = '❌ Error de conexión. Recarga la página.';
     });
 
-    // 4. Lógica de Renderizado Dinámico de Tarjetas
+    // 4. Renderizado dinámico de tarjetas
     function renderizarTarjetas() {
         const grid = document.getElementById('cardsGrid');
         const perfil = usuarioActual.perfil;
         let html = '';
 
+        // SIMULACROS
         const mostrarSimulacros = (perfil === 'ESTUDIANTE' || perfil === 'TRANSICION' || perfil === 'PROFESIONAL_CON_HIJOS');
-        
         if (mostrarSimulacros) {
             html += `
             <div class="card">
@@ -169,6 +283,7 @@
             </div>`;
         }
 
+        // EVALUACIONES
         if (perfil === 'ESTUDIANTE') {
             html += `
             <div class="card locked">
@@ -189,6 +304,7 @@
             </div>`;
         }
 
+        // CURSOS
         if (perfil === 'ESTUDIANTE') {
             html += `
             <div class="card locked">
@@ -209,6 +325,7 @@
             </div>`;
         }
 
+        // CERTIFICADOS
         html += `
         <div class="card">
             <div class="card-icon">🏆</div>
@@ -220,6 +337,7 @@
         grid.innerHTML = html;
     }
 
+    // 5. Estado del CV
     function renderizarEstadoCV() {
         if (!usuarioActual.fechaUltimoCV || usuarioActual.fechaUltimoCV === '') {
             return `
@@ -237,12 +355,12 @@
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
         if (diffDays <= 90) {
-            return `<div class="cv-status">✅ <strong>¡Tu CV está actualizado!</strong> Última vez hace ${diffDays} días.</div>`;
+            return `<div class="cv-status">✅ <strong>¡Tu CV está actualizado!</strong> Última vez hace ${diffDays} días. Estás listo para nuevas oportunidades.</div>`;
         } else if (diffDays <= 180) {
             return `
             <div class="cv-status warning">
                 💡 <strong>¿Has adquirido nuevas habilidades?</strong><br>
-                Tu última actualización fue hace ${diffDays} días.
+                Tu última actualización fue hace ${diffDays} días. Considera refrescar tu CV para reflejar tu crecimiento.
                 <br><br>
                 <a href="#">📥 Ver Plantillas Actualizadas</a>
             </div>`;
@@ -250,26 +368,23 @@
             return `
             <div class="cv-status critical">
                 ⚠️ <strong>Tu CV podría estar obsoleto.</strong><br>
-                Han pasado ${diffDays} días. Actualiza tu CV con nuestras plantillas vigentes.
+                Han pasado ${diffDays} días. El mercado cambia rápido. Actualiza tu CV con nuestras plantillas vigentes para recibir 3x más respuestas.
                 <br><br>
-                <a href="#">📥 Descargar Plantillas Vigentes</a> | <a href="#">📤 Subir Nueva Versión</a>
+                <a href="#"> Descargar Plantillas Vigentes</a> | <a href="#">📤 Subir Nueva Versión</a>
             </div>`;
         }
     }
 
+    // 6. Toggle de hijos
     function toggleSimulacrosHijos() {
         const checkbox = document.getElementById('toggleHijos');
-        if (checkbox.checked) {
-            usuarioActual.perfil = 'PROFESIONAL_CON_HIJOS';
-        } else {
-            usuarioActual.perfil = 'PROFESIONAL';
-        }
+        usuarioActual.perfil = checkbox.checked ? 'PROFESIONAL_CON_HIJOS' : 'PROFESIONAL';
         renderizarTarjetas();
     }
 
-    // 5. Cerrar Sesión (Limpia TODO el sessionStorage)
+    // 7. Cerrar sesión
     function cerrarSesion() {
-        sessionStorage.clear(); // Borra todos los datos de la sesión actual
+        sessionStorage.clear();
         window.location.href = 'login_campus.html';
     }
 </script>
