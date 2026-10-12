@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pluma Demo - EMAGES Academy</title>
+    <title>Campus Virtual - EMAGES Academy</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -25,10 +26,10 @@
             line-height: 1.6;
         }
 
-        /* ===== HEADER CON PLUMA ===== */
+        /* ===== HEADER LIMPIO ===== */
         .navbar {
             background: var(--white);
-            padding: 15px 5%;
+            padding: 18px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -44,7 +45,7 @@
             text-decoration: none;
         }
         .navbar .logo img.pluma-header {
-            height: 45px;
+            height: 42px;
             width: auto;
         }
         .navbar .logo-text {
@@ -52,16 +53,18 @@
             flex-direction: column;
         }
         .navbar .logo-text .marca {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             font-weight: 800;
             color: var(--dark);
             line-height: 1;
+            letter-spacing: -0.5px;
         }
         .navbar .logo-text .submarca {
             font-size: 0.7rem;
             color: var(--primary);
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             text-transform: uppercase;
+            font-weight: 600;
         }
         .navbar .nav-links a {
             text-decoration: none;
@@ -75,7 +78,7 @@
         .navbar .btn-nav {
             background: var(--gradient);
             color: white !important;
-            padding: 10px 20px;
+            padding: 10px 22px;
             border-radius: 25px;
             transition: transform 0.3s, box-shadow 0.3s;
         }
@@ -87,118 +90,54 @@
         /* ===== HERO ===== */
         .hero {
             position: relative;
-            padding: 100px 5% 130px;
+            padding: 120px 5% 140px;
             text-align: center;
             overflow: hidden;
             background: linear-gradient(135deg, rgba(26, 26, 46, 0.92) 0%, rgba(22, 33, 62, 0.92) 100%), 
                         url('assets/hero.jpg');
             background-size: cover;
             background-position: center;
+            background-attachment: fixed;
         }
         .hero-content { 
             position: relative; 
             z-index: 2; 
-            max-width: 900px; 
+            max-width: 850px; 
             margin: 0 auto; 
             color: white;
         }
-        .hero-pluma {
-            width: 100px;
-            height: auto;
-            margin-bottom: 25px;
-            animation: fadeInDown 1s ease;
-        }
         .hero h1 {
-            font-size: 3rem;
+            font-size: 3.5rem;
             font-weight: 800;
             margin-bottom: 20px;
-            line-height: 1.2;
+            line-height: 1.15;
+            letter-spacing: -1px;
         }
-        .hero h1 span { color: var(--primary); }
+        .hero h1 span { 
+            color: var(--primary);
+        }
         .hero p {
             font-size: 1.2rem;
-            margin-bottom: 35px;
+            margin-bottom: 40px;
             opacity: 0.95;
-            max-width: 700px;
+            max-width: 650px;
             margin-left: auto;
             margin-right: auto;
         }
         .hero-buttons {
             display: flex;
-            gap: 20px;
+            gap: 18px;
             justify-content: center;
             flex-wrap: wrap;
-        }
-
-        /* ===== SECCIONES ===== */
-        .seccion {
-            padding: 80px 5%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .seccion-titulo {
-            text-align: center;
-            font-size: 2.2rem;
-            font-weight: 800;
-            color: var(--dark);
-            margin-bottom: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-        }
-        .seccion-titulo img {
-            width: 50px;
-            height: auto;
-        }
-
-        /* ===== LISTA CON PLUMA ===== */
-        .lista-pluma {
-            list-style: none;
-            display: grid;
-            gap: 18px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .lista-pluma li {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-            font-size: 1.1rem;
-            color: var(--dark);
-            padding: 18px 22px;
-            background: white;
-            border-radius: 12px;
-            border-left: 4px solid var(--primary);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            transition: all 0.3s;
-        }
-        .lista-pluma li:hover {
-            transform: translateX(5px);
-            box-shadow: 0 8px 25px rgba(255, 107, 74, 0.15);
-        }
-        .lista-pluma li img.pluma-bullet {
-            width: 32px;
-            height: auto;
-            flex-shrink: 0;
-        }
-
-        /* ===== BOTONES ===== */
-        .botones-demo {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin: 40px 0;
         }
         .btn {
             display: inline-flex;
             align-items: center;
-            gap: 12px;
-            padding: 14px 30px;
+            gap: 10px;
+            padding: 16px 35px;
             border-radius: 30px;
             font-weight: 700;
-            font-size: 1rem;
+            font-size: 1.05rem;
             text-decoration: none;
             transition: all 0.3s;
             border: none;
@@ -208,140 +147,147 @@
         .btn-primary {
             background: var(--gradient);
             color: white;
-            box-shadow: 0 5px 20px rgba(255, 107, 74, 0.4);
+            box-shadow: 0 8px 25px rgba(255, 107, 74, 0.4);
         }
         .btn-primary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(255, 107, 74, 0.6);
-        }
-        .btn-dark {
-            background: var(--dark);
-            color: white;
-        }
-        .btn-dark:hover {
-            background: var(--dark-secondary);
-            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(255, 107, 74, 0.6);
         }
         .btn-outline {
             background: transparent;
-            color: var(--primary);
-            border: 2px solid var(--primary);
+            color: white;
+            border: 2px solid white;
         }
         .btn-outline:hover {
-            background: var(--primary);
-            color: white;
+            background: white;
+            color: var(--dark);
+            transform: translateY(-3px);
         }
         .btn img.pluma-btn {
-            width: 22px;
+            width: 20px;
             height: auto;
         }
 
-        /* ===== SEPARADOR ===== */
-        .separador {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-            margin: 60px 0;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+        /* ===== BENEFICIOS ===== */
+        .beneficios {
+            padding: 100px 5%;
+            max-width: 1200px;
+            margin: -80px auto 0;
+            position: relative;
+            z-index: 10;
         }
-        .separador .linea {
-            flex: 1;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+        .section-title {
+            text-align: center;
+            font-size: 2.3rem;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 60px;
+            letter-spacing: -0.5px;
         }
-        .separador img {
-            width: 50px;
-            height: auto;
-        }
-
-        /* ===== BADGES ===== */
-        .badges-demo {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin: 40px 0;
-        }
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--gradient);
-            color: white;
-            padding: 8px 18px;
-            border-radius: 25px;
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-        .badge img {
-            width: 18px;
-            height: auto;
-        }
-        .badge-dark {
-            background: var(--dark);
-        }
-
-        /* ===== TARJETAS ===== */
+        .section-title span { color: var(--primary); }
+        
         .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
-            margin-top: 40px;
         }
         .card {
             background: white;
-            padding: 35px 30px;
+            padding: 40px 30px;
             border-radius: 16px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.06);
             text-align: center;
             transition: all 0.3s;
-            border-top: 4px solid transparent;
+            border-top: 3px solid transparent;
         }
         .card:hover {
             transform: translateY(-8px);
             border-top-color: var(--primary);
-            box-shadow: 0 15px 40px rgba(255, 107, 74, 0.15);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
         }
-        .card img.pluma-card {
-            width: 60px;
-            height: auto;
+        .card-icon {
+            font-size: 3rem;
             margin-bottom: 20px;
         }
-        .card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 12px;
+        .card h3 { 
+            font-size: 1.3rem; 
+            margin-bottom: 12px; 
             color: var(--dark);
+            font-weight: 700;
         }
-        .card p {
-            color: #7f8c8d;
-            font-size: 0.95rem;
+        .card p { 
+            color: #7f8c8d; 
+            font-size: 0.95rem; 
+            line-height: 1.7; 
         }
+
+        /* ===== LISTA SUTIL CON PLUMA ===== */
+        .lista-seccion {
+            padding: 80px 5%;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .lista-pluma {
+            list-style: none;
+            display: grid;
+            gap: 15px;
+        }
+        .lista-pluma li {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.05rem;
+            color: var(--dark);
+            padding: 16px 20px;
+            background: white;
+            border-radius: 10px;
+            border-left: 3px solid var(--primary);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+        }
+        .lista-pluma li img {
+            width: 24px;
+            height: auto;
+            flex-shrink: 0;
+        }
+        .lista-pluma li strong { color: var(--dark); }
 
         /* ===== CTA OSCURO ===== */
         .cta-oscuro {
             background: var(--dark);
             color: white;
-            padding: 80px 5%;
+            padding: 90px 5%;
             text-align: center;
             margin-top: 60px;
+            position: relative;
+            overflow: hidden;
         }
-        .cta-oscuro img {
-            width: 80px;
-            height: auto;
+        .cta-oscuro::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 107, 74, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .cta-oscuro h2 { 
+            font-size: 2.5rem; 
             margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
         }
-        .cta-oscuro h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
+        .cta-oscuro p { 
+            font-size: 1.1rem; 
+            opacity: 0.9; 
+            max-width: 600px; 
+            margin: 0 auto 35px;
+            position: relative;
+            z-index: 2;
         }
-        .cta-oscuro p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            max-width: 600px;
-            margin: 0 auto 30px;
+        .cta-oscuro .btn {
+            position: relative;
+            z-index: 2;
         }
 
         /* ===== FOOTER ===== */
@@ -351,25 +297,43 @@
             padding: 40px 5% 25px;
             text-align: center;
         }
-        footer img {
-            width: 60px;
+        footer .footer-brand {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        footer .footer-brand img {
+            width: 30px;
             height: auto;
-            margin-bottom: 15px;
+        }
+        footer .footer-brand span {
+            font-weight: 700;
+            color: white;
+            font-size: 1.1rem;
         }
         footer p { margin-bottom: 10px; font-size: 0.9rem; }
         footer a { color: var(--primary); text-decoration: none; font-weight: 600; }
-
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-30px); }
-            to { opacity: 1; transform: translateY(0); }
+        footer a:hover { text-decoration: underline; }
+        .footer-links { 
+            margin-top: 20px; 
+            display: flex; 
+            justify-content: center; 
+            gap: 25px; 
+            flex-wrap: wrap; 
         }
 
         @media (max-width: 768px) {
-            .navbar { flex-direction: column; gap: 15px; }
+            .navbar { flex-direction: column; gap: 15px; padding: 15px; }
             .navbar .nav-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
             .navbar .nav-links a { margin-left: 0; }
-            .hero h1 { font-size: 2rem; }
-            .seccion-titulo { font-size: 1.6rem; flex-direction: column; }
+            .hero { padding: 80px 5% 100px; }
+            .hero h1 { font-size: 2.2rem; }
+            .hero p { font-size: 1rem; }
+            .beneficios { margin-top: -40px; padding: 60px 5%; }
+            .section-title { font-size: 1.8rem; }
+            .cta-oscuro h2 { font-size: 1.8rem; }
         }
     </style>
 </head>
@@ -377,25 +341,25 @@
 
     <!-- HEADER -->
     <nav class="navbar">
-        <a href="#" class="logo">
-            <img src="assets/Pluma-sin-fondo.png" alt="Pluma EMAGES" class="pluma-header">
+        <a href="https://academy.emagesgroup.com/" class="logo">
+            <img src="assets/Pluma-sin-fondo.png" alt="EMAGES Academy" class="pluma-header">
             <div class="logo-text">
                 <span class="marca">EMAGES Academy</span>
                 <span class="submarca">Centro de Formación</span>
             </div>
         </a>
         <div class="nav-links">
-            <a href="#">Inicio</a>
-            <a href="#">Carreras</a>
-            <a href="#">Cursos</a>
-            <a href="#" class="btn-nav">Iniciar Sesión</a>
+            <a href="https://academy.emagesgroup.com/">Inicio</a>
+            <a href="https://academy.emagesgroup.com/empresarial.html">Empresarial</a>
+            <a href="https://academy.emagesgroup.com/tecnologia.html">Tecnología</a>
+            <a href="https://academy.emagesgroup.com/artistico.html">Artístico</a>
+            <a href="login_campus.html" class="btn-nav">Iniciar Sesión</a>
         </div>
     </nav>
 
     <!-- HERO -->
     <section class="hero">
         <div class="hero-content">
-            <img src="assets/Pluma-sin-fondo.png" alt="Pluma EMAGES" class="hero-pluma">
             <h1>Tu Futuro Profesional<br><span>Empieza Aquí</span></h1>
             <p>Accede a simulacros de admisión, evaluaciones de competencias y cursos certificados en un solo ecosistema digital.</p>
             <div class="hero-buttons">
@@ -403,142 +367,83 @@
                     <img src="assets/Pluma-sin-fondo.png" alt="" class="pluma-btn">
                     Registrarme Gratis
                 </a>
-                <a href="login_campus.html" class="btn btn-outline" style="color: white; border-color: white;">
+                <a href="login_campus.html" class="btn btn-outline">
                     Ya tengo cuenta
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- LISTA DE BENEFICIOS -->
-    <section class="seccion">
-        <h2 class="seccion-titulo">
-            <img src="assets/Pluma-sin-fondo.png" alt="">
-            ¿Qué encontrarás en el Campus?
-        </h2>
+    <!-- BENEFICIOS -->
+    <section class="beneficios">
+        <h2 class="section-title">¿Qué encontrarás en el <span>Campus</span>?</h2>
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-icon">📝</div>
+                <h3>Simulacros de Admisión</h3>
+                <p>Practica con exámenes reales tipo UNI, San Marcos, Callao y Privadas. Niveles Junior, Senior y Master.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">💼</div>
+                <h3>Evaluaciones de Competencias</h3>
+                <p>Descubre tu perfil profesional RIASEC y recibe un reporte listo para adjuntar a tu CV.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🛠️</div>
+                <h3>Cursos Certificados</h3>
+                <p>Capacitación práctica en Cajero Bancario, Planillas, RRHH y más, con respaldo de EMAGES GROUP.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- LISTA SUTIL CON PLUMA -->
+    <section class="lista-seccion">
+        <h2 class="section-title" style="font-size: 1.8rem;">Beneficios exclusivos</h2>
         <ul class="lista-pluma">
             <li>
-                <img src="assets/Pluma-sin-fondo.png" alt="" class="pluma-bullet">
-                <div><strong>Simulacros de Admisión</strong><br><small style="color: #7f8c8d;">Exámenes tipo UNI, San Marcos, Callao y Privadas</small></div>
+                <img src="assets/Pluma-sin-fondo.png" alt="">
+                <div><strong>Acceso 24/7</strong> — Estudia a tu ritmo desde cualquier dispositivo</div>
             </li>
             <li>
-                <img src="assets/Pluma-sin-fondo.png" alt="" class="pluma-bullet">
-                <div><strong>Evaluaciones de Competencias</strong><br><small style="color: #7f8c8d;">Descubre tu perfil profesional RIASEC</small></div>
+                <img src="assets/Pluma-sin-fondo.png" alt="">
+                <div><strong>Certificados oficiales</strong> — Respaldados por EMAGES GROUP S.A.C.</div>
             </li>
             <li>
-                <img src="assets/Pluma-sin-fondo.png" alt="" class="pluma-bullet">
-                <div><strong>Cursos Certificados</strong><br><small style="color: #7f8c8d;">Cajero Bancario, Planillas, RRHH y más</small></div>
+                <img src="assets/Pluma-sin-fondo.png" alt="">
+                <div><strong>Soporte personalizado</strong> — Atención directa por WhatsApp</div>
             </li>
             <li>
-                <img src="assets/Pluma-sin-fondo.png" alt="" class="pluma-bullet">
-                <div><strong>Soporte Personalizado</strong><br><small style="color: #7f8c8d;">Atención directa por WhatsApp</small></div>
+                <img src="assets/Pluma-sin-fondo.png" alt="">
+                <div><strong>Comunidad activa</strong> — Conecta con otros estudiantes y expertos</div>
             </li>
         </ul>
     </section>
 
-    <!-- SEPARADOR -->
-    <div class="separador">
-        <div class="linea"></div>
-        <img src="assets/Pluma-sin-fondo.png" alt="">
-        <div class="linea"></div>
-    </div>
-
-    <!-- BOTONES -->
-    <section class="seccion" style="padding-top: 0;">
-        <h2 class="seccion-titulo">
-            <img src="assets/Pluma-sin-fondo.png" alt="">
-            Botones con la Pluma
-        </h2>
-        <div class="botones-demo">
-            <button class="btn btn-primary">
-                <img src="assets/Pluma-sin-fondo.png" alt="" class="pluma-btn">
-                Registrarme Gratis
-            </button>
-            <button class="btn btn-dark">
-                <img src="assets/Pluma-sin-fondo.png" alt="" class="pluma-btn">
-                Iniciar Sesión
-            </button>
-            <button class="btn btn-outline">
-                <img src="assets/Pluma-sin-fondo.png" alt="" class="pluma-btn">
-                Ver Cursos
-            </button>
-        </div>
-    </section>
-
-    <!-- BADGES -->
-    <section class="seccion" style="padding-top: 0;">
-        <h2 class="seccion-titulo">
-            <img src="assets/Pluma-sin-fondo.png" alt="">
-            Badges / Etiquetas
-        </h2>
-        <div class="badges-demo">
-            <span class="badge">
-                <img src="assets/Pluma-sin-fondo.png" alt="">
-                Nuevo
-            </span>
-            <span class="badge">
-                <img src="assets/Pluma-sin-fondo.png" alt="">
-                Certificado
-            </span>
-            <span class="badge">
-                <img src="assets/Pluma-sin-fondo.png" alt="">
-                Premium
-            </span>
-            <span class="badge badge-dark">
-                <img src="assets/Pluma-sin-fondo.png" alt="">
-                Exclusivo
-            </span>
-        </div>
-    </section>
-
-    <!-- TARJETAS -->
-    <section class="seccion" style="padding-top: 0;">
-        <h2 class="seccion-titulo">
-            <img src="assets/Pluma-sin-fondo.png" alt="">
-            Tarjetas de Cursos
-        </h2>
-        <div class="cards-grid">
-            <div class="card">
-                <img src="assets/Pluma-sin-fondo.png" alt="" class="pluma-card">
-                <h3>Cajero Bancario</h3>
-                <p>Curso 100% práctico con clases en vivo y certificación oficial.</p>
-            </div>
-            <div class="card">
-                <img src="assets/Pluma-sin-fondo.png" alt="" class="pluma-card">
-                <h3>Asistente de Planillas</h3>
-                <p>Domina el cálculo de planillas y obligaciones laborales.</p>
-            </div>
-            <div class="card">
-                <img src="assets/Pluma-sin-fondo.png" alt="" class="pluma-card">
-                <h3>Reclutamiento y Selección</h3>
-                <p>Aprende a gestionar procesos de RRHH de principio a fin.</p>
-            </div>
-        </div>
-    </section>
-
     <!-- CTA OSCURO -->
     <section class="cta-oscuro">
-        <img src="assets/Pluma-sin-fondo.png" alt="">
-        <h2>¿Listo para comenzar?</h2>
-        <p>Únete a miles de estudiantes que ya están transformando su futuro profesional con EMAGES Academy.</p>
-        <a href="registro_campus.html" class="btn btn-primary" style="font-size: 1.1rem; padding: 16px 40px;">
+        <h2>¿No sabes qué carrera elegir?</h2>
+        <p>Realiza nuestra Evaluación Vocacional gratuita en 10 minutos y recibe un informe personalizado con las carreras más demandadas en Perú.</p>
+        <a href="registro_campus.html" class="btn btn-primary">
             <img src="assets/Pluma-sin-fondo.png" alt="" class="pluma-btn">
-            Crear mi cuenta gratis
+            Hacer mi Evaluación Vocacional
         </a>
     </section>
 
     <!-- FOOTER -->
     <footer>
-        <img src="assets/Pluma-sin-fondo.png" alt="">
+        <div class="footer-brand">
+            <img src="assets/Pluma-sin-fondo.png" alt="">
+            <span>EMAGES Academy</span>
+        </div>
         <p><strong>EMAGES GROUP S.A.C.</strong> - RUC: 20611427671</p>
         <p>Formación que transforma tu futuro profesional.</p>
-        <p style="margin-top: 20px;">
-            <a href="#">Web Principal</a> · 
-            <a href="#">Nosotros</a> · 
-            <a href="#">Privacidad</a> · 
-            <a href="#">WhatsApp</a>
-        </p>
-        <p style="margin-top: 20px; opacity: 0.6; font-size: 0.8rem;">© 2026 EMAGES Academy. Todos los derechos reservados.</p>
+        <div class="footer-links">
+            <a href="https://academy.emagesgroup.com/">Web Principal</a>
+            <a href="https://academy.emagesgroup.com/nosotros.html">Nosotros</a>
+            <a href="privacidad.html">Políticas de Privacidad</a>
+            <a href="https://wa.me/51930175586" target="_blank">Soporte WhatsApp</a>
+        </div>
+        <p style="margin-top: 25px; opacity: 0.6; font-size: 0.8rem;">© 2026 EMAGES Academy. Todos los derechos reservados.</p>
     </footer>
 
 </body>
