@@ -129,9 +129,6 @@
             flex-wrap: wrap;
         }
         .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
             padding: 16px 35px;
             border-radius: 30px;
             font-weight: 700;
@@ -141,6 +138,7 @@
             border: none;
             cursor: pointer;
             font-family: 'Poppins', sans-serif;
+            display: inline-block;
         }
         .btn-primary {
             background: var(--gradient);
@@ -215,7 +213,7 @@
             line-height: 1.7; 
         }
 
-        /* ===== LISTA LIMPIA (SIN PLUMA) ===== */
+        /* ===== LISTA LIMPIA ===== */
         .lista-seccion {
             padding: 80px 5%;
             max-width: 900px;
@@ -279,7 +277,7 @@
             z-index: 2;
         }
 
-        /* ===== FOOTER ===== */
+        /* ===== FOOTER (LIMPIO SIN PLUMA) ===== */
         footer {
             background: #0a0e27;
             color: #bdc3c7;
@@ -287,20 +285,12 @@
             text-align: center;
         }
         footer .footer-brand {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
             margin-bottom: 20px;
-        }
-        footer .footer-brand img {
-            width: 30px;
-            height: auto;
         }
         footer .footer-brand span {
             font-weight: 700;
             color: white;
-            font-size: 1.1rem;
+            font-size: 1.3rem;
         }
         footer p { margin-bottom: 10px; font-size: 0.9rem; }
         footer a { color: var(--primary); text-decoration: none; font-weight: 600; }
@@ -346,7 +336,7 @@
         </div>
     </nav>
 
-    <!-- HERO (sin pluma) -->
+    <!-- HERO -->
     <section class="hero">
         <div class="hero-content">
             <h1>Tu Futuro Profesional<br><span>Empieza Aquí</span></h1>
@@ -358,12 +348,12 @@
         </div>
     </section>
 
-    <!-- BENEFICIOS (sin pluma) -->
+    <!-- BENEFICIOS -->
     <section class="beneficios">
         <h2 class="section-title">¿Qué encontrarás en el <span>Campus</span>?</h2>
         <div class="cards-grid">
             <div class="card">
-                <div class="card-icon"></div>
+                <div class="card-icon">📝</div>
                 <h3>Simulacros de Admisión</h3>
                 <p>Practica con exámenes reales tipo UNI, San Marcos, Callao y Privadas. Niveles Junior, Senior y Master.</p>
             </div>
@@ -380,7 +370,7 @@
         </div>
     </section>
 
-    <!-- LISTA LIMPIA (sin pluma) -->
+    <!-- LISTA LIMPIA -->
     <section class="lista-seccion">
         <h2 class="section-title" style="font-size: 1.8rem;">Beneficios exclusivos</h2>
         <ul class="lista-limpia">
@@ -391,17 +381,16 @@
         </ul>
     </section>
 
-    <!-- CTA OSCURO (sin pluma) -->
+    <!-- CTA OSCURO -->
     <section class="cta-oscuro">
         <h2>¿No sabes qué carrera elegir?</h2>
         <p>Realiza nuestra Evaluación Vocacional gratuita en 10 minutos y recibe un informe personalizado con las carreras más demandadas en Perú.</p>
         <a href="registro_campus.html" class="btn btn-primary">Hacer mi Evaluación Vocacional</a>
     </section>
 
-    <!-- FOOTER (con pluma) -->
+    <!-- FOOTER (LIMPIO) -->
     <footer>
         <div class="footer-brand">
-            <img src="assets/Pluma-sin-fondo.png" alt="">
             <span>EMAGES Academy</span>
         </div>
         <p><strong>EMAGES GROUP S.A.C.</strong> - RUC: 20611427671</p>
