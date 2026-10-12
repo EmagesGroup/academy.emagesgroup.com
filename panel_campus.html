@@ -136,8 +136,11 @@
         .btn-whatsapp { background: #25D366; color: white; }
         .btn-whatsapp:hover { background: #128C7E; transform: translateY(-2px); }
         
-        .card.locked { opacity: 0.85; background: #fdf2f0; border-top: 4px solid var(--primary); }
+        /* Tarjeta bloqueada */
+        .card.locked { opacity: 0.9; background: #fdf2f0; border-top: 4px solid var(--primary); }
+        /* Por defecto, los botones en tarjetas bloqueadas están deshabilitados */
         .card.locked .btn-card { background: #bdc3c7; color: #7f8c8d; cursor: not-allowed; pointer-events: none; box-shadow: none; }
+        
         .lock-badge {
             position: absolute; top: 15px; right: 15px;
             background: var(--primary); color: white;
@@ -271,19 +274,44 @@
         const perfil = usuarioActual.perfil;
         let html = '';
 
-        // SIMULACROS
-        const mostrarSimulacros = (perfil === 'ESTUDIANTE' || perfil === 'TRANSICION' || perfil === 'PROFESIONAL_CON_HIJOS');
-        if (mostrarSimulacros) {
-            html += `
-            <div class="card">
-                <div class="card-icon">📝</div>
-                <h3>Simulacros de Admisión</h3>
-                <p>Practica con exámenes reales tipo UNI, San Marcos, Callao y Privadas. Niveles Junior, Senior y Master.</p>
-                <a href="test-vocacional.html" class="btn-card btn-primary">Iniciar Simulacro</a>
-            </div>`;
+        // ==========================================
+        // EVALUACIÓN VOCACIONAL (CON LÓGICA DE 3 INTENTOS)
+        // ==========================================
+        if (perfil === 'ESTUDIANTE' || perfil === 'TRANSICION') {
+            const intentosUsados = usuarioActual.intentosTest || 0;
+            const intentosRestantes = 3 - intentosUsados;
+            
+            if (intentosUsados >= 3) {
+                // BLOQUEADO: Ya usó los 3 intentos
+                const msgWA = `Hola EMAGES Academy, soy ${usuarioActual.nombres} (DNI: ${usuarioActual.dni}). He completado mis 3 intentos del Test Vocacional y quisiera solicitar información para reactivar mi acceso.`;
+                
+                html += `
+                <div class="card locked">
+                    <span class="lock-badge">🔒 3/3 INTENTOS</span>
+                    <div class="card-icon">📝</div>
+                    <h3>Evaluación Vocacional</h3>
+                    <p>Has completado los 3 intentos permitidos. Tu perfil vocacional ha sido registrado en nuestro sistema.</p>
+                    <a href="https://wa.me/51930175586?text=${encodeURIComponent(msgWA)}" target="_blank" 
+                       class="btn-card btn-whatsapp" 
+                       style="pointer-events: auto; background: #25D366; color: white;">
+                       💬 Solicitar Reactivación
+                    </a>
+                </div>`;
+            } else {
+                // DISPONIBLE: Aún tiene intentos
+                html += `
+                <div class="card">
+                    <div class="card-icon">📝</div>
+                    <h3>Evaluación Vocacional</h3>
+                    <p>Descubre tu perfil profesional con nuestro test RIASEC. Te quedan <strong>${intentosRestantes} intento(s)</strong>.</p>
+                    <a href="test-vocacional.html" class="btn-card btn-primary">Iniciar Evaluación (${intentosRestantes} restantes)</a>
+                </div>`;
+            }
         }
 
-        // EVALUACIONES
+        // ==========================================
+        // EVALUACIONES DE COMPETENCIAS
+        // ==========================================
         if (perfil === 'ESTUDIANTE') {
             html += `
             <div class="card locked">
@@ -304,7 +332,9 @@
             </div>`;
         }
 
-        // CURSOS
+        // ==========================================
+        // CURSOS PROFESIONALES
+        // ==========================================
         if (perfil === 'ESTUDIANTE') {
             html += `
             <div class="card locked">
@@ -325,7 +355,9 @@
             </div>`;
         }
 
+        // ==========================================
         // CERTIFICADOS
+        // ==========================================
         html += `
         <div class="card">
             <div class="card-icon">🏆</div>
