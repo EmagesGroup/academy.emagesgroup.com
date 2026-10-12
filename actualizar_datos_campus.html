@@ -4,57 +4,181 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Actualizar Datos - EMAGES Academy</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; }
-        .container { background: white; padding: 2.5rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); width: 100%; max-width: 450px; }
-        .logo { text-align: center; font-weight: bold; font-size: 1.8rem; color: #e74c3c; margin-bottom: 1rem; }
-        h2 { text-align: center; color: #2c3e50; margin-bottom: 0.5rem; }
-        .subtitle { text-align: center; color: #7f8c8d; margin-bottom: 1.5rem; font-size: 0.95rem; }
-        .info-box { background: #fff9e6; border-left: 4px solid #f39c12; padding: 12px; border-radius: 6px; font-size: 0.9rem; color: #856404; margin-bottom: 20px; }
-        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-size: 1rem; }
-        button { width: 100%; padding: 14px; background-color: #e74c3c; color: white; border: none; border-radius: 6px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: background 0.3s; margin-top: 10px; }
-        button:hover { background-color: #c0392b; }
-        button:disabled { background-color: #95a5a6; cursor: not-allowed; }
-        .mensaje { text-align: center; margin-top: 15px; font-size: 0.9rem; min-height: 20px; }
-        .error { color: #e74c3c; font-weight: bold; }
-        .exito { color: #27ae60; font-weight: bold; }
-        .link-volver { text-align: center; margin-top: 20px; font-size: 0.9rem; color: #7f8c8d; }
-        .link-volver a { color: #e74c3c; text-decoration: none; font-weight: bold; }
-        .link-volver a:hover { text-decoration: underline; }
-        .seguridad-note { background: #e8f4f8; padding: 10px; border-radius: 6px; font-size: 0.85rem; color: #2980b9; margin-top: 15px; text-align: center; }
+        :root {
+            --primary: #ff6b4a;
+            --primary-dark: #ff8c42;
+            --dark: #1a1a2e;
+            --dark-secondary: #16213e;
+            --light: #f8f9fa;
+            --white: #ffffff;
+            --text-gray: #7f8c8d;
+            --warning-bg: #fff9e6;
+            --warning-text: #856404;
+            --gradient: linear-gradient(135deg, #ff6b4a 0%, #ff8c42 100%);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark);
+            background-image: linear-gradient(135deg, rgba(26, 26, 46, 0.95) 0%, rgba(22, 33, 62, 0.95) 100%), url('assets/hero.jpg');
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .update-container {
+            background: var(--white);
+            width: 100%;
+            max-width: 480px;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            position: relative;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .update-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+        .update-logo img { height: 35px; width: auto; }
+        .update-logo .texto-logo { display: flex; flex-direction: column; text-align: left; }
+        .update-logo .marca { font-size: 1.2rem; font-weight: 800; color: var(--dark); line-height: 1; }
+        .update-logo .submarca { font-size: 0.6rem; color: var(--primary); letter-spacing: 2px; text-transform: uppercase; font-weight: 600; }
+
+        .update-title { font-size: 1.4rem; font-weight: 700; color: var(--dark); margin-bottom: 8px; }
+        .update-subtitle { font-size: 0.85rem; color: var(--text-gray); margin-bottom: 25px; }
+
+        /* Caja de información de seguridad */
+        .info-box {
+            background: var(--warning-bg);
+            border-left: 4px solid var(--primary);
+            padding: 12px 15px;
+            border-radius: 8px;
+            text-align: left;
+            font-size: 0.8rem;
+            color: var(--warning-text);
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+        .info-box strong { color: var(--dark); }
+
+        .form-group { margin-bottom: 15px; text-align: left; }
+        .form-group label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--dark); margin-bottom: 6px; }
+        .form-control {
+            width: 100%;
+            padding: 12px 14px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s;
+            background: var(--light);
+        }
+        .form-control:focus { outline: none; border-color: var(--primary); background: var(--white); box-shadow: 0 0 0 4px rgba(255, 107, 74, 0.1); }
+
+        .btn-update {
+            width: 100%;
+            padding: 14px;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 8px 25px rgba(255, 107, 74, 0.3);
+            margin-top: 10px;
+        }
+        .btn-update:hover { transform: translateY(-2px); box-shadow: 0 12px 35px rgba(255, 107, 74, 0.5); }
+        .btn-update:disabled { background: #bdc3c7; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        .mensaje { margin-top: 15px; font-size: 0.85rem; min-height: 20px; }
+        .mensaje.error { color: #e74c3c; font-weight: 600; }
+        .mensaje.exito { color: #27ae60; font-weight: 600; }
+
+        .login-link { margin-top: 20px; font-size: 0.85rem; color: var(--text-gray); }
+        .login-link a { color: var(--primary); text-decoration: none; font-weight: 700; }
+        .login-link a:hover { text-decoration: underline; }
+
+        .btn-volver {
+            position: absolute; top: 20px; left: 20px;
+            color: rgba(255,255,255,0.7); text-decoration: none;
+            font-size: 0.9rem; font-weight: 600;
+            display: flex; align-items: center; gap: 5px;
+            transition: color 0.3s;
+        }
+        .btn-volver:hover { color: white; }
+
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @media (max-width: 500px) { .update-container { padding: 30px 20px; } }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="logo">🎓 EMAGES Academy</div>
-    <h2>Actualizar Mis Datos</h2>
-    <p class="subtitle">¿Cambió tu celular o correo? Actualízalos aquí para mantener tu cuenta activa.</p>
+    <a href="login_campus.html" class="btn-volver">← Volver</a>
 
-    <div class="info-box">
-         <strong>¿Por qué actualizar?</strong> Mantener tus datos actualizados te permite recibir notificaciones de nuevos cursos, vacantes y reactivar tu cuenta si estuvo inactiva.
+    <div class="update-container">
+        <div class="update-logo">
+            <img src="assets/Pluma-sin-fondo.png" alt="EMAGES Academy">
+            <div class="texto-logo">
+                <span class="marca">EMAGES Academy</span>
+                <span class="submarca">Centro de Formación</span>
+            </div>
+        </div>
+
+        <h1 class="update-title">Actualizar mis datos</h1>
+        <p class="update-subtitle">¿Cambió tu celular o correo? Mantenlo al día aquí.</p>
+
+        <div class="info-box">
+            🔒 <strong>Por seguridad:</strong> Solicitamos tu correo registrado para validar tu identidad antes de permitir el cambio de celular.
+        </div>
+
+        <form id="formularioActualizar">
+            <div class="form-group">
+                <label for="dni">DNI registrado</label>
+                <input type="text" id="dni" class="form-control" placeholder="Ingresa tu DNI (8 dígitos)" maxlength="8" inputmode="numeric" required>
+            </div>
+
+            <div class="form-group">
+                <label for="correo">Correo electrónico registrado</label>
+                <input type="email" id="correo" class="form-control" placeholder="ejemplo@correo.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="nuevoCelular">Nuevo celular</label>
+                <input type="tel" id="nuevoCelular" class="form-control" placeholder="Ingresa el nuevo celular (9 dígitos)" maxlength="9" inputmode="numeric" required>
+            </div>
+
+            <div class="form-group">
+                <label for="nuevoCorreo">Nuevo correo electrónico (Opcional)</label>
+                <input type="email" id="nuevoCorreo" class="form-control" placeholder="nuevo@correo.com">
+            </div>
+
+            <button type="submit" class="btn-update" id="btnActualizar">Actualizar Mis Datos</button>
+        </form>
+
+        <div id="mensaje" class="mensaje"></div>
+
+        <p class="login-link">
+            ¿Ya actualizaste tus datos? <a href="login_campus.html">Volver a Iniciar Sesión</a>
+        </p>
     </div>
-
-    <form id="formularioActualizar">
-        <input type="text" id="dni" placeholder="DNI (8 dígitos)" maxlength="8" required pattern="\d{8}">
-        <input type="email" id="correo" placeholder="Correo electrónico registrado" required>
-        <input type="tel" id="nuevoCelular" placeholder="Nuevo celular (9 dígitos)" maxlength="9" required pattern="\d{9}">
-        <input type="email" id="nuevoCorreo" placeholder="Nuevo correo electrónico (opcional)">
-        
-        <button type="submit" id="btnActualizar">Actualizar Mis Datos</button>
-    </form>
-    
-    <div id="mensaje" class="mensaje"></div>
-
-    <div class="seguridad-note">
-        🔒 Por seguridad, solicitamos tu correo registrado para validar tu identidad antes de actualizar el celular.
-    </div>
-
-    <div class="link-volver">
-        ¿Ya actualizaste tus datos? <br>
-        <a href="login_campus.html">Volver a Iniciar Sesión</a>
-    </div>
-</div>
 
 <script>
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw6xpApuz9Es7NGuDlVefKemVYEPVo3MZcrS71DAGa3YQmLLIkmEY6KSLtBJlmJ_3Yr/exec';
@@ -64,10 +188,11 @@
         
         const btn = document.getElementById('btnActualizar');
         const mensajeDiv = document.getElementById('mensaje');
-        const dni = document.getElementById('dni').value;
-        const correo = document.getElementById('correo').value;
-        const nuevoCelular = document.getElementById('nuevoCelular').value;
-        const nuevoCorreo = document.getElementById('nuevoCorreo').value;
+        
+        const dni = document.getElementById('dni').value.trim();
+        const correo = document.getElementById('correo').value.trim();
+        const nuevoCelular = document.getElementById('nuevoCelular').value.trim();
+        const nuevoCorreo = document.getElementById('nuevoCorreo').value.trim();
 
         if (dni.length !== 8 || nuevoCelular.length !== 9) {
             mensajeDiv.className = 'mensaje error';
