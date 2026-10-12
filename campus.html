@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Virtual - EMAGES Academy</title>
+    <!-- Fuente moderna y juvenil -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #e74c3c;
+            --primary-dark: #c0392b;
+            --secondary: #f39c12;
+            --dark: #2c3e50;
+            --light: #f4f7f6;
+            --white: #ffffff;
+            --gradient: linear-gradient(135deg, #e74c3c 0%, #f39c12 100%);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* HEADER / NAV */
+        .navbar {
+            background: var(--white);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .navbar .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .navbar .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            margin-left: 25px;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+        .navbar .nav-links a:hover { color: var(--primary); }
+        .navbar .btn-nav {
+            background: var(--gradient);
+            color: white !important;
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .navbar .btn-nav:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
+        }
+
+        /* HERO SECTION */
+        .hero {
+            background: var(--gradient);
+            color: white;
+            padding: 80px 5% 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+            animation: rotate 20s linear infinite;
+        }
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        
+        .hero-content { position: relative; z-index: 2; max-width: 800px; margin: 0 auto; }
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            animation: fadeInUp 0.8s ease;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 35px;
+            opacity: 0.95;
+            animation: fadeInUp 1s ease;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1.2s ease;
+        }
+        .btn {
+            padding: 15px 35px;
+            border-radius: 30px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-white {
+            background: white;
+            color: var(--primary);
+        }
+        .btn-white:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        .btn-outline:hover {
+            background: white;
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        /* BENEFICIOS */
+        .beneficios {
+            padding: 80px 5%;
+            max-width: 1200px;
+            margin: -60px auto 0;
+            position: relative;
+            z-index: 10;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 50px;
+        }
+        .section-title span { color: var(--primary); }
+        
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: all 0.4s ease;
+            border-bottom: 4px solid transparent;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            border-bottom-color: var(--primary);
+            box-shadow: 0 20px 50px rgba(231, 76, 60, 0.15);
+        }
+        .card-icon {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            display: inline-block;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .card h3 { font-size: 1.4rem; margin-bottom: 15px; color: var(--dark); }
+        .card p { color: #7f8c8d; font-size: 0.95rem; line-height: 1.7; }
+
+        /* CTA TEST VOCACIONAL */
+        .cta-test {
+            background: var(--dark);
+            color: white;
+            padding: 80px 5%;
+            text-align: center;
+            margin-top: 80px;
+        }
+        .cta-test h2 { font-size: 2.5rem; margin-bottom: 20px; }
+        .cta-test p { font-size: 1.1rem; opacity: 0.9; max-width: 600px; margin: 0 auto 30px; }
+        .btn-cta {
+            background: var(--gradient);
+            color: white;
+            padding: 18px 40px;
+            border-radius: 30px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 1.2rem;
+            display: inline-block;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(231, 76, 60, 0.4);
+        }
+        .btn-cta:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(231, 76, 60, 0.6);
+        }
+
+        /* FOOTER */
+        footer {
+            background: #1a252f;
+            color: #bdc3c7;
+            padding: 40px 5% 20px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        footer p { margin-bottom: 10px; }
+        footer a { color: var(--secondary); text-decoration: none; font-weight: 600; }
+        footer a:hover { text-decoration: underline; }
+        .footer-links { margin-top: 20px; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+
+        /* ANIMACIONES */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.2rem; }
+            .hero p { font-size: 1rem; }
+            .navbar .nav-links { display: none; } /* Simplificado para móvil, se puede agregar menú hamburguesa */
+            .beneficios { margin-top: -30px; padding: 40px 5%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVEGACIÓN -->
+    <nav class="navbar">
+        <a href="https://academy.emagesgroup.com/" class="logo">🎓 EMAGES Academy</a>
+        <div class="nav-links">
+            <a href="https://academy.emagesgroup.com/">Inicio</a>
+            <a href="https://academy.emagesgroup.com/empresarial.html">Empresarial</a>
+            <a href="https://academy.emagesgroup.com/tecnologia.html">Tecnología</a>
+            <a href="https://academy.emagesgroup.com/artistico.html">Artístico</a>
+            <a href="login_campus.html" class="btn-nav">🔐 Iniciar Sesión</a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Tu Futuro Profesional Empieza Aquí 🚀</h1>
+            <p>Accede a simulacros de admisión, evaluaciones de competencias y cursos certificados en un solo ecosistema digital diseñado para ti.</p>
+            <div class="hero-buttons">
+                <a href="registro_campus.html" class="btn btn-white">🆕 Registrarme Gratis</a>
+                <a href="login_campus.html" class="btn btn-outline">🔐 Ya tengo cuenta</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- BENEFICIOS -->
+    <section class="beneficios">
+        <h2 class="section-title">¿Qué encontrarás en el <span>Campus</span>?</h2>
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-icon">📝</div>
+                <h3>Simulacros de Admisión</h3>
+                <p>Practica con exámenes reales tipo UNI, San Marcos, Callao y Privadas. Niveles Junior, Senior y Master con retroalimentación inmediata.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">💼</div>
+                <h3>Evaluaciones de Competencias</h3>
+                <p>Descubre tu perfil profesional (RIASEC), evalúa tus habilidades blandas y recibe un reporte listo para adjuntar a tu CV.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🛠️</div>
+                <h3>Cursos Certificados</h3>
+                <p>Capacitación práctica en Cajero Bancario, Asistente de Planillas, RRHH y más, con el respaldo oficial de EMAGES GROUP.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA TEST VOCACIONAL -->
+    <section class="cta-test">
+        <h2>¿No sabes qué carrera elegir? 🤔</h2>
+        <p>Realiza nuestra Evaluación Vocacional gratuita en 10 minutos y recibe un informe personalizado con las carreras más demandadas en Perú para tu perfil.</p>
+        <a href="registro_campus.html" class="btn-cta">🎯 Hacer mi Evaluación Vocacional</a>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p><strong>EMAGES GROUP S.A.C.</strong> - RUC: 20611427671</p>
+        <p>Formación que transforma tu futuro profesional.</p>
+        <div class="footer-links">
+            <a href="https://academy.emagesgroup.com/">Web Principal</a>
+            <a href="https://academy.emagesgroup.com/nosotros.html">Nosotros</a>
+            <a href="privacidad.html">Políticas de Privacidad</a>
+            <a href="https://wa.me/51930175586" target="_blank">Soporte por WhatsApp</a>
+        </div>
+        <p style="margin-top: 30px; font-size: 0.8rem; opacity: 0.6;">© 2026 EMAGES Academy. Todos los derechos reservados.</p>
+    </footer>
+
+</body>
+</html>
