@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Campus Virtual - EMAGES Academy</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png">
     <!-- Fuente moderna y juvenil -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -40,13 +41,22 @@
             z-index: 1000;
         }
         .navbar .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--primary);
-            text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .navbar .logo img {
+            height: 50px;
+            width: auto;
+        }
+        .navbar .logo-text {
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         .navbar .nav-links a {
             text-decoration: none;
@@ -69,50 +79,60 @@
             box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
         }
 
-        /* HERO SECTION */
+        /* HERO SECTION CON IMAGEN DE FONDO */
         .hero {
-            background: var(--gradient);
-            color: white;
-            padding: 80px 5% 100px;
-            text-align: center;
             position: relative;
+            padding: 120px 5% 150px;
+            text-align: center;
             overflow: hidden;
+            /* Usar la imagen hero.jpg como fondo */
+            background: linear-gradient(135deg, rgba(231, 76, 60, 0.85) 0%, rgba(243, 156, 18, 0.85) 100%), 
+                        url('assets/hero.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
         }
         .hero::before {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
-            animation: rotate 20s linear infinite;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.3);
+            z-index: 1;
         }
-        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        
-        .hero-content { position: relative; z-index: 2; max-width: 800px; margin: 0 auto; }
+        .hero-content { 
+            position: relative; 
+            z-index: 2; 
+            max-width: 900px; 
+            margin: 0 auto; 
+            color: white;
+        }
         .hero h1 {
-            font-size: 3rem;
+            font-size: 3.2rem;
             font-weight: 800;
             margin-bottom: 20px;
             line-height: 1.2;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.3);
             animation: fadeInUp 0.8s ease;
         }
         .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 35px;
-            opacity: 0.95;
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            opacity: 0.98;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.2);
             animation: fadeInUp 1s ease;
         }
         .hero-buttons {
             display: flex;
-            gap: 15px;
+            gap: 20px;
             justify-content: center;
             flex-wrap: wrap;
             animation: fadeInUp 1.2s ease;
         }
         .btn {
-            padding: 15px 35px;
+            padding: 16px 40px;
             border-radius: 30px;
             font-weight: 700;
             text-decoration: none;
@@ -120,136 +140,193 @@
             transition: all 0.3s;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
         }
         .btn-white {
             background: white;
             color: var(--primary);
         }
         .btn-white:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
         .btn-outline {
             background: transparent;
             color: white;
-            border: 2px solid white;
+            border: 3px solid white;
         }
         .btn-outline:hover {
             background: white;
             color: var(--primary);
-            transform: translateY(-3px);
+            transform: translateY(-3px) scale(1.05);
         }
 
         /* BENEFICIOS */
         .beneficios {
-            padding: 80px 5%;
+            padding: 100px 5%;
             max-width: 1200px;
-            margin: -60px auto 0;
+            margin: -80px auto 0;
             position: relative;
             z-index: 10;
         }
         .section-title {
             text-align: center;
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             font-weight: 800;
             color: var(--dark);
-            margin-bottom: 50px;
+            margin-bottom: 60px;
         }
-        .section-title span { color: var(--primary); }
+        .section-title span { 
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
         
         .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 35px;
         }
         .card {
             background: white;
-            padding: 40px 30px;
+            padding: 45px 35px;
             border-radius: 20px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.08);
             text-align: center;
             transition: all 0.4s ease;
-            border-bottom: 4px solid transparent;
+            border-bottom: 5px solid transparent;
         }
         .card:hover {
-            transform: translateY(-10px);
-            border-bottom-color: var(--primary);
-            box-shadow: 0 20px 50px rgba(231, 76, 60, 0.15);
+            transform: translateY(-15px);
+            border-bottom-color: var(--secondary);
+            box-shadow: 0 25px 60px rgba(231, 76, 60, 0.2);
         }
         .card-icon {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
+            font-size: 4rem;
+            margin-bottom: 25px;
             display: inline-block;
-            animation: bounce 2s infinite;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+        .card h3 { 
+            font-size: 1.5rem; 
+            margin-bottom: 15px; 
+            color: var(--dark);
+            font-weight: 700;
         }
-        .card h3 { font-size: 1.4rem; margin-bottom: 15px; color: var(--dark); }
-        .card p { color: #7f8c8d; font-size: 0.95rem; line-height: 1.7; }
+        .card p { 
+            color: #7f8c8d; 
+            font-size: 1rem; 
+            line-height: 1.8; 
+        }
 
         /* CTA TEST VOCACIONAL */
         .cta-test {
             background: var(--dark);
             color: white;
-            padding: 80px 5%;
+            padding: 100px 5%;
             text-align: center;
-            margin-top: 80px;
+            margin-top: 100px;
+            position: relative;
+            overflow: hidden;
         }
-        .cta-test h2 { font-size: 2.5rem; margin-bottom: 20px; }
-        .cta-test p { font-size: 1.1rem; opacity: 0.9; max-width: 600px; margin: 0 auto 30px; }
+        .cta-test::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(243, 156, 18, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .cta-test h2 { 
+            font-size: 2.8rem; 
+            margin-bottom: 25px; 
+            position: relative;
+            z-index: 2;
+        }
+        .cta-test p { 
+            font-size: 1.2rem; 
+            opacity: 0.95; 
+            max-width: 700px; 
+            margin: 0 auto 40px;
+            position: relative;
+            z-index: 2;
+        }
         .btn-cta {
             background: var(--gradient);
             color: white;
-            padding: 18px 40px;
-            border-radius: 30px;
+            padding: 20px 45px;
+            border-radius: 35px;
             font-weight: 700;
             text-decoration: none;
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             display: inline-block;
             transition: all 0.3s;
-            box-shadow: 0 5px 20px rgba(231, 76, 60, 0.4);
+            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.5);
+            position: relative;
+            z-index: 2;
         }
         .btn-cta:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 30px rgba(231, 76, 60, 0.6);
+            transform: scale(1.08) translateY(-3px);
+            box-shadow: 0 15px 40px rgba(231, 76, 60, 0.7);
         }
 
         /* FOOTER */
         footer {
             background: #1a252f;
             color: #bdc3c7;
-            padding: 40px 5% 20px;
+            padding: 50px 5% 30px;
             text-align: center;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
         }
-        footer p { margin-bottom: 10px; }
+        footer .footer-logo {
+            max-width: 180px;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+        footer p { margin-bottom: 12px; }
         footer a { color: var(--secondary); text-decoration: none; font-weight: 600; }
         footer a:hover { text-decoration: underline; }
-        .footer-links { margin-top: 20px; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        .footer-links { 
+            margin-top: 25px; 
+            display: flex; 
+            justify-content: center; 
+            gap: 25px; 
+            flex-wrap: wrap; 
+        }
 
         /* ANIMACIONES */
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
+            from { opacity: 0; transform: translateY(40px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         /* RESPONSIVE */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.2rem; }
-            .hero p { font-size: 1rem; }
-            .navbar .nav-links { display: none; } /* Simplificado para móvil, se puede agregar menú hamburguesa */
-            .beneficios { margin-top: -30px; padding: 40px 5%; }
+            .hero h1 { font-size: 2.3rem; }
+            .hero p { font-size: 1.1rem; }
+            .navbar .nav-links { display: none; }
+            .beneficios { margin-top: -40px; padding: 50px 5%; }
+            .section-title { font-size: 2rem; }
+            .cards-grid { grid-template-columns: 1fr; }
+            .cta-test h2 { font-size: 2rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- NAVEGACIÓN -->
+    <!-- NAVEGACIÓN CON LOGO REAL -->
     <nav class="navbar">
-        <a href="https://academy.emagesgroup.com/" class="logo">🎓 EMAGES Academy</a>
+        <a href="https://academy.emagesgroup.com/" class="logo">
+            <img src="assets/logo.png" alt="EMAGES Academy">
+            <span class="logo-text">EMAGES Academy</span>
+        </a>
         <div class="nav-links">
             <a href="https://academy.emagesgroup.com/">Inicio</a>
             <a href="https://academy.emagesgroup.com/empresarial.html">Empresarial</a>
@@ -259,7 +336,7 @@
         </div>
     </nav>
 
-    <!-- HERO SECTION -->
+    <!-- HERO SECTION CON IMAGEN DE FONDO -->
     <section class="hero">
         <div class="hero-content">
             <h1>Tu Futuro Profesional Empieza Aquí 🚀</h1>
@@ -297,11 +374,12 @@
     <section class="cta-test">
         <h2>¿No sabes qué carrera elegir? 🤔</h2>
         <p>Realiza nuestra Evaluación Vocacional gratuita en 10 minutos y recibe un informe personalizado con las carreras más demandadas en Perú para tu perfil.</p>
-        <a href="registro_campus.html" class="btn-cta">🎯 Hacer mi Evaluación Vocacional</a>
+        <a href="registro_campus.html" class="btn-cta"> Hacer mi Evaluación Vocacional</a>
     </section>
 
-    <!-- FOOTER -->
+    <!-- FOOTER CON LOGO -->
     <footer>
+        <img src="assets/logo-group.png" alt="EMAGES Group" class="footer-logo">
         <p><strong>EMAGES GROUP S.A.C.</strong> - RUC: 20611427671</p>
         <p>Formación que transforma tu futuro profesional.</p>
         <div class="footer-links">
@@ -310,7 +388,7 @@
             <a href="privacidad.html">Políticas de Privacidad</a>
             <a href="https://wa.me/51930175586" target="_blank">Soporte por WhatsApp</a>
         </div>
-        <p style="margin-top: 30px; font-size: 0.8rem; opacity: 0.6;">© 2026 EMAGES Academy. Todos los derechos reservados.</p>
+        <p style="margin-top: 30px; font-size: 0.85rem; opacity: 0.7;">© 2026 EMAGES Academy. Todos los derechos reservados.</p>
     </footer>
 
 </body>
