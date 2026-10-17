@@ -49,11 +49,7 @@
             flex-wrap: wrap;
             gap: 20px;
         }
-        .panel-header .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+        .panel-header .logo { display: flex; align-items: center; gap: 12px; }
         .panel-header .logo img { height: 42px; width: auto; }
         .panel-header .logo-text .marca { font-size: 1.3rem; font-weight: 800; color: var(--dark); line-height: 1; }
         .panel-header .logo-text .submarca { font-size: 0.65rem; color: var(--primary); letter-spacing: 2px; text-transform: uppercase; font-weight: 600; }
@@ -64,28 +60,15 @@
         .user-info .perfil { font-size: 0.8rem; color: var(--primary); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
         
         .btn-logout {
-            background: var(--dark);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            font-weight: 600;
-            font-family: 'Poppins', sans-serif;
-            transition: all 0.3s;
+            background: var(--dark); color: white; border: none; padding: 10px 20px;
+            border-radius: 25px; cursor: pointer; font-size: 0.85rem; font-weight: 600; font-family: 'Poppins', sans-serif; transition: all 0.3s;
         }
         .btn-logout:hover { background: var(--dark-secondary); transform: translateY(-2px); }
 
         /* SWITCH DE HIJOS */
         .switch-hijos {
-            background: var(--white);
-            padding: 20px 25px;
-            border-radius: 16px;
-            margin-bottom: 25px;
-            display: none;
-            align-items: center;
-            gap: 15px;
+            background: var(--white); padding: 20px 25px; border-radius: 16px;
+            margin-bottom: 25px; display: none; align-items: center; gap: 15px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.2);
         }
         .switch-hijos.active { display: flex; }
@@ -102,15 +85,9 @@
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
         
         .card {
-            background: var(--white);
-            border-radius: 16px;
-            padding: 30px 25px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-            display: flex;
-            flex-direction: column;
-            transition: all 0.3s;
-            position: relative;
-            border-top: 4px solid transparent;
+            background: var(--white); border-radius: 16px; padding: 30px 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15); display: flex; flex-direction: column;
+            transition: all 0.3s; position: relative; border-top: 4px solid transparent;
         }
         .card:hover { transform: translateY(-5px); border-top-color: var(--primary); box-shadow: 0 10px 30px rgba(0,0,0,0.25); }
         .card-icon { font-size: 2.5rem; margin-bottom: 15px; }
@@ -118,46 +95,31 @@
         .card p { font-size: 0.9rem; color: var(--text-gray); line-height: 1.6; flex-grow: 1; margin-bottom: 20px; }
         
         .btn-card {
-            display: block;
-            width: 100%;
-            padding: 12px;
-            text-align: center;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: 700;
-            transition: all 0.3s;
-            border: none;
-            cursor: pointer;
-            font-size: 0.95rem;
-            font-family: 'Poppins', sans-serif;
+            display: block; width: 100%; padding: 12px; text-align: center;
+            border-radius: 25px; text-decoration: none; font-weight: 700;
+            transition: all 0.3s; border: none; cursor: pointer;
+            font-size: 0.95rem; font-family: 'Poppins', sans-serif;
         }
         .btn-primary { background: var(--gradient); color: white; box-shadow: 0 4px 15px rgba(255, 107, 74, 0.3); }
         .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255, 107, 74, 0.5); }
         .btn-whatsapp { background: #25D366; color: white; }
         .btn-whatsapp:hover { background: #128C7E; transform: translateY(-2px); }
         
-        /* Tarjeta bloqueada */
         .card.locked { opacity: 0.9; background: #fdf2f0; border-top: 4px solid var(--primary); }
-        /* Por defecto, los botones en tarjetas bloqueadas están deshabilitados */
         .card.locked .btn-card { background: #bdc3c7; color: #7f8c8d; cursor: not-allowed; pointer-events: none; box-shadow: none; }
         
         .lock-badge {
             position: absolute; top: 15px; right: 15px;
             background: var(--primary); color: white;
             font-size: 0.7rem; padding: 4px 10px;
-            border-radius: 20px; font-weight: 700;
-            letter-spacing: 1px;
+            border-radius: 20px; font-weight: 700; letter-spacing: 1px;
         }
 
         /* ESTADO DEL CV */
         .cv-status {
-            background: #e8f4f8;
-            border-left: 4px solid #3498db;
-            padding: 12px 15px;
-            border-radius: 8px;
-            margin-top: 15px;
-            font-size: 0.85rem;
-            color: var(--dark);
+            background: #e8f4f8; border-left: 4px solid #3498db;
+            padding: 12px 15px; border-radius: 8px; margin-top: 15px;
+            font-size: 0.85rem; color: var(--dark);
         }
         .cv-status.warning { background: #fff9e6; border-left-color: var(--warning); }
         .cv-status.critical { background: #fdf2f0; border-left-color: var(--primary); }
@@ -165,12 +127,8 @@
         .cv-status a:hover { text-decoration: underline; }
 
         .cargando {
-            text-align: center;
-            padding: 80px 20px;
-            font-size: 1.2rem;
-            color: white;
-            background: rgba(255,255,255,0.05);
-            border-radius: 16px;
+            text-align: center; padding: 80px 20px; font-size: 1.2rem;
+            color: white; background: rgba(255,255,255,0.05); border-radius: 16px;
         }
         .oculto { display: none !important; }
 
@@ -227,7 +185,7 @@
     let usuarioActual = null;
     let tiempoInactividad;
 
-    // 1. Verificar sesión (sessionStorage = se borra al cerrar pestaña)
+    // 1. Verificar sesión
     const dniSession = sessionStorage.getItem('emages_dni');
     if (!dniSession) { window.location.href = 'login_campus.html'; }
 
@@ -275,30 +233,37 @@
         let html = '';
 
         // ==========================================
-        // EVALUACIÓN VOCACIONAL (CON LÓGICA DE 3 INTENTOS)
+        // 1. SIMULACROS DE ADMISIÓN (NUEVO Y CORREGIDO)
+        // ==========================================
+        const mostrarSimulacros = (perfil === 'ESTUDIANTE' || perfil === 'TRANSICION' || perfil === 'PROFESIONAL_CON_HIJOS');
+        if (mostrarSimulacros) {
+            html += `
+            <div class="card">
+                <div class="card-icon">🎓</div>
+                <h3>Simulacros de Admisión</h3>
+                <p>Practica con exámenes reales tipo UNI, San Marcos, Callao y Privadas. Niveles Junior, Senior y Master con banco de preguntas aleatorias.</p>
+                <a href="simulacros.html" class="btn-card btn-primary">Iniciar Simulacro</a>
+            </div>`;
+        }
+
+        // ==========================================
+        // 2. EVALUACIÓN VOCACIONAL (CON LÓGICA DE 3 INTENTOS)
         // ==========================================
         if (perfil === 'ESTUDIANTE' || perfil === 'TRANSICION') {
             const intentosUsados = usuarioActual.intentosTest || 0;
             const intentosRestantes = 3 - intentosUsados;
             
             if (intentosUsados >= 3) {
-                // BLOQUEADO: Ya usó los 3 intentos
                 const msgWA = `Hola EMAGES Academy, soy ${usuarioActual.nombres} (DNI: ${usuarioActual.dni}). He completado mis 3 intentos del Test Vocacional y quisiera solicitar información para reactivar mi acceso.`;
-                
                 html += `
                 <div class="card locked">
                     <span class="lock-badge">🔒 3/3 INTENTOS</span>
                     <div class="card-icon">📝</div>
                     <h3>Evaluación Vocacional</h3>
                     <p>Has completado los 3 intentos permitidos. Tu perfil vocacional ha sido registrado en nuestro sistema.</p>
-                    <a href="https://wa.me/51930175586?text=${encodeURIComponent(msgWA)}" target="_blank" 
-                       class="btn-card btn-whatsapp" 
-                       style="pointer-events: auto; background: #25D366; color: white;">
-                       💬 Solicitar Reactivación
-                    </a>
+                    <a href="https://wa.me/51930175586?text=${encodeURIComponent(msgWA)}" target="_blank" class="btn-card btn-whatsapp" style="pointer-events: auto; background: #25D366; color: white;">💬 Solicitar Reactivación</a>
                 </div>`;
             } else {
-                // DISPONIBLE: Aún tiene intentos
                 html += `
                 <div class="card">
                     <div class="card-icon">📝</div>
@@ -310,7 +275,7 @@
         }
 
         // ==========================================
-        // EVALUACIONES DE COMPETENCIAS
+        // 3. EVALUACIONES DE COMPETENCIAS
         // ==========================================
         if (perfil === 'ESTUDIANTE') {
             html += `
@@ -333,7 +298,7 @@
         }
 
         // ==========================================
-        // CURSOS PROFESIONALES
+        // 4. CURSOS PROFESIONALES
         // ==========================================
         if (perfil === 'ESTUDIANTE') {
             html += `
@@ -356,7 +321,7 @@
         }
 
         // ==========================================
-        // CERTIFICADOS
+        // 5. CERTIFICADOS
         // ==========================================
         html += `
         <div class="card">
@@ -380,7 +345,6 @@
                 <a href="#">📥 Descargar Plantillas Oficiales</a> | <a href="#">📤 Subir mi CV</a>
             </div>`;
         }
-
         const hoy = new Date();
         const fechaCV = new Date(usuarioActual.fechaUltimoCV);
         const diffTime = Math.abs(hoy - fechaCV);
