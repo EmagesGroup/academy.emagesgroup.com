@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulacros de Admisión - EMAGES Academy</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff6b4a; --primary-dark: #ff8c42; --dark: #1a1a2e;
+            --dark-secondary: #16213e; --light: #f8f9fa; --white: #ffffff;
+            --text-gray: #7f8c8d; --success: #27ae60; --danger: #e74c3c;
+            --gradient: linear-gradient(135deg, #ff6b4a 0%, #ff8c42 100%);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Poppins', sans-serif; background-color: var(--light);
+            color: var(--dark); min-height: 100vh; display: flex; flex-direction: column;
+        }
+
+        /* HEADER */
+        .navbar {
+            background: var(--white); padding: 15px 5%; display: flex;
+            justify-content: space-between; align-items: center;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000;
+        }
+        .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .logo img { height: 40px; width: auto; }
+        .logo-text .marca { font-size: 1.2rem; font-weight: 800; color: var(--dark); line-height: 1; }
+        .logo-text .submarca { font-size: 0.6rem; color: var(--primary); letter-spacing: 2px; text-transform: uppercase; font-weight: 600; }
+        .btn-logout {
+            background: var(--dark); color: white; border: none; padding: 8px 18px;
+            border-radius: 20px; cursor: pointer; font-size: 0.85rem; font-weight: 600; font-family: 'Poppins', sans-serif;
+        }
+
+        /* CONTENEDOR PRINCIPAL */
+        .main-container { flex: 1; max-width: 900px; margin: 30px auto; padding: 0 20px; width: 100%; }
+        .view { display: none; animation: fadeIn 0.5s ease; }
+        .view.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* VISTA 1: SELECCIÓN */
+        .selection-card {
+            background: var(--white); padding: 40px; border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08); text-align: center;
+        }
+        .selection-card h2 { font-size: 2rem; margin-bottom: 10px; color: var(--dark); }
+        .selection-card p { color: var(--text-gray); margin-bottom: 30px; }
+        
+        .form-group { margin-bottom: 25px; text-align: left; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 8px; color: var(--dark); }
+        .form-select {
+            width: 100%; padding: 14px; border: 2px solid #e9ecef; border-radius: 10px;
+            font-size: 1rem; font-family: 'Poppins', sans-serif; background: var(--light);
+        }
+        .form-select:focus { outline: none; border-color: var(--primary); }
+
+        .niveles-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 30px; }
+        .nivel-option {
+            padding: 20px; border: 2px solid #e9ecef; border-radius: 12px; cursor: pointer;
+            transition: .3s; text-align: center;
+        }
+        .nivel-option:hover { border-color: var(--primary); background: #fdf2f0; }
+        .nivel-option.selected { border-color: var(--primary); background: var(--gradient); color: white; }
+        .nivel-option h4 { font-size: 1.1rem; margin-bottom: 5px; }
+        .nivel-option p { font-size: 0.8rem; opacity: 0.9; margin: 0; }
+
+        .btn-start {
+            width: 100%; padding: 16px; background: var(--gradient); color: white; border: none;
+            border-radius: 30px; font-size: 1.1rem; font-weight: 700; cursor: pointer;
+            box-shadow: 0 8px 25px rgba(255, 107, 74, 0.4); transition: .3s;
+        }
+        .btn-start:hover { transform: translateY(-2px); box-shadow: 0 12px 35px rgba(255, 107, 74, 0.6); }
+        .btn-start:disabled { background: #bdc3c7; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        /* VISTA 2: EXAMEN */
+        .exam-header {
+            background: var(--dark); color: white; padding: 15px 25px; border-radius: 16px;
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;
+            position: sticky; top: 80px; z-index: 100; box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+        .timer { font-size: 1.5rem; font-weight: 800; font-variant-numeric: tabular-nums; color: var(--primary); }
+        .timer.warning { color: var(--danger); animation: pulse 1s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        
+        .progress-info { font-size: 0.9rem; font-weight: 600; }
+        .btn-finish {
+            background: var(--danger); color: white; border: none; padding: 8px 20px;
+            border-radius: 20px; font-weight: 600; cursor: pointer; font-family: 'Poppins', sans-serif;
+        }
+
+        .question-card {
+            background: var(--white); padding: 40px; border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08); margin-bottom: 20px;
+        }
+        .q-number { color: var(--primary); font-weight: 700; font-size: 0.9rem; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
+        .q-text { font-size: 1.3rem; font-weight: 600; color: var(--dark); margin-bottom: 30px; line-height: 1.4; }
+        
+        .options-list { display: flex; flex-direction: column; gap: 12px; }
+        .option-item {
+            display: flex; align-items: center; padding: 16px 20px; border: 2px solid #e9ecef;
+            border-radius: 12px; cursor: pointer; transition: .2s; font-size: 1rem;
+        }
+        .option-item:hover { border-color: var(--primary); background: #fdf2f0; }
+        .option-item.selected { border-color: var(--primary); background: var(--gradient); color: white; }
+        .option-letter {
+            width: 32px; height: 32px; border-radius: 50%; border: 2px solid currentColor;
+            display: flex; align-items: center; justify-content: center; margin-right: 15px; font-weight: 700; flex-shrink: 0;
+        }
+        .option-item.selected .option-letter { background: white; color: var(--primary); }
+
+        .exam-nav { display: flex; justify-content: space-between; margin-top: 20px; }
+        .btn-nav {
+            padding: 12px 25px; border-radius: 25px; font-weight: 600; cursor: pointer;
+            border: none; font-family: 'Poppins', sans-serif; transition: .3s;
+        }
+        .btn-prev { background: var(--light); color: var(--dark); }
+        .btn-prev:hover { background: #e9ecef; }
+        .btn-next { background: var(--gradient); color: white; box-shadow: 0 4px 15px rgba(255, 107, 74, 0.3); }
+        .btn-next:hover { transform: translateY(-2px); }
+
+        /* VISTA 3: RESULTADOS */
+        .result-card {
+            background: var(--white); padding: 50px 40px; border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08); text-align: center;
+        }
+        .score-circle {
+            width: 150px; height: 150px; border-radius: 50%; background: var(--gradient);
+            color: white; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            margin: 0 auto 30px; box-shadow: 0 10px 30px rgba(255, 107, 74, 0.4);
+        }
+        .score-number { font-size: 3rem; font-weight: 800; line-height: 1; }
+        .score-label { font-size: 0.9rem; font-weight: 600; opacity: 0.9; }
+        
+        .result-details { text-align: left; background: var(--light); padding: 25px; border-radius: 12px; margin: 30px 0; }
+        .result-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #e9ecef; }
+        .result-row:last-child { border-bottom: none; }
+        .result-row strong { color: var(--dark); }
+
+        .btn-panel {
+            display: inline-block; margin-top: 20px; padding: 14px 30px; background: var(--dark);
+            color: white; text-decoration: none; border-radius: 30px; font-weight: 700; transition: .3s;
+        }
+        .btn-panel:hover { background: var(--dark-secondary); transform: translateY(-2px); }
+
+        @media (max-width: 600px) {
+            .selection-card, .question-card, .result-card { padding: 25px 20px; }
+            .exam-header { flex-direction: column; gap: 10px; text-align: center; position: static; }
+            .q-text { font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <nav class="navbar">
+        <a href="panel_campus.html" class="logo">
+            <img src="assets/Pluma-sin-fondo.png" alt="EMAGES Academy">
+            <div class="logo-text">
+                <span class="marca">EMAGES Academy</span>
+                <span class="submarca">Simulacros</span>
+            </div>
+        </a>
+        <button class="btn-logout" onclick="cerrarSesion()">🚪 Salir</button>
+    </nav>
+
+    <div class="main-container">
+        
+        <!-- VISTA 1: SELECCIÓN -->
+        <div id="viewSelection" class="view active">
+            <div class="selection-card">
+                <h2>📝 Configura tu Simulacro</h2>
+                <p>Selecciona la universidad y el nivel de dificultad para comenzar.</p>
+                
+                <div class="form-group">
+                    <label>Universidad Objetivo</label>
+                    <select id="selectUniversidad" class="form-select">
+                        <option value="UNI">Universidad Nacional de Ingeniería (UNI)</option>
+                        <option value="UNMSM">Universidad Nacional Mayor de San Marcos (UNMSM)</option>
+                        <option value="UNAC">Universidad Nacional del Callao (UNAC)</option>
+                        <option value="PRIVADAS">Universidades Privadas (PUCP, UPC, U. Lima)</option>
+                    </select>
+                </div>
+
+                <label style="display:block; font-weight:600; margin-bottom:15px; text-align:left;">Nivel de Dificultad</label>
+                <div class="niveles-grid">
+                    <div class="nivel-option" onclick="selectNivel('Junior', 45, this)">
+                        <h4>Junior</h4>
+                        <p>45 minutos · 20 preguntas</p>
+                    </div>
+                    <div class="nivel-option selected" onclick="selectNivel('Senior', 90, this)">
+                        <h4>Senior</h4>
+                        <p>90 minutos · 40 preguntas</p>
+                    </div>
+                    <div class="nivel-option" onclick="selectNivel('Master', 120, this)">
+                        <h4>Master</h4>
+                        <p>120 minutos · 60 preguntas</p>
+                    </div>
+                </div>
+
+                <button class="btn-start" id="btnStart" onclick="iniciarSimulacro()">🚀 Iniciar Simulacro</button>
+            </div>
+        </div>
+
+        <!-- VISTA 2: EXAMEN -->
+        <div id="viewExam" class="view">
+            <div class="exam-header">
+                <div class="progress-info">Pregunta <span id="currentQ">1</span> de <span id="totalQ">20</span></div>
+                <div class="timer" id="timerDisplay">00:00</div>
+                <button class="btn-finish" onclick="finalizarSimulacro()">Finalizar</button>
+            </div>
+
+            <div class="question-card">
+                <div class="q-number" id="qNumber">Pregunta 1</div>
+                <div class="q-text" id="qText">Cargando pregunta...</div>
+                <div class="options-list" id="optionsList">
+                    <!-- Opciones generadas por JS -->
+                </div>
+            </div>
+
+            <div class="exam-nav">
+                <button class="btn-nav btn-prev" id="btnPrev" onclick="cambiarPregunta(-1)">← Anterior</button>
+                <button class="btn-nav btn-next" id="btnNext" onclick="cambiarPregunta(1)">Siguiente →</button>
+            </div>
+        </div>
+
+        <!-- VISTA 3: RESULTADOS -->
+        <div id="viewResult" class="view">
+            <div class="result-card">
+                <h2>🎯 Simulacro Finalizado</h2>
+                <p style="color: var(--text-gray); margin-bottom: 30px;">Aquí está el resumen de tu desempeño.</p>
+                
+                <div class="score-circle">
+                    <span class="score-number" id="finalScore">0</span>
+                    <span class="score-label">Puntos</span>
+                </div>
+
+                <div class="result-details">
+                    <div class="result-row">
+                        <span>Universidad:</span>
+                        <strong id="resUniversidad">-</strong>
+                    </div>
+                    <div class="result-row">
+                        <span>Nivel:</span>
+                        <strong id="resNivel">-</strong>
+                    </div>
+                    <div class="result-row">
+                        <span>Respuestas Correctas:</span>
+                        <strong id="resCorrectas">0</strong>
+                    </div>
+                    <div class="result-row">
+                        <span>Respuestas Incorrectas:</span>
+                        <strong id="resIncorrectas" style="color: var(--danger);">0</strong>
+                    </div>
+                    <div class="result-row">
+                        <span>Preguntas Omitidas:</span>
+                        <strong id="resOmitidas" style="color: var(--text-gray);">0</strong>
+                    </div>
+                </div>
+
+                <p style="font-size: 0.9rem; color: var(--text-gray); margin-bottom: 20px;">
+                    ✅ Tu resultado ha sido guardado en tu historial de EMAGES Academy.
+                </p>
+
+                <a href="panel_campus.html" class="btn-panel">← Volver al Panel Principal</a>
+            </div>
+        </div>
+
+    </div>
+
+<script>
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw6xpApuz9Es7NGuDlVefKemVYEPVo3MZcrS71DAGa3YQmLLIkmEY6KSLtBJlmJ_3Yr/exec';
+    
+    // Datos del usuario
+    const dni = sessionStorage.getItem('emages_dni');
+    const nombres = sessionStorage.getItem('emages_nombre') || 'Estudiante';
+    if (!dni) window.location.href = 'login_campus.html';
+
+    // Configuración del simulacro
+    let config = { universidad: 'UNI', nivel: 'Senior', tiempoMinutos: 90 };
+    let preguntas = [];
+    let respuestasUsuario = {};
+    let preguntaActual = 0;
+    let tiempoRestante = 0;
+    let timerInterval = null;
+
+    // BANCO DE PREGUNTAS DE EJEMPLO (Puedes agregar cientos aquí)
+    const bancoPreguntas = [
+        {
+            id: 1,
+            texto: "¿Cuál es la capital del departamento de La Libertad?",
+            opciones: ["Chiclayo", "Trujillo", "Piura", "Chimbote", "Cajamarca"],
+            correcta: 1 // Índice de la respuesta correcta (0=A, 1=B, 2=C, etc.)
+        },
+        {
+            id: 2,
+            texto: "En el ciclo del agua, el proceso por el cual el vapor se convierte en líquido se llama:",
+            opciones: ["Evaporación", "Precipitación", "Condensación", "Infiltración", "Transpiración"],
+            correcta: 2
+        },
+        {
+            id: 3,
+            texto: "¿Quién escribió la obra literaria 'Los Ríos Profundos'?",
+            opciones: ["Mario Vargas Llosa", "César Vallejo", "José María Arguedas", "Julio Ramón Ribeyro", "Ciro Alegría"],
+            correcta: 2
+        },
+        {
+            id: 4,
+            texto: "Si un triángulo tiene ángulos de 50° y 60°, ¿cuánto mide el tercer ángulo?",
+            opciones: ["50°", "60°", "70°", "80°", "90°"],
+            correcta: 2
+        },
+        {
+            id: 5,
+            texto: "¿Qué gas es esencial para la respiración celular en los seres humanos?",
+            opciones: ["Nitrógeno", "Dióxido de carbono", "Oxígeno", "Hidrógeno", "Helio"],
+            correcta: 2
+        }
+        // ... Agrega más preguntas aquí siguiendo el mismo formato
+    ];
+
+    function selectNivel(nivel, minutos, elemento) {
+        config.nivel = nivel;
+        config.tiempoMinutos = minutos;
+        document.querySelectorAll('.nivel-option').forEach(el => el.classList.remove('selected'));
+        elemento.classList.add('selected');
+    }
+
+    function iniciarSimulacro() {
+        config.universidad = document.getElementById('selectUniversidad').value;
+        
+        // Mezclar y seleccionar preguntas (para el ejemplo usamos las 5, en producción filtra por universidad/nivel)
+        preguntas = [...bancoPreguntas].sort(() => 0.5 - Math.random()).slice(0, 5); 
+        
+        tiempoRestante = config.tiempoMinutos * 60;
+        respuestasUsuario = {};
+        preguntaActual = 0;
+
+        document.getElementById('totalQ').textContent = preguntas.length;
+        cambiarVista('viewExam');
+        renderizarPregunta();
+        iniciarCronometro();
+    }
+
+    function renderizarPregunta() {
+        const q = preguntas[preguntaActual];
+        document.getElementById('currentQ').textContent = preguntaActual + 1;
+        document.getElementById('qNumber').textContent = `Pregunta ${preguntaActual + 1} de ${preguntas.length}`;
+        document.getElementById('qText').textContent = q.texto;
+
+        const letras = ['A', 'B', 'C', 'D', 'E'];
+        const container = document.getElementById('optionsList');
+        container.innerHTML = '';
+
+        q.opciones.forEach((opcion, index) => {
+            const div = document.createElement('div');
+            div.className = 'option-item';
+            if (respuestasUsuario[preguntaActual] === index) {
+                div.classList.add('selected');
+            }
+            div.innerHTML = `<div class="option-letter">${letras[index]}</div><span>${opcion}</span>`;
+            div.onclick = () => seleccionarRespuesta(index, div);
+            container.appendChild(div);
+        });
+
+        document.getElementById('btnPrev').disabled = preguntaActual === 0;
+        document.getElementById('btnNext').textContent = preguntaActual === preguntas.length - 1 ? 'Finalizar Examen' : 'Siguiente →';
+    }
+
+    function seleccionarRespuesta(index, elemento) {
+        document.querySelectorAll('.option-item').forEach(el => el.classList.remove('selected'));
+        elemento.classList.add('selected');
+        respuestasUsuario[preguntaActual] = index;
+    }
+
+    function cambiarPregunta(direccion) {
+        if (direccion === 1 && preguntaActual === preguntas.length - 1) {
+            finalizarSimulacro();
+            return;
+        }
+        preguntaActual += direccion;
+        renderizarPregunta();
+    }
+
+    function iniciarCronometro() {
+        actualizarDisplayTiempo();
+        timerInterval = setInterval(() => {
+            tiempoRestante--;
+            actualizarDisplayTiempo();
+            if (tiempoRestante <= 0) {
+                clearInterval(timerInterval);
+                alert('⏰ ¡El tiempo ha terminado! Tu simulacro se enviará automáticamente.');
+                finalizarSimulacro();
+            }
+        }, 1000);
+    }
+
+    function actualizarDisplayTiempo() {
+        const minutos = Math.floor(tiempoRestante / 60);
+        const segundos = tiempoRestante % 60;
+        const display = `${String(minutos).padStart(2, '0')}:${String(segundos).padStart(2, '0')}`;
+        const timerEl = document.getElementById('timerDisplay');
+        timerEl.textContent = display;
+        
+        if (tiempoRestante <= 300) { // Últimos 5 minutos
+            timerEl.classList.add('warning');
+        }
+    }
+
+    function finalizarSimulacro() {
+        clearInterval(timerInterval);
+        
+        // Calcular puntaje (20 pts c/u, -5 pts incorrecta, 0 omitida - modelo UNI/San Marcos)
+        let correctas = 0, incorrectas = 0, omitidas = 0;
+        let detalleRespuestas = [];
+
+        preguntas.forEach((q, index) => {
+            const resp = respuestasUsuario[index];
+            if (resp === undefined) {
+                omitidas++;
+                detalleRespuestas.push(`${index+1}:Omitida`);
+            } else if (resp === q.correcta) {
+                correctas++;
+                detalleRespuestas.push(`${index+1}:Correcta`);
+            } else {
+                incorrectas++;
+                detalleRespuestas.push(`${index+1}:Incorrecta`);
+            }
+        });
+
+        const puntaje = (correctas * 20) - (incorrectas * 5);
+
+        // Mostrar resultados
+        document.getElementById('finalScore').textContent = puntaje;
+        document.getElementById('resUniversidad').textContent = config.universidad;
+        document.getElementById('resNivel').textContent = config.nivel;
+        document.getElementById('resCorrectas').textContent = correctas;
+        document.getElementById('resIncorrectas').textContent = incorrectas;
+        document.getElementById('resOmitidas').textContent = omitidas;
+
+        cambiarVista('viewResult');
+
+        // Guardar en Google Sheets
+        guardarEnSheets(puntaje, detalleRespuestas.join(', '));
+    }
+
+    function guardarEnSheets(puntaje, detalle) {
+        const datos = {
+            accion: 'guardarSimulacro',
+            dni: dni,
+            nombres: nombres,
+            universidad: config.universidad,
+            nivel: config.nivel,
+            puntaje: puntaje,
+            respuestas: detalle
+        };
+
+        fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(datos) })
+        .then(res => res.json())
+        .then(data => {
+            console.log('Guardado:', data);
+        })
+        .catch(err => console.error('Error al guardar:', err));
+    }
+
+    function cambiarVista(viewId) {
+        document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+        document.getElementById(viewId).classList.add('active');
+        window.scrollTo(0, 0);
+    }
+
+    function cerrarSesion() {
+        clearInterval(timerInterval);
+        sessionStorage.clear();
+        window.location.href = 'login_campus.html';
+    }
+</script>
+
+</body>
+</html>
