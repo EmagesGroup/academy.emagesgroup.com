@@ -185,7 +185,7 @@
         <!-- VISTA 1: SELECCIÓN -->
         <div id="viewSelection" class="view active">
             <div class="selection-card">
-                <h2> Configura tu Simulacro</h2>
+                <h2>Configura tu Simulacro</h2>
                 <p>Selecciona la universidad y el nivel de dificultad. Las preguntas se mezclarán aleatoriamente.</p>
                 
                 <div class="form-group">
@@ -291,7 +291,7 @@
     </div>
 
 <script>
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw6xpApuz9Es7NGuDlVefKemVYEPVo3MZcrS71DAGa3YQmLLIkmEY6KSLtBJlmJ_3Yr/exec'; 
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw6xpApuz9Es7NGuDlVefKemVYEPVo3MZcrS71DAGa3YQmLLIkmEY6KSLtBJlmJ_3Yr/exec';
     
     // Datos del usuario
     const dni = sessionStorage.getItem('emages_dni');
@@ -321,14 +321,13 @@
         btnStart.disabled = true;
         btnStart.textContent = '⏳ Preparando examen...';
 
-        // Mostrar loading
         document.getElementById('loadingOverlay').style.display = 'flex';
         document.getElementById('loadingText').textContent = `Jalando ${config.cantidad} preguntas aleatorias de ${config.universidad}...`;
 
         try {
+            // CORREGIDO: Se eliminó el header 'Content-Type' para evitar bloqueo CORS
             const response = await fetch(SCRIPT_URL, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     accion: 'obtenerPreguntasSimulacro',
                     universidad: config.universidad,
@@ -357,7 +356,7 @@
             iniciarCronometro();
         } catch (error) {
             console.error(error);
-            alert(' Error de conexión al cargar las preguntas.');
+            alert('Error de conexión al cargar las preguntas.');
             btnStart.disabled = false;
             btnStart.textContent = '🚀 Iniciar Simulacro';
         } finally {
@@ -376,7 +375,7 @@
         container.innerHTML = '';
 
         q.opciones.forEach((opcion, index) => {
-            if (!opcion) return; // Si la opción está vacía en el Excel, no la mostramos
+            if (!opcion) return;
             const div = document.createElement('div');
             div.className = 'option-item';
             if (respuestasUsuario[preguntaActual] === index) {
@@ -429,7 +428,7 @@
         const timerEl = document.getElementById('timerDisplay');
         timerEl.textContent = display;
         
-        if (tiempoRestante <= 300) { // Últimos 5 minutos
+        if (tiempoRestante <= 300) {
             timerEl.classList.add('warning');
         }
     }
@@ -437,12 +436,11 @@
     async function finalizarSimulacro() {
         clearInterval(timerInterval);
         
-        // Calcular puntaje (+20 correcta, -5 incorrecta, 0 omitida)
         let correctas = 0, incorrectas = 0, omitidas = 0;
 
         preguntas.forEach((q, index) => {
             const resp = respuestasUsuario[index];
-            const letraCorrecta = q.correcta; // "A", "B", "C", "D", "E"
+            const letraCorrecta = q.correcta;
             const indiceCorrecto = ['A', 'B', 'C', 'D', 'E'].indexOf(letraCorrecta);
 
             if (resp === undefined) {
@@ -456,7 +454,6 @@
 
         const puntaje = (correctas * 20) - (incorrectas * 5);
 
-        // Mostrar resultados
         document.getElementById('finalScore').textContent = puntaje;
         document.getElementById('resUniversidad').textContent = config.universidad;
         document.getElementById('resNivel').textContent = config.nivel;
@@ -466,7 +463,6 @@
 
         cambiarVista('viewResult');
 
-        // Guardar en Google Sheets
         await guardarEnSheets(puntaje, correctas, incorrectas, omitidas);
     }
 
@@ -484,9 +480,9 @@
         };
 
         try {
+            // CORREGIDO: Se eliminó el header 'Content-Type' para evitar bloqueo CORS
             await fetch(SCRIPT_URL, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(datos)
             });
             console.log('Simulacro guardado en historial.');
