@@ -3,498 +3,357 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>T-REGISTRO SUNAT | EMAGES Academy</title>
-    <link href="https://fonts.googleapis.com/css2?family=Arial:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Caso Práctico: Empresa SISE | EMAGES Academy</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
+        :root {
+            --primary: #1a1a2e;
+            --gold: #d4af37;
+            --light: #f8f9fa;
+            --text: #333;
+            --border: #e0e0e0;
         }
 
         body {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+            color: var(--text);
+            line-height: 1.6;
+            margin: 0;
             padding: 20px;
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 900px;
             margin: 0 auto;
             background: white;
+            padding: 40px;
             border-radius: 10px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-top: 5px solid var(--gold);
         }
 
         .header {
-            background: linear-gradient(135deg, #ff6b00 0%, #e65c00 100%);
-            padding: 20px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 4px solid #cc5200;
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 20px;
         }
 
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .sunat-logo {
-            width: 80px;
-            height: 80px;
-            background: white;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: #ff6b00;
+        .header h1 {
+            color: var(--primary);
+            margin: 0;
             font-size: 24px;
         }
 
-        .header-title h1 {
-            font-size: 24px;
-            color: white;
-            margin-bottom: 5px;
-        }
-
-        .header-title p {
-            font-size: 12px;
-            color: white;
-            opacity: 0.9;
-        }
-
-        .user-info {
-            background: rgba(255,255,255,0.2);
-            padding: 15px 20px;
-            border-radius: 8px;
-            color: white;
-        }
-
-        .user-info p {
-            font-size: 12px;
-            margin: 5px 0;
-        }
-
-        .main-grid {
-            display: grid;
-            grid-template-columns: 1fr 350px;
-            gap: 0;
-        }
-
-        .panel {
-            padding: 20px;
-            border-right: 1px solid #e0e0e0;
-            background: #fff;
-        }
-
-        .panel-title {
+        .header p {
+            color: #666;
+            margin: 5px 0 0;
             font-size: 14px;
+        }
+
+        .section {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            color: var(--primary);
+            font-size: 18px;
             font-weight: 700;
-            color: #333;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 3px solid #ff6b00;
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        .case-panel {
-            background: #f8f9fa;
-            padding: 20px;
-            border-left: 1px solid #e0e0e0;
-        }
-
-        .case-box {
-            background: white;
-            border: 2px solid #ff6b00;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 20px;
-        }
-
-        .case-box h4 {
-            color: #e65c00;
-            margin-bottom: 10px;
-            font-size: 13px;
-        }
-
-        .case-box p {
-            font-size: 11px;
-            color: #555;
-            line-height: 1.6;
-            margin-bottom: 8px;
-        }
-
-        .case-box ul {
-            font-size: 11px;
-            color: #555;
-            margin-left: 20px;
-            line-height: 1.8;
-        }
-
-        .form-section {
-            background: #f8f9fa;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 15px;
-        }
-
-        .form-section h4 {
-            font-size: 13px;
-            color: #ff6b00;
-            margin-bottom: 15px;
-            padding-bottom: 8px;
-            border-bottom: 2px solid #ff6b00;
-        }
-
-        .form-group {
-            margin-bottom: 12px;
-        }
-
-        .form-group label {
+        .section-title::before {
+            content: '';
             display: block;
-            font-size: 11px;
-            font-weight: 600;
-            color: #555;
+            width: 4px;
+            height: 20px;
+            background: var(--gold);
+        }
+
+        .data-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            background: var(--light);
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+        }
+
+        .data-item strong {
+            display: block;
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+        }
+
+        .worker-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--gold);
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+
+        .worker-name {
+            font-weight: 700;
+            color: var(--primary);
             margin-bottom: 5px;
         }
 
-        .form-group input, .form-group select {
-            width: 100%;
-            padding: 10px;
-            border: 2px solid #e0e0e0;
-            border-radius: 4px;
-            font-size: 12px;
-            transition: border-color 0.3s;
-        }
-
-        .form-group input:focus, .form-group select:focus {
-            outline: none;
-            border-color: #ff6b00;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
-        .btn-sunat {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, #ff6b00 0%, #e65c00 100%);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 10px;
+        .worker-details {
             font-size: 13px;
-            transition: all 0.3s;
-        }
-
-        .btn-sunat:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255,107,0,0.3);
-        }
-
-        .btn-sunat:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-
-        .btn-secondary {
-            background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
-        }
-
-        .status-box {
-            background: #d4edda;
-            border: 2px solid #28a745;
-            border-radius: 8px;
-            padding: 15px;
-            margin: 15px 0;
-            display: none;
-        }
-
-        .status-box.active {
-            display: block;
-        }
-
-        .status-box h4 {
-            color: #155724;
-            font-size: 13px;
-            margin-bottom: 10px;
-        }
-
-        .status-box p {
-            color: #155724;
-            font-size: 11px;
-        }
-
-        .error-box {
-            background: #f8d7da;
-            border: 2px solid #dc3545;
-            border-radius: 8px;
-            padding: 15px;
-            margin: 15px 0;
-            display: none;
-        }
-
-        .error-box.active {
-            display: block;
-        }
-
-        .error-box h4 {
-            color: #721c24;
-            font-size: 13px;
-            margin-bottom: 10px;
-        }
-
-        .error-box ul {
-            color: #721c24;
-            font-size: 11px;
-            margin-left: 20px;
-        }
-
-        .worker-list {
-            background: white;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            margin-top: 10px;
-        }
-
-        .worker-item {
-            padding: 12px;
-            border-bottom: 1px solid #e0e0e0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .worker-item:last-child {
-            border-bottom: none;
-        }
-
-        .worker-info {
-            font-size: 11px;
-        }
-
-        .worker-status {
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 10px;
-            font-weight: 600;
-        }
-
-        .status-active {
-            background: #d4edda;
-            color: #155724;
-        }
-
-        .status-pending {
-            background: #fff3cd;
-            color: #856404;
-        }
-
-        .nav-tabs {
-            display: flex;
-            gap: 5px;
-            margin-bottom: 20px;
-        }
-
-        .nav-tab {
-            padding: 10px 20px;
-            background: #e0e0e0;
-            border: none;
-            border-radius: 6px 6px 0 0;
-            cursor: pointer;
-            font-size: 12px;
-            font-weight: 600;
             color: #555;
-            transition: all 0.3s;
         }
 
-        .nav-tab.active {
-            background: #ff6b00;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 13px;
+        }
+
+        th, td {
+            border: 1px solid var(--border);
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background: var(--primary);
             color: white;
         }
 
-        .nav-tab:hover:not(.active) {
-            background: #d0d0d0;
+        .rubric-box {
+            background: #e8f4fd;
+            border: 1px solid #b6e0fe;
+            padding: 15px;
+            border-radius: 6px;
         }
 
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
+        .btn-start {
+            display: block;
             width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.8);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
+            padding: 15px;
+            background: var(--gold);
+            color: var(--primary);
+            text-align: center;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 6px;
+            margin-top: 30px;
+            transition: background 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
         }
 
-        .modal-overlay.active {
-            display: flex;
+        .btn-start:hover {
+            background: #b8941f;
         }
 
-        .modal-content {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            max-width: 600px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 12px;
+            color: #888;
+            border-top: 1px solid var(--border);
+            padding-top: 20px;
         }
 
-        .modal-title {
-            font-size: 20px;
-            color: #
-</style>
+        code {
+            background: #f4f4f4;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: monospace;
+            color: #d63384;
+        }
+    </style>
 </head>
-<| | |
-| ---|---|
-| 1010 | Provisión Inicial |
-| 1012 | Aumento de Efectivo |
-| 1014 | Disminución de Efectivo |
-| 1040 | Faltante/Sobrante |
-| 1050 | Cierre de Operaciones |
-| 0730 | Depósito Efectivo |
-| 0600 | Retiro Ahorro |
-| 0740 | Transferencia entre Cuentas |
-| 6500 | Pago de Servicios |
-| 0750 | Cheque M/B Local |
-| 0732 | Cheque Otro Banco |
-| 0500 | Pago Efectivo/Cheque |
-| 0810 | Compra M.E. |
-| 0812 | Venta M.E. |
-| 0100 | Mov. Ctas. |
-| 0102 | Saldos Ctas |
-| 0104 | Estado de Chequera |
-| 0106 | Estado de Cheque |
-| 3043 | Cuadre de Efectivo |
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>T-REGISTRO SUNAT | CASO PRÁCTICO</h1>
+            <p>EMAGES Academy - Módulo de Planilla Electrónica</p>
+        </div>
 
-**TABLA 8: TIPO DE TRABAJADOR**
-| Código | Descripción | Sector Privado |
-|--------|-------------|----------------|
-| 19 | EJECUTIVO | A |
-| 20 | OBRERO | A |
-| 21 | EMPLEADO | A |
-| 27 | CONSTRUCCIÓN CIVIL | A |
-| 32 | MINERO DE SOCAVÓN | A |
-| 64 | AGRARIO DEPENDIENTE | A |
-| 98 | 4TA-5TA CATEGORÍA | A |
+        <div class="section">
+            <div class="section-title">1. TABLAS PARAMÉTRICAS DE REFERENCIA</div>
+            <p>Utilice los siguientes códigos para registrar la información correctamente:</p>
+            <table>
+                <tr>
+                    <th>Código</th>
+                    <th>Descripción</th>
+                    <th>Código</th>
+                    <th>Descripción</th>
+                </tr>
+                <tr>
+                    <td><strong>1010</strong></td>
+                    <td>Provisión Inicial</td>
+                    <td><strong>0730</strong></td>
+                    <td>Depósito Efectivo</td>
+                </tr>
+                <tr>
+                    <td><strong>0600</strong></td>
+                    <td>Retiro Ahorro</td>
+                    <td><strong>6500</strong></td>
+                    <td>Pago de Servicios</td>
+                </tr>
+                <tr>
+                    <td><strong>20</strong></td>
+                    <td>Obrero (Tabla 8)</td>
+                    <td><strong>21</strong></td>
+                    <td>Empleado (Tabla 8)</td>
+                </tr>
+                <tr>
+                    <td><strong>02</strong></td>
+                    <td>ONP (Tabla 11)</td>
+                    <td><strong>21-24</strong></td>
+                    <td>AFP (Tabla 11)</td>
+                </tr>
+                <tr>
+                    <td><strong>00</strong></td>
+                    <td>EsSalud Regular (Tabla 32)</td>
+                    <td><strong>02</strong></td>
+                    <td>Cónyuge (Tabla 19)</td>
+                </tr>
+            </table>
+        </div>
 
-**TABLA 11: RÉGIMEN PENSIONARIO**
-| Código | Descripción |
-|--------|-------------|
-| 02 | ONP (DL 19990) |
-| 03 | AFP - INTEGRA |
-| 03 | AFP - HORIZONTE |
-| 03 | AFP - PROFUTURO |
-| 03 | AFP - PRIMA |
-| 99 | SIN RÉGIMEN |
+        <div class="section">
+            <div class="section-title">2. DATOS DE LA EMPRESA (EMPLEADOR)</div>
+            <div class="data-grid">
+                <div class="data-item">
+                    <strong>Razón Social</strong>
+                    SISE SERVICIOS INTEGRALES S.A.C.
+                </div>
+                <div class="data-item">
+                    <strong>RUC</strong>
+                    20551234567
+                </div>
+                <div class="data-item">
+                    <strong>Sector</strong>
+                    Privado
+                </div>
+                <div class="data-item">
+                    <strong>Actividad</strong>
+                    Mantenimiento y reparación de aire acondicionado
+                </div>
+                <div class="data-item">
+                    <strong>Trabajadores</strong>
+                    25 trabajadores
+                </div>
+                <div class="data-item">
+                    <strong>Sedes</strong>
+                    5 locales (Breña, Surco, Lima, Callao, Miraflores)
+                </div>
+                <div class="data-item">
+                    <strong>Discapacidad</strong>
+                    12% (3 trabajadores)
+                </div>
+                <div class="data-item">
+                    <strong>SENATI</strong>
+                    Sí (0.75%)
+                </div>
+            </div>
+        </div>
 
-**TABLA 32: RÉGIMEN DE SALUD**
-| Código | Descripción |
-|--------|-------------|
-| 00 | ESSALUD REGULAR |
-| 01 | ESSALUD + EPS |
-| 04 | ESSALUD AGRARIO |
-| 21 | SIS - MICROEMPRESA |
+        <div class="section">
+            <div class="section-title">3. TRABAJADORES A REGISTRAR</div>
+            
+            <div class="worker-card">
+                <div class="worker-name">1. PÉREZ LÓPEZ, JUAN CARLOS</div>
+                <div class="worker-details">
+                    <strong>DNI:</strong> 45123456 | <strong>Tipo:</strong> Obrero (20) | <strong>Cargo:</strong> Técnico en mantenimiento<br>
+                    <strong>Sede:</strong> Breña | <strong>Discapacidad:</strong> NO | <strong>Dependiente:</strong> Esposa (Cónyuge - 02)
+                </div>
+            </div>
 
-**TABLA 19: VÍNCULO FAMILIAR**
-| Código | Descripción |
-|--------|-------------|
-| 02 | CÓNYUGE |
-| 03 | CONCUBINA(O) |
-| 04 | GESTANTE |
-| 05 | HIJO MENOR |
-| 06 | HIJO MAYOR INCAPACITADO |
+            <div class="worker-card">
+                <div class="worker-name">2. GÓMEZ RUIZ, MARÍA ELENA</div>
+                <div class="worker-details">
+                    <strong>DNI:</strong> 46234567 | <strong>Tipo:</strong> Empleado (21) | <strong>Cargo:</strong> Administrativa<br>
+                    <strong>Sede:</strong> Surco | <strong>Discapacidad:</strong> SÍ | <strong>Dependiente:</strong> Conviviente (03)
+                </div>
+            </div>
 
----
+            <div class="worker-card">
+                <div class="worker-name">3. SÁNCHEZ TORRES, LUIS ALBERTO</div>
+                <div class="worker-details">
+                    <strong>DNI:</strong> 47345678 | <strong>Tipo:</strong> Obrero (20) | <strong>Cargo:</strong> Técnico en reparaciones<br>
+                    <strong>Sede:</strong> Lima | <strong>Discapacidad:</strong> SÍ | <strong>Dependiente:</strong> Madre Gestante (04)
+                </div>
+            </div>
+        </div>
 
-## 📋 **CASO PRÁCTICO: EMPRESA SISE**
+        <div class="section">
+            <div class="section-title">4. RÚBRICA DE EVALUACIÓN</div>
+            <div class="rubric-box">
+                <table>
+                    <tr>
+                        <th>Criterio</th>
+                        <th>Puntos</th>
+                        <th>Peso</th>
+                    </tr>
+                    <tr>
+                        <td>Registro de empleador completo</td>
+                        <td>100</td>
+                        <td>25%</td>
+                    </tr>
+                    <tr>
+                        <td>Validación de datos (SENATI, SCTR, etc.)</td>
+                        <td>50</td>
+                        <td>12.5%</td>
+                    </tr>
+                    <tr>
+                        <td>Registro de 3 trabajadores</td>
+                        <td>150</td>
+                        <td>37.5%</td>
+                    </tr>
+                    <tr>
+                        <td>Registro de 3 derechohabientes</td>
+                        <td>50</td>
+                        <td>12.5%</td>
+                    </tr>
+                    <tr>
+                        <td>Uso correcto de tablas paramétricas</td>
+                        <td>50</td>
+                        <td>12.5%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>TOTAL</strong></td>
+                        <td><strong>400</strong></td>
+                        <td><strong>100%</strong></td>
+                    </tr>
+                </table>
+                <p style="margin-top: 10px; font-size: 13px;"><strong>Nota Mínima Aprobatoria:</strong> 320 puntos (80%)</p>
+            </div>
+        </div>
 
-**DATOS DE LA EMPRESA:**
-- **Razón Social:** SISE SERVICIOS INTEGRALES S.A.C.
-- **RUC:** 20551234567
-- **Sector:** Privado
-- **Actividad:** Mantenimiento y reparación de aire acondicionado
-- **Trabajadores:** 25 trabajadores
-- **Sedes:** 5 locales (Breña, Surco, Lima, Callao, Miraflores)
-- **Personal con Discapacidad:** 12% (3 trabajadores)
-- **Personal de Seguridad y Limpieza:** En sedes Breña y Surco (tercerizados)
-- **Aporta a SENATI:** SÍ (0.75%)
+        <div class="section">
+            <div class="section-title">5. INSTRUCCIONES PARA EL ESTUDIANTE</div>
+            <ol style="padding-left: 20px; font-size: 14px;">
+                <li><strong>Inicia sesión</strong> con tu usuario y clave SOL en la web de SUNAT.</li>
+                <li><strong>Registra al empleador</strong> SISE SERVICIOS INTEGRALES S.A.C. con los datos proporcionados.</li>
+                <li><strong>Valida</strong> que el estado de la empresa sea "ACTIVO".</li>
+                <li><strong>Registra los 3 trabajadores</strong> uno por uno con sus datos completos (DNI, tipo, régimen, etc.).</li>
+                <li><strong>Registra los derechohabientes</strong> (Esposa, Conviviente, Madre Gestante) para cada trabajador.</li>
+                <li><strong>Toma capturas</strong> de pantalla de cada registro exitoso ("Constancia de Alta").</li>
+                <li><strong>Verifica</strong> en consultas que todos los registros estén correctos antes de finalizar.</li>
+            </ol>
+            <p style="font-size: 13px; color: #666; margin-top: 10px;">⏱️ <strong>Tiempo estimado:</strong> 45 minutos</p>
+        </div>
 
-**TRABAJADORES A REGISTRAR:**
+        <button class="btn-start" onclick="alert('Iniciando Simulador T-REGISTRO...')">INICIAR SIMULACIÓN</button>
 
-1. **PÉREZ LÓPEZ, JUAN CARLOS**
-   - DNI: 45123456
-   - Tipo: Obrero (20)
-   - Cargo: Técnico en mantenimiento
-   - Sede: Breña
-   - Discapacidad: NO
-   - Dependiente: Esposa (Cónyuge)
-
-2. **GÓMEZ RUIZ, MARÍA ELENA**
-   - DNI: 46234567
-   - Tipo: Empleado (21)
-   - Cargo: Administrativa
-   - Sede: Surco
-   - Discapacidad: SÍ
-   - Dependiente: Conviviente
-
-3. **SÁNCHEZ TORRES, LUIS ALBERTO**
-   - DNI: 47345678
-   - Tipo: Obrero (20)
-   - Cargo: Técnico en reparaciones
-   - Sede: Lima
-   - Discapacidad: SÍ
-   - Dependiente: Madre Gestante
-
----
-
-## ✅ **RÚBRICA DE EVALUACIÓN**
-
-| Criterio | Puntos | Peso |
-|----------|--------|------|
-| Registro de empleador completo | 100 | 25% |
-| Validación de datos (SENATI, SCTR, etc.) | 50 | 12.5% |
-| Registro de 3 trabajadores | 150 | 37.5% |
-| Registro de 3 derechohabientes | 50 | 12.5% |
-| Uso correcto de tablas paramétricas | 50 | 12.5% |
-| **TOTAL** | **400** | **100%** |
-
-**Nota Mínima Aprobatoria:** 320 puntos (80%)
-
----
-
-## 🎯 **INSTRUCCIONES PARA EL ESTUDIANTE**
-
-1. **Inicia sesión** con tu usuario y clave SOL
-2. **Registra al empleador** SISE SERVICIOS INTEGRALES S.A.C.
-3. **Valida** que el estado sea "ACTIVO"
-4. **Registra los 3 trabajadores** con sus datos completos
-5. **Registra los derechohabientes** de cada trabajador
-6. **Toma capturas** de cada registro exitoso
-7. **Verifica** en consultas que todos los registros estén correctos
-
-**Tiempo estimado:** 45 minutos
-
----
-
-**EMAGESGROUP E.I.R.L. – RUC 20611427671**  
-*academy@emagesgroup.com*
+        <div class="footer">
+            <p><strong>EMAGESGROUP E.I.R.L. – RUC 20611427671</strong></p>
+            <p>academy@emagesgroup.com | EMAGES Academy</p>
+        </div>
+    </div>
+</body>
+</html>
