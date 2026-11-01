@@ -5,310 +5,387 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Callao Educa | Academia de Inglés y Formación Profesional</title>
     <meta name="description" content="Academia de inglés y formación profesional en el Callao. Cursos para niños, jóvenes y adultos. Próximamente: Aviación, Administración y Modelaje.">
-    <!-- Tailwind CSS para diseño moderno y responsive -->
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Iconos -->
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
         body { font-family: 'Poppins', sans-serif; }
-        .hero-bg {
-            background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.7)), url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
-            background-size: cover;
-            background-position: center;
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        .gradient-text {
-            background: linear-gradient(to right, #f59e0b, #ef4444);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+        .smooth-scroll { scroll-behavior: smooth; }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="bg-slate-50 text-slate-700 smooth-scroll">
 
-    <!-- HEADER / NAVEGACIÓN -->
-    <header class="bg-white shadow-md fixed w-full top-0 z-50">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+    <!-- ========================================== -->
+    <!-- HEADER / NAVEGACIÓN (60% Blanco, 30% Celeste, 10% Rojo) -->
+    <!-- ========================================== -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 md:px-6 py-4 flex justify-between items-center">
+            <!-- Logo -->
             <div class="flex items-center space-x-2">
-                <i class="fa-solid fa-graduation-cap text-3xl text-blue-800"></i>
-                <span class="text-2xl font-bold text-blue-900">CALLAO<span class="text-amber-500">EDUCA</span></span>
+                <i class="fa-solid fa-graduation-cap text-3xl text-sky-500"></i>
+                <span class="text-2xl font-extrabold text-slate-800">CALLAO<span class="text-rose-500">EDUCA</span></span>
             </div>
             
-            <nav class="hidden md:flex space-x-8 font-medium">
-                <a href="#inicio" class="hover:text-amber-600 transition">Inicio</a>
-                <a href="#cursos" class="hover:text-amber-600 transition">Cursos de Inglés</a>
-                <a href="#padres" class="hover:text-amber-600 transition">Padres</a>
-                <a href="#jovenes" class="hover:text-amber-600 transition">Jóvenes</a>
-                <a href="#estudiantes" class="hover:text-amber-600 transition">Estudiantes</a>
+            <!-- Nav Desktop -->
+            <nav class="hidden md:flex space-x-8 font-semibold text-slate-600">
+                <a href="#inicio" class="hover:text-sky-500 transition">Inicio</a>
+                <a href="#cursos" class="hover:text-sky-500 transition">Cursos</a>
+                <a href="#padres" class="hover:text-sky-500 transition">Padres</a>
+                <a href="#jovenes" class="hover:text-sky-500 transition">Jóvenes</a>
+                <a href="#estudiantes" class="hover:text-sky-500 transition">Estudiantes</a>
             </nav>
 
-            <div class="hidden md:flex space-x-3">
-                <a href="#contacto" class="px-5 py-2 border border-blue-800 text-blue-800 rounded-full hover:bg-blue-50 transition">Contacto</a>
-                <a href="#matricula" class="px-5 py-2 bg-amber-500 text-white rounded-full hover:bg-amber-600 transition font-semibold shadow-lg">¡Matricúlate!</a>
+            <!-- CTA Button (10% Rojo) -->
+            <div class="hidden md:block">
+                <a href="#contacto" class="px-6 py-2.5 bg-rose-500 text-white rounded-full font-bold hover:bg-rose-600 transition shadow-lg shadow-rose-500/30">
+                    ¡Matricúlate!
+                </a>
             </div>
 
-            <!-- Mobile menu button -->
-            <button class="md:hidden text-2xl text-blue-900">
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden text-2xl text-slate-800">
                 <i class="fa-solid fa-bars"></i>
             </button>
         </div>
     </header>
 
+    <!-- ========================================== -->
     <!-- HERO SECTION -->
-    <section id="inicio" class="hero-bg h-screen flex items-center justify-center text-center text-white pt-16">
-        <div class="container mx-auto px-4">
-            <span class="bg-amber-500 text-white px-4 py-1 rounded-full text-sm font-semibold mb-4 inline-block">🚀 Inscripciones Abiertas 2026</span>
-            <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-                Domina el Inglés y Abre las <br> <span class="text-amber-400">Puertas de tu Futuro</span>
-            </h1>
-            <p class="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl mx-auto">
-                La academia líder en el Callao. Metodología práctica, profesores certificados y un ambiente diseñado para tu éxito académico y profesional.
-            </p>
-            <div class="flex flex-col md:flex-row justify-center gap-4">
-                <a href="#cursos" class="px-8 py-4 bg-amber-500 text-white rounded-full font-bold text-lg hover:bg-amber-600 transition shadow-lg">
-                    Ver Cursos de Inglés
-                </a>
-                <a href="#padres" class="px-8 py-4 bg-transparent border-2 border-white text-white rounded-full font-bold text-lg hover:bg-white hover:text-blue-900 transition">
-                    Soy Padre de Familia
-                </a>
-            </div>
+    <!-- ========================================== -->
+    <section id="inicio" class="relative bg-gradient-to-br from-sky-50 via-white to-slate-50 py-20 md:py-32 overflow-hidden">
+        <div class="container mx-auto px-4 md:px-6 flex flex-col md:flex-row items-center">
             
-            <!-- Stats -->
-            <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto text-center">
-                <div class="p-4 bg-white/10 backdrop-blur-sm rounded-lg">
-                    <div class="text-3xl font-bold text-amber-400">+500</div>
-                    <div class="text-sm">Estudiantes</div>
+            <div class="md:w-1/2 z-10 mb-12 md:mb-0">
+                <!-- Badge (10% Rojo) -->
+                <span class="inline-block px-4 py-1.5 bg-rose-100 text-rose-600 rounded-full text-sm font-bold mb-6 border border-rose-200">
+                    🚀 Inscripciones Abiertas 2026
+                </span>
+                
+                <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 leading-tight mb-6">
+                    Domina el inglés y abre las <br>
+                    <span class="text-sky-500">puertas de tu futuro</span>
+                </h1>
+                
+                <p class="text-lg text-slate-600 mb-8 max-w-lg leading-relaxed">
+                    La academia líder en el Callao. Metodología práctica, profesores certificados y un ambiente diseñado para el éxito académico de niños, jóvenes y adultos.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <!-- Primary CTA (10% Rojo) -->
+                    <a href="#cursos" class="px-8 py-4 bg-rose-500 text-white rounded-xl font-bold text-lg hover:bg-rose-600 transition shadow-xl shadow-rose-500/20 text-center">
+                        Ver Cursos de Inglés
+                    </a>
+                    <!-- Secondary CTA (30% Celeste) -->
+                    <a href="#padres" class="px-8 py-4 bg-sky-100 text-sky-700 rounded-xl font-bold text-lg hover:bg-sky-200 transition text-center">
+                        Soy Padre de Familia
+                    </a>
                 </div>
-                <div class="p-4 bg-white/10 backdrop-blur-sm rounded-lg">
-                    <div class="text-3xl font-bold text-amber-400">95%</div>
-                    <div class="text-sm">Aprobación</div>
-                </div>
-                <div class="p-4 bg-white/10 backdrop-blur-sm rounded-lg">
-                    <div class="text-3xl font-bold text-amber-400">10+</div>
-                    <div class="text-sm">Años de experiencia</div>
-                </div>
-                <div class="p-4 bg-white/10 backdrop-blur-sm rounded-lg">
-                    <div class="text-3xl font-bold text-amber-400">A1 - C2</div>
-                    <div class="text-sm">Niveles Certificados</div>
+            </div>
+
+            <!-- Image & Stats -->
+            <div class="md:w-1/2 relative z-10">
+                <div class="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-sky-100">
+                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Estudiantes Callao Educa" class="w-full h-auto object-cover">
+                    
+                    <!-- Floating Stat Card -->
+                    <div class="absolute -bottom-6 -left-6 bg-white p-5 rounded-2xl shadow-xl border-l-4 border-rose-500">
+                        <p class="text-3xl font-extrabold text-slate-900">+500</p>
+                        <p class="text-sm text-slate-500 font-medium">Estudiantes activos</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SECCIÓN CURSOS DE INGLÉS (PRIORIDAD) -->
+    <!-- ========================================== -->
+    <!-- SECCIÓN ESTILO CAFED: EL NUEVO ROSTRO -->
+    <!-- ========================================== -->
+    <section class="py-20 bg-slate-900 relative overflow-hidden">
+        <!-- Efectos de fondo sutiles -->
+        <div class="absolute top-10 left-20 w-2 h-2 bg-sky-400 rounded-full animate-pulse opacity-60"></div>
+        <div class="absolute top-32 right-40 w-3 h-3 bg-rose-500 rounded-full animate-pulse opacity-60" style="animation-delay: 0.5s;"></div>
+        <div class="absolute bottom-20 left-1/3 w-2 h-2 bg-white rounded-full animate-pulse opacity-40" style="animation-delay: 1s;"></div>
+        
+        <div class="container mx-auto px-4 md:px-6 relative z-10">
+            <div class="max-w-4xl mx-auto text-center">
+                <p class="text-sky-400 font-bold tracking-[0.2em] text-sm mb-6 uppercase">Callao Educa</p>
+                
+                <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-6 leading-tight">
+                    El nuevo rostro de la <br>
+                    <span class="text-sky-400 relative inline-block">
+                        educación bilingüe
+                        <span class="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-transparent via-sky-400 to-transparent opacity-70"></span>
+                    </span><br>
+                    <span class="text-rose-500 relative inline-block">
+                        del Callao
+                        <span class="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-transparent via-rose-500 to-transparent opacity-70"></span>
+                    </span>
+                </h2>
+                
+                <p class="text-slate-300 text-lg md:text-xl mt-8 mb-10 max-w-3xl mx-auto leading-relaxed">
+                    Transformamos el aprendizaje del inglés con metodología práctica, tecnología de punta y profesores certificados. Preparamos a los jóvenes chalacos para competir a nivel global.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row justify-center gap-4 mt-8">
+                    <a href="#cursos" class="px-8 py-4 bg-rose-500 text-white rounded-lg font-bold text-lg hover:bg-rose-600 transition shadow-lg hover:shadow-rose-500/30">
+                        ¡Conoce nuestra propuesta!
+                    </a>
+                    <a href="#nosotros" class="px-8 py-4 bg-transparent border-2 border-sky-400 text-sky-300 rounded-lg font-bold text-lg hover:bg-sky-900 transition">
+                        Ver nuestro equipo →
+                    </a>
+                </div>
+                
+                <!-- Stats Rápidos -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 max-w-3xl mx-auto">
+                    <div class="glass-card p-4 rounded-xl text-center">
+                        <div class="text-3xl font-bold text-sky-400">100%</div>
+                        <div class="text-xs text-slate-400 mt-1">Enfoque Comunicativo</div>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl text-center">
+                        <div class="text-3xl font-bold text-rose-400">A1-C2</div>
+                        <div class="text-xs text-slate-400 mt-1">Niveles Europeos</div>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl text-center">
+                        <div class="text-3xl font-bold text-amber-400">+500</div>
+                        <div class="text-xs text-slate-400 mt-1">Estudiantes Activos</div>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl text-center">
+                        <div class="text-3xl font-bold text-emerald-400">95%</div>
+                        <div class="text-xs text-slate-400 mt-1">Tasa de Aprobación</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- CURSOS DE INGLÉS (PRIORIDAD) -->
+    <!-- ========================================== -->
     <section id="cursos" class="py-20 bg-white">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold text-blue-900 mb-4">Nuestros Programas de Inglés</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">Diseñados para cada etapa de tu vida, con enfoque comunicativo y certificación progresiva.</p>
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="text-center mb-16">
+                <span class="text-sky-600 font-bold tracking-wider text-sm uppercase">Nuestra Especialidad</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mt-2 mb-4">Programas de Inglés</h2>
+                <p class="text-slate-600 max-w-2xl mx-auto">Diseñados para cada etapa de tu vida, con enfoque comunicativo y certificación progresiva.</p>
             </div>
 
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <!-- Kids -->
-                <div class="bg-gray-50 rounded-2xl p-6 shadow-lg hover:shadow-xl transition border-t-4 border-green-500">
-                    <div class="text-4xl mb-4">🧒</div>
-                    <h3 class="text-xl font-bold text-blue-900 mb-2">Inglés Kids</h3>
-                    <p class="text-sm text-gray-500 mb-4">7 a 12 años</p>
-                    <p class="text-gray-600 mb-6 text-sm">Aprendizaje lúdico con juegos, canciones y actividades interactivas que naturalizan el idioma.</p>
-                    <ul class="text-sm text-gray-600 mb-6 space-y-2">
-                        <li><i class="fa-solid fa-check text-green-500 mr-2"></i>Horarios después del colegio</li>
-                        <li><i class="fa-solid fa-check text-green-500 mr-2"></i>Reportes mensuales a padres</li>
-                    </ul>
-                    <button class="w-full py-2 border border-blue-800 text-blue-800 rounded-lg hover:bg-blue-800 hover:text-white transition">Más información</button>
+                <div class="bg-slate-50 rounded-2xl p-6 shadow-lg hover:shadow-xl transition border-t-4 border-sky-400 group">
+                    <div class="text-4xl mb-4 group-hover:scale-110 transition duration-300">🧒</div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">Inglés Kids</h3>
+                    <p class="text-sm text-sky-600 font-semibold mb-4">7 a 12 años</p>
+                    <p class="text-slate-600 mb-6 text-sm">Aprendizaje lúdico con juegos, canciones y actividades interactivas que naturalizan el idioma.</p>
+                    <button class="w-full py-2 border border-sky-500 text-sky-600 rounded-lg hover:bg-sky-500 hover:text-white transition font-medium">Más información</button>
                 </div>
 
                 <!-- Teens -->
-                <div class="bg-gray-50 rounded-2xl p-6 shadow-lg hover:shadow-xl transition border-t-4 border-blue-500">
-                    <div class="text-4xl mb-4">🎒</div>
-                    <h3 class="text-xl font-bold text-blue-900 mb-2">Inglés Teens</h3>
-                    <p class="text-sm text-gray-500 mb-4">13 a 17 años</p>
-                    <p class="text-gray-600 mb-6 text-sm">Refuerzo escolar y preparación para exámenes internacionales con dinámica juvenil.</p>
-                    <ul class="text-sm text-gray-600 mb-6 space-y-2">
-                        <li><i class="fa-solid fa-check text-blue-500 mr-2"></i>Clubes de conversación</li>
-                        <li><i class="fa-solid fa-check text-blue-500 mr-2"></i>Preparación Cambridge</li>
-                    </ul>
-                    <button class="w-full py-2 border border-blue-800 text-blue-800 rounded-lg hover:bg-blue-800 hover:text-white transition">Más información</button>
+                <div class="bg-slate-50 rounded-2xl p-6 shadow-lg hover:shadow-xl transition border-t-4 border-sky-500 group">
+                    <div class="text-4xl mb-4 group-hover:scale-110 transition duration-300">🎒</div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">Inglés Teens</h3>
+                    <p class="text-sm text-sky-600 font-semibold mb-4">13 a 17 años</p>
+                    <p class="text-slate-600 mb-6 text-sm">Refuerzo escolar y preparación para exámenes internacionales con dinámica juvenil.</p>
+                    <button class="w-full py-2 border border-sky-500 text-sky-600 rounded-lg hover:bg-sky-500 hover:text-white transition font-medium">Más información</button>
                 </div>
 
                 <!-- Adults -->
-                <div class="bg-gray-50 rounded-2xl p-6 shadow-lg hover:shadow-xl transition border-t-4 border-amber-500">
-                    <div class="text-4xl mb-4">💼</div>
-                    <h3 class="text-xl font-bold text-blue-900 mb-2">Inglés Adultos</h3>
-                    <p class="text-sm text-gray-500 mb-4">18+ años</p>
-                    <p class="text-gray-600 mb-6 text-sm">Enfoque en inglés conversacional, laboral y de viajes. Horarios flexibles para trabajadores.</p>
-                    <ul class="text-sm text-gray-600 mb-6 space-y-2">
-                        <li><i class="fa-solid fa-check text-amber-500 mr-2"></i>Horarios mañana, tarde y noche</li>
-                        <li><i class="fa-solid fa-check text-amber-500 mr-2"></i>Certificación por niveles</li>
-                    </ul>
-                    <button class="w-full py-2 border border-blue-800 text-blue-800 rounded-lg hover:bg-blue-800 hover:text-white transition">Más información</button>
+                <div class="bg-slate-50 rounded-2xl p-6 shadow-lg hover:shadow-xl transition border-t-4 border-rose-500 group">
+                    <div class="text-4xl mb-4 group-hover:scale-110 transition duration-300">💼</div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">Inglés Adultos</h3>
+                    <p class="text-sm text-rose-600 font-semibold mb-4">18+ años</p>
+                    <p class="text-slate-600 mb-6 text-sm">Enfoque en inglés conversacional, laboral y de viajes. Horarios flexibles para trabajadores.</p>
+                    <button class="w-full py-2 border border-rose-500 text-rose-600 rounded-lg hover:bg-rose-500 hover:text-white transition font-medium">Más información</button>
                 </div>
 
                 <!-- Business -->
-                <div class="bg-gray-50 rounded-2xl p-6 shadow-lg hover:shadow-xl transition border-t-4 border-purple-500">
-                    <div class="text-4xl mb-4">🌍</div>
-                    <h3 class="text-xl font-bold text-blue-900 mb-2">Business English</h3>
-                    <p class="text-sm text-gray-500 mb-4">Profesionales</p>
-                    <p class="text-gray-600 mb-6 text-sm">Inglés especializado para negocios, presentaciones, correos y entrevistas de trabajo.</p>
-                    <ul class="text-sm text-gray-600 mb-6 space-y-2">
-                        <li><i class="fa-solid fa-check text-purple-500 mr-2"></i>Simulaciones reales</li>
-                        <li><i class="fa-solid fa-check text-purple-500 mr-2"></i>Networking profesional</li>
-                    </ul>
-                    <button class="w-full py-2 border border-blue-800 text-blue-800 rounded-lg hover:bg-blue-800 hover:text-white transition">Más información</button>
+                <div class="bg-slate-50 rounded-2xl p-6 shadow-lg hover:shadow-xl transition border-t-4 border-slate-700 group">
+                    <div class="text-4xl mb-4 group-hover:scale-110 transition duration-300">🌍</div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">Business English</h3>
+                    <p class="text-sm text-slate-600 font-semibold mb-4">Profesionales</p>
+                    <p class="text-slate-600 mb-6 text-sm">Inglés especializado para negocios, presentaciones, correos y entrevistas de trabajo.</p>
+                    <button class="w-full py-2 border border-slate-700 text-slate-700 rounded-lg hover:bg-slate-700 hover:text-white transition font-medium">Más información</button>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- ========================================== -->
     <!-- PRÓXIMAMENTE (CARRERAS TÉCNICAS) -->
-    <section class="py-16 bg-blue-900 text-white">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-10">
-                <span class="bg-amber-500 text-white px-3 py-1 rounded-full text-xs font-bold tracking-wider">PRÓXIMAMENTE</span>
-                <h2 class="text-3xl md:text-4xl font-bold mt-4">Ampliamos tu Horizonte Profesional</h2>
-                <p class="text-blue-200 mt-2">Reserva tu vacante y sé el primero en enterarte del lanzamiento.</p>
+    <!-- ========================================== -->
+    <section class="py-20 bg-sky-950 text-white">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="text-center mb-12">
+                <span class="bg-rose-500 text-white px-4 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase shadow-lg shadow-rose-500/30">Próximamente</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold mt-4 mb-4">Ampliamos tu Horizonte Profesional</h2>
+                <p class="text-sky-200 max-w-2xl mx-auto">Reserva tu vacante y sé el primero en enterarte del lanzamiento de nuestras nuevas carreras técnicas.</p>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-8">
+            <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
                 <!-- Aviación -->
-                <div class="bg-blue-800 rounded-xl p-6 text-center border border-blue-700 hover:border-amber-500 transition group">
-                    <i class="fa-solid fa-plane-departure text-5xl text-amber-400 mb-4 group-hover:scale-110 transition"></i>
-                    <h3 class="text-xl font-bold mb-2">Aviación Comercial</h3>
-                    <p class="text-blue-200 text-sm mb-4">Formación técnica con enfoque en servicios a bordo y gestión aeroportuaria.</p>
-                    <button class="text-amber-400 font-semibold hover:text-amber-300 text-sm">🔔 Avísame cuando abra</button>
+                <div class="bg-sky-900/50 rounded-xl p-8 text-center border border-sky-800 hover:border-rose-500 transition group backdrop-blur-sm">
+                    <i class="fa-solid fa-plane-departure text-5xl text-sky-400 mb-6 group-hover:text-rose-400 group-hover:scale-110 transition duration-300"></i>
+                    <h3 class="text-xl font-bold mb-3">Aviación Comercial</h3>
+                    <p class="text-sky-200 text-sm mb-6">Formación técnica con enfoque en servicios a bordo y gestión aeroportuaria.</p>
+                    <button class="text-rose-400 font-semibold hover:text-rose-300 text-sm flex items-center justify-center mx-auto gap-2">
+                        <i class="fa-regular fa-bell"></i> Avísame cuando abra
+                    </button>
                 </div>
 
                 <!-- Administración -->
-                <div class="bg-blue-800 rounded-xl p-6 text-center border border-blue-700 hover:border-amber-500 transition group">
-                    <i class="fa-solid fa-chart-line text-5xl text-amber-400 mb-4 group-hover:scale-110 transition"></i>
-                    <h3 class="text-xl font-bold mb-2">Administración y Contabilidad</h3>
-                    <p class="text-blue-200 text-sm mb-4">Domina la gestión empresarial, tributación y herramientas contables modernas.</p>
-                    <button class="text-amber-400 font-semibold hover:text-amber-300 text-sm">🔔 Avísame cuando abra</button>
+                <div class="bg-sky-900/50 rounded-xl p-8 text-center border border-sky-800 hover:border-rose-500 transition group backdrop-blur-sm">
+                    <i class="fa-solid fa-chart-line text-5xl text-sky-400 mb-6 group-hover:text-rose-400 group-hover:scale-110 transition duration-300"></i>
+                    <h3 class="text-xl font-bold mb-3">Administración y Contabilidad</h3>
+                    <p class="text-sky-200 text-sm mb-6">Domina la gestión empresarial, tributación y herramientas contables modernas.</p>
+                    <button class="text-rose-400 font-semibold hover:text-rose-300 text-sm flex items-center justify-center mx-auto gap-2">
+                        <i class="fa-regular fa-bell"></i> Avísame cuando abra
+                    </button>
                 </div>
 
                 <!-- Modelaje -->
-                <div class="bg-blue-800 rounded-xl p-6 text-center border border-blue-700 hover:border-amber-500 transition group">
-                    <i class="fa-solid fa-star text-5xl text-amber-400 mb-4 group-hover:scale-110 transition"></i>
-                    <h3 class="text-xl font-bold mb-2">Modelaje y Pasarela</h3>
-                    <p class="text-blue-200 text-sm mb-4">Desarrollo de imagen personal, oratoria, protocolo y técnicas de pasarela.</p>
-                    <button class="text-amber-400 font-semibold hover:text-amber-300 text-sm">🔔 Avísame cuando abra</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECCIÓN PADRES DE FAMILIA -->
-    <section id="padres" class="py-20 bg-amber-50">
-        <div class="container mx-auto px-4">
-            <div class="flex flex-col md:flex-row items-center gap-12">
-                <div class="md:w-1/2">
-                    <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Padres y hijos" class="rounded-2xl shadow-2xl">
-                </div>
-                <div class="md:w-1/2">
-                    <span class="text-amber-600 font-bold tracking-wider text-sm">ZONA PARA PADRES</span>
-                    <h2 class="text-3xl md:text-4xl font-bold text-blue-900 mt-2 mb-6">Tranquilidad y Seguimiento Real</h2>
-                    <p class="text-gray-600 mb-6">Sabemos que la educación de tus hijos es tu prioridad. Por eso, hemos creado un ecosistema de acompañamiento transparente y cercano.</p>
-                    
-                    <div class="space-y-4">
-                        <div class="flex items-start">
-                            <div class="bg-amber-100 p-3 rounded-full mr-4">
-                                <i class="fa-solid fa-chart-pie text-amber-600"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-blue-900">Reportes de Progreso Mensuales</h4>
-                                <p class="text-sm text-gray-600">Conoce el avance académico y actitudinal de tu hijo cada mes.</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start">
-                            <div class="bg-amber-100 p-3 rounded-full mr-4">
-                                <i class="fa-solid fa-comments text-amber-600"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-blue-900">Comunicación Directa</h4>
-                                <p class="text-sm text-gray-600">Reuniones periódicas con los docentes y canal de WhatsApp activo.</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start">
-                            <div class="bg-amber-100 p-3 rounded-full mr-4">
-                                <i class="fa-solid fa-shield-halved text-amber-600"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-blue-900">Ambiente Seguro</h4>
-                                <p class="text-sm text-gray-600">Instalaciones monitoreadas y protocolos de seguridad estrictos.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <button class="mt-8 px-6 py-3 bg-blue-900 text-white rounded-lg font-semibold hover:bg-blue-800 transition">
-                        <i class="fa-solid fa-calendar-check mr-2"></i> Agendar una Visita Guiada
+                <div class="bg-sky-900/50 rounded-xl p-8 text-center border border-sky-800 hover:border-rose-500 transition group backdrop-blur-sm">
+                    <i class="fa-solid fa-star text-5xl text-sky-400 mb-6 group-hover:text-rose-400 group-hover:scale-110 transition duration-300"></i>
+                    <h3 class="text-xl font-bold mb-3">Modelaje y Pasarela</h3>
+                    <p class="text-sky-200 text-sm mb-6">Desarrollo de imagen personal, oratoria, protocolo y técnicas de pasarela.</p>
+                    <button class="text-rose-400 font-semibold hover:text-rose-300 text-sm flex items-center justify-center mx-auto gap-2">
+                        <i class="fa-regular fa-bell"></i> Avísame cuando abra
                     </button>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- ========================================== -->
+    <!-- SECCIÓN PADRES DE FAMILIA -->
+    <!-- ========================================== -->
+    <section id="padres" class="py-20 bg-sky-50">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2">
+                    <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Padres e hijos en academia" class="rounded-3xl shadow-2xl border-4 border-white">
+                </div>
+                <div class="md:w-1/2">
+                    <span class="text-sky-600 font-bold tracking-wider text-sm uppercase">Zona para Padres</span>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mt-2 mb-6">Tranquilidad y Seguimiento Real</h2>
+                    <p class="text-slate-600 mb-8 leading-relaxed">Sabemos que la educación de tus hijos es tu prioridad. Por eso, hemos creado un ecosistema de acompañamiento transparente y cercano.</p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="bg-sky-100 p-3 rounded-full mr-4 shrink-0">
+                                <i class="fa-solid fa-chart-pie text-sky-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900">Reportes de Progreso Mensuales</h4>
+                                <p class="text-sm text-slate-600">Conoce el avance académico y actitudinal de tu hijo cada mes.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-sky-100 p-3 rounded-full mr-4 shrink-0">
+                                <i class="fa-solid fa-comments text-sky-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900">Comunicación Directa</h4>
+                                <p class="text-sm text-slate-600">Reuniones periódicas con los docentes y canal de WhatsApp activo.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-sky-100 p-3 rounded-full mr-4 shrink-0">
+                                <i class="fa-solid fa-shield-halved text-sky-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900">Ambiente Seguro</h4>
+                                <p class="text-sm text-slate-600">Instalaciones monitoreadas y protocolos de seguridad estrictos.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="mt-10 px-8 py-3 bg-slate-900 text-white rounded-xl font-bold hover:bg-slate-800 transition shadow-lg flex items-center gap-2">
+                        <i class="fa-solid fa-calendar-check"></i> Agendar una Visita Guiada
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
     <!-- SECCIÓN JÓVENES INTERESADOS -->
+    <!-- ========================================== -->
     <section id="jovenes" class="py-20 bg-white">
-        <div class="container mx-auto px-4 text-center">
-            <span class="text-blue-600 font-bold tracking-wider text-sm">PARA JÓVENES</span>
-            <h2 class="text-3xl md:text-4xl font-bold text-blue-900 mt-2 mb-6">Tu Futuro Comienza Aquí</h2>
-            <p class="text-gray-600 max-w-2xl mx-auto mb-12">No solo aprendas inglés, prepárate para las carreras del futuro con nuestras ventajas exclusivas.</p>
+        <div class="container mx-auto px-4 md:px-6 text-center">
+            <span class="text-rose-500 font-bold tracking-wider text-sm uppercase">Para Jóvenes</span>
+            <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mt-2 mb-6">Tu Futuro Comienza Aquí</h2>
+            <p class="text-slate-600 max-w-2xl mx-auto mb-12">No solo aprendas inglés, prepárate para las carreras del futuro con nuestras ventajas exclusivas.</p>
 
             <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                <div class="p-6 border border-gray-200 rounded-xl hover:shadow-lg transition">
-                    <i class="fa-solid fa-certificate text-4xl text-blue-600 mb-4"></i>
-                    <h3 class="font-bold text-xl mb-2">Certificación Internacional</h3>
-                    <p class="text-gray-600 text-sm">Preparación alineada a estándares globales para tu CV o estudios en el extranjero.</p>
+                <div class="p-8 border border-slate-200 rounded-2xl hover:shadow-xl hover:border-sky-300 transition bg-slate-50">
+                    <i class="fa-solid fa-certificate text-4xl text-sky-500 mb-4"></i>
+                    <h3 class="font-bold text-xl mb-3 text-slate-900">Certificación Internacional</h3>
+                    <p class="text-slate-600 text-sm">Preparación alineada a estándares globales para tu CV o estudios en el extranjero.</p>
                 </div>
-                <div class="p-6 border border-gray-200 rounded-xl hover:shadow-lg transition">
-                    <i class="fa-solid fa-handshake text-4xl text-blue-600 mb-4"></i>
-                    <h3 class="font-bold text-xl mb-2">Convenios Universitarios</h3>
-                    <p class="text-gray-600 text-sm">Descuentos y facilidades en instituciones superiores aliadas a Callao Educa.</p>
+                <div class="p-8 border border-slate-200 rounded-2xl hover:shadow-xl hover:border-sky-300 transition bg-slate-50">
+                    <i class="fa-solid fa-handshake text-4xl text-sky-500 mb-4"></i>
+                    <h3 class="font-bold text-xl mb-3 text-slate-900">Convenios Universitarios</h3>
+                    <p class="text-slate-600 text-sm">Descuentos y facilidades en instituciones superiores aliadas a Callao Educa.</p>
                 </div>
-                <div class="p-6 border border-gray-200 rounded-xl hover:shadow-lg transition">
-                    <i class="fa-solid fa-users text-4xl text-blue-600 mb-4"></i>
-                    <h3 class="font-bold text-xl mb-2">Comunidad y Eventos</h3>
-                    <p class="text-gray-600 text-sm">Participa en hackathons, clubes de debate y eventos de networking.</p>
+                <div class="p-8 border border-slate-200 rounded-2xl hover:shadow-xl hover:border-sky-300 transition bg-slate-50">
+                    <i class="fa-solid fa-users text-4xl text-sky-500 mb-4"></i>
+                    <h3 class="font-bold text-xl mb-3 text-slate-900">Comunidad y Eventos</h3>
+                    <p class="text-slate-600 text-sm">Participa en hackathons, clubes de debate y eventos de networking.</p>
                 </div>
             </div>
 
-            <div class="mt-10">
-                <button class="px-8 py-3 bg-amber-500 text-white rounded-full font-bold hover:bg-amber-600 transition shadow-lg">
+            <div class="mt-12">
+                <button class="px-8 py-4 bg-rose-500 text-white rounded-xl font-bold text-lg hover:bg-rose-600 transition shadow-xl shadow-rose-500/20">
                     <i class="fa-solid fa-compass mr-2"></i> Hacer Test Vocacional Gratis
                 </button>
             </div>
         </div>
     </section>
 
+    <!-- ========================================== -->
     <!-- SECCIÓN ESTUDIANTES ACTUALES (PORTAL) -->
-    <section id="estudiantes" class="py-20 bg-gray-100">
-        <div class="container mx-auto px-4">
-            <div class="bg-blue-900 rounded-3xl p-8 md:p-12 text-white flex flex-col md:flex-row items-center justify-between shadow-2xl">
-                <div class="md:w-1/2 mb-8 md:mb-0">
-                    <h2 class="text-3xl font-bold mb-4">Portal del Estudiante</h2>
-                    <p class="text-blue-200 mb-6">Accede a todas tus herramientas académicas en un solo lugar. Gestiona tu aprendizaje de forma autónoma y eficiente.</p>
-                    <ul class="space-y-3 text-blue-100">
-                        <li><i class="fa-solid fa-check-circle text-amber-400 mr-2"></i> Aula Virtual y Grabaciones de Clases</li>
-                        <li><i class="fa-solid fa-check-circle text-amber-400 mr-2"></i> Descarga de Material y Tareas</li>
-                        <li><i class="fa-solid fa-check-circle text-amber-400 mr-2"></i> Visualización de Calificaciones y Certificados</li>
+    <!-- ========================================== -->
+    <section id="estudiantes" class="py-20 bg-slate-100">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="bg-sky-950 rounded-3xl p-8 md:p-12 text-white flex flex-col md:flex-row items-center justify-between shadow-2xl overflow-hidden relative">
+                <!-- Decorative circle -->
+                <div class="absolute -top-20 -right-20 w-64 h-64 bg-sky-800 rounded-full opacity-30 blur-3xl"></div>
+
+                <div class="md:w-1/2 mb-8 md:mb-0 relative z-10">
+                    <h2 class="text-3xl md:text-4xl font-extrabold mb-4">Portal del Estudiante</h2>
+                    <p class="text-sky-200 mb-6 leading-relaxed">Accede a todas tus herramientas académicas en un solo lugar. Gestiona tu aprendizaje de forma autónoma y eficiente.</p>
+                    <ul class="space-y-3 text-sky-100">
+                        <li class="flex items-center"><i class="fa-solid fa-check-circle text-rose-400 mr-3"></i> Aula Virtual y Grabaciones de Clases</li>
+                        <li class="flex items-center"><i class="fa-solid fa-check-circle text-rose-400 mr-3"></i> Descarga de Material y Tareas</li>
+                        <li class="flex items-center"><i class="fa-solid fa-check-circle text-rose-400 mr-3"></i> Visualización de Calificaciones y Certificados</li>
                     </ul>
                 </div>
-                <div class="md:w-1/3 bg-white text-gray-800 p-8 rounded-2xl shadow-xl w-full max-w-md">
-                    <h3 class="text-xl font-bold mb-6 text-center">Iniciar Sesión</h3>
-                    <form class="space-y-4">
+                
+                <div class="md:w-1/3 bg-white text-slate-800 p-8 rounded-2xl shadow-xl w-full max-w-md relative z-10">
+                    <h3 class="text-xl font-bold mb-6 text-center text-slate-900">Iniciar Sesión</h3>
+                    <form class="space-y-4" onsubmit="event.preventDefault(); alert('Esta es una demostración del portal.');">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Código de Estudiante</label>
-                            <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Ej: CE-2026-001">
+                            <label class="block text-sm font-semibold text-slate-700 mb-1">Código de Estudiante</label>
+                            <input type="text" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-sky-500 focus:outline-none transition" placeholder="Ej: CE-2026-001">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
-                            <input type="password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="••••••••">
+                            <label class="block text-sm font-semibold text-slate-700 mb-1">Contraseña</label>
+                            <input type="password" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-sky-500 focus:outline-none transition" placeholder="••••••••">
                         </div>
-                        <button type="button" class="w-full py-3 bg-amber-500 text-white font-bold rounded-lg hover:bg-amber-600 transition">
+                        <button type="submit" class="w-full py-3 bg-rose-500 text-white font-bold rounded-lg hover:bg-rose-600 transition shadow-md">
                             Ingresar al Aula
                         </button>
-                        <p class="text-center text-sm text-gray-500 mt-4">
-                            <a href="#" class="text-blue-600 hover:underline">¿Olvidaste tu contraseña?</a>
+                        <p class="text-center text-sm text-slate-500 mt-4">
+                            <a href="#" class="text-sky-600 hover:text-sky-800 font-medium hover:underline">¿Olvidaste tu contraseña?</a>
                         </p>
                     </form>
                 </div>
@@ -316,62 +393,83 @@
         </div>
     </section>
 
+    <!-- ========================================== -->
     <!-- FOOTER -->
-    <footer class="bg-gray-900 text-gray-300 py-12">
-        <div class="container mx-auto px-4">
-            <div class="grid md:grid-cols-4 gap-8 mb-8">
+    <!-- ========================================== -->
+    <footer id="contacto" class="bg-slate-900 text-slate-300 py-16">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="grid md:grid-cols-4 gap-10 mb-12">
+                <!-- Brand -->
                 <div>
                     <div class="flex items-center space-x-2 mb-4">
-                        <i class="fa-solid fa-graduation-cap text-2xl text-amber-500"></i>
-                        <span class="text-xl font-bold text-white">CALLAO<span class="text-amber-500">EDUCA</span></span>
+                        <i class="fa-solid fa-graduation-cap text-2xl text-sky-500"></i>
+                        <span class="text-xl font-extrabold text-white">CALLAO<span class="text-rose-500">EDUCA</span></span>
                     </div>
-                    <p class="text-sm text-gray-400 mb-4">Formando líderes bilingües y profesionales competentes en el corazón del Callao.</p>
+                    <p class="text-sm text-slate-400 mb-6 leading-relaxed">Formando líderes bilingües y profesionales competentes en el corazón del Callao.</p>
                     <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-amber-500 transition"><i class="fa-brands fa-facebook text-xl"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-amber-500 transition"><i class="fa-brands fa-instagram text-xl"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-amber-500 transition"><i class="fa-brands fa-tiktok text-xl"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-amber-500 transition"><i class="fa-brands fa-whatsapp text-xl"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-sky-500 hover:text-white transition"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-rose-500 hover:text-white transition"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-slate-700 hover:text-white transition"><i class="fa-brands fa-tiktok"></i></a>
                     </div>
                 </div>
                 
+                <!-- Links -->
                 <div>
-                    <h4 class="text-white font-bold mb-4">Cursos</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="#" class="hover:text-amber-500 transition">Inglés para Niños</a></li>
-                        <li><a href="#" class="hover:text-amber-500 transition">Inglés para Jóvenes</a></li>
-                        <li><a href="#" class="hover:text-amber-500 transition">Inglés para Adultos</a></li>
-                        <li><a href="#" class="hover:text-amber-500 transition">Business English</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="text-white font-bold mb-4">Próximamente</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="#" class="hover:text-amber-500 transition">Aviación Comercial</a></li>
-                        <li><a href="#" class="hover:text-amber-500 transition">Administración y Contabilidad</a></li>
-                        <li><a href="#" class="hover:text-amber-500 transition">Modelaje y Pasarela</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="text-white font-bold mb-4">Contacto</h4>
+                    <h4 class="text-white font-bold mb-4 text-lg">Cursos</h4>
                     <ul class="space-y-3 text-sm">
-                        <li class="flex items-start"><i class="fa-solid fa-location-dot mt-1 mr-2 text-amber-500"></i> Av. Principal 123, Callao, Perú</li>
-                        <li class="flex items-center"><i class="fa-solid fa-phone mr-2 text-amber-500"></i> (01) 456-7890</li>
-                        <li class="flex items-center"><i class="fa-solid fa-envelope mr-2 text-amber-500"></i> info@callaoeduca.pe</li>
-                        <li class="flex items-center"><i class="fa-solid fa-clock mr-2 text-amber-500"></i> Lun - Vie: 8:00 am - 8:00 pm</li>
+                        <li><a href="#" class="hover:text-sky-400 transition flex items-center gap-2"><i class="fa-solid fa-chevron-right text-xs text-rose-500"></i> Inglés para Niños</a></li>
+                        <li><a href="#" class="hover:text-sky-400 transition flex items-center gap-2"><i class="fa-solid fa-chevron-right text-xs text-rose-500"></i> Inglés para Jóvenes</a></li>
+                        <li><a href="#" class="hover:text-sky-400 transition flex items-center gap-2"><i class="fa-solid fa-chevron-right text-xs text-rose-500"></i> Inglés para Adultos</a></li>
+                        <li><a href="#" class="hover:text-sky-400 transition flex items-center gap-2"><i class="fa-solid fa-chevron-right text-xs text-rose-500"></i> Business English</a></li>
+                    </ul>
+                </div>
+
+                <!-- Próximamente -->
+                <div>
+                    <h4 class="text-white font-bold mb-4 text-lg">Próximamente</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#" class="hover:text-rose-400 transition flex items-center gap-2"><i class="fa-solid fa-clock text-xs text-sky-500"></i> Aviación Comercial</a></li>
+                        <li><a href="#" class="hover:text-rose-400 transition flex items-center gap-2"><i class="fa-solid fa-clock text-xs text-sky-500"></i> Administración y Contabilidad</a></li>
+                        <li><a href="#" class="hover:text-rose-400 transition flex items-center gap-2"><i class="fa-solid fa-clock text-xs text-sky-500"></i> Modelaje y Pasarela</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h4 class="text-white font-bold mb-4 text-lg">Contacto</h4>
+                    <ul class="space-y-4 text-sm">
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-location-dot mt-1 text-rose-500"></i> 
+                            <span>Av. Principal 123, Callao, Perú</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-phone text-rose-500"></i> 
+                            <span>(01) 456-7890</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-envelope text-rose-500"></i> 
+                            <span>info@callaoeduca.pe</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-clock text-rose-500"></i> 
+                            <span>Lun - Vie: 8:00 am - 8:00 pm</span>
+                        </li>
                     </ul>
                 </div>
             </div>
             
-            <div class="border-t border-gray-800 pt-8 text-center text-sm text-gray-500">
-                <p>&copy; 2026 Callao Educa. Todos los derechos reservados. Parte del ecosistema EMAGES GROUP.</p>
+            <div class="border-t border-slate-800 pt-8 text-center text-sm text-slate-500">
+                <p>&copy; 2026 Callao Educa. Todos los derechos reservados.</p>
+                <p class="mt-1 text-xs">Parte del ecosistema <span class="text-sky-500 font-semibold">EMAGES GROUP</span>.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Botón Flotante de WhatsApp -->
-    <a href="https://wa.me/51999999999" target="_blank" class="fixed bottom-6 right-6 bg-green-500 text-white p-4 rounded-full shadow-2xl hover:bg-green-600 transition z-50 flex items-center justify-center">
+    <!-- ========================================== -->
+    <!-- BOTÓN FLOTANTE DE WHATSAPP -->
+    <!-- ========================================== -->
+    <!-- REEMPLAZA el número 51999999999 con el número real de Isabel o la academia -->
+    <a href="https://wa.me/51999999999?text=Hola%20Callao%20Educa,%20quiero%20información%20sobre%20los%20cursos%20de%20inglés" target="_blank" class="fixed bottom-6 right-6 bg-green-500 text-white w-16 h-16 rounded-full shadow-2xl hover:bg-green-600 transition z-50 flex items-center justify-center hover:scale-110 duration-300 border-4 border-white">
         <i class="fa-brands fa-whatsapp text-3xl"></i>
     </a>
 
