@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Callao Educa | Academia de Inglés y Formación Profesional</title>
-    <meta name="description" content="Academia de inglés y formación profesional en el Callao. Cursos para niños, jóvenes y adultos. Próximamente: Aviación, Administración y Arte.">
+    <title>Talento Callao | Academia de Habilidades - Metodología ISA</title>
+    <meta name="description" content="Talento Callao: Academia de habilidades bajo la Metodología ISA. Cursos de inglés y formación técnica corta. Parte de la red Latinoamérica Educa.">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -26,29 +26,47 @@
 <body class="bg-slate-50 text-slate-700 smooth-scroll">
 
     <!-- ========================================== -->
+    <!-- BARRA SUPERIOR (Red + Metodología) -->
+    <!-- ========================================== -->
+    <div class="bg-slate-900 text-slate-300 text-xs py-2 hidden md:block">
+        <div class="container mx-auto px-4 md:px-6 flex justify-between items-center">
+            <span>🌎 Parte de la red <strong class="text-sky-400">Latinoamérica Educa</strong></span>
+            <span>Formación bajo la <strong class="text-rose-400">Metodología ISA</strong></span>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
     <!-- HEADER / NAVEGACIÓN -->
     <!-- ========================================== -->
     <header class="bg-white shadow-sm sticky top-0 z-50">
         <div class="container mx-auto px-4 md:px-6 py-4 flex justify-between items-center">
-            <div class="flex items-center space-x-2">
-                <i class="fa-solid fa-graduation-cap text-3xl text-sky-500"></i>
-                <span class="text-2xl font-extrabold text-slate-800">CALLAO<span class="text-rose-500">EDUCA</span></span>
+            <!-- Logo: Talento Callao -->
+            <div class="flex flex-col">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-graduation-cap text-3xl text-sky-500"></i>
+                    <span class="text-2xl font-extrabold text-slate-800">TALENTO<span class="text-rose-500">CALLAO</span></span>
+                </div>
+                <span class="text-[10px] text-slate-500 uppercase tracking-widest ml-10 -mt-1">Academia de Habilidades</span>
             </div>
             
+            <!-- Nav Desktop -->
             <nav class="hidden md:flex space-x-8 font-semibold text-slate-600">
                 <a href="#inicio" class="hover:text-sky-500 transition">Inicio</a>
+                <a href="#metodologia" class="hover:text-sky-500 transition">Metodología ISA</a>
                 <a href="#cursos" class="hover:text-sky-500 transition">Cursos</a>
                 <a href="#padres" class="hover:text-sky-500 transition">Padres</a>
                 <a href="#jovenes" class="hover:text-sky-500 transition">Jóvenes</a>
                 <a href="#estudiantes" class="hover:text-sky-500 transition">Estudiantes</a>
             </nav>
 
+            <!-- CTA Button -->
             <div class="hidden md:block">
-                <a href="https://wa.me/51999999999?text=Hola%20Callao%20Educa,%20quiero%20información%20sobre%20las%20matrículas" target="_blank" class="px-6 py-2.5 bg-rose-500 text-white rounded-full font-bold hover:bg-rose-600 transition shadow-lg shadow-rose-500/30">
+                <a href="https://wa.me/51999999999?text=Hola%20Talento%20Callao,%20quiero%20información%20sobre%20las%20matrículas" target="_blank" class="px-6 py-2.5 bg-rose-500 text-white rounded-full font-bold hover:bg-rose-600 transition shadow-lg shadow-rose-500/30">
                     ¡Matricúlate!
                 </a>
             </div>
 
+            <!-- Mobile Menu Button -->
             <button class="md:hidden text-2xl text-slate-800">
                 <i class="fa-solid fa-bars"></i>
             </button>
@@ -67,12 +85,12 @@
                 </span>
                 
                 <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 leading-tight mb-6">
-                    Aprende inglés en el Callao <br>
-                    <span class="text-sky-500">y abre nuevas oportunidades</span>
+                    Potencia tu futuro con <br>
+                    <span class="text-sky-500">habilidades prácticas</span>
                 </h1>
                 
                 <p class="text-lg text-slate-600 mb-8 max-w-lg leading-relaxed">
-                    Formación práctica en inglés y carreras técnicas. Horarios flexibles, matrícula mensual y certificación propia. Tu futuro profesional comienza aquí.
+                    Formación en inglés y carreras técnicas cortas bajo la <strong>Metodología ISA</strong>. Matrícula mensual, certificación por módulos y proyección real.
                 </p>
                 
                 <div class="flex flex-col sm:flex-row gap-4">
@@ -92,8 +110,8 @@
                     <!-- Tarjeta ISA (Dentro de la imagen, limpia y profesional) -->
                     <div class="absolute bottom-6 left-6 bg-white/95 backdrop-blur-sm p-5 rounded-2xl shadow-xl border-l-4 border-rose-500">
                         <p class="text-3xl font-extrabold text-slate-900">ISA</p>
-                        <p class="text-sm text-sky-600 font-bold uppercase tracking-wide">Institute of Skills</p>
-                        <p class="text-xs text-slate-500 mt-1">Formación práctica y bilingüe</p>
+                        <p class="text-sm text-sky-600 font-bold uppercase tracking-wide">Metodología</p>
+                        <p class="text-xs text-slate-500 mt-1">Inmersión • Simulación • Aplicación</p>
                     </div>
                 </div>
             </div>
@@ -101,59 +119,75 @@
     </section>
 
     <!-- ========================================== -->
-    <!-- SECCIÓN ESTILO CAFED: EL NUEVO ROSTRO -->
+    <!-- SECCIÓN METODOLOGÍA ISA (Peso real a la certificación) -->
     <!-- ========================================== -->
-    <section class="py-20 bg-slate-900 relative overflow-hidden">
-        <div class="absolute top-10 left-20 w-2 h-2 bg-sky-400 rounded-full animate-pulse opacity-60"></div>
-        <div class="absolute top-32 right-40 w-3 h-3 bg-rose-500 rounded-full animate-pulse opacity-60" style="animation-delay: 0.5s;"></div>
-        <div class="absolute bottom-20 left-1/3 w-2 h-2 bg-white rounded-full animate-pulse opacity-40" style="animation-delay: 1s;"></div>
-        
-        <div class="container mx-auto px-4 md:px-6 relative z-10">
-            <div class="max-w-4xl mx-auto text-center">
-                <p class="text-sky-400 font-bold tracking-[0.2em] text-sm mb-6 uppercase">Callao Educa</p>
-                
-                <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-6 leading-tight">
-                    El nuevo rostro de la <br>
-                    <span class="text-sky-400 relative inline-block">
-                        educación bilingüe
-                        <span class="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-transparent via-sky-400 to-transparent opacity-70"></span>
-                    </span><br>
-                    <span class="text-rose-500 relative inline-block">
-                        del Callao
-                        <span class="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-transparent via-rose-500 to-transparent opacity-70"></span>
-                    </span>
-                </h2>
-                
-                <p class="text-slate-300 text-lg md:text-xl mt-8 mb-10 max-w-3xl mx-auto leading-relaxed">
-                    Formación práctica en inglés y carreras técnicas cortas. Metodología modular con matrícula flexible. Preparamos a los jóvenes chalacos para el mundo laboral con herramientas reales y actualizadas.
-                </p>
-                
-                <div class="flex flex-col sm:flex-row justify-center gap-4 mt-8">
-                    <a href="#cursos" class="px-8 py-4 bg-rose-500 text-white rounded-lg font-bold text-lg hover:bg-rose-600 transition shadow-lg hover:shadow-rose-500/30">
-                        ¡Conoce nuestros cursos!
-                    </a>
-                    <a href="https://wa.me/51999999999" target="_blank" class="px-8 py-4 bg-transparent border-2 border-sky-400 text-sky-300 rounded-lg font-bold text-lg hover:bg-sky-900 transition">
-                        Consulta horarios por WhatsApp →
-                    </a>
+    <section id="metodologia" class="py-20 bg-white">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="text-center mb-12">
+                <span class="text-rose-500 font-bold tracking-wider text-sm uppercase">Nuestro Sello Académico</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mt-2 mb-4">¿Por qué nuestra certificación tiene valor?</h2>
+                <p class="text-slate-600 max-w-2xl mx-auto">En <strong>Talento Callao</strong> no solo entregamos un diploma. Formamos con la <strong>Metodología ISA</strong> para que salgas listo para el mundo laboral.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+                <!-- Pilar 1 -->
+                <div class="bg-slate-50 rounded-2xl p-6 shadow-lg border-t-4 border-sky-400">
+                    <div class="w-14 h-14 bg-sky-100 rounded-full flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-bullseye text-2xl text-sky-600"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-900 mb-2">Certificación por Módulos</h3>
+                    <p class="text-sm text-slate-600">Avalada por la Metodología ISA. Avanza a tu ritmo y certifica cada etapa completada.</p>
                 </div>
-                
-                <!-- Stats Rápidos (Realistas y enfocados en el equipo) -->
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 max-w-3xl mx-auto">
-                    <div class="glass-card p-4 rounded-xl text-center">
-                        <div class="text-3xl font-bold text-sky-400">A1 - B2</div>
-                        <div class="text-xs text-slate-400 mt-1">Alineado al Inglés Americano</div>
+
+                <!-- Pilar 2 -->
+                <div class="bg-slate-50 rounded-2xl p-6 shadow-lg border-t-4 border-sky-500">
+                    <div class="w-14 h-14 bg-sky-100 rounded-full flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-folder-open text-2xl text-sky-600"></i>
                     </div>
-                    <div class="glass-card p-4 rounded-xl text-center">
-                        <div class="text-3xl font-bold text-rose-400">+500</div>
-                        <div class="text-xs text-slate-400 mt-1">Estudiantes formados por nuestro equipo</div>
+                    <h3 class="font-bold text-lg text-slate-900 mb-2">Portafolio de Evidencias</h3>
+                    <p class="text-sm text-slate-600">Proyectos prácticos reales que puedes mostrar a futuros empleadores como evidencia de tus competencias.</p>
+                </div>
+
+                <!-- Pilar 3 -->
+                <div class="bg-slate-50 rounded-2xl p-6 shadow-lg border-t-4 border-rose-500">
+                    <div class="w-14 h-14 bg-rose-100 rounded-full flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-qrcode text-2xl text-rose-600"></i>
                     </div>
-                    <div class="glass-card p-4 rounded-xl text-center">
-                        <div class="text-3xl font-bold text-amber-400">10+</div>
-                        <div class="text-xs text-slate-400 mt-1">Años de experiencia de nuestros docentes</div>
+                    <h3 class="font-bold text-lg text-slate-900 mb-2">Verificación Digital con QR</h3>
+                    <p class="text-sm text-slate-600">Cada certificado cuenta con código QR único para validar tus competencias laborales en cualquier parte.</p>
+                </div>
+
+                <!-- Pilar 4 -->
+                <div class="bg-slate-50 rounded-2xl p-6 shadow-lg border-t-4 border-slate-700">
+                    <div class="w-14 h-14 bg-slate-200 rounded-full flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-route text-2xl text-slate-700"></i>
                     </div>
-                    <div class="glass-card p-4 rounded-xl text-center">
-                        <div class="text-3xl font-bold text-emerald-400">Flexible</div>
-                        <div class="text-xs text-slate-400 mt-1">Matrícula mensual y módulos bimensuales</div>
+                    <h3 class="font-bold text-lg text-slate-900 mb-2">Ruta a la Certificación Oficial</h3>
+                    <p class="text-sm text-slate-600">Malla alineada a los Estándares de Competencia Laboral, preparándote para exámenes oficiales del MTPE.</p>
+                </div>
+            </div>
+
+            <!-- Explicación del Método ISA -->
+            <div class="mt-16 bg-sky-50 rounded-3xl p-8 md:p-12 border border-sky-200">
+                <div class="text-center mb-8">
+                    <h3 class="text-2xl md:text-3xl font-extrabold text-slate-900">El Método <span class="text-sky-500">I.S.A.</span></h3>
+                    <p class="text-slate-600 mt-2">Tres pilares que transforman el aprendizaje en resultados reales</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-white p-6 rounded-xl shadow-md text-center">
+                        <div class="text-5xl font-extrabold text-sky-500 mb-2">I</div>
+                        <h4 class="font-bold text-slate-900 mb-2">Inmersión</h4>
+                        <p class="text-sm text-slate-600">Escenarios reales desde la primera clase. No solo teoría, sino práctica desde el día uno.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-md text-center">
+                        <div class="text-5xl font-extrabold text-sky-500 mb-2">S</div>
+                        <h4 class="font-bold text-slate-900 mb-2">Simulación</h4>
+                        <p class="text-sm text-slate-600">Casos prácticos, role-play y software real para que vivas el entorno laboral antes de entrar a él.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-md text-center">
+                        <div class="text-5xl font-extrabold text-sky-500 mb-2">A</div>
+                        <h4 class="font-bold text-slate-900 mb-2">Aplicación</h4>
+                        <p class="text-sm text-slate-600">Proyectos finales tangibles que demuestran lo que sabes hacer, no solo lo que memorizaste.</p>
                     </div>
                 </div>
             </div>
@@ -163,17 +197,17 @@
     <!-- ========================================== -->
     <!-- CURSOS DE INGLÉS -->
     <!-- ========================================== -->
-    <section id="cursos" class="py-20 bg-white">
+    <section id="cursos" class="py-20 bg-slate-50">
         <div class="container mx-auto px-4 md:px-6">
             <div class="text-center mb-16">
                 <span class="text-sky-600 font-bold tracking-wider text-sm uppercase">Nuestra Especialidad</span>
                 <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mt-2 mb-4">Programas de Inglés</h2>
-                <p class="text-slate-600 max-w-2xl mx-auto">Diseñados para cada etapa de tu vida, con enfoque comunicativo y certificación progresiva.</p>
+                <p class="text-slate-600 max-w-2xl mx-auto">Diseñados para cada etapa de tu vida, con enfoque comunicativo y certificación progresiva bajo la Metodología ISA.</p>
             </div>
 
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <!-- Kids -->
-                <div class="bg-slate-50 rounded-2xl p-6 shadow-lg hover:shadow-xl transition border-t-4 border-sky-400 group">
+                <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition border-t-4 border-sky-400 group">
                     <div class="text-4xl mb-4 group-hover:scale-110 transition duration-300">🧒</div>
                     <h3 class="text-xl font-bold text-slate-900 mb-2">Inglés Kids</h3>
                     <p class="text-sm text-sky-600 font-semibold mb-4">7 a 12 años</p>
@@ -182,7 +216,7 @@
                 </div>
 
                 <!-- Teens -->
-                <div class="bg-slate-50 rounded-2xl p-6 shadow-lg hover:shadow-xl transition border-t-4 border-sky-500 group">
+                <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition border-t-4 border-sky-500 group">
                     <div class="text-4xl mb-4 group-hover:scale-110 transition duration-300">🎒</div>
                     <h3 class="text-xl font-bold text-slate-900 mb-2">Inglés Teens</h3>
                     <p class="text-sm text-sky-600 font-semibold mb-4">13 a 17 años</p>
@@ -191,7 +225,7 @@
                 </div>
 
                 <!-- Adults -->
-                <div class="bg-slate-50 rounded-2xl p-6 shadow-lg hover:shadow-xl transition border-t-4 border-rose-500 group">
+                <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition border-t-4 border-rose-500 group">
                     <div class="text-4xl mb-4 group-hover:scale-110 transition duration-300">💼</div>
                     <h3 class="text-xl font-bold text-slate-900 mb-2">Inglés Adultos</h3>
                     <p class="text-sm text-rose-600 font-semibold mb-4">18+ años</p>
@@ -200,7 +234,7 @@
                 </div>
 
                 <!-- Business -->
-                <div class="bg-slate-50 rounded-2xl p-6 shadow-lg hover:shadow-xl transition border-t-4 border-slate-700 group">
+                <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition border-t-4 border-slate-700 group">
                     <div class="text-4xl mb-4 group-hover:scale-110 transition duration-300">🌍</div>
                     <h3 class="text-xl font-bold text-slate-900 mb-2">Business English</h3>
                     <p class="text-sm text-slate-600 font-semibold mb-4">Profesionales</p>
@@ -212,7 +246,7 @@
     </section>
 
     <!-- ========================================== -->
-    <!-- PRÓXIMAMENTE (CARRERAS TÉCNICAS) -->
+    <!-- PRÓXIMAMENTE (CARRERAS TÉCNICAS CORTAS) -->
     <!-- ========================================== -->
     <section class="py-20 bg-sky-950 text-white">
         <div class="container mx-auto px-4 md:px-6">
@@ -257,13 +291,14 @@
     </section>
 
     <!-- ========================================== -->
-    <!-- SECCIÓN PADRES DE FAMILIA -->
+    <!-- SECCIÓN PADRES DE FAMILIA (Imagen Latina) -->
     <!-- ========================================== -->
     <section id="padres" class="py-20 bg-sky-50">
         <div class="container mx-auto px-4 md:px-6">
             <div class="flex flex-col md:flex-row items-center gap-12">
                 <div class="md:w-1/2">
-                    <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Asesoría personalizada para padres" class="rounded-3xl shadow-2xl border-4 border-white">
+                    <!-- Imagen de madre latina con hijo o padres latinos -->
+                    <img src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Madre latina apoyando el aprendizaje de su hijo" class="rounded-3xl shadow-2xl border-4 border-white">
                 </div>
                 <div class="md:w-1/2">
                     <span class="text-sky-600 font-bold tracking-wider text-sm uppercase">Zona para Padres</span>
@@ -357,7 +392,8 @@
                     <ul class="space-y-3 text-sky-100">
                         <li class="flex items-center"><i class="fa-solid fa-check-circle text-rose-400 mr-3"></i> Material de estudio por módulo</li>
                         <li class="flex items-center"><i class="fa-solid fa-check-circle text-rose-400 mr-3"></i> Cronograma de clases y evaluaciones</li>
-                        <li class="flex items-center"><i class="fa-solid fa-check-circle text-rose-400 mr-3"></i> Descarga de certificados por nivel</li>
+                        <li class="flex items-center"><i class="fa-solid fa-check-circle text-rose-400 mr-3"></i> Descarga de certificados con verificación QR</li>
+                        <li class="flex items-center"><i class="fa-solid fa-check-circle text-rose-400 mr-3"></i> Portafolio de evidencias ISA</li>
                     </ul>
                 </div>
                 
@@ -366,7 +402,7 @@
                     <form class="space-y-4" onsubmit="event.preventDefault(); alert('Esta es una demostración del portal.');">
                         <div>
                             <label class="block text-sm font-semibold text-slate-700 mb-1">Código de Estudiante</label>
-                            <input type="text" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-sky-500 focus:outline-none transition" placeholder="Ej: CE-2026-001">
+                            <input type="text" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-sky-500 focus:outline-none transition" placeholder="Ej: TC-2026-001">
                         </div>
                         <div>
                             <label class="block text-sm font-semibold text-slate-700 mb-1">Contraseña</label>
@@ -393,13 +429,13 @@
                 <div>
                     <div class="flex items-center space-x-2 mb-4">
                         <i class="fa-solid fa-graduation-cap text-2xl text-sky-500"></i>
-                        <span class="text-xl font-extrabold text-white">CALLAO<span class="text-rose-500">EDUCA</span></span>
+                        <span class="text-xl font-extrabold text-white">TALENTO<span class="text-rose-500">CALLAO</span></span>
                     </div>
-                    <p class="text-sm text-slate-400 mb-6 leading-relaxed">Formación práctica en inglés y carreras técnicas cortas en el Callao. Horarios flexibles.</p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-sky-500 hover:text-white transition"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-rose-500 hover:text-white transition"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-slate-700 hover:text-white transition"><i class="fa-brands fa-tiktok"></i></a>
+                    <p class="text-sm text-slate-400 mb-4 leading-relaxed">Academia de Habilidades bajo la Metodología ISA. Parte de la red Latinoamérica Educa.</p>
+                    <div class="flex space-x-3">
+                        <a href="#" class="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-sky-500 hover:text-white transition"><i class="fa-brands fa-facebook-f text-sm"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-rose-500 hover:text-white transition"><i class="fa-brands fa-instagram text-sm"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-slate-700 hover:text-white transition"><i class="fa-brands fa-tiktok text-sm"></i></a>
                     </div>
                 </div>
                 
@@ -435,7 +471,7 @@
                         </li>
                         <li class="flex items-center gap-3">
                             <i class="fa-solid fa-envelope text-rose-500"></i> 
-                            <span>info@callaoeduca.pe</span>
+                            <span>info@talentocallao.pe</span>
                         </li>
                         <li class="flex items-center gap-3">
                             <i class="fa-solid fa-clock text-rose-500"></i> 
@@ -446,8 +482,8 @@
             </div>
             
             <div class="border-t border-slate-800 pt-8 text-center text-sm text-slate-500">
-                <p>&copy; 2026 Callao Educa. Todos los derechos reservados.</p>
-                <p class="mt-1 text-xs">Parte del ecosistema <span class="text-sky-500 font-semibold">EMAGES GROUP</span>.</p>
+                <p>&copy; 2026 Talento Callao. Todos los derechos reservados.</p>
+                <p class="mt-1 text-xs">Un programa de <span class="text-sky-400 font-semibold">Latinoamérica Educa</span> | Formación bajo la <span class="text-rose-400 font-semibold">Metodología ISA</span></p>
             </div>
         </div>
     </footer>
@@ -455,7 +491,7 @@
     <!-- ========================================== -->
     <!-- BOTÓN FLOTANTE DE WHATSAPP -->
     <!-- ========================================== -->
-    <a href="https://wa.me/51999999999?text=Hola%20Callao%20Educa,%20quiero%20información%20sobre%20los%20cursos" target="_blank" class="fixed bottom-6 right-6 bg-green-500 text-white w-16 h-16 rounded-full shadow-2xl hover:bg-green-600 transition z-50 flex items-center justify-center hover:scale-110 duration-300 border-4 border-white">
+    <a href="https://wa.me/51999999999?text=Hola%20Talento%20Callao,%20quiero%20información%20sobre%20los%20cursos" target="_blank" class="fixed bottom-6 right-6 bg-green-500 text-white w-16 h-16 rounded-full shadow-2xl hover:bg-green-600 transition z-50 flex items-center justify-center hover:scale-110 duration-300 border-4 border-white">
         <i class="fa-brands fa-whatsapp text-3xl"></i>
     </a>
 
